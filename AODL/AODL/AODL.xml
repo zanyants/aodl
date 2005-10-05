@@ -1,0 +1,775 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AODL</name>
+    </assembly>
+    <members>
+        <member name="T:AODL.Publish.Publisher">
+            <summary>
+            Class for generating an open documents.
+            </summary>
+        </member>
+        <member name="M:AODL.Publish.Publisher.PublishTo(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Generate an open document.
+            </summary>
+            <param name="td">The textdocument object.</param>
+            <param name="filename">The filename. Ending with .odt</param>
+        </member>
+        <member name="M:AODL.Publish.Publisher.CreateOpenDocument(System.String,System.String)">
+            <summary>
+            Create a zip archive with .odt.
+            </summary>
+            <param name="filename">The filename.</param>
+            <param name="directory">The directory to zip.</param>
+        </member>
+        <member name="M:AODL.Publish.Publisher.Write(System.String,System.IO.Stream)">
+            <summary>
+            Write the resource files.
+            </summary>
+            <param name="filename">The resource filename.</param>
+            <param name="s">The resource stream.</param>
+        </member>
+        <member name="M:AODL.Publish.Publisher.PrepareDirectory(System.String)">
+            <summary>
+            Create an output directory with all necessary subfolders.
+            </summary>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="M:AODL.Publish.Publisher.WriteMimetypeFile(System.String)">
+            <summary>
+            Helper Method: Don't know why, but it seems to be impossible
+            to embbed a textfile as resource
+            </summary>
+            <param name="file">The filename.</param>
+        </member>
+        <member name="T:AODL.TextDocument.Content.FormatedText">
+            <summary>
+            Represent a formated Text e.g bold, italic, underline etc.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.IText">
+            <summary>
+            All classes that will act as TextContent must implement
+            this interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Node">
+            <summary>
+            Represent the xml node within the content.xml file of the open document.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Text">
+            <summary>
+            The Text that will be displayed.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Style">
+            <summary>
+            An style object that is referenced with this TextContent e.g a FormatedText object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Content">
+            <summary>
+            A IText object must know his IContent object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Xml">
+            <summary>
+            Returns the InnerXml value of the XmlNode.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedText.#ctor">
+            <summary>
+            Empty default constructor.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedText.#ctor(AODL.TextDocument.Content.IContent,System.String,System.String)">
+            <summary>
+            Overloaded constructor.
+            </summary>
+            <param name="content">The content object to which the formated text belongs to.</param>
+            <param name="name">The stylename which should be referenced with this FormatedText object.</param>
+            <param name="text">The Displaytext.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedText.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="stylename">The stylename which should be referenced with this FormatedText.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.FormatedText.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.FormatedText.Text">
+            <summary>
+            The Displaytext.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.FormatedText.Xml">
+            <summary>
+            Returns the Displaytext with embbed XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.FormatedText.Style">
+            <summary>
+            The IStyle object which is referenced with the FormatedText object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.FormatedText.Content">
+            <summary>
+            The IContent object the FormatedText object belongs to.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.IContent">
+            <summary>
+            All classes that will act as content within textdocument
+            must implement this interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Document">
+            <summary>
+            Every object (typeof(IContent)) have to know his TextDocument.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Node">
+            <summary>
+            Represents the XmlNode within the content.xml from the odt file.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Stylename">
+            <summary>
+            The stylename wihich is referenced with the content object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Style">
+            <summary>
+            A Style class wich is referenced with the content object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.TextContent">
+            <summary>
+            All Content objects have a Text container. Which represents
+            his Text this could be SimpleText, FormatedText or mixed.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.IContentCollection">
+            <summary>
+            A typed IContent Collection.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.ITextCollection">
+            <summary>
+            A typed IText collection.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.Paragraph">
+            <summary>
+            Represent a paragraph within a opendocument textdocument.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.#ctor(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create a new Paragraph object.
+            </summary>
+            <param name="td">The Textdocument.</param>
+            <param name="stylename">The stylename which should be referenced with this paragraph.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="stylename">The stylename which should be referenced with this paragraph.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.TextContent_Inserted(System.Int32,System.Object)">
+            <summary>
+            Append the xml from added IText object.
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Paragraph.Document">
+            <summary>
+            The TextDocument.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Paragraph.Node">
+            <summary>
+            The XmlNode which represent this paragraph.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Paragraph.Stylename">
+            <summary>
+            The stylename which is referenced with this paragraph.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Paragraph.Style">
+            <summary>
+            The IStyle object which is referenced whith this paragraph.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Paragraph.TextContent">
+            <summary>
+            Represent the textcontent of this paragraph.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.SimpleText">
+            <summary>
+            Represent a simple non formated Displaytext.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.SimpleText.#ctor(AODL.TextDocument.Content.IContent,System.String)">
+            <summary>
+            Overloaded constructor.
+            </summary>
+            <param name="content">The IContent object the SimpleText object belongs to.</param>
+            <param name="text">The Displaytext.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.SimpleText.Node">
+            <summary>
+            This property isn't needed it's only simpletext.
+            </summary>
+            <remarks>
+            Not implemented. Throws a NotSupportedException.
+            </remarks>
+        </member>
+        <member name="P:AODL.TextDocument.Content.SimpleText.Text">
+            <summary>
+            The Displaytext.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.SimpleText.Xml">
+            <summary>
+            Only the displaytext.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.SimpleText.Style">
+            <summary>
+            Not implemented.
+            </summary>
+            <remarks>Set throws NotSupportedException.</remarks>
+        </member>
+        <member name="P:AODL.TextDocument.Content.SimpleText.Content">
+            <summary>
+            The IContent object the SimpleText object belongs to.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.IProperty">
+            <summary>
+            All classes that should act as a Property class must implement this
+            interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.IProperty.Node">
+            <summary>
+            The XmlNode which represent the property element.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.ParagraphProperties">
+            <summary>
+            Represent access to the possible attributes of of an paragraph-propertie element.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ParagraphProperties.#ctor(AODL.TextDocument.Style.ParagraphStyle)">
+            <summary>
+            Create a new ParagraphProperties object.
+            </summary>
+            <param name="pstyle">The ParagraphStyle object to this object belongs.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ParagraphProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ParagraphProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create the XmlNode.
+            </summary>
+            <param name="td">The TextDocument.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Paragraphstyle">
+            <summary>
+            The ParagraphStyle object to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Node">
+            <summary>
+            The represented XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.MarginLeft">
+            <summary>
+            Margin left. in cm an object .MarginLeft = "1cm";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Alignment">
+            <summary>
+            Set paragraph alignment - object.Alignment = TextAlignments.right.ToString()
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.TextProperties">
+            <summary>
+            Represent access to the possible attributes of of an text-propertie element.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.TextProperties.#ctor(AODL.TextDocument.Style.IStyle)">
+            <summary>
+            Create a new TextProperties object that belongs to the given TextStyle object.
+            </summary>
+            <param name="style">The TextStyle object.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.TextProperties.SetUnderlineStyles(System.String,System.String,System.String)">
+            <summary>
+            Use to set all possible underline styles. You can use this method
+            instead to set all necessary properties by hand.
+            </summary>
+            <param name="style">The style. Sess enum LineStyles.</param>
+            <param name="width">The width. Sess enum LineWidths.</param>
+            <param name="color">The color. "font-color" or as hex #[0-9a-fA-F]{6}</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.TextProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create the XmlNode which represent the propertie element.
+            </summary>
+            <param name="td"></param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.TextProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Style">
+            <summary>
+            The TextStyle object to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Bold">
+            <summary>
+            Set font-weight bold object.Bold = "bold";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Italic">
+            <summary>
+            Set font-style italic object.Italic = "italic";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Underline">
+            <summary>
+            Set text-underline-style Underline object.Underline = "dotted";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.UnderlineWidth">
+            <summary>
+            Set text-underline-style Underline object.Underline = "dotted";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.UnderlineColor">
+            <summary>
+            Set text-underline-color - object.UnderlineColor = "font-color";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.FontName">
+            <summary>
+            Set font-name - object.FontName = "Arial";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.FontSize">
+            <summary>
+            Set font-name - object.FontSize = "10pt";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Node">
+            <summary>
+            Represent the XmlNode for the propertie element.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.FamiliyStyles">
+            <summary>
+            Enum that represents th possible values. For a style emlement and his family-style attribute.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.FontFamily">
+            <summary>
+            Enum that represents th possible fonts.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.IFamilyStyle">
+            <summary>
+            All classes that need a family style attribute must implement
+            this interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IFamilyStyle.Family">
+            <summary>
+            The family style.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.IFontStyle">
+            <summary>
+            All classes that represent a font class must implement
+            this interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IFontStyle.Font">
+            <summary>
+            The font.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.IStyle">
+            <summary>
+            All classes that act as a style class within the library
+            must implement this base interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IStyle.Properties">
+            <summary>
+            The IProperty class which is linked to the object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.ParagraphStyle">
+            <summary>
+            Represent the style for a Paragraph object.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ParagraphStyle.#ctor(AODL.TextDocument.Content.Paragraph,System.String)">
+            <summary>
+            Create a new ParagraphStyle object.
+            </summary>
+            <param name="p">The Paragraph object to this object belongs.</param>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ParagraphStyle.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Paragraph">
+            <summary>
+            The Paragraph object to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Properties">
+            <summary>
+            The IProperties object which is linked with this object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.ParentStyle">
+            <summary>
+            The parent style of this object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Textproperties">
+            <summary>
+            The TextProperties object to this object belongs.
+            </summary>
+            <remarks>
+            This is optional. Only if used, the Node will attached to the
+            ParagraphStyle node.
+            </remarks>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Node">
+            <summary>
+            The XmlNode
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Family">
+            <summary>
+            The family style.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.ParentStyles">
+            <summary>
+            Enum that represents th possible values. For a style emlement and his parent-style attribute.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.TextStyle">
+            <summary>
+            Represent the style for a FormatedText object.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TextStyle.#ctor(AODL.TextDocument.Content.FormatedText,System.String)">
+            <summary>
+            Create a TextStyle object.
+            </summary>
+            <param name="ft">The FormatedText object to this object belongs.</param>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TextStyle.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create the XmlNode that represent the Style element.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TextStyle.FormatedText">
+            <summary>
+            The FormatedText object to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TextStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TextStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TextStyle.Properties">
+            <summary>
+            The IProperty object that is linked to this object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TextStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TextStyle.Family">
+            <summary>
+            The family tyle to this object belongs.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.TextDocument">
+            <summary>
+            Represent a opendocument text document.
+            </summary>
+            <example>
+            <code>
+            	TextDocument td		= new TextDocument();
+            	//Create a blank document
+            	td.New();
+            	//Create a new paragraph
+            	Paragraph p			= new Paragraph(td, "P1");
+            	//Add some content
+            	p.TextContent.Add( new SimpleText((IContent)p, "Hallo i'm simple text!"));
+            	//Create and add some formated text tho the paragraph
+            	FormatedText ft = new FormatedText((IContent)p, "T1", " And i'm formated text!");
+            	((TextProperties)ft.Style.Properties).Bold = "bold";
+            	p.TextContent.Add(ft);
+            	//Add as document content 
+            	td.Content.Add(p);
+            </code>
+            </example>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.#ctor">
+            <summary>
+            Create a new TextDocument object.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.New">
+            <summary>
+            Create a blank new document.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.CreateNode(System.String,System.String)">
+            <summary>
+            Create a new XmlNode for this document.
+            </summary>
+            <param name="name">The elementname.</param>
+            <param name="prefix">The prefix.</param>
+            <returns>The new XmlNode.</returns>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.CreateAttribute(System.String,System.String)">
+            <summary>
+            Create a new XmlAttribute for this document.
+            </summary>
+            <param name="name">The attributename.</param>
+            <param name="prefix">The prefixname.</param>
+            <returns>The new XmlAttribute.</returns>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.SaveTo(System.String)">
+            <summary>
+            Save the TextDocument as OpenDocument textdocument.
+            </summary>
+            <param name="filename">The filename. With or without full path. Without will save the file to application path!</param>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.GetNamespaceUri(System.String)">
+            <summary>
+            Return the namespaceuri for the given prefixname.
+            </summary>
+            <param name="prefix">The prefixname.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.Content_Inserted(System.Int32,System.Object)">
+            <summary>
+            Insert all XmlNodes of the inserted IContent object into
+            the current XmlDocument.
+            </summary>
+            <param name="index">The index of the inserted IContent object.</param>
+            <param name="value">The inserted IContent object.</param>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.XmlDoc">
+            <summary>
+            The xmldocument the textdocument based on.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.NamespaceManager">
+            <summary>
+            The namespacemanager to access the documents namespace uris.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.Content">
+            <summary>
+            The contentcollection of the document. Represents all
+            data to display.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.TextDocumentHelper">
+            <summary>
+            Class with static helper methods for the TextDocument class.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.TextDocumentHelper.AutomaticStylePath">
+            <summary>
+            The XPath query for the offic:automatic-style element.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.TextDocumentHelper.OfficeTextPath">
+            <summary>
+            The XPath query for the office:text element.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocumentHelper.GetBlankDocument">
+            <summary>
+            Getting a blank OpenDocument textdocument.
+            </summary>
+            <returns>The blank document. Which should be loaded for the TextDocument.</returns>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocumentHelper.NameSpace(System.Xml.XmlNameTable)">
+            <summary>
+            Create a new XmlNamespaceManager and fill it with all necessary namespaces and prefixes.
+            </summary>
+            <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
+            <returns>The XmlNamespaceManager object.</returns>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.LineStyles">
+            <summary>
+            Represents the possible line styles used in OpenDocument.
+            e.g for the FormatedText.Underline
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.none">
+            <summary>
+            No style
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.solid">
+            <summary>
+            solid
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dotted">
+            <summary>
+            dotted
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dash">
+            <summary>
+            dash
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.wave">
+            <summary>
+            wave
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.LineWidths">
+            <summary>
+            Possible settings for LineWidths
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.auto">
+            <summary>
+            auto
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.normal">
+            <summary>
+            normal
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.bold">
+            <summary>
+            bold
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.thin">
+            <summary>
+            thin
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.dash">
+            <summary>
+            dash
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.medium">
+            <summary>
+            medium
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.thick">
+            <summary>
+            thick
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.Colors">
+            <summary>
+            Converter class. Convert any enum Color from System.Drawing.Color
+            into his rgb hex value.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.Colors.GetColor(System.Drawing.Color)">
+            <summary>
+            Convert any enum Color from System.Drawing.Color
+            into his rgb hex value.
+            </summary>
+            <param name="color">A System.Drawing.Color</param>
+            <returns>The rgb hex value.</returns>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.TextAlignments">
+            <summary>
+            Possible text alignments.
+            </summary>
+        </member>
+    </members>
+</doc>

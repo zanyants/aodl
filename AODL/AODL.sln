@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AODL", "AODL\AODL.csproj", "{89E926D3-3471-47C8-8D34-01FF2AF72F71}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AODLTest", "AODLTest\AODLTest.csproj", "{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Debug.ActiveCfg = Debug|.NET
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Debug.Build.0 = Debug|.NET
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Release.ActiveCfg = Release|.NET
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Release.Build.0 = Release|.NET
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Debug.ActiveCfg = Debug|.NET
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Debug.Build.0 = Debug|.NET
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release.ActiveCfg = Release|.NET
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

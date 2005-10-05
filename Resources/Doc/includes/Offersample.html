@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Offer sample</title>
+</head>
+<body>
+<small><span style="font-family: Arial; font-weight: bold;">Sample
+source offer :</span><br style="font-family: Arial;">
+<br style="font-family: Arial;">
+<span style="font-family: Arial;">&nbsp;&nbsp;<span
+ style="font-family: Courier;">&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; string[]
+address&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =
+new string[] {"Max Mustermann","Mustermann Str. 300","22222 Hamburg"};</span></span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; string[]
+recipient&nbsp; = new string[] {"Heinz Willi", "Dorfstr. 1",
+@"22225 Hamburg\n\n"};</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; string
+betreff&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =
+@"Offer for 200 Intel Pentium 4 CPU's\n\n";</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; string
+bodyheader&nbsp;&nbsp;&nbsp; = "Dear Mr. Willi,";</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; string[]
+bodytext&nbsp;&nbsp;&nbsp; = new string[] {</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; @"thank you for your request. We can offer you the 200 Intel
+Pentium IV 3 Ghz CPU's for a price of 79,80 &euro; per unit.",</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; @"This special offer is valid to 31.10.2005. If you accept,
+we can deliver within 24 hours.\n\n\n"</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; };</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; string
+regards&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =
+@"Best regards \nMax Mustermann";</span><br
+ style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+TextDocument td&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; = new TextDocument();</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; td.New();</span><br
+ style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for(int
+i=0; i &lt; address.Length; i++)</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Paragraph
+p&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new
+Paragraph(td, "Pa"+i.ToString());&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; </span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; p.TextContent.Add(new SimpleText(p,
+address[i]));</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; td.Content.Add(p);</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</span><br
+ style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Paragraph
+pnone&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =
+new Paragraph(td, "none1");</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone.TextContent.Add(new SimpleText(pnone, @"\n"));</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.Content.Add(pnone);</span><br style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for(int
+i=0; i &lt; recipient.Length; i++)</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Paragraph
+p&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new
+Paragraph(td, "Pr"+i.ToString());&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; </span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; p.TextContent.Add(new SimpleText(p,
+recipient[i]));</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; td.Content.Add(p);</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</span><br
+ style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =
+new Paragraph(td, "none21");</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone.TextContent.Add(new SimpleText(pnone, @"\n"));</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.Content.Add(pnone);</span><br style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Paragraph
+pb&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new
+Paragraph(td, "Pb");</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone.TextContent.Add(new SimpleText(pb, betreff));</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.Content.Add(pb);</span><br style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =
+new Paragraph(td, "none2");</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone.TextContent.Add(new SimpleText(pnone, "\n"));</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.Content.Add(pnone);</span><br style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pb&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new
+Paragraph(td, "Pan");</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone.TextContent.Add(new SimpleText(pb, bodyheader));</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.Content.Add(pb);</span><br style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for(int
+i=0; i &lt; bodytext.Length; i++)</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Paragraph
+p&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new
+Paragraph(td, "Pr"+i.ToString());</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+((ParagraphProperties)p.Style.Properties).Alignment =
+TextAlignments.justify.ToString();</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; p.TextContent.Add(new SimpleText(p,
+bodytext[i]));</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; td.Content.Add(p);</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</span><br
+ style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =
+new Paragraph(td, "none4");</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone.TextContent.Add(new SimpleText(pnone, "\n"));</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.Content.Add(pnone);</span><br style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pb&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new
+Paragraph(td, "PReg");</span><br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+pnone.TextContent.Add(new SimpleText(pb, regards));</span><br
+ style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.Content.Add(pb);</span><br style="font-family: Courier;">
+<br style="font-family: Courier;">
+<span style="font-family: Courier;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+td.SaveTo("Offer.odt");</span><br style="font-family: Arial;">
+<br style="font-family: Arial;">
+<span style="font-family: Arial; font-weight: bold;">This
+will result in :</span><br style="font-family: Arial;">
+<br style="font-family: Arial;">
+<img style="width: 639px; height: 520px; font-family: Arial;"
+ alt="Offer letter" src="screen_offer.jpg"><br
+ style="font-family: Arial;">
+</small>
+</body>
+</html>
