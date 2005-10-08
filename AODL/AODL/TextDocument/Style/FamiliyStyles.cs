@@ -1,3 +1,7 @@
+/*
+ * $Id: FamiliyStyles.cs,v 1.2 2005/10/08 07:50:15 larsbm Exp $
+ */
+
 using System;
 
 namespace AODL.TextDocument.Style
@@ -14,3 +18,10 @@ namespace AODL.TextDocument.Style
 		text
 	}
 }
+
+/*
+ * $Log: FamiliyStyles.cs,v $
+ * Revision 1.2  2005/10/08 07:50:15  larsbm
+ * - added cvs tags
+ *
+ */

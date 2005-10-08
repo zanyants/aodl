@@ -258,6 +258,20 @@
             The IContent object the SimpleText object belongs to.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Style.Properties.Colors">
+            <summary>
+            Converter class. Convert any enum Color from System.Drawing.Color
+            into his rgb hex value.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.Colors.GetColor(System.Drawing.Color)">
+            <summary>
+            Convert any enum Color from System.Drawing.Color
+            into his rgb hex value.
+            </summary>
+            <param name="color">A System.Drawing.Color</param>
+            <returns>The rgb hex value.</returns>
+        </member>
         <member name="T:AODL.TextDocument.Style.Properties.IProperty">
             <summary>
             All classes that should act as a Property class must implement this
@@ -267,6 +281,77 @@
         <member name="P:AODL.TextDocument.Style.Properties.IProperty.Node">
             <summary>
             The XmlNode which represent the property element.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.LineStyles">
+            <summary>
+            Represents the possible line styles used in OpenDocument.
+            e.g for the FormatedText.Underline
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.none">
+            <summary>
+            No style
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.solid">
+            <summary>
+            solid
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dotted">
+            <summary>
+            dotted
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dash">
+            <summary>
+            dash
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.wave">
+            <summary>
+            wave
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.LineWidths">
+            <summary>
+            Possible settings for LineWidths
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.auto">
+            <summary>
+            auto
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.normal">
+            <summary>
+            normal
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.bold">
+            <summary>
+            bold
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.thin">
+            <summary>
+            thin
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.dash">
+            <summary>
+            dash
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.medium">
+            <summary>
+            medium
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.thick">
+            <summary>
+            thick
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.Properties.ParagraphProperties">
@@ -312,6 +397,11 @@
         <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Alignment">
             <summary>
             Set paragraph alignment - object.Alignment = TextAlignments.right.ToString()
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.TextAlignments">
+            <summary>
+            Possible text alignments.
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.Properties.TextProperties">
@@ -680,96 +770,6 @@
             </summary>
             <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
             <returns>The XmlNamespaceManager object.</returns>
-        </member>
-        <member name="T:AODL.TextDocument.Style.Properties.LineStyles">
-            <summary>
-            Represents the possible line styles used in OpenDocument.
-            e.g for the FormatedText.Underline
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.none">
-            <summary>
-            No style
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.solid">
-            <summary>
-            solid
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dotted">
-            <summary>
-            dotted
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dash">
-            <summary>
-            dash
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.wave">
-            <summary>
-            wave
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Style.Properties.LineWidths">
-            <summary>
-            Possible settings for LineWidths
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.auto">
-            <summary>
-            auto
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.normal">
-            <summary>
-            normal
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.bold">
-            <summary>
-            bold
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.thin">
-            <summary>
-            thin
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.dash">
-            <summary>
-            dash
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.medium">
-            <summary>
-            medium
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Style.Properties.LineWidths.thick">
-            <summary>
-            thick
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Style.Properties.Colors">
-            <summary>
-            Converter class. Convert any enum Color from System.Drawing.Color
-            into his rgb hex value.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Style.Properties.Colors.GetColor(System.Drawing.Color)">
-            <summary>
-            Convert any enum Color from System.Drawing.Color
-            into his rgb hex value.
-            </summary>
-            <param name="color">A System.Drawing.Color</param>
-            <returns>The rgb hex value.</returns>
-        </member>
-        <member name="T:AODL.TextDocument.Style.Properties.TextAlignments">
-            <summary>
-            Possible text alignments.
-            </summary>
         </member>
     </members>
 </doc>

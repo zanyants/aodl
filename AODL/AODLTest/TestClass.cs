@@ -1,3 +1,7 @@
+/*
+ * $Id: TestClass.cs,v 1.2 2005/10/08 07:50:15 larsbm Exp $ 
+ */
+
 using System;
 using NUnit.Framework;
 using AODL.TextDocument.Style;
@@ -184,3 +188,10 @@ namespace AODLTest
 		}
 	}
 }
+
+/*
+ * $Log: TestClass.cs,v $
+ * Revision 1.2  2005/10/08 07:50:15  larsbm
+ * - added cvs tags
+ *
+ */

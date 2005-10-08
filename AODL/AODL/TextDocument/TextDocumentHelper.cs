@@ -1,3 +1,7 @@
+/*
+ * $Id: TextDocumentHelper.cs,v 1.2 2005/10/08 07:50:15 larsbm Exp $
+ */
+
 using System;
 using System.Xml;
 
@@ -96,3 +100,10 @@ namespace AODL.TextDocument
 		}
 	}
 }
+
+/*
+ * $Log: TextDocumentHelper.cs,v $
+ * Revision 1.2  2005/10/08 07:50:15  larsbm
+ * - added cvs tags
+ *
+ */
