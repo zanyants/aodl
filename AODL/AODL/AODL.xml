@@ -428,7 +428,7 @@
             <summary>
             Create the XmlNode which represent the propertie element.
             </summary>
-            <param name="td"></param>
+            <param name="td">The TextDocument</param>
         </member>
         <member name="M:AODL.TextDocument.Style.Properties.TextProperties.CreateAttribute(System.String,System.String,System.String)">
             <summary>
