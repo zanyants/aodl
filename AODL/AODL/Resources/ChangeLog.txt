@@ -1,5 +1,6 @@
-$Id: ChangeLog.txt,v 1.1 2005/10/08 12:31:33 larsbm Exp $
+$Id: ChangeLog.txt,v 1.2 2005/10/08 15:07:57 larsbm Exp $
 
+-------------------------------------------------------------
 Unreleased AODL 1.0.1 alpha
 
 - Provides better usability of the paragraph handling.
@@ -15,7 +16,7 @@ Unreleased AODL 1.0.1 alpha
   
   [a TextDocument].Content.Add(new Paragraph([a TextDocument], ParentStyle.Standard, "Some nice text");
   
-
+------------------------------------------------------------
 05.10.2005 AODL 1.0.0 alpha
 
 - First release.
