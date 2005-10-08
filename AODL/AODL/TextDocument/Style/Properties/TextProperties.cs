@@ -1,5 +1,6 @@
+
 /*
- * $Id: TextProperties.cs,v 1.2 2005/10/08 07:55:35 larsbm Exp $
+ * $Id: TextProperties.cs,v 1.3 2005/10/08 08:07:45 larsbm Exp $
  */
 
 using System;
@@ -261,6 +262,9 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: TextProperties.cs,v $
+ * Revision 1.3  2005/10/08 08:07:45  larsbm
+ * - added cvs tags
+ *
  * Revision 1.2  2005/10/08 07:55:35  larsbm
  * - added cvs tags
  *
