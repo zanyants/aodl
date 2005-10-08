@@ -1,6 +1,6 @@
 
 /*
- * $Id: TextProperties.cs,v 1.3 2005/10/08 08:07:45 larsbm Exp $
+ * $Id: TextProperties.cs,v 1.4 2005/10/08 09:01:15 larsbm Exp $
  */
 
 using System;
@@ -219,7 +219,7 @@ namespace AODL.TextDocument.Style.Properties
 		/// <summary>
 		/// Create the XmlNode which represent the propertie element.
 		/// </summary>
-		/// <param name="td"></param>
+		/// <param name="td">The TextDocument</param>
 		private void NewXmlNode(TextDocument td)
 		{
 			this.Node		= td.CreateNode("text-properties", "style");
@@ -262,6 +262,9 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: TextProperties.cs,v $
+ * Revision 1.4  2005/10/08 09:01:15  larsbm
+ * --- uncommented ---
+ *
  * Revision 1.3  2005/10/08 08:07:45  larsbm
  * - added cvs tags
  *
