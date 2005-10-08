@@ -1,3 +1,7 @@
+/*
+ * $Id: Colors.cs,v 1.2 2005/10/08 07:55:35 larsbm Exp $
+ */
+
 using System;
 using System.Collections;
 using System.Drawing;
@@ -25,3 +29,10 @@ namespace AODL.TextDocument.Style.Properties
 		}
 	}
 }
+
+/*
+ * $Log: Colors.cs,v $
+ * Revision 1.2  2005/10/08 07:55:35  larsbm
+ * - added cvs tags
+ *
+ */
