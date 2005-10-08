@@ -1,3 +1,7 @@
+/*
+ * $Id: SimpleText.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ */
+
 using System;
 using AODL.TextDocument.Style;
 
@@ -109,3 +113,10 @@ namespace AODL.TextDocument.Content
 		#endregion
 	}
 }
+
+/*
+ * $Log: SimpleText.cs,v $
+ * Revision 1.2  2005/10/08 08:19:25  larsbm
+ * - added cvs tags
+ *
+ */

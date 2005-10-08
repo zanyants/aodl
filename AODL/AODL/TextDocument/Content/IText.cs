@@ -1,3 +1,7 @@
+/*
+ * $Id: IText.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ */
+
 using System;
 using System.Xml;
 using AODL.TextDocument.Style;
@@ -32,3 +36,10 @@ namespace AODL.TextDocument.Content
 		string Xml {get; }
 	}
 }
+
+/*
+ * $Log: IText.cs,v $
+ * Revision 1.2  2005/10/08 08:19:25  larsbm
+ * - added cvs tags
+ *
+ */

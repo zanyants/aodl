@@ -1,3 +1,7 @@
+/*
+ * $Id: IContentCollection.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ */
+
 using System.Collections;
 using AODL.Collections;
 
@@ -34,3 +38,10 @@ namespace AODL.TextDocument.Content
 		}
 	}
 }
+
+/*
+ * $Log: IContentCollection.cs,v $
+ * Revision 1.2  2005/10/08 08:19:25  larsbm
+ * - added cvs tags
+ *
+ */

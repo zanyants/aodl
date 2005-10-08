@@ -1,3 +1,7 @@
+/*
+ * $Id: CollectionWithEvents.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ */
+
 using System.Collections;
 
 namespace AODL.Collections
@@ -49,3 +53,10 @@ namespace AODL.Collections
 	}
 
 }
+
+/*
+ * $Log: CollectionWithEvents.cs,v $
+ * Revision 1.2  2005/10/08 08:19:25  larsbm
+ * - added cvs tags
+ *
+ */
