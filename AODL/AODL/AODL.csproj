@@ -109,7 +109,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Resources\ChangeLog.txt"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Resources\ICSharpCode.SharpZipLib.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Resources\License.txt"
                     BuildAction = "Content"
                 />
                 <File
