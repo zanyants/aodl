@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.2 2005/10/08 07:50:15 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.3 2005/10/08 12:31:33 larsbm Exp $ 
  */
 
 using System;
@@ -44,8 +44,17 @@ namespace AODLTest
 			Assert.IsNotNull(p.Style, "Style object must exist!");
 			Assert.AreEqual(p.Style.GetType().Name, "ParagraphStyle", "IStyle object must be type of ParagraphStyle");
 			Assert.IsNotNull(((ParagraphStyle)p.Style).Properties, "Properties object must exist!");
+			//add text
+			p.TextContent.Add(new SimpleText(p, "HallO"));
 			//Add the Paragraph
-			td.Content.Add((IContent)p);			
+			td.Content.Add((IContent)p);
+			//Blank para
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+			// new para
+			p = new Paragraph(td, "P2");
+			p.TextContent.Add(new SimpleText(p, "Hallo"));
+			td.Content.Add(p);
+			td.SaveTo("parablank.odt");
 			Console.WriteLine("Document: {0}", td.XmlDoc.OuterXml);
 		}
 
@@ -119,7 +128,7 @@ namespace AODLTest
 		}
 
 		[Test]
-		public void LetterTest()
+		public void LetterTestLongVersion()
 		{
 			string[] address		= new string[] {"Max Mustermann","Mustermann Str. 300","22222 Hamburg"};
 			string[] recipient  = new string[] {"Heinz Willi", "Dorfstr. 1", @"22225 Hamburg\n\n"};
@@ -141,9 +150,7 @@ namespace AODLTest
 				td.Content.Add(p);
 			}
 
-			Paragraph pnone		= new Paragraph(td, "none1");
-			pnone.TextContent.Add(new SimpleText(pnone, @"\n"));
-			td.Content.Add(pnone);
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
 
 			for(int i=0; i < recipient.Length; i++)
 			{
@@ -152,20 +159,14 @@ namespace AODLTest
 				td.Content.Add(p);
 			}
 
-			pnone		= new Paragraph(td, "none21");
-			pnone.TextContent.Add(new SimpleText(pnone, @"\n"));
-			td.Content.Add(pnone);
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
 
 			Paragraph pb		= new Paragraph(td, "Pb");
-			pnone.TextContent.Add(new SimpleText(pb, betreff));
+			pb.TextContent.Add(new SimpleText(pb, betreff));
 			td.Content.Add(pb);
 
-			pnone		= new Paragraph(td, "none2");
-			pnone.TextContent.Add(new SimpleText(pnone, "\n"));
-			td.Content.Add(pnone);
-
 			pb		= new Paragraph(td, "Pan");
-			pnone.TextContent.Add(new SimpleText(pb, bodyheader));
+			pb.TextContent.Add(new SimpleText(pb, bodyheader));
 			td.Content.Add(pb);
 
 			for(int i=0; i < bodytext.Length; i++)
@@ -176,21 +177,65 @@ namespace AODLTest
 				td.Content.Add(p);
 			}
 
-			pnone		= new Paragraph(td, "none4");
-			pnone.TextContent.Add(new SimpleText(pnone, "\n"));
-			td.Content.Add(pnone);
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
 
 			pb		= new Paragraph(td, "PReg");
-			pnone.TextContent.Add(new SimpleText(pb, regards));
+			pb.TextContent.Add(new SimpleText(pb, regards));
 			td.Content.Add(pb);
 
-			td.SaveTo("Offer.odt");
+			td.SaveTo("OfferLongVersion.odt");
+		}
+
+		[Test]
+		public void LetterTestShortVersion()
+		{
+			string[] address		= new string[] {"Max Mustermann","Mustermann Str. 300","22222 Hamburg"};
+			string[] recipient  = new string[] {"Heinz Willi", "Dorfstr. 1", @"22225 Hamburg\n\n"};
+			string betreff		= @"Offer for 200 Intel Pentium 4 CPU's\n\n";
+			string bodyheader	= "Dear Mr. Willi,";
+			string[] bodytext	= new string[] {
+												   @"thank you for your request. We can offer you the 200 Intel Pentium IV 3 Ghz CPU's for a price of 79,80 € per unit.",
+												   @"This special offer is valid to 31.10.2005. If you accept, we can deliver within 24 hours.\n\n\n"
+											   };
+			string regards		= @"Best regards \nMax Mustermann";
+
+			TextDocument td		= new TextDocument();
+			td.New();
+
+			for(int i=0; i < address.Length; i++)
+				td.Content.Add(new Paragraph(td, ParentStyles.Standard, address[i]));
+
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+
+			for(int i=0; i < recipient.Length; i++)
+				td.Content.Add(new Paragraph(td, ParentStyles.Standard, recipient[i]));
+
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard, betreff));
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard, bodyheader));
+			
+			for(int i=0; i < bodytext.Length; i++)
+			{
+				Paragraph p		= new Paragraph(td, "Pb"+i.ToString());
+				((ParagraphProperties)p.Style.Properties).Alignment = TextAlignments.justify.ToString();
+				p.TextContent.Add(new SimpleText(p, bodytext[i]));
+				td.Content.Add(p);
+			}
+
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard, regards));
+
+			td.SaveTo("OfferShortVersion.odt");
 		}
 	}
 }
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.3  2005/10/08 12:31:33  larsbm
+ * - better usabilty of paragraph handling
+ * - create paragraphs with text and blank paragraphs with one line of code
+ *
  * Revision 1.2  2005/10/08 07:50:15  larsbm
  * - added cvs tags
  *

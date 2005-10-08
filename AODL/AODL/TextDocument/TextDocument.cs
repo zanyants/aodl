@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.2 2005/10/08 07:50:15 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.3 2005/10/08 12:31:33 larsbm Exp $
  */
 
 using System;
@@ -149,9 +149,12 @@ namespace AODL.TextDocument
 		{
 			this.XmlDoc.SelectSingleNode(TextDocumentHelper.OfficeTextPath, 
 				this.NamespaceManager).AppendChild(((IContent)value).Node);
-			IStyle style	= ((IContent)value).Style;			
-			this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
-				this.NamespaceManager).AppendChild(style.Node);
+			if(((IContent)value).Style != null)
+			{
+				IStyle style	= ((IContent)value).Style;			
+				this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
+					this.NamespaceManager).AppendChild(style.Node);
+			}
 			foreach(IText it in ((IContent)value).TextContent)
 				if(it.GetType().Name == "FormatedText")
 					this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
@@ -162,6 +165,10 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.3  2005/10/08 12:31:33  larsbm
+ * - better usabilty of paragraph handling
+ * - create paragraphs with text and blank paragraphs with one line of code
+ *
  * Revision 1.2  2005/10/08 07:50:15  larsbm
  * - added cvs tags
  *

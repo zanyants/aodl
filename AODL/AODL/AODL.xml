@@ -178,6 +178,26 @@
             <param name="td">The Textdocument.</param>
             <param name="stylename">The stylename which should be referenced with this paragraph.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.#ctor(AODL.TextDocument.TextDocument,AODL.TextDocument.Style.ParentStyles,System.String)">
+            <summary>
+            Overloaded constructor.
+            Use this to create a standard paragraph with the given text from
+            string simpletext. Notice, the text will be styled as standard.
+            You won't be able to style it bold, underline, etc. this will only
+            occur if standard style attributes of the textdocument are set to
+            this.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="style">The only accepted ParentStyle is Standard! All other styles will be ignored!</param>
+            <param name="simpletext">The text which should be append within this paragraph.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.Init(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create the Paragraph.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="stylename">The style name.</param>
+        </member>
         <member name="M:AODL.TextDocument.Content.Paragraph.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
             <summary>
             Create a new XmlNode.

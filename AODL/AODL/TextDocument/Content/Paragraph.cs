@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.3 2005/10/08 12:31:33 larsbm Exp $
  */
 
 using System;
@@ -21,8 +21,44 @@ namespace AODL.TextDocument.Content
 		/// <param name="stylename">The stylename which should be referenced with this paragraph.</param>
 		public Paragraph(TextDocument td, string stylename)
 		{
+			this.Init(td, stylename);
+//			this.Document				= td;
+//			if(stylename != "Standard")
+//				this.Style					= (IStyle)new ParagraphStyle(this, stylename);
+//			this.TextContent			= new ITextCollection();
+//			this.NewXmlNode(td, stylename);
+//
+//			this.TextContent.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Inserted);
+		}
+
+		/// <summary>
+		/// Overloaded constructor.
+		/// Use this to create a standard paragraph with the given text from
+		/// string simpletext. Notice, the text will be styled as standard.
+		/// You won't be able to style it bold, underline, etc. this will only
+		/// occur if standard style attributes of the textdocument are set to
+		/// this.
+		/// </summary>
+		/// <param name="td">The TextDocument.</param>
+		/// <param name="style">The only accepted ParentStyle is Standard! All other styles will be ignored!</param>
+		/// <param name="simpletext">The text which should be append within this paragraph.</param>
+		public Paragraph(TextDocument td, ParentStyles style, string simpletext)
+		{
+			this.Init(td, ParentStyles.Standard.ToString());
+			//Attach simple text withhin the paragraph
+			this.TextContent.Add(new SimpleText(this, simpletext));
+		}
+
+		/// <summary>
+		/// Create the Paragraph.
+		/// </summary>
+		/// <param name="td">The TextDocument.</param>
+		/// <param name="stylename">The style name.</param>
+		private void Init(TextDocument td, string stylename)
+		{
 			this.Document				= td;
-			this.Style					= (IStyle)new ParagraphStyle(this, stylename);
+			if(stylename != "Standard")
+				this.Style					= (IStyle)new ParagraphStyle(this, stylename);
 			this.TextContent			= new ITextCollection();
 			this.NewXmlNode(td, stylename);
 
@@ -140,6 +176,10 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.3  2005/10/08 12:31:33  larsbm
+ * - better usabilty of paragraph handling
+ * - create paragraphs with text and blank paragraphs with one line of code
+ *
  * Revision 1.2  2005/10/08 08:19:25  larsbm
  * - added cvs tags
  *

@@ -1,0 +1,21 @@
+$Id: ChangeLog.txt,v 1.1 2005/10/08 12:31:33 larsbm Exp $
+
+Unreleased AODL 1.0.1 alpha
+
+- Provides better usability of the paragraph handling.
+  Now, it's possible to create simple blank paragraphs.
+  The following code fragement show how to add a blank paragraph.
+  
+  [a TextDocument].Content.Add(new Paragraph([a TextDocument], ParentStyle.Standard.ToString());
+  
+- Now, it's possible to create a new paragraph with simple
+  text with one line of code. The following code fragement
+  show how to create a paragraph with simple text and it to
+  a textdocument within one line of code.
+  
+  [a TextDocument].Content.Add(new Paragraph([a TextDocument], ParentStyle.Standard, "Some nice text");
+  
+
+05.10.2005 AODL 1.0.0 alpha
+
+- First release.
