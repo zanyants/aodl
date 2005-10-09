@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphStyle.cs,v 1.2 2005/10/08 07:55:35 larsbm Exp $
+ * $Id: ParagraphStyle.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
  */
 
 using System;
@@ -15,27 +15,37 @@ namespace AODL.TextDocument.Style
 	/// </summary>
 	public class ParagraphStyle : IStyle, IFamilyStyle
 	{
-		private Paragraph _paragraph;
+//		private Paragraph _paragraph;
+//		/// <summary>
+//		/// The Paragraph object to this object belongs.
+//		/// </summary>
+//		public Paragraph Paragraph
+//		{
+//			get { return this._paragraph; }
+//			set { this._paragraph = value; }
+//		}
+
+		private IContent _content;
 		/// <summary>
-		/// The Paragraph object to this object belongs.
+		/// The IContent object to which this ParagraphStyle belongs.
 		/// </summary>
-		public Paragraph Paragraph
+		public IContent Content
 		{
-			get { return this._paragraph; }
-			set { this._paragraph = value; }
+			get { return this._content; }
+			set { this._content = value; }
 		}
 
-		private IProperty _properties;
+		private ParagraphProperties _properties;
 		/// <summary>
 		/// The IProperties object which is linked with this object.
 		/// </summary>
-		public IProperty Properties
+		public ParagraphProperties Properties
 		{
 			get { return this._properties; }
 			set { this._properties = value; }
 		}
 
-		private string _parentStyle;
+//		private string _parentStyle;
 		/// <summary>
 		/// The parent style of this object.
 		/// </summary>
@@ -44,14 +54,39 @@ namespace AODL.TextDocument.Style
 			get
 			{	
 				return this._node.SelectSingleNode("@style:parent-style-name", 
-					this.Paragraph.Document.NamespaceManager).InnerText;
+					this.Content.Document.NamespaceManager).InnerText;
 			}
 			set
 			{
 				this._node.SelectSingleNode("@style:parent-style-name", 
-					this.Paragraph.Document.NamespaceManager).InnerText = value.ToString();
+					this.Content.Document.NamespaceManager).InnerText = value.ToString();
 			}
 		}
+
+		/// <summary>
+		/// The parent style of this object.
+		/// </summary>
+		public string ListStyleName
+		{
+			get
+			{	
+				XmlNode xn = this._node.SelectSingleNode("@style:list-style-name", 
+					this.Content.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@style:list-style-name", 
+					this.Content.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("list-style-name", value, "style");
+				this._node.SelectSingleNode("@style:list-style-name", 
+					this.Content.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
 
 		private TextProperties _textproperties;
 		/// <summary>
@@ -80,12 +115,15 @@ namespace AODL.TextDocument.Style
 		/// </summary>
 		/// <param name="p">The Paragraph object to this object belongs.</param>
 		/// <param name="name">The style name.</param>
-		public ParagraphStyle(Paragraph p, string name)
+//		public ParagraphStyle(Paragraph p, string name)
+//		{
+//			this.Paragraph	= p;
+		public ParagraphStyle(IContent c, string name)
 		{
-			this.Paragraph	= p;
-			this.Document	= p.Document;
-			this.Properties = (IProperty)new ParagraphProperties(this);
-			this.NewXmlNode(p.Document, name);
+			this.Content	= c;
+			this.Document	= c.Document;
+			this.Properties = new ParagraphProperties(this);
+			this.NewXmlNode(c.Document, name);
 			this.Node.AppendChild(this.Properties.Node);
 		}
 
@@ -105,6 +143,19 @@ namespace AODL.TextDocument.Style
 			this.Node.Attributes.Append(xa);
 			xa				= td.CreateAttribute("parent-style-name", "style");
 			xa.Value		= ParentStyles.Standard.ToString();
+			this.Node.Attributes.Append(xa);
+		}
+
+		/// <summary>
+		/// Create a XmlAttribute for propertie XmlNode.
+		/// </summary>
+		/// <param name="name">The attribute name.</param>
+		/// <param name="text">The attribute value.</param>
+		/// <param name="prefix">The namespace prefix.</param>
+		private void CreateAttribute(string name, string text, string prefix)
+		{
+			XmlAttribute xa = this.Document.CreateAttribute(name, prefix);
+			xa.Value		= text;
 			this.Node.Attributes.Append(xa);
 		}
 
@@ -134,12 +185,12 @@ namespace AODL.TextDocument.Style
 			get
 			{	
 				return this._node.SelectSingleNode("@style:name", 
-					this.Paragraph.Document.NamespaceManager).InnerText;
+					this.Content.Document.NamespaceManager).InnerText;
 			}
 			set
 			{
 				this._node.SelectSingleNode("@style:name", 
-					this.Paragraph.Document.NamespaceManager).InnerText = value.ToString();
+					this.Content.Document.NamespaceManager).InnerText = value.ToString();
 			}
 		}
 
@@ -164,12 +215,12 @@ namespace AODL.TextDocument.Style
 			get
 			{	
 				return this._node.SelectSingleNode("@style:family", 
-					this.Paragraph.Document.NamespaceManager).InnerText;
+					this.Content.Document.NamespaceManager).InnerText;
 			}
 			set
 			{
 				this._node.SelectSingleNode("@style:family", 
-					this.Paragraph.Document.NamespaceManager).InnerText = value.ToString();
+					this.Content.Document.NamespaceManager).InnerText = value.ToString();
 			}
 		}
 
@@ -179,6 +230,10 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: ParagraphStyle.cs,v $
+ * Revision 1.3  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.2  2005/10/08 07:55:35  larsbm
  * - added cvs tags
  *

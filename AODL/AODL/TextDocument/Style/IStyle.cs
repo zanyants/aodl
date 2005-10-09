@@ -1,5 +1,5 @@
 /*
- * $Id: IStyle.cs,v 1.2 2005/10/08 07:50:15 larsbm Exp $
+ * $Id: IStyle.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
  */
 
 using System;
@@ -23,10 +23,6 @@ namespace AODL.TextDocument.Style
 		/// </summary>
 		string Name {get; set;}
 		/// <summary>
-		/// The IProperty class which is linked to the object.
-		/// </summary>
-		IProperty Properties {get; set;}
-		/// <summary>
 		/// The TextDocument to this object belongs.
 		/// </summary>
 		TextDocument Document {get; set;}
@@ -35,6 +31,10 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: IStyle.cs,v $
+ * Revision 1.3  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.2  2005/10/08 07:50:15  larsbm
  * - added cvs tags
  *

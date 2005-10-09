@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphProperties.cs,v 1.2 2005/10/08 07:55:35 larsbm Exp $
+ * $Id: ParagraphProperties.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
  */
 
 using System;
@@ -38,10 +38,23 @@ namespace AODL.TextDocument.Style.Properties
 		/// </summary>
 		public string MarginLeft
 		{
-			get { return this._node.SelectSingleNode("@fo:margin-left", 
-					  this.Paragraphstyle.Paragraph.Document.NamespaceManager).InnerText; }
-			set { this._node.SelectSingleNode("@fo:margin-left",
-					  this.Paragraphstyle.Paragraph.Document.NamespaceManager).InnerText = value; }
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-left", 
+					  this.Paragraphstyle.Content.Document.NamespaceManager) ;
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-left",
+					  this.Paragraphstyle.Content.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("margin-left", value, "fo");
+				this._node.SelectSingleNode("@fo:margin-left",
+					  this.Paragraphstyle.Content.Document.NamespaceManager).InnerText = value;
+			}
 		}
 
 		/// <summary>
@@ -52,7 +65,7 @@ namespace AODL.TextDocument.Style.Properties
 			get 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@fo:text-align",
-					this.Paragraphstyle.Paragraph.Document.NamespaceManager);
+					this.Paragraphstyle.Content.Document.NamespaceManager);
 				if(xn != null)
 					return xn.InnerText;
 				return null;
@@ -60,11 +73,11 @@ namespace AODL.TextDocument.Style.Properties
 			set
 			{
 				XmlNode xn = this._node.SelectSingleNode("@fo:text-align",
-					this.Paragraphstyle.Paragraph.Document.NamespaceManager);
+					this.Paragraphstyle.Content.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("text-align", value, "fo");
 				this._node.SelectSingleNode("@fo:text-align",
-					this.Paragraphstyle.Paragraph.Document.NamespaceManager).InnerText = value;
+					this.Paragraphstyle.Content.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -75,7 +88,7 @@ namespace AODL.TextDocument.Style.Properties
 		public ParagraphProperties(ParagraphStyle pstyle)
 		{
 			this.Paragraphstyle = pstyle;
-			this.NewXmlNode(pstyle.Paragraph.Document);
+			this.NewXmlNode(pstyle.Content.Document);
 		}
 
 		/// <summary>
@@ -86,7 +99,7 @@ namespace AODL.TextDocument.Style.Properties
 		/// <param name="prefix">The namespace prefix.</param>
 		private void CreateAttribute(string name, string text, string prefix)
 		{
-			XmlAttribute xa = this.Paragraphstyle.Paragraph.Document.CreateAttribute(name, prefix);
+			XmlAttribute xa = this.Paragraphstyle.Content.Document.CreateAttribute(name, prefix);
 			xa.Value		= text;
 			this.Node.Attributes.Append(xa);
 		}
@@ -98,16 +111,20 @@ namespace AODL.TextDocument.Style.Properties
 		private void NewXmlNode(TextDocument td)
 		{
 			this.Node		= td.CreateNode("paragraph-properties", "style");
-			XmlAttribute xa = td.CreateAttribute("margin-left", "fo");
-			xa.Value		= "0cm";
-
-			this.Node.Attributes.Append(xa);
+//			XmlAttribute xa = td.CreateAttribute("margin-left", "fo");
+//			xa.Value		= "0cm";
+//
+//			this.Node.Attributes.Append(xa);
 		}
 	}
 }
 
 /*
  * $Log: ParagraphProperties.cs,v $
+ * Revision 1.3  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.2  2005/10/08 07:55:35  larsbm
  * - added cvs tags
  *

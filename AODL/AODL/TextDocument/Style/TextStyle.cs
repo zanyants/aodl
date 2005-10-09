@@ -1,5 +1,5 @@
 /*
- * $Id: TextStyle.cs,v 1.2 2005/10/08 07:55:35 larsbm Exp $
+ * $Id: TextStyle.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
  */
 
 using System;
@@ -34,7 +34,7 @@ namespace AODL.TextDocument.Style
 		{
 			this.FormatedText	= ft;
 			this.Document		= ft.Content.Document;
-			this.Properties		= (IProperty)new TextProperties(this);
+			this.Properties		= new TextProperties(this);
 			this.NewXmlNode(ft.Content.Document, name);
 			this.Node.AppendChild(this.Properties.Node);
 		}
@@ -90,11 +90,11 @@ namespace AODL.TextDocument.Style
 			}
 		}
 
-		private IProperty _properties;
+		private TextProperties _properties;
 		/// <summary>
 		/// The IProperty object that is linked to this object.
 		/// </summary>
-		public AODL.TextDocument.Style.Properties.IProperty Properties
+		public AODL.TextDocument.Style.Properties.TextProperties Properties
 		{
 			get
 			{
@@ -142,6 +142,10 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: TextStyle.cs,v $
+ * Revision 1.3  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.2  2005/10/08 07:55:35  larsbm
  * - added cvs tags
  *

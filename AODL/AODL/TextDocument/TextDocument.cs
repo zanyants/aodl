@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.3 2005/10/08 12:31:33 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.4 2005/10/09 15:52:47 larsbm Exp $
  */
 
 using System;
@@ -30,7 +30,7 @@ namespace AODL.TextDocument
 	///		td.Content.Add(p);
 	/// </code>
 	/// </example>
-	public class TextDocument
+	public class TextDocument : IContentContainer
 	{
 		private XmlDocument _xmldoc;
 		/// <summary>
@@ -154,17 +154,31 @@ namespace AODL.TextDocument
 				IStyle style	= ((IContent)value).Style;			
 				this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
 					this.NamespaceManager).AppendChild(style.Node);
-			}
-			foreach(IText it in ((IContent)value).TextContent)
-				if(it.GetType().Name == "FormatedText")
+
+				if(((IContent)value).GetType().Name == "List")
 					this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
-						this.NamespaceManager).AppendChild(((FormatedText)it).Style.Node);					
+						this.NamespaceManager).AppendChild(((List)value).ParagraphStyle.Node);
+
+			}
+			if(((IContent)value).TextContent != null)
+				foreach(IText it in ((IContent)value).TextContent)
+					if(it.GetType().Name == "FormatedText")
+						this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
+							this.NamespaceManager).AppendChild(((FormatedText)it).Style.Node);
+//			//IContent value is a contentcontainer
+//			if(((IContent)value).GetType().GetProperty("Content") != null)
+//				this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
+//					this.NamespaceManager).AppendChild(((FormatedText)it).Style.Node);
 		}
 	}
 }
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.4  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.3  2005/10/08 12:31:33  larsbm
  * - better usabilty of paragraph handling
  * - create paragraphs with text and blank paragraphs with one line of code

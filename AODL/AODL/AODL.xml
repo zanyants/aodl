@@ -161,9 +161,147 @@
             A typed IContent Collection.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Content.IContentContainer">
+            <summary>
+            All classes that want to act as a content conatiner
+            have to implement this interface.
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Content.ITextCollection">
             <summary>
             A typed IText collection.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.List">
+            <summary>
+            Represent a list which could be a numbered or bullet style list.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.List.#ctor(AODL.TextDocument.TextDocument,System.String,AODL.TextDocument.Style.Properties.ListStyles,System.String)">
+            <summary>
+            Create a new List object
+            </summary>
+            <param name="td">The TextDocument</param>
+            <param name="stylename">The style name</param>
+            <param name="typ">The list typ bullet, ..</param>
+            <param name="paragraphstylename">The style name for the ParagraphStyle.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.List.#ctor(AODL.TextDocument.TextDocument,AODL.TextDocument.Content.List)">
+            <summary>
+            Create a new List which is used to represent a inner list.
+            </summary>
+            <param name="td">The TextDocument</param>
+            <param name="List">The List to which this List belongs.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.List.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="stylename">The stylename which should be referenced with this List.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.List.ParagraphStyle">
+            <summary>
+            The ParagraphStyle to which this List belongs.
+            There is only one ParagraphStyle per List and
+            its ListItems.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.List.Content">
+            <summary>
+            The ContentCollection. A List don't have
+            the TextContentCollection, because the
+            List acts as another ContentContainer.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.List.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.List.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.List.Stylename">
+            <summary>
+            The stylename.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.List.Style">
+            <summary>
+            The style object which belongs to this list.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.List.TextContent">
+            <summary>
+            The textcontentcollection is not supported !
+            The list instead offer a ContentCollection
+            of ListItems or inner Lists
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.ListItem">
+            <summary>
+            Zusammenfassung für ListItem.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ListItem.#ctor(AODL.TextDocument.Content.List)">
+            <summary>
+            Create a new ListItem
+            </summary>
+            <param name="li">The List object to which this ListItem belongs.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ListItem.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="td">The TextDocument.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.Paragraph">
+            <summary>
+            The ListItem has a Paragraph which represent his TextContent.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.List">
+            <summary>
+            The List object to which this ListItem belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.Document">
+            <summary>
+            The TextDocument to this ListItem belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.Stylename">
+            <summary>
+            No style element for ListItem!
+            Throws Exception if you try to get it!;
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.Style">
+            <summary>
+            IStyle object is not supported. Throws NotSupportedException.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.TextContent">
+            <summary>
+            The ListItem doesn't have a ITextCollection. Instead the List
+            Item has a Paragraph and his TextContent represents the Text
+            for the ListItem.
+            Properties Set Method throws NotSupportedException.
+            Properties Get Method return the Paragraphs ITextCollection.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ListItem.Content">
+            <summary>
+            ContentCollection, a ListItem could have
+            another List inside (Inner List)
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Content.Paragraph">
@@ -374,6 +512,47 @@
             thick
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Style.Properties.ListLevelProperties">
+            <summary>
+            Represent the properties of the list levels.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ListLevelProperties.#ctor(AODL.TextDocument.Style.IStyle,System.String,System.String)">
+            <summary>
+            Constructor create a new ListLevelProperties object.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ListLevelProperties.NewXmlNode(AODL.TextDocument.TextDocument,System.String,System.String)">
+            <summary>
+            Create the XmlNode which represent the propertie element.
+            </summary>
+            <param name="td">The TextDocument</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ListLevelProperties.Style">
+            <summary>
+            The style to this ListLevelProperties object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ListLevelProperties.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.ListStyles">
+            <summary>
+            Represent the different kinds of lis styles.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.ListStyles.Number">
+            <summary>
+            Numbered list
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.ListStyles.Bullet">
+            <summary>
+            Bullet list
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Style.Properties.ParagraphProperties">
             <summary>
             Represent access to the possible attributes of of an paragraph-propertie element.
@@ -551,14 +730,109 @@
             The style name.
             </summary>
         </member>
-        <member name="P:AODL.TextDocument.Style.IStyle.Properties">
-            <summary>
-            The IProperty class which is linked to the object.
-            </summary>
-        </member>
         <member name="P:AODL.TextDocument.Style.IStyle.Document">
             <summary>
             The TextDocument to this object belongs.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.ListLevelStyle">
+            <summary>
+            Represent the list level style.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListLevelStyle.#ctor(AODL.TextDocument.Style.ListStyle,AODL.TextDocument.Style.Properties.ListStyles,System.Int32)">
+            <summary>
+            Create a new ListLevelStyle object.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListLevelStyle.NewXmlNode(AODL.TextDocument.TextDocument,AODL.TextDocument.Style.Properties.ListStyles,System.Int32)">
+            <summary>
+            Create the XmlNode that represent the Style element.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="typ">The style name.</param>
+            <param name="level">The level number which represent this style.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListLevelStyle.AddTextPropertie">
+            <summary>
+            Add the TextPropertie, necessary if the list is a bullet list.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListLevelStyle.ListStyle">
+            <summary>
+            The ListStyle to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListLevelStyle.ListlevelProperties">
+            <summary>
+            The list level properties.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListLevelStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListLevelStyle.Name">
+            <summary>
+            The style name
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListLevelStyle.Document">
+            <summary>
+            The TextDocument to this ListLevelStyle object belongs.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.ListStyle">
+            <summary>
+            Represent the ListStyle for a List.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListStyle.#ctor(AODL.TextDocument.Content.List,System.String)">
+            <summary>
+            Create a new ListStyle object.
+            </summary>
+            <param name="li">The List</param>
+            <param name="stylename">The style name</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListStyle.AutomaticAddListLevelStyles(AODL.TextDocument.Style.Properties.ListStyles)">
+            <summary>
+            Add all possible ListLevelStyle objects automatically.
+            Throws exception, if there are already ListLevelStyles
+            which could'nt removed.
+            </summary>
+            <param name="typ">The Liststyle bullet, numbered, ..s</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListStyle.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListStyle.List">
+            <summary>
+            The List object to this object belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListStyle.ListlevelStyles">
+            <summary>
+            The ListLevelStyles which belongs to this object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListStyle.Document">
+            <summary>
+            The TextDocument to this ListStyle belongs.
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.ParagraphStyle">
@@ -566,7 +840,7 @@
             Represent the style for a Paragraph object.
             </summary>
         </member>
-        <member name="M:AODL.TextDocument.Style.ParagraphStyle.#ctor(AODL.TextDocument.Content.Paragraph,System.String)">
+        <member name="M:AODL.TextDocument.Style.ParagraphStyle.#ctor(AODL.TextDocument.Content.IContent,System.String)">
             <summary>
             Create a new ParagraphStyle object.
             </summary>
@@ -580,9 +854,17 @@
             <param name="td">The TextDocument.</param>
             <param name="name">The style name.</param>
         </member>
-        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Paragraph">
+        <member name="M:AODL.TextDocument.Style.ParagraphStyle.CreateAttribute(System.String,System.String,System.String)">
             <summary>
-            The Paragraph object to this object belongs.
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.Content">
+            <summary>
+            The IContent object to which this ParagraphStyle belongs.
             </summary>
         </member>
         <member name="P:AODL.TextDocument.Style.ParagraphStyle.Properties">
@@ -591,6 +873,11 @@
             </summary>
         </member>
         <member name="P:AODL.TextDocument.Style.ParagraphStyle.ParentStyle">
+            <summary>
+            The parent style of this object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ParagraphStyle.ListStyleName">
             <summary>
             The parent style of this object.
             </summary>

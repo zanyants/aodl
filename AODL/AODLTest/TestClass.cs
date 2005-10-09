@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.3 2005/10/08 12:31:33 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.4 2005/10/09 15:52:47 larsbm Exp $ 
  */
 
 using System;
@@ -65,18 +65,18 @@ namespace AODLTest
 			td.New();
 
 			Paragraph p			= new Paragraph(td, "P1");
-			((ParagraphProperties)p.Style.Properties).Alignment = TextAlignments.end.ToString();
+			((ParagraphStyle)p.Style).Properties.Alignment = TextAlignments.end.ToString();
 			//Add some content
 			p.TextContent.Add( new SimpleText((IContent)p, "Hallo i'm simple text!"));
 			Assert.IsTrue(p.TextContent.Count > 0, "Must be greater than zero!");
 			FormatedText ft = new FormatedText((IContent)p, "T1", " And i'm formated text!");
-			((TextProperties)ft.Style.Properties).Bold = "bold";
-			((TextProperties)ft.Style.Properties).Italic = "italic";
-			((TextProperties)ft.Style.Properties).SetUnderlineStyles( 
+			((TextStyle)ft.Style).Properties.Bold = "bold";
+			((TextStyle)ft.Style).Properties.Italic = "italic";
+			((TextStyle)ft.Style).Properties.SetUnderlineStyles( 
 				LineStyles.wave.ToString(), LineWidths.bold.ToString(), "#A1B1C2");
-//			((TextProperties)ft.Style.Properties).Underline = LineStyles.dotted.ToString();
-//			((TextProperties)ft.Style.Properties).UnderlineColor = "font-color";
-//			((TextProperties)ft.Style.Properties).UnderlineWidth = LineWidths.auto.ToString();
+//			((TextStyle)ft.Style).Properties.Underline = LineStyles.dotted.ToString();
+//			((TextStyle)ft.Style).Properties.UnderlineColor = "font-color";
+//			((TextStyle)ft.Style).Properties.UnderlineWidth = LineWidths.auto.ToString();
 			p.TextContent.Add(ft);			
 			Assert.IsTrue(p.TextContent.Count == 2, "Must be two!");
 			//Add as document content 
@@ -94,7 +94,7 @@ namespace AODLTest
 
 			Paragraph p							= new Paragraph(td, "P1");
 			//justify
-			((ParagraphProperties)p.Style.Properties).Alignment	= TextAlignments.justify.ToString();
+			((ParagraphStyle)p.Style).Properties.Alignment	= TextAlignments.justify.ToString();
 			//Set complet paragraph to italic
 			((ParagraphStyle)p.Style).Textproperties.Italic		= "italic";
 			((ParagraphStyle)p.Style).Textproperties.FontName	= "Arial";
@@ -172,7 +172,7 @@ namespace AODLTest
 			for(int i=0; i < bodytext.Length; i++)
 			{
 				Paragraph p		= new Paragraph(td, "Pr"+i.ToString());
-				((ParagraphProperties)p.Style.Properties).Alignment = TextAlignments.justify.ToString();
+				((ParagraphStyle)p.Style).Properties.Alignment = TextAlignments.justify.ToString();
 				p.TextContent.Add(new SimpleText(p, bodytext[i]));
 				td.Content.Add(p);
 			}
@@ -217,7 +217,7 @@ namespace AODLTest
 			for(int i=0; i < bodytext.Length; i++)
 			{
 				Paragraph p		= new Paragraph(td, "Pb"+i.ToString());
-				((ParagraphProperties)p.Style.Properties).Alignment = TextAlignments.justify.ToString();
+				((ParagraphStyle)p.Style).Properties.Alignment = TextAlignments.justify.ToString();
 				p.TextContent.Add(new SimpleText(p, bodytext[i]));
 				td.Content.Add(p);
 			}
@@ -232,6 +232,10 @@ namespace AODLTest
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.4  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.3  2005/10/08 12:31:33  larsbm
  * - better usabilty of paragraph handling
  * - create paragraphs with text and blank paragraphs with one line of code

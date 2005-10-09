@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocumentHelper.cs,v 1.2 2005/10/08 07:50:15 larsbm Exp $
+ * $Id: TextDocumentHelper.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
  */
 
 using System;
@@ -55,7 +55,8 @@ namespace AODL.TextDocument
 				+ " office:version=\"1.0\">"
 				+ "<office:scripts />"
 				+ "<office:font-face-decls>"
-				+ "</office:font-face-decls>"
+				+ "<style:font-face style:name=\"StarSymbol\" svg:font-family=\"StarSymbol\" style:font-charset=\"x-symbol\" />"
+			    + "</office:font-face-decls>"
 				+ "<office:automatic-styles>"
 				+ "</office:automatic-styles>"
 				+ "<office:body>"
@@ -103,6 +104,10 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocumentHelper.cs,v $
+ * Revision 1.3  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.2  2005/10/08 07:50:15  larsbm
  * - added cvs tags
  *

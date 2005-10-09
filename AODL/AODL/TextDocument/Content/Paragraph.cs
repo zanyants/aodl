@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.3 2005/10/08 12:31:33 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.4 2005/10/09 15:52:47 larsbm Exp $
  */
 
 using System;
@@ -22,13 +22,6 @@ namespace AODL.TextDocument.Content
 		public Paragraph(TextDocument td, string stylename)
 		{
 			this.Init(td, stylename);
-//			this.Document				= td;
-//			if(stylename != "Standard")
-//				this.Style					= (IStyle)new ParagraphStyle(this, stylename);
-//			this.TextContent			= new ITextCollection();
-//			this.NewXmlNode(td, stylename);
-//
-//			this.TextContent.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Inserted);
 		}
 
 		/// <summary>
@@ -58,7 +51,7 @@ namespace AODL.TextDocument.Content
 		{
 			this.Document				= td;
 			if(stylename != "Standard")
-				this.Style					= (IStyle)new ParagraphStyle(this, stylename);
+				this.Style				= (IStyle)new ParagraphStyle(this, stylename);
 			this.TextContent			= new ITextCollection();
 			this.NewXmlNode(td, stylename);
 
@@ -120,12 +113,14 @@ namespace AODL.TextDocument.Content
 		public string Stylename
 		{
 			get
-			{
-				return this._stylename;
+			{	
+				return this._node.SelectSingleNode("@text:style-name", 
+					this.Document.NamespaceManager).InnerText;
 			}
 			set
 			{
-				this._stylename = value;
+				this._node.SelectSingleNode("@text:style-name", 
+					this.Document.NamespaceManager).InnerText = value.ToString();
 			}
 		}
 
@@ -176,6 +171,10 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.4  2005/10/09 15:52:47  larsbm
+ * - Changed some design at the paragraph usage
+ * - add list support
+ *
  * Revision 1.3  2005/10/08 12:31:33  larsbm
  * - better usabilty of paragraph handling
  * - create paragraphs with text and blank paragraphs with one line of code

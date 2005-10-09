@@ -170,12 +170,27 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\IContentContainer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\IText.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "TextDocument\Content\ITextCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\List.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\ListItem.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -220,6 +235,21 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Style\ListLevelStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\ListLevelStyleCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\ListStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Style\ParagraphStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -251,6 +281,16 @@
                 />
                 <File
                     RelPath = "TextDocument\Style\Properties\LineWidths.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\ListLevelProperties.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\ListStyles.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
