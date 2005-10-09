@@ -1,25 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-  <meta content="text/html; charset=ISO-8859-1"
- http-equiv="content-type">
-  <title>AODL Startpage</title>
-</head>
-<body>
-<h3 style="text-align: center; font-family: Arial;"><small><span
- style="font-weight: bold;">AODL </span></small></h3>
-<div style="text-align: center; font-family: Arial;"><small><span
- style="font-weight: bold; font-style: italic;">An
-OpenDocument Library Vers. 1.0.0 alpha</span><br>
-</small></div>
-<small><br style="font-family: Arial;">
-<span style="font-family: Arial;">With
+	<head>
+		<title>AODL Startpage</title>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+	</head>
+	<body>
+		<h3 style="FONT-FAMILY: Arial; TEXT-ALIGN: center"><small><span style="FONT-WEIGHT: bold">AODL </span></small></h3>
+		<div style="FONT-FAMILY: Arial; TEXT-ALIGN: center"><small><span style="FONT-WEIGHT: bold; FONT-STYLE: italic">An
+OpenDocument Library Vers. 1.0.1 alpha</span><br>
+			</small>
+		</div>
+		<small>
+			<br style="FONT-FAMILY: Arial">
+			<span style="FONT-FAMILY: Arial">With
 this library you could simply
 generate OpenDocuments from your
 code. The OpenDocument standard is the default file format for the
-office products OpenOffice (since 2.0.0) and for Star Office. </span><br
- style="font-family: Arial;">
-<span style="font-family: Arial;">The
+office products OpenOffice (since 2.0.0) and for Star Office. </span><br style="FONT-FAMILY: Arial">
+			<span style="FONT-FAMILY: Arial">The
 OpenDocument it self is zip
 archive which contains alle document
 specific contents and settings within a set of xml files. By using AODL
@@ -31,80 +29,65 @@ use it within your commercial products. Wheter the library is total
 free, it will be nice if you place a info link to AODL within your
 project.
 <p>Visit the homepage for updates. <a href="http://aodl.sourceforge.net">AODL homepage</a>
-</span><br style="font-family: Arial;">
-<br style="font-family: Arial;">
-<span style="font-weight: bold; font-family: Arial;">The
+</span><br style="FONT-FAMILY: Arial">
+			<br style="FONT-FAMILY: Arial">
+			<span style="FONT-WEIGHT: bold; FONT-FAMILY: Arial">The
 following
 example show how simple it is to create a document with
-AODL:</span><br style="font-family: Arial;">
-<small style="font-family: Arial;"><br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;<big>
-&nbsp; TextDocument
-td&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new
-TextDocument();<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; td.New();<br>
-<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; Paragraph
-p&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; = new Paragraph(td, "P1");<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; //Add some content<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; p.TextContent.Add( new
-SimpleText((IContent)p, "Hello i'm simple text!"));<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; //Add some formated content<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; FormatedText ft = new
-FormatedText((IContent)p, "T1", <br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; " And i'm
-formated text!");<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
-((TextProperties)ft.Style.Properties).Bold = "bold";<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
-p.TextContent.Add(ft);&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
-<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; //Add as document content <br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; td.Content.Add(p);<br>
-<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; //Generate and save<br>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; td.SaveTo(td, "ParagraphTest.odt");</big>
-</small><br style="font-family: Arial;">
-<br style="font-family: Arial;">
-<span style="font-weight: bold; font-family: Arial;">This
+AODL:</span><br style="FONT-FAMILY: Arial">
+			<small style="FONT-FAMILY: Arial">
+				<br>
+				&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<big> &nbsp; TextDocument 
+					td&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new TextDocument();<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; td.New();<br>
+					<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Paragraph 
+					p&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = new Paragraph(td, 
+					"P1");<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; //Add some content<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; p.TextContent.Add( new 
+					SimpleText((IContent)p, "Hello i'm simple text!"));<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; //Add some formated 
+					content<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; FormatedText ft = new 
+					FormatedText((IContent)p, "T1",
+					<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; " 
+					And i'm formated text!");<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+					((TextProperties)ft.Style.Properties).Bold = "bold";<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+					p.TextContent.Add(ft);&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+					<br>
+					<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; //Add as document 
+					content
+					<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; td.Content.Add(p);<br>
+					<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; //Generate and save<br>
+					&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; td.SaveTo(td, 
+					"ParagraphTest.odt");</big> </small>
+			<br style="FONT-FAMILY: Arial">
+			<br style="FONT-FAMILY: Arial">
+			<span style="FONT-WEIGHT: bold; FONT-FAMILY: Arial">This
 code create
-an OpenDocument textdocument with :</span><br
- style="font-family: Arial;">
-<br style="font-family: Arial;">
-</small>
-<div style="margin-left: 80px; font-family: Arial;"><small>Hello
-i'm simple text! <span style="font-weight: bold;">And i'm formated
+an OpenDocument textdocument with :</span><br style="FONT-FAMILY: Arial">
+			<br style="FONT-FAMILY: Arial">
+		</small>
+		<div style="MARGIN-LEFT: 80px; FONT-FAMILY: Arial"><small>Hello i'm simple text!
+				<span style="FONT-WEIGHT: bold">And i'm formated
 text!</span>
-</small></div>
-<p style="font-family: Arial;"><small>See
-offer exmample : <a href="Offersample.html">Offer sample</a></small></p>
-<p style="font-family: Arial;"><small>Hope
-you enjoy using AODL.<br>
-Best regards<br>
-Lars Behrmann, Germany near Hamburg, 03.10.2005</small></p>
-<p style="font-family: Arial;"><small><span style="font-weight: bold;">PS:</span>
-Thanks at ICSharp Team for the excelent zip library ICSharp.ZipLib.</small></p>
-</body>
+			</small>
+		</div>
+		<p style="FONT-FAMILY: Arial"><small>See offer exmample : <a href="Offersample.html">Offer 
+					sample</a></small></p>
+		<p style="FONT-FAMILY: Arial"><small>Hope you enjoy using AODL.<br>
+				Best regards<br>
+				Lars Behrmann, Germany near Hamburg, 09.10.2005</small></p>
+		<p style="FONT-FAMILY: Arial"><small><span style="FONT-WEIGHT: bold">PS:</span>
+				Thanks at ICSharp Team for the excelent zip library ICSharp.ZipLib.</small></p>
+	</body>
 </html>

@@ -6,9 +6,9 @@
 	</head>
 	<body>
 		<P>
-				<span style="FONT-WEIGHT: bold; FONT-FAMILY: Arial">Sample
+			<span style="FONT-WEIGHT: bold; FONT-FAMILY: Arial">Sample
 source offer :</span><br style="FONT-FAMILY: Arial">
-				<pre>
+			<pre>
 string[] address	= new string[] {"Max Mustermann","Mustermann Str. 300","22222 Hamburg"};
 string[] recipient  = new string[] {"Heinz Willi", "Dorfstr. 1", @"22225 Hamburg\n\n"};
 string betreff		= @"Offer for 200 Intel Pentium 4 CPU's\n\n";
@@ -24,22 +24,22 @@ string regards		= @"Best regards \nMax Mustermann";
 TextDocument td		= new TextDocument();
 td.New();
 
-for(int i=0; i < address.Length; i++)
+for(int i=0; i &lt; address.Length; i++)
 	td.Content.Add(new Paragraph(td, ParentStyles.Standard, address[i]));
 
 td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
 
-for(int i=0; i < recipient.Length; i++)
+for(int i=0; i &lt; recipient.Length; i++)
 	td.Content.Add(new Paragraph(td, ParentStyles.Standard, recipient[i]));
 
 td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
 td.Content.Add(new Paragraph(td, ParentStyles.Standard, betreff));
 td.Content.Add(new Paragraph(td, ParentStyles.Standard, bodyheader));
 
-for(int i=0; i < bodytext.Length; i++)
+for(int i=0; i &lt; bodytext.Length; i++)
 {
 	Paragraph p		= new Paragraph(td, "Pb"+i.ToString());
-	((ParagraphProperties)p.Style.Properties).Alignment = TextAlignments.justify.ToString();
+	((ParagraphStyle)p.Style).Properties.Alignment = TextAlignments.justify.ToString();
 	p.TextContent.Add(new SimpleText(p, bodytext[i]));
 	td.Content.Add(p);
 }
@@ -49,7 +49,7 @@ td.Content.Add(new Paragraph(td, ParentStyles.Standard, regards));
 
 td.SaveTo("OfferShortVersion.odt");				
 				</pre>
-		</P>
+		<P></P>
 		<P><SMALL><SPAN style="FONT-WEIGHT: bold; FONT-FAMILY: Arial">This will result 
 in :</SPAN><br style="FONT-FAMILY: Arial">
 				<br style="FONT-FAMILY: Arial">
