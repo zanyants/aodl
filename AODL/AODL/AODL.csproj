@@ -155,6 +155,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\Column.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\ColumnCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\FormatedText.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -210,6 +220,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\Table.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\ColumnStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Style\FamiliyStyles.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -260,12 +280,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Style\TableStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Style\TextStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "TextDocument\Style\Properties\Colors.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\ColumnProperties.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -296,6 +326,11 @@
                 />
                 <File
                     RelPath = "TextDocument\Style\Properties\ParagraphProperties.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\TableProperties.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

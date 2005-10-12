@@ -1,0 +1,1000 @@
+Jumli
+{
+  *** Applikation ***;
+  Version=1.45;
+  Elements=76;
+  {
+    *** Model ***;
+    Typ=3;
+    MainFile=,-1,-1;
+    ActiveDiagramm=6;
+    {
+      *** GenSettings ***;
+      GetPrefix="get";
+      SetPrefix="set";
+      DBBaseClass="DbBasisObject";
+      DBRecordSet="DbSet";
+      GenerateWrite=true;
+      GenerateRead=true;
+    };
+    {
+      *** CompileDebugSettings ***;
+      AufrufCompiler="csc";
+      AufrufDebugger="cordbg";
+      DebugOptionen="/debug";
+    };
+    {
+      *** Package ***;
+      Name="UseCases";
+      ID=3;
+      Zugriff=2;
+      Type=2;
+      {
+        *** Diagramm ***;
+        Name="UseCases";
+        ID=4;
+        DiagrammTyp=2;
+      };
+    };
+    {
+      *** Package ***;
+      Name="ODF_Table";
+      ID=5;
+      Zugriff=2;
+      {
+        *** Diagramm ***;
+        Name="ODF_Table";
+        ID=6;
+        {
+          *** CJumliTracker ***;
+          Rechteck=143,33,248,92;
+          Order=-1;
+          UMLElementID=7;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=355,34,478,93;
+          Order=-1;
+          UMLElementID=8;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=361,139,466,198;
+          Order=-1;
+          UMLElementID=9;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=361,304,468,363;
+          Order=-1;
+          UMLElementID=10;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=564,442,669,501;
+          Order=-1;
+          UMLElementID=11;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=757,389,862,448;
+          Order=-1;
+          UMLElementID=12;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=259,45,341,59;
+          Order=-1;
+          UMLElementID=13;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-16;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=565,331,670,390;
+          Order=-1;
+          UMLElementID=16;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=500,309,520,323;
+          Order=-1;
+          UMLElementID=17;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-15;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=546,402,610,416;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=20;
+          TextOffset=0,5;
+          OffsetRollenName=-39,-4;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=653,423,660,430;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=23;
+          Knick=657,427;
+          TextOffset=0,5;
+          OffsetRollenName=-13,-23;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=657,427;
+          };
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=410,107,417,114;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=26;
+          TextOffset=0,5;
+          OffsetRollenName=-30,5;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=295,307,302,314;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=29;
+          Knick=299,86;
+          TextOffset=0,5;
+          OffsetRollenName=13,-2;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=299,311;
+          };
+          {
+            *** Linie ***;
+            Punkt=299,86;
+          };
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=141,138,246,197;
+          Order=-1;
+          UMLElementID=32;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=144,99,191,113;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=33;
+          TextOffset=0,5;
+          OffsetRollenName=-27,-3;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=562,139,667,198;
+          Order=-1;
+          UMLElementID=36;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=756,297,861,356;
+          Order=-1;
+          UMLElementID=37;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=484,151,542,165;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=38;
+          TextOffset=0,5;
+          OffsetRollenName=-14,-16;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=771,380,811,394;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=41;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=140,248,245,307;
+          Order=-1;
+          UMLElementID=44;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=45;
+          TextOffset=0,5;
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=505,310,512,317;
+          Order=-1;
+          UMLElementID=46;
+          Knick=513,414;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=203,414;
+          };
+          {
+            *** Linie ***;
+            Punkt=513,414;
+          };
+          {
+            *** Linie ***;
+            Punkt=513,242;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=707,508,714,515;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=47;
+          Knick=711,512;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=208,511;
+          };
+          {
+            *** Linie ***;
+            Punkt=711,512;
+          };
+          {
+            *** Linie ***;
+            Punkt=711,331;
+          };
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=744,35,849,94;
+          Order=-1;
+          UMLElementID=48;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=633,56,640,63;
+          Order=-1;
+          UMLElementID=49;
+          Knick=212,6;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=637,60;
+          };
+          {
+            *** Linie ***;
+            Punkt=637,6;
+          };
+          {
+            *** Linie ***;
+            Punkt=212,6;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=516,137,523,144;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=50;
+          Knick=638,69;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=638,69;
+          };
+          {
+            *** Linie ***;
+            Punkt=520,141;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=693,301,700,308;
+          Order=-1;
+          UMLElementID=51;
+          Knick=697,134;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=697,134;
+          };
+          {
+            *** Linie ***;
+            Punkt=697,305;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=893,422,900,429;
+          Order=-1;
+          UMLElementID=52;
+          Knick=897,114;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=897,114;
+          };
+          {
+            *** Linie ***;
+            Punkt=897,426;
+          };
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=737,136,865,195;
+          Order=-1;
+          UMLElementID=53;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=679,8,686,15;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=54;
+          Knick=683,163;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=683,163;
+          };
+          {
+            *** Linie ***;
+            Punkt=683,12;
+          };
+          {
+            *** Linie ***;
+            Punkt=194,12;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=674,170,681,177;
+          Order=-1;
+          UMLElementID=55;
+          Knick=678,121;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=678,174;
+          };
+          {
+            *** Linie ***;
+            Punkt=678,121;
+          };
+          {
+            *** Linie ***;
+            Punkt=449,121;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=697,180,704,187;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=56;
+          Knick=701,269;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=701,184;
+          };
+          {
+            *** Linie ***;
+            Punkt=701,269;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=907,394,914,401;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=57;
+          Knick=911,398;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=911,163;
+          };
+          {
+            *** Linie ***;
+            Punkt=911,398;
+          };
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=8,138,123,197;
+          Order=-1;
+          UMLElementID=58;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=73,104,145,118;
+          Order=-1;
+          UMLElementID=59;
+          Knick=122,83;
+          TextOffset=0,5;
+          OffsetRollenName=-36,-54;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=122,83;
+          };
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=353,227,477,286;
+          Order=-1;
+          UMLElementID=62;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=350,172,433,186;
+          Order=-1;
+          UMLElementID=63;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=561,231,669,290;
+          Order=-1;
+          UMLElementID=66;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=564,314,630,328;
+          Order=-1;
+          UMLElementID=67;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=759,474,864,533;
+          Order=-1;
+          UMLElementID=70;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=755,428,820,442;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=71;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=14,358,119,417;
+          Order=-1;
+          UMLElementID=74;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          Order=-1;
+          UMLElementID=75;
+          TextOffset=0,5;
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=286,380,293,387;
+          Order=-1;
+          UMLElementID=76;
+          Knick=290,269;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=290,384;
+          };
+          {
+            *** Linie ***;
+            Punkt=290,269;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=496,392,503,399;
+          Order=-1;
+          UMLElementID=77;
+          Knick=500,396;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=500,396;
+          };
+          {
+            *** Linie ***;
+            Punkt=500,281;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=158,404,165,411;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=78;
+          Knick=162,408;
+          TextOffset=0,5;
+          {
+            *** Linie ***;
+            Punkt=162,408;
+          };
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="Cell";
+        ID=12;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=Cell.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=41;
+          Datentyp="CellStyle";
+          Zugriff=2;
+          A=12;
+          B=37;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=71;
+          Datentyp="CellProperties";
+          Zugriff=2;
+          A=12;
+          B=70;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          ID=52;
+          A=12;
+          B=48;
+        };
+        {
+          *** Vererbung ***;
+          ID=57;
+          A=12;
+          B=53;
+        };
+        {
+          *** Vererbung ***;
+          ID=78;
+          A=12;
+          B=74;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="CellCollection";
+        ID=11;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=CellCollection.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=23;
+          Datentyp="Cell";
+          Zugriff=2;
+          A=11;
+          B=12;
+          Type=1;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="CellProperties";
+        ID=70;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=CellProperties.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="CellStyle";
+        ID=37;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=CellStyle.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          ID=47;
+          A=37;
+          B=44;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="Column";
+        ID=9;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=Column.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=38;
+          Datentyp="ColumnStyle";
+          Zugriff=2;
+          A=9;
+          B=36;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=63;
+          Datentyp="ColumnProperties";
+          Zugriff=2;
+          A=9;
+          B=62;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          ID=50;
+          A=9;
+          B=48;
+        };
+        {
+          *** Vererbung ***;
+          ID=55;
+          A=9;
+          B=53;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="ColumnCollection";
+        ID=8;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=Column.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=26;
+          Datentyp="Column";
+          Zugriff=2;
+          A=8;
+          B=9;
+          Type=1;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="ColumnProperties";
+        ID=62;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=ColumnProperties.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          ID=76;
+          A=62;
+          B=74;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="ColumnStyle";
+        ID=36;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=ColumnStyle.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          ID=46;
+          A=36;
+          B=44;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="IContent";
+        Stereotype="Interface";
+        ID=48;
+        Image="Interface";
+        Datentyp="interface";
+        KomponentenId=-1;
+        File=IContent.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        IsInterface=true;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="IContentContainer";
+        Stereotype="Interface";
+        ID=53;
+        Image="Interface";
+        Datentyp="interface";
+        KomponentenId=-1;
+        File=IContentContainer.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        IsInterface=true;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="IPropertie";
+        Stereotype="Interface";
+        ID=74;
+        Image="Interface";
+        Datentyp="interface";
+        KomponentenId=-1;
+        File=IPropertie.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        IsInterface=true;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="IStyle";
+        Stereotype="Interface";
+        ID=44;
+        Image="Interface";
+        Datentyp="interface";
+        KomponentenId=-1;
+        File=IStyle.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        IsInterface=true;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="Row";
+        ID=16;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=Row.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=20;
+          Datentyp="CellCollection";
+          Zugriff=2;
+          A=16;
+          B=11;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=67;
+          Datentyp="RowProperties";
+          Zugriff=2;
+          A=16;
+          B=66;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          ID=51;
+          A=16;
+          B=48;
+        };
+        {
+          *** Vererbung ***;
+          ID=56;
+          A=16;
+          B=53;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="RowCollection";
+        ID=10;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=RowCollection.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=17;
+          Datentyp="Row";
+          Zugriff=2;
+          A=10;
+          B=16;
+          Type=1;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="RowProperties";
+        ID=66;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=RowProperties.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          ID=77;
+          A=66;
+          B=74;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="Table";
+        ID=7;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=Table.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=13;
+          Datentyp="ColumnCollection";
+          Zugriff=2;
+          A=7;
+          B=8;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=29;
+          Datentyp="RowCollection";
+          Zugriff=2;
+          A=7;
+          B=10;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=33;
+          Datentyp="TableStyle";
+          Zugriff=2;
+          A=7;
+          B=32;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=59;
+          Datentyp="TableProperties";
+          Zugriff=2;
+          A=7;
+          B=58;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          ID=49;
+          A=7;
+          B=48;
+        };
+        {
+          *** Vererbung ***;
+          ID=54;
+          A=7;
+          B=53;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="TableProperties";
+        ID=58;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=TableProperties.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          ID=75;
+          A=58;
+          B=74;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="TableStyle";
+        ID=32;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=TableStyle.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          ID=45;
+          A=32;
+          B=44;
+        };
+      };
+    };
+  };
+};
