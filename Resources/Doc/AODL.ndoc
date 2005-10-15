@@ -25,7 +25,7 @@
             <property name="AssemblyVersionInfo" value="AssemblyVersion" />
         </documenter>
         <documenter name="MSDN 2003">
-            <property name="OutputDirectory" value="D:\projects\OpenDocument\Resources\Doc\" />
+            <property name="OutputDirectory" value="D:\OpenDocument\Resources\Doc\" />
             <property name="HtmlHelpName" value="AODL_MSDN_2003" />
             <property name="Title" value="An NDoc Documented Class Library" />
             <property name="OutputTarget" value="HtmlHelp" />

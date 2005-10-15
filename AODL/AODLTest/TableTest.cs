@@ -92,5 +92,23 @@ namespace AODLTest
 
 			doc.SaveTo("tablewithstyles.odt");
 		}
+
+		[Test]
+		public void LongTableTest()
+		{
+			TextDocument doc		= new TextDocument();
+			doc.New();
+
+			Table table				= new Table(doc, "table1");
+			table.Init(150, 5, 16.99);
+
+			foreach(Row r in table.Rows)
+				foreach(Cell c in r.Cells)
+					c.InsertText("Hello");
+
+			doc.Content.Add(table);
+
+			doc.SaveTo("tablelong.odt");
+		}
 	}
 }

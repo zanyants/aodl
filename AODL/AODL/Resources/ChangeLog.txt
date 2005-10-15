@@ -1,4 +1,22 @@
-$Id: ChangeLog.txt,v 1.3 2005/10/09 18:27:35 larsbm Exp $
+$Id: ChangeLog.txt,v 1.4 2005/10/15 15:35:24 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.0.2 alpha
+
+- Add support tables. From now on it's possible to add
+  tables to your textdocument.
+  
+  Table table	= new Table([TextDocument], "table1");
+  table.Init(rows-count, columns-count, width);
+  //add cell content
+  
+  The table architecture is as expected. You will have
+  a table with a style and propeties which have a 
+  column collection and row collection. Each row and cell
+  also have a style and properties. A row has a cell collection.
+  Each cell has a style and properties and provide a content
+  collection to which you can insert all stuff that
+  implements IContent Paragraph, Lists, ..
 
 -------------------------------------------------------------
 AODL 1.0.1 alpha
