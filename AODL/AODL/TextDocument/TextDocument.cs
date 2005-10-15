@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.5 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.6 2005/10/15 12:13:20 larsbm Exp $
  */
 
 using System;
@@ -198,7 +198,12 @@ namespace AODL.TextDocument
 					foreach(IContent content in cell.Content)
 					{
 						if(((Paragraph)content).ParentStyle != ParentStyles.Table)
+						{
 							this.AppendStyleNode(content.Style.Node);
+							foreach(IText text in ((Paragraph)content).TextContent)
+								if(text.GetType().Name == "FormatedText")
+									this.AppendStyleNode(text.Style.Node);
+						}
 					}
 				}
 			}
@@ -214,6 +219,9 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.6  2005/10/15 12:13:20  larsbm
+ * - fixed bug in add pargraph to cell
+ *
  * Revision 1.5  2005/10/15 11:40:31  larsbm
  * - finished first step for table support
  *

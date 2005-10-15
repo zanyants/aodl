@@ -64,5 +64,33 @@ namespace AODLTest
 
 			td.SaveTo("table1.odt");
 		}
+
+		[Test]
+		public void CellParagraphTest()
+		{
+			TextDocument doc		= new TextDocument();
+			doc.New();
+
+			Table table				= new Table(doc, "table1");
+			table.Init(5, 3, 16.99);
+
+			foreach(Row r in table.Rows)
+				foreach(Cell c in r.Cells)
+					c.InsertText("Hello");
+
+			Paragraph p				= new Paragraph(doc, "P1");
+
+			FormatedText ft			= new FormatedText(p, "T1", "Hello World");
+
+			((TextStyle)ft.Style).Properties.Italic = "italic";
+
+			p.TextContent.Add(ft);
+
+			table.Rows[0].Cells[0].Content.Add(p);
+
+			doc.Content.Add(table);
+
+			doc.SaveTo("tablewithstyles.odt");
+		}
 	}
 }
