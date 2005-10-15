@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.4 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.5 2005/10/15 11:40:31 larsbm Exp $
  */
 
 using System;
@@ -147,8 +147,15 @@ namespace AODL.TextDocument
 		/// <param name="value">The inserted IContent object.</param>
 		private void Content_Inserted(int index, object value)
 		{
+			if(value.GetType().Name == "Table")
+			{
+				this.InsertTable((Table)value);
+				return;
+			}
+
 			this.XmlDoc.SelectSingleNode(TextDocumentHelper.OfficeTextPath, 
 				this.NamespaceManager).AppendChild(((IContent)value).Node);
+
 			if(((IContent)value).Style != null)
 			{
 				IStyle style	= ((IContent)value).Style;			
@@ -160,21 +167,56 @@ namespace AODL.TextDocument
 						this.NamespaceManager).AppendChild(((List)value).ParagraphStyle.Node);
 
 			}
+
 			if(((IContent)value).TextContent != null)
 				foreach(IText it in ((IContent)value).TextContent)
 					if(it.GetType().Name == "FormatedText")
 						this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
 							this.NamespaceManager).AppendChild(((FormatedText)it).Style.Node);
-//			//IContent value is a contentcontainer
-//			if(((IContent)value).GetType().GetProperty("Content") != null)
-//				this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
-//					this.NamespaceManager).AppendChild(((FormatedText)it).Style.Node);
+		}
+
+		/// <summary>
+		/// Inserts the table.
+		/// </summary>
+		/// <param name="table">The table.</param>
+		private void InsertTable(Table table)
+		{
+			this.AppendStyleNode(table.Style.Node);
+
+			this.XmlDoc.SelectSingleNode(TextDocumentHelper.OfficeTextPath, 
+				this.NamespaceManager).AppendChild(table.Node);
+
+			foreach(Column col in table.Columns)
+				this.AppendStyleNode(col.Style.Node);
+
+			foreach(Row row in table.Rows)
+			{
+				this.AppendStyleNode(row.Style.Node);
+				foreach(Cell cell in row.Cells)
+				{
+					this.AppendStyleNode(cell.Style.Node);
+					foreach(IContent content in cell.Content)
+					{
+						if(((Paragraph)content).ParentStyle != ParentStyles.Table)
+							this.AppendStyleNode(content.Style.Node);
+					}
+				}
+			}
+		}
+
+		private void AppendStyleNode(XmlNode node)
+		{
+			this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
+				this.NamespaceManager).AppendChild(node);
 		}
 	}
 }
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.5  2005/10/15 11:40:31  larsbm
+ * - finished first step for table support
+ *
  * Revision 1.4  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.1 2005/10/12 19:52:10 larsbm Exp $
+ * $Id: Table.cs,v 1.2 2005/10/15 11:40:31 larsbm Exp $
  */
 
 using System;
@@ -21,6 +21,17 @@ namespace AODL.TextDocument.Content
 		{
 			get { return this._columns; }
 			set { this._columns = value; }
+		}
+
+		private RowCollection _rows;
+		/// <summary>
+		/// Gets or sets the rows.
+		/// </summary>
+		/// <value>The rows.</value>
+		public RowCollection Rows
+		{
+			get { return this._rows; }
+			set { this._rows = value; }
 		}
 
 		/// <summary>
@@ -48,8 +59,10 @@ namespace AODL.TextDocument.Content
 		{
 			((TableStyle)this.Style).Properties.Width	= width.ToString("F2")+"cm";
 			this.Columns								= new ColumnCollection();
+			this.Rows									= new RowCollection();
 
 			this.AddColumns(columns, width);
+			this.AddRows(rows, columns);
 		}
 
 		/// <summary>
@@ -63,8 +76,43 @@ namespace AODL.TextDocument.Content
 			for(int i=0; i<cnt; i++)
 			{
 				Column c									= new Column(this, this.Stylename+"."+GetChar(i).ToString());
-				((ColumnStyle)c.Style).Properties.Width		= colwidth.ToString("F2")+"cm";
+				((ColumnStyle)c.Style).Properties.Width		= colwidth.ToString("F3")+"cm".Replace(",",".");
 				this.Columns.Add(c);
+				this.Node.AppendChild(c.Node);
+			}
+		}
+
+		/// <summary>
+		/// Adds the rows.
+		/// </summary>
+		/// <param name="count">The row count.</param>
+		/// <param name="cells">The cell count.</param>
+		private void AddRows(int count, int cells)
+		{
+			for(int i=0; i<count; i++)
+			{
+				int irow		= i+1;
+				Row r			= new Row(this, this.Stylename+"."+irow.ToString());
+				this.Rows.Add(r);
+//				if(i=0)
+//				{
+					for(int ii=0; ii<cells; ii++)
+					{
+						int icell		= ii+1;
+						Cell c			= new Cell(r, this.Stylename+"."+GetChar(ii).ToString()+icell.ToString());
+						((CellStyle)c.Style).CellProperties.Border = "0.002cm solid #000000";
+						r.Cells.Add(c);
+					}
+				this.Node.AppendChild(r.Node);
+//				}
+//				else if(i=count-1)
+//				{
+//					//last row
+//				}
+//				else
+//				{
+//					//row in the middle
+//				}
 			}
 		}
 
@@ -202,6 +250,9 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.2  2005/10/15 11:40:31  larsbm
+ * - finished first step for table support
+ *
  * Revision 1.1  2005/10/12 19:52:10  larsbm
  * - start table implementation
  * - added uml diagramm

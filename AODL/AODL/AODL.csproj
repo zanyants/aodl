@@ -80,14 +80,14 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "ICSharpCode.SharpZipLib"
-                    AssemblyName = "ICSharpCode.SharpZipLib"
-                    HintPath = "Resources\ICSharpCode.SharpZipLib.dll"
-                />
-                <Reference
                     Name = "System.Drawing"
                     AssemblyName = "System.Drawing"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "ICSharpCode.SharpZipLib"
+                    AssemblyName = "ICSharpCode.SharpZipLib"
+                    HintPath = "Resources\ICSharpCode.SharpZipLib.dll"
                 />
             </References>
         </Build>
@@ -155,6 +155,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\Cell.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\CellCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\Column.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -215,12 +225,27 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\Row.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\RowCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\SimpleText.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "TextDocument\Content\Table.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\CellStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -280,12 +305,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Style\RowStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Style\TableStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "TextDocument\Style\TextStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\CellProperties.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -326,6 +361,11 @@
                 />
                 <File
                     RelPath = "TextDocument\Style\Properties\ParagraphProperties.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\RowProperties.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

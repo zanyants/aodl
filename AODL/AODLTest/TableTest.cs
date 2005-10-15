@@ -39,6 +39,30 @@ namespace AODLTest
 			Assert.AreEqual("table1.A", t.Columns[0].Style.Name, "Must be table1.A!");
 
 			Assert.AreEqual("table1.B", t.Columns[1].Style.Name, "Must be table1.B!");
+
+			Assert.IsNotNull(t.Rows, "RowCollection must exist!");
+
+			Assert.IsTrue(t.Rows.Count == 2, "Must be 2 rows");
+
+			Assert.AreEqual("table1.1", t.Rows[0].Stylename, "Must be table1.1");
+
+			Assert.AreEqual("table1.2", t.Rows[1].Stylename, "Must be table1.2");
+
+			Assert.IsTrue(t.Rows[0].Cells.Count == 2, "Must be 2 Cells wihtin this row!");
+
+			Assert.AreEqual("table1.A1", t.Rows[0].Cells[0].Stylename, "Must be table1.A1");
+
+			foreach(Row r in t.Rows)
+				foreach(Cell c in r.Cells)
+					c.InsertText("Hallo");
+
+			foreach(Row r in t.Rows)
+				foreach(Cell c in r.Cells)
+					Assert.IsTrue(c.Content.Count == 1, "Must be all 1");
+
+			td.Content.Add(t);
+
+			td.SaveTo("table1.odt");
 		}
 	}
 }

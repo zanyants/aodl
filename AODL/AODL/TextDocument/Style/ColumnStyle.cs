@@ -1,5 +1,5 @@
 /*
- * $Id: ColumnStyle.cs,v 1.1 2005/10/12 19:52:10 larsbm Exp $
+ * $Id: ColumnStyle.cs,v 1.2 2005/10/15 11:40:31 larsbm Exp $
  */
 
 using System;
@@ -46,6 +46,7 @@ namespace AODL.TextDocument.Style
 			this.Document		= col.Document;
 			this.Properties		= new ColumnProperties(this);
 			this.NewXmlNode(stylename);
+			this.Node.AppendChild(this.Properties.Node);
 		}
 
 		/// <summary>
@@ -120,6 +121,9 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: ColumnStyle.cs,v $
+ * Revision 1.2  2005/10/15 11:40:31  larsbm
+ * - finished first step for table support
+ *
  * Revision 1.1  2005/10/12 19:52:10  larsbm
  * - start table implementation
  * - added uml diagramm

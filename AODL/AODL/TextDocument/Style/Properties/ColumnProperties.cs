@@ -1,5 +1,5 @@
 /*
- * $Id: ColumnProperties.cs,v 1.1 2005/10/12 19:52:56 larsbm Exp $
+ * $Id: ColumnProperties.cs,v 1.2 2005/10/15 11:40:31 larsbm Exp $
  */
 
 using System;
@@ -80,7 +80,6 @@ namespace AODL.TextDocument.Style.Properties
 			this.Style			= style;
 			this.NewXmlNode(style.Document);
 		}
-
 		
 		/// <summary>
 		/// Create the XmlNode which represent the propertie element.
@@ -88,7 +87,7 @@ namespace AODL.TextDocument.Style.Properties
 		/// <param name="td">The TextDocument</param>
 		private void NewXmlNode(TextDocument td)
 		{
-			this.Node		= td.CreateNode("text-properties", "style");
+			this.Node		= td.CreateNode("table-column-properties", "style");
 		}
 
 		/// <summary>
@@ -125,6 +124,9 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: ColumnProperties.cs,v $
+ * Revision 1.2  2005/10/15 11:40:31  larsbm
+ * - finished first step for table support
+ *
  * Revision 1.1  2005/10/12 19:52:56  larsbm
  * - start table implementation
  * - added uml diagramm

@@ -1,5 +1,5 @@
 /*
- * $Id: TableStyle.cs,v 1.2 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: RowStyle.cs,v 1.1 2005/10/15 11:40:31 larsbm Exp $
  */
 
 using System;
@@ -11,42 +11,39 @@ using AODL.TextDocument.Style.Properties;
 namespace AODL.TextDocument.Style
 {
 	/// <summary>
-	/// The class TableStyle represent the style for a Table.
+	/// Zusammenfassung für RowStyle.
 	/// </summary>
-	public class TableStyle : IStyle
+	public class RowStyle : IStyle
 	{
-		private Table _table;
+		private Row _row;
 		/// <summary>
-		/// The Table object to this sytle belongs.
+		/// Gets or sets the row.
 		/// </summary>
-		public Table Table
+		/// <value>The row.</value>
+		public Row Row
 		{
-			get { return this._table; }
-			set { this._table = value; }
+			get { return this._row; }
+			set { this._row = value; }
 		}
 
-		private TableProperties _properties;
+		private RowProperties _rowproperties;
 		/// <summary>
-		/// The TableProperties object which belong to this style.
+		/// Gets or sets the row properties.
 		/// </summary>
-		public TableProperties Properties
+		/// <value>The row properties.</value>
+		public RowProperties RowProperties
 		{
-			get { return this._properties; }
-			set { this._properties = value; }
+			get { return this._rowproperties; }
+			set { this._rowproperties = value; }
 		}
 
-		/// <summary>
-		/// Constructor, create a new instance.
-		/// </summary>
-		/// <param name="table">The Table object</param>
-		/// <param name="stylename">The style name</param>
-		public TableStyle(Table table, string stylename)
+		public RowStyle(Row row, string stylename)
 		{
-			this.Table			= table;
-			this.Document		= table.Document;
-			this.Properties		= new TableProperties(this);
+			this.Row			= row;
+			this.Document		= row.Document;
+			this.RowProperties	= new RowProperties(this);
 			this.NewXmlNode(stylename);
-			this.Node.AppendChild(this.Properties.Node);
+			this.Node.AppendChild(this.RowProperties.Node);
 		}
 
 		/// <summary>
@@ -62,7 +59,7 @@ namespace AODL.TextDocument.Style
 			this.Node.Attributes.Append(xa);
 
 			xa				= this.Document.CreateAttribute("family", "style");
-			xa.Value		= FamiliyStyles.table.ToString();;
+			xa.Value		= "table-row"; //TODO: Change enum to class (statics)
 			this.Node.Attributes.Append(xa);
 		}
 
@@ -70,9 +67,10 @@ namespace AODL.TextDocument.Style
 
 		private XmlNode _node;
 		/// <summary>
-		/// The XmlNode
+		/// The XmlNode.
 		/// </summary>
-		public XmlNode Node
+		/// <value>The Node</value>
+		public System.Xml.XmlNode Node
 		{
 			get
 			{
@@ -85,13 +83,14 @@ namespace AODL.TextDocument.Style
 		}
 
 		/// <summary>
-		/// The style name
+		/// The style name.
 		/// </summary>
+		/// <value></value>
 		public string Name
 		{
 			get
 			{
-				return this._node.SelectSingleNode("@style:name", this.Document.NamespaceManager).InnerText;
+				return  this._node.SelectSingleNode("@style:name", this.Document.NamespaceManager).InnerText;
 			}
 			set
 			{
@@ -101,8 +100,9 @@ namespace AODL.TextDocument.Style
 
 		private TextDocument _document;
 		/// <summary>
-		/// The TextDocument to this style belongs.
+		/// The TextDocument to this object belongs.
 		/// </summary>
+		/// <value></value>
 		public TextDocument Document
 		{
 			get
@@ -120,12 +120,8 @@ namespace AODL.TextDocument.Style
 }
 
 /*
- * $Log: TableStyle.cs,v $
- * Revision 1.2  2005/10/15 11:40:31  larsbm
+ * $Log: RowStyle.cs,v $
+ * Revision 1.1  2005/10/15 11:40:31  larsbm
  * - finished first step for table support
- *
- * Revision 1.1  2005/10/12 19:52:10  larsbm
- * - start table implementation
- * - added uml diagramm
  *
  */

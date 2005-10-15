@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.4 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.5 2005/10/15 11:40:31 larsbm Exp $
  */
 
 using System;
@@ -13,6 +13,15 @@ namespace AODL.TextDocument.Content
 	/// </summary>
 	public class Paragraph : IContent
 	{
+		private ParentStyles _parentStyle;
+		/// <summary>
+		/// Gets the parent style.
+		/// </summary>
+		/// <value>The parent style.</value>
+		public ParentStyles ParentStyle
+		{
+			get { return this._parentStyle; }
+		}
 
 		/// <summary>
 		/// Create a new Paragraph object.
@@ -37,9 +46,14 @@ namespace AODL.TextDocument.Content
 		/// <param name="simpletext">The text which should be append within this paragraph.</param>
 		public Paragraph(TextDocument td, ParentStyles style, string simpletext)
 		{
-			this.Init(td, ParentStyles.Standard.ToString());
+			if(style == ParentStyles.Standard)
+				this.Init(td, ParentStyles.Standard.ToString());
+			else if(style == ParentStyles.Table)
+				this.Init(td, "Table_20_Contents");
+
 			//Attach simple text withhin the paragraph
 			this.TextContent.Add(new SimpleText(this, simpletext));
+			this._parentStyle	= style;
 		}
 
 		/// <summary>
@@ -50,7 +64,7 @@ namespace AODL.TextDocument.Content
 		private void Init(TextDocument td, string stylename)
 		{
 			this.Document				= td;
-			if(stylename != "Standard")
+			if(stylename != "Standard" && stylename != "Table_20_Contents")
 				this.Style				= (IStyle)new ParagraphStyle(this, stylename);
 			this.TextContent			= new ITextCollection();
 			this.NewXmlNode(td, stylename);
@@ -171,6 +185,9 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.5  2005/10/15 11:40:31  larsbm
+ * - finished first step for table support
+ *
  * Revision 1.4  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

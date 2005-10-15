@@ -43,6 +43,163 @@
             </summary>
             <param name="file">The filename.</param>
         </member>
+        <member name="T:AODL.TextDocument.Content.Cell">
+            <summary>
+            Represent a Cell which used within a table resp. a row.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.IContent">
+            <summary>
+            All classes that will act as content within textdocument
+            must implement this interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Document">
+            <summary>
+            Every object (typeof(IContent)) have to know his TextDocument.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Node">
+            <summary>
+            Represents the XmlNode within the content.xml from the odt file.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Stylename">
+            <summary>
+            The stylename wihich is referenced with the content object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.Style">
+            <summary>
+            A Style class wich is referenced with the content object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContent.TextContent">
+            <summary>
+            All Content objects have a Text container. Which represents
+            his Text this could be SimpleText, FormatedText or mixed.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.IContentContainer">
+            <summary>
+            All classes that want to act as a content conatiner
+            have to implement this interface.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Cell.#ctor(AODL.TextDocument.Content.Row,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Cell"/> class.
+            </summary>
+            <param name="row">The row.</param>
+            <param name="stylename">The stylename.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Cell.InsertText(System.String)">
+            <summary>
+            Inserts the text into cell. This text will be formated in the
+            default paragraph style of the table to which this cell belong.
+            </summary>
+            <param name="text">The text.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Cell.NewXmlNode(System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="stylename">The stylename which should be referenced with this row.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Cell.Content_Inserted(System.Int32,System.Object)">
+            <summary>
+            Content_s the inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.Row">
+            <summary>
+            Gets or sets the row.
+            </summary>
+            <value>The row.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.Document">
+            <summary>
+            Every object (typeof(IContent)) have to know his TextDocument.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.Node">
+            <summary>
+            Represents the XmlNode within the content.xml from the odt file.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.Stylename">
+            <summary>
+            The stylename wihich is referenced with the content object.
+            </summary>
+            <value>The name</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.Style">
+            <summary>
+            A Style class wich is referenced with the content object.
+            </summary>
+            <value>The style</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.TextContent">
+            <summary>
+            Not implemented !!! Use the cells IContentCollection
+            to get the content.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.Content">
+            <summary>
+            Gets or sets the content collection.
+            Here you can add every content object e.g. paragraphs, lists, ...
+            </summary>
+            <value>The content.</value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.Column">
+            <summary>
+            The class Column represent a column which is used within a table.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Column.#ctor(AODL.TextDocument.Content.Table,System.String)">
+            <summary>
+            Constructor, create a new instance of Column.
+            </summary>
+            <param name="table">The Table.</param>
+            <param name="stylename">The style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Column.NewXmlNode(System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="stylename">The stylename which should be referenced with this table.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Column.Table">
+            <summary>
+            The table to this column belong.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Column.Document">
+            <summary>
+            The TextDocument to which this column.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Column.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Column.Style">
+            <summary>
+            The ColumnStyle which is referenced with this column.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Column.TextContent">
+            <summary>
+            Not implemented!!! The text is added to Cell's only!
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Content.FormatedText">
             <summary>
             Represent a formated Text e.g bold, italic, underline etc.
@@ -124,47 +281,9 @@
             The IContent object the FormatedText object belongs to.
             </summary>
         </member>
-        <member name="T:AODL.TextDocument.Content.IContent">
-            <summary>
-            All classes that will act as content within textdocument
-            must implement this interface.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IContent.Document">
-            <summary>
-            Every object (typeof(IContent)) have to know his TextDocument.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IContent.Node">
-            <summary>
-            Represents the XmlNode within the content.xml from the odt file.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IContent.Stylename">
-            <summary>
-            The stylename wihich is referenced with the content object.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IContent.Style">
-            <summary>
-            A Style class wich is referenced with the content object.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IContent.TextContent">
-            <summary>
-            All Content objects have a Text container. Which represents
-            his Text this could be SimpleText, FormatedText or mixed.
-            </summary>
-        </member>
         <member name="T:AODL.TextDocument.Content.IContentCollection">
             <summary>
             A typed IContent Collection.
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Content.IContentContainer">
-            <summary>
-            All classes that want to act as a content conatiner
-            have to implement this interface.
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Content.ITextCollection">
@@ -350,6 +469,12 @@
             <param name="index"></param>
             <param name="value"></param>
         </member>
+        <member name="P:AODL.TextDocument.Content.Paragraph.ParentStyle">
+            <summary>
+            Gets the parent style.
+            </summary>
+            <value>The parent style.</value>
+        </member>
         <member name="P:AODL.TextDocument.Content.Paragraph.Document">
             <summary>
             The TextDocument.
@@ -374,6 +499,72 @@
             <summary>
             Represent the textcontent of this paragraph.
             </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.Row">
+            <summary>
+            Represent a row with used within a table.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Row.#ctor(AODL.TextDocument.Content.Table,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Row"/> class.
+            </summary>
+            <param name="table">The table.</param>
+            <param name="stylename">The stylename.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Row.Init">
+            <summary>
+            Inits the CellCollection instance.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Row.NewXmlNode(System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="stylename">The stylename which should be referenced with this row.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.Table">
+            <summary>
+            Gets or sets the table.
+            </summary>
+            <value>The table.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.Cells">
+            <summary>
+            Gets or sets the cells.
+            </summary>
+            <value>The cells.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.Document">
+            <summary>
+            Every object (typeof(IContent)) have to know his TextDocument.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.Node">
+            <summary>
+            Represents the XmlNode within the content.xml from the odt file.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.Stylename">
+            <summary>
+            The stylename wihich is referenced with the content object.
+            </summary>
+            <value>The name</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.Style">
+            <summary>
+            A Style class wich is referenced with the content object.
+            </summary>
+            <value>The style</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.TextContent">
+            <summary>
+            Not implemented !!! Use the rows CellCollection
+            to get the content.
+            </summary>
+            <value></value>
         </member>
         <member name="T:AODL.TextDocument.Content.SimpleText">
             <summary>
@@ -416,6 +607,187 @@
             The IContent object the SimpleText object belongs to.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Content.Table">
+            <summary>
+            Zusammenfassung für Table.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.#ctor(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Constructor, create a new instance of table.
+            Attention: You have to call the Init() method
+            to create the complete table with columns and rows.
+            </summary>
+            <param name="document">The Document.</param>
+            <param name="stylename">The style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.Init(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Initiates the table with given count of rows and columns
+            and the given width (width is cm).
+            </summary>
+            <param name="rows"></param>
+            <param name="columns"></param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.AddColumns(System.Int32,System.Double)">
+            <summary>
+            Create the columns for this table.
+            </summary>
+            <param name="cnt">The count of columns.</param>
+            <param name="tablewidth">The table width.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.AddRows(System.Int32,System.Int32)">
+            <summary>
+            Adds the rows.
+            </summary>
+            <param name="count">The row count.</param>
+            <param name="cells">The cell count.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.NewXmlNode(System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="stylename">The stylename which should be referenced with this table.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.Columns">
+            <summary>
+            The Columns that belong to this belong.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.Rows">
+            <summary>
+            Gets or sets the rows.
+            </summary>
+            <value>The rows.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.Document">
+            <summary>
+            The TextDocument object to this table belong.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.Node">
+            <summary>
+            The XmlNode
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.Stylename">
+            <summary>
+            The style name which is referenced whith this table.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.Style">
+            <summary>
+            The TableStyle object which belong to this Table.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.TextContent">
+            <summary>
+            The TextCollection. Not implemented, table is a 
+            ContentContainer, use the IContentCollection
+            to access rows, columns, and cells.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Table.Content">
+            <summary>
+            The IContentCollection. Here find rows, columns and cells.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.CellProperties">
+            <summary>
+            Represent the Cell Properties within a Cell which is used
+            within a Tabe resp. a Row.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.IProperty">
+            <summary>
+            All classes that should act as a Property class must implement this
+            interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.IProperty.Node">
+            <summary>
+            The XmlNode which represent the property element.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.CellProperties.#ctor(AODL.TextDocument.Style.CellStyle)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.Properties.CellProperties"/> class.
+            </summary>
+            <param name="cellstyle">The cellstyle.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.CellProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create the XmlNode which represent the propertie element.
+            </summary>
+            <param name="td">The TextDocument</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.CellProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.CellStyle">
+            <summary>
+            Gets or sets the cell style.
+            </summary>
+            <value>The cell style.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.Padding">
+            <summary>
+            Gets or sets the padding. 
+            Default 0.097cm
+            </summary>
+            <value>The padding.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.Border">
+            <summary>
+            Gets or sets the border.
+            This could be e.g. 0.002cm solid #000000 (width, linestyle, color)
+            or none
+            </summary>
+            <value>The border.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.BorderLeft">
+            <summary>
+            Gets or sets the border left.
+            This could be e.g. 0.002cm solid #000000 (width, linestyle, color)
+            or none
+            </summary>
+            <value>The border left.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.BorderRight">
+            <summary>
+            Gets or sets the border right.
+            This could be e.g. 0.002cm solid #000000 (width, linestyle, color)
+            or none
+            </summary>
+            <value>The border right.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.BorderTop">
+            <summary>
+            Gets or sets the border top.
+            This could be e.g. 0.002cm solid #000000 (width, linestyle, color)
+            or none
+            </summary>
+            <value>The border top.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.BorderBottom">
+            <summary>
+            Gets or sets the border bottom.
+            This could be e.g. 0.002cm solid #000000 (width, linestyle, color)
+            or none
+            </summary>
+            <value>The border bottom.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.BackgroundColor">
+            <summary>
+            Gets or sets the color of the background. e.g #000000 for black
+            </summary>
+            <value>The color of the background.</value>
+        </member>
         <member name="T:AODL.TextDocument.Style.Properties.Colors">
             <summary>
             Converter class. Convert any enum Color from System.Drawing.Color
@@ -430,15 +802,44 @@
             <param name="color">A System.Drawing.Color</param>
             <returns>The rgb hex value.</returns>
         </member>
-        <member name="T:AODL.TextDocument.Style.Properties.IProperty">
+        <member name="T:AODL.TextDocument.Style.Properties.ColumnProperties">
             <summary>
-            All classes that should act as a Property class must implement this
-            interface.
+            Zusammenfassung für ColumnProperties.
             </summary>
         </member>
-        <member name="P:AODL.TextDocument.Style.Properties.IProperty.Node">
+        <member name="M:AODL.TextDocument.Style.Properties.ColumnProperties.#ctor(AODL.TextDocument.Style.ColumnStyle)">
             <summary>
-            The XmlNode which represent the property element.
+            The Constructor, create new instance of ColumnProperties
+            </summary>
+            <param name="style">The ColumnStyle</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ColumnProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create the XmlNode which represent the propertie element.
+            </summary>
+            <param name="td">The TextDocument</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ColumnProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ColumnProperties.Style">
+            <summary>
+            The style to this object belong.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ColumnProperties.Width">
+            <summary>
+            Set the column width -> table = 16.99cm -> column = 8.49cm
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ColumnProperties.RelativeWidth">
+            <summary>
+            Set the column relative width
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.Properties.LineStyles">
@@ -598,6 +999,99 @@
             Set paragraph alignment - object.Alignment = TextAlignments.right.ToString()
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Style.Properties.RowProperties">
+            <summary>
+            Zusammenfassung für RowProperties.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.RowProperties.#ctor(AODL.TextDocument.Style.RowStyle)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.Properties.RowProperties"/> class.
+            </summary>
+            <param name="rowstyle">The rowstyle.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.RowProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create the XmlNode which represent the propertie element.
+            </summary>
+            <param name="td">The TextDocument</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.RowProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.RowProperties.RowStyle">
+            <summary>
+            Gets or sets the row style.
+            </summary>
+            <value>The row style.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.RowProperties.BackgroundColor">
+            <summary>
+            Gets or sets the color of the background.
+            </summary>
+            <value>The color of the background.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.RowProperties.Node">
+            <summary>
+            The XmlNode which represent the property element.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.TableProperties">
+            <summary>
+            Zusammenfassung für TableProperties.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.TableProperties.#ctor(AODL.TextDocument.Style.TableStyle)">
+            <summary>
+            Constructor create a new TableProperties instance.
+            </summary>
+            <param name="style"></param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.TableProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create the XmlNode which represent the propertie element.
+            </summary>
+            <param name="td">The TextDocument</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.TableProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Style">
+            <summary>
+            The TableStyle object to this object belong.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Width">
+            <summary>
+            Set the table width -> 16.99cm
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Align">
+            <summary>
+            Set the table align -> margin
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Shadow">
+            <summary>
+            Set the table shadow
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Node">
+            <summary>
+            The XmlNode
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Style.Properties.TextAlignments">
             <summary>
             Possible text alignments.
@@ -682,6 +1176,118 @@
             Represent the XmlNode for the propertie element.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Style.CellStyle">
+            <summary>
+            Represent the CellStyle which is used by a Cell.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.IStyle">
+            <summary>
+            All classes that act as a style class within the library
+            must implement this base interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.IStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.CellStyle.#ctor(AODL.TextDocument.Content.Cell,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.CellStyle"/> class.
+            </summary>
+            <param name="cell">The cell.</param>
+            <param name="stylename">The stylename.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.CellStyle.NewXmlNode(System.String)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.CellStyle.Cell">
+            <summary>
+            Gets or sets the cell.
+            </summary>
+            <value>The cell.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.CellStyle.CellProperties">
+            <summary>
+            Gets or sets the cell properties.
+            </summary>
+            <value>The cell properties.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.CellStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+            <value>The Node</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.CellStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.CellStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Style.ColumnStyle">
+            <summary>
+            The class ColumnStyle represent the style for a column.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ColumnStyle.#ctor(AODL.TextDocument.Content.Column,System.String)">
+            <summary>
+            Constructor, create a new instance of Column.
+            </summary>
+            <param name="col">The Column.</param>
+            <param name="stylename">The style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ColumnStyle.NewXmlNode(System.String)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ColumnStyle.Column">
+            <summary>
+            The column to which this style belong
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ColumnStyle.Properties">
+            <summary>
+            The ColumnProperties which belong to this style.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ColumnStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ColumnStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ColumnStyle.Document">
+            <summary>
+            The TextDocument to which this style belong.
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Style.FamiliyStyles">
             <summary>
             Enum that represents th possible values. For a style emlement and his family-style attribute.
@@ -712,27 +1318,6 @@
         <member name="P:AODL.TextDocument.Style.IFontStyle.Font">
             <summary>
             The font.
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Style.IStyle">
-            <summary>
-            All classes that act as a style class within the library
-            must implement this base interface.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.IStyle.Node">
-            <summary>
-            The XmlNode.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.IStyle.Name">
-            <summary>
-            The style name.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.IStyle.Document">
-            <summary>
-            The TextDocument to this object belongs.
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.ListLevelStyle">
@@ -916,6 +1501,90 @@
             Enum that represents th possible values. For a style emlement and his parent-style attribute.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Style.RowStyle">
+            <summary>
+            Zusammenfassung für RowStyle.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.RowStyle.NewXmlNode(System.String)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.RowStyle.Row">
+            <summary>
+            Gets or sets the row.
+            </summary>
+            <value>The row.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.RowStyle.RowProperties">
+            <summary>
+            Gets or sets the row properties.
+            </summary>
+            <value>The row properties.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.RowStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+            <value>The Node</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.RowStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.RowStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Style.TableStyle">
+            <summary>
+            The class TableStyle represent the style for a Table.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TableStyle.#ctor(AODL.TextDocument.Content.Table,System.String)">
+            <summary>
+            Constructor, create a new instance.
+            </summary>
+            <param name="table">The Table object</param>
+            <param name="stylename">The style name</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TableStyle.NewXmlNode(System.String)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TableStyle.Table">
+            <summary>
+            The Table object to this sytle belongs.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TableStyle.Properties">
+            <summary>
+            The TableProperties object which belong to this style.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TableStyle.Node">
+            <summary>
+            The XmlNode
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TableStyle.Name">
+            <summary>
+            The style name
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TableStyle.Document">
+            <summary>
+            The TextDocument to this style belongs.
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Style.TextStyle">
             <summary>
             Represent the style for a FormatedText object.
@@ -1034,6 +1703,12 @@
             <param name="index">The index of the inserted IContent object.</param>
             <param name="value">The inserted IContent object.</param>
         </member>
+        <member name="M:AODL.TextDocument.TextDocument.InsertTable(AODL.TextDocument.Content.Table)">
+            <summary>
+            Inserts the table.
+            </summary>
+            <param name="table">The table.</param>
+        </member>
         <member name="P:AODL.TextDocument.TextDocument.XmlDoc">
             <summary>
             The xmldocument the textdocument based on.
@@ -1077,297 +1752,6 @@
             </summary>
             <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
             <returns>The XmlNamespaceManager object.</returns>
-        </member>
-        <member name="T:AODL.TextDocument.Style.TableStyle">
-            <summary>
-            The class TableStyle represent the style for a Table.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Style.TableStyle.#ctor(AODL.TextDocument.Content.Table,System.String)">
-            <summary>
-            Constructor, create a new instance.
-            </summary>
-            <param name="table">The Table object</param>
-            <param name="stylename">The style name</param>
-        </member>
-        <member name="M:AODL.TextDocument.Style.TableStyle.NewXmlNode(System.String)">
-            <summary>
-            Create the XmlNode that represent this element.
-            </summary>
-            <param name="name">The style name.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Style.TableStyle.Table">
-            <summary>
-            The Table object to this sytle belongs.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.TableStyle.Properties">
-            <summary>
-            The TableProperties object which belong to this style.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.TableStyle.Node">
-            <summary>
-            The XmlNode
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.TableStyle.Name">
-            <summary>
-            The style name
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.TableStyle.Document">
-            <summary>
-            The TextDocument to this style belongs.
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Content.Table">
-            <summary>
-            Zusammenfassung für Table.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Table.#ctor(AODL.TextDocument.TextDocument,System.String)">
-            <summary>
-            Constructor, create a new instance of table.
-            Attention: You have to call the Init() method
-            to create the complete table with columns and rows.
-            </summary>
-            <param name="document">The Document.</param>
-            <param name="stylename">The style name.</param>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Table.Init(System.Int32,System.Int32,System.Double)">
-            <summary>
-            Initiates the table with given count of rows and columns
-            and the given width (width is cm).
-            </summary>
-            <param name="rows"></param>
-            <param name="columns"></param>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Table.AddColumns(System.Int32,System.Double)">
-            <summary>
-            Create the columns for this table.
-            </summary>
-            <param name="cnt">The count of columns.</param>
-            <param name="tablewidth">The table width.</param>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Table.NewXmlNode(System.String)">
-            <summary>
-            Create a new XmlNode.
-            </summary>
-            <param name="stylename">The stylename which should be referenced with this table.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Table.Columns">
-            <summary>
-            The Columns that belong to this belong.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Table.Document">
-            <summary>
-            The TextDocument object to this table belong.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Table.Node">
-            <summary>
-            The XmlNode
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Table.Stylename">
-            <summary>
-            The style name which is referenced whith this table.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Table.Style">
-            <summary>
-            The TableStyle object which belong to this Table.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Table.TextContent">
-            <summary>
-            The TextCollection. Not implemented, table is a 
-            ContentContainer, use the IContentCollection
-            to access rows, columns, and cells.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Table.Content">
-            <summary>
-            The IContentCollection. Here find rows, columns and cells.
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Style.Properties.TableProperties">
-            <summary>
-            Zusammenfassung für TableProperties.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Style.Properties.TableProperties.#ctor(AODL.TextDocument.Style.TableStyle)">
-            <summary>
-            Constructor create a new TableProperties instance.
-            </summary>
-            <param name="style"></param>
-        </member>
-        <member name="M:AODL.TextDocument.Style.Properties.TableProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
-            <summary>
-            Create the XmlNode which represent the propertie element.
-            </summary>
-            <param name="td">The TextDocument</param>
-        </member>
-        <member name="M:AODL.TextDocument.Style.Properties.TableProperties.CreateAttribute(System.String,System.String,System.String)">
-            <summary>
-            Create a XmlAttribute for propertie XmlNode.
-            </summary>
-            <param name="name">The attribute name.</param>
-            <param name="text">The attribute value.</param>
-            <param name="prefix">The namespace prefix.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Style">
-            <summary>
-            The TableStyle object to this object belong.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Width">
-            <summary>
-            Set the table width -> 16.99cm
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Align">
-            <summary>
-            Set the table align -> margin
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Shadow">
-            <summary>
-            Set the table shadow
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.TableProperties.Node">
-            <summary>
-            The XmlNode
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Style.ColumnStyle">
-            <summary>
-            The class ColumnStyle represent the style for a column.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Style.ColumnStyle.#ctor(AODL.TextDocument.Content.Column,System.String)">
-            <summary>
-            Constructor, create a new instance of Column.
-            </summary>
-            <param name="col">The Column.</param>
-            <param name="stylename">The style name.</param>
-        </member>
-        <member name="M:AODL.TextDocument.Style.ColumnStyle.NewXmlNode(System.String)">
-            <summary>
-            Create the XmlNode that represent this element.
-            </summary>
-            <param name="name">The style name.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Style.ColumnStyle.Column">
-            <summary>
-            The column to which this style belong
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.ColumnStyle.Properties">
-            <summary>
-            The ColumnProperties which belong to this style.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.ColumnStyle.Node">
-            <summary>
-            The XmlNode.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.ColumnStyle.Name">
-            <summary>
-            The style name.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.ColumnStyle.Document">
-            <summary>
-            The TextDocument to which this style belong.
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Content.Column">
-            <summary>
-            The class Column represent a column which is used within a table.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Column.#ctor(AODL.TextDocument.Content.Table,System.String)">
-            <summary>
-            Constructor, create a new instance of Column.
-            </summary>
-            <param name="table">The Table.</param>
-            <param name="stylename">The style name.</param>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Column.NewXmlNode(System.String)">
-            <summary>
-            Create a new XmlNode.
-            </summary>
-            <param name="stylename">The stylename which should be referenced with this table.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Column.Table">
-            <summary>
-            The table to this column belong.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Column.Document">
-            <summary>
-            The TextDocument to which this column.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Column.Node">
-            <summary>
-            The XmlNode.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Column.Style">
-            <summary>
-            The ColumnStyle which is referenced with this column.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Column.TextContent">
-            <summary>
-            Not implemented!!! The text is added to Cell's only!
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Style.Properties.ColumnProperties">
-            <summary>
-            Zusammenfassung für ColumnProperties.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Style.Properties.ColumnProperties.#ctor(AODL.TextDocument.Style.ColumnStyle)">
-            <summary>
-            The Constructor, create new instance of ColumnProperties
-            </summary>
-            <param name="style">The ColumnStyle</param>
-        </member>
-        <member name="M:AODL.TextDocument.Style.Properties.ColumnProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
-            <summary>
-            Create the XmlNode which represent the propertie element.
-            </summary>
-            <param name="td">The TextDocument</param>
-        </member>
-        <member name="M:AODL.TextDocument.Style.Properties.ColumnProperties.CreateAttribute(System.String,System.String,System.String)">
-            <summary>
-            Create a XmlAttribute for propertie XmlNode.
-            </summary>
-            <param name="name">The attribute name.</param>
-            <param name="text">The attribute value.</param>
-            <param name="prefix">The namespace prefix.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.ColumnProperties.Style">
-            <summary>
-            The style to this object belong.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.ColumnProperties.Width">
-            <summary>
-            Set the column width -> table = 16.99cm -> column = 8.49cm
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.Properties.ColumnProperties.RelativeWidth">
-            <summary>
-            Set the column relative width
-            </summary>
         </member>
     </members>
 </doc>
