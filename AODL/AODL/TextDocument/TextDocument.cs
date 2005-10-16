@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.6 2005/10/15 12:13:20 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.7 2005/10/16 08:36:29 larsbm Exp $
  */
 
 using System;
@@ -197,18 +197,30 @@ namespace AODL.TextDocument
 					this.AppendStyleNode(cell.Style.Node);
 					foreach(IContent content in cell.Content)
 					{
-						if(((Paragraph)content).ParentStyle != ParentStyles.Table)
+						if(content.GetType().Name == "Paragraph")
+						{
+							if(((Paragraph)content).ParentStyle != ParentStyles.Table)
+							{
+								this.AppendStyleNode(content.Style.Node);
+								foreach(IText text in ((Paragraph)content).TextContent)
+									if(text.GetType().Name == "FormatedText")
+										this.AppendStyleNode(text.Style.Node);
+							}
+						}
+						else if(content.GetType().Name == "List")
 						{
 							this.AppendStyleNode(content.Style.Node);
-							foreach(IText text in ((Paragraph)content).TextContent)
-								if(text.GetType().Name == "FormatedText")
-									this.AppendStyleNode(text.Style.Node);
+							this.AppendStyleNode(((List)content).ParagraphStyle.Node);
 						}
 					}
 				}
 			}
 		}
 
+		/// <summary>
+		/// Appends the style node.
+		/// </summary>
+		/// <param name="node">The node.</param>
 		private void AppendStyleNode(XmlNode node)
 		{
 			this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
@@ -219,6 +231,10 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.7  2005/10/16 08:36:29  larsbm
+ * - Fixed bug [ 1327809 ] Invalid Cast Exception while insert table with cells that contains lists
+ * - Fixed bug [ 1327820 ] Cell styles run into loop
+ *
  * Revision 1.6  2005/10/15 12:13:20  larsbm
  * - fixed bug in add pargraph to cell
  *

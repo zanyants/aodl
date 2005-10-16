@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.2 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: Table.cs,v 1.3 2005/10/16 08:36:29 larsbm Exp $
  */
 
 using System;
@@ -94,25 +94,19 @@ namespace AODL.TextDocument.Content
 				int irow		= i+1;
 				Row r			= new Row(this, this.Stylename+"."+irow.ToString());
 				this.Rows.Add(r);
-//				if(i=0)
-//				{
-					for(int ii=0; ii<cells; ii++)
-					{
-						int icell		= ii+1;
-						Cell c			= new Cell(r, this.Stylename+"."+GetChar(ii).ToString()+icell.ToString());
-						((CellStyle)c.Style).CellProperties.Border = "0.002cm solid #000000";
-						r.Cells.Add(c);
-					}
+
+				for(int ii=0; ii<cells; ii++)
+				{
+					int icell		= ii+1;
+					Cell c			= new Cell(r, 
+										this.Stylename+"."		//tablename
+										+GetChar(ii).ToString() //column char
+										+irow.ToString()		//row number
+										+icell.ToString());		//cell number
+					((CellStyle)c.Style).CellProperties.Border = "0.002cm solid #000000";
+					r.Cells.Add(c);
+				}
 				this.Node.AppendChild(r.Node);
-//				}
-//				else if(i=count-1)
-//				{
-//					//last row
-//				}
-//				else
-//				{
-//					//row in the middle
-//				}
 			}
 		}
 
@@ -250,6 +244,10 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.3  2005/10/16 08:36:29  larsbm
+ * - Fixed bug [ 1327809 ] Invalid Cast Exception while insert table with cells that contains lists
+ * - Fixed bug [ 1327820 ] Cell styles run into loop
+ *
  * Revision 1.2  2005/10/15 11:40:31  larsbm
  * - finished first step for table support
  *

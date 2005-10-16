@@ -1,5 +1,6 @@
 using System;
 using System.Xml;
+using System.Drawing;
 using AODL.Collections;
 using AODL.TextDocument;
 using AODL.TextDocument.Content;
@@ -109,6 +110,49 @@ namespace AODLTest
 			doc.Content.Add(table);
 
 			doc.SaveTo("tablelong.odt");
+		}
+
+		[Test]
+		public void CellWithListTest()
+		{
+			TextDocument doc		= new TextDocument();
+			doc.New();
+
+			Table table				= new Table(doc, "table1");
+			table.Init(5, 3, 16.99);
+
+			((CellStyle)table.Rows[0].Cells[0].Style).CellProperties.BackgroundColor = Colors.GetColor(Color.Tomato);
+			
+			List li				= new List(doc, "L1", ListStyles.Bullet, "L1P1");
+			ListItem lit		= new ListItem(li);
+			lit.Paragraph.TextContent.Add(new SimpleText(lit, "Hello"));
+			li.Content.Add(lit);
+			
+			//The ListItem will become a inner list !!
+			lit					= new ListItem(li);
+			lit.Paragraph.TextContent.Add(new SimpleText(lit, "Hello Again"));
+
+			//Inner List - see the constrctor usage !
+			List liinner		= new List(doc, li);
+
+			Assert.IsNull(liinner.Style, "Style must be null! The inner list inherited his style from the outer list!");
+
+			ListItem litinner	= new ListItem(liinner);
+			litinner.Paragraph.TextContent.Add(new SimpleText(lit, "Hello i'm in the inner list"));
+			liinner.Content.Add(litinner);
+
+			//Add the inner list to ListItem lit
+			lit.Content.Add(liinner);
+
+			
+			//Add the ListItem with inner list inside
+			li.Content.Add(lit);
+
+			table.Rows[0].Cells[0].Content.Add(li);
+
+			doc.Content.Add(table);
+
+			doc.SaveTo("tablewithList.odt");
 		}
 	}
 }

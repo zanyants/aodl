@@ -1709,6 +1709,12 @@
             </summary>
             <param name="table">The table.</param>
         </member>
+        <member name="M:AODL.TextDocument.TextDocument.AppendStyleNode(System.Xml.XmlNode)">
+            <summary>
+            Appends the style node.
+            </summary>
+            <param name="node">The node.</param>
+        </member>
         <member name="P:AODL.TextDocument.TextDocument.XmlDoc">
             <summary>
             The xmldocument the textdocument based on.

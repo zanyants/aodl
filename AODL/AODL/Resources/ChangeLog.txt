@@ -1,4 +1,19 @@
-$Id: ChangeLog.txt,v 1.4 2005/10/15 15:35:24 larsbm Exp $
+$Id: ChangeLog.txt,v 1.5 2005/10/16 08:36:29 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.0.2.1 alpha
+
+- Fixed bug [ 1327809 ] Invalid Cast Exception
+  Sorry, but the TextDocument throws a Invalid Cast
+  Exception if you insert a table where one or more cells
+  contain a List.
+  
+- Fixed bug [ 1327820 ] Cell styles run into loop
+  The cell style names run into a naming loop. So that
+  all cells of a column get the same names. The app
+  wouldn't crash and OpenOffice could display the table,
+  but all cells within a column has the same style
+  information.
 
 -------------------------------------------------------------
 AODL 1.0.2 alpha
