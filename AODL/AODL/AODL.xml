@@ -1759,5 +1759,239 @@
             <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
             <returns>The XmlNamespaceManager object.</returns>
         </member>
+        <member name="T:AODL.TextDocument.Style.Properties.GraphicProperties">
+            <summary>
+            Zusammenfassung für GraphicProperties.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.GraphicProperties.#ctor(AODL.TextDocument.Style.FrameStyle)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.Properties.GraphicProperties"/> class.
+            </summary>
+            <param name="framestyle">The framestyle.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.GraphicProperties.InitStandardImplemenation">
+            <summary>
+            Inits the standard implemenation.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.GraphicProperties.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            Create the XmlNode which represent the propertie element.
+            </summary>
+            <param name="td">The TextDocument</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.GraphicProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.FrameStyle">
+            <summary>
+            Gets or sets the frame style.
+            </summary>
+            <value>The frame style.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.HorizontalPosition">
+            <summary>
+            Gets or sets the horizontal position. e.g center
+            </summary>
+            <value>The horizontal position.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.HorizontalRelative">
+            <summary>
+            Gets or sets the horizontal relative. e.g. paragraph
+            </summary>
+            <value>The horizontal relative.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.Mirror">
+            <summary>
+            Gets or sets the mirror. e.g. none
+            </summary>
+            <value>The mirror.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.Clip">
+            <summary>
+            Gets or sets the clip. e.g rect(0cm 0cm 0cm 0cm)
+            </summary>
+            <value>The clip value.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.LuminanceInProcent">
+            <summary>
+            Gets or sets the luminance in procent. e.g 10%
+            </summary>
+            <value>The luminance in procent.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.ContrastInProcent">
+            <summary>
+            Gets or sets the contrast in procent. e.g 10%
+            </summary>
+            <value>The contrast in procent.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.DrawRedInProcent">
+            <summary>
+            Gets or sets the draw red in procent. e.g. 10%
+            </summary>
+            <value>The draw red in procent.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.DrawGreenInProcent">
+            <summary>
+            Gets or sets the draw green in procent. e.g 10%
+            </summary>
+            <value>The draw green in procent.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.DrawBlueInProcent">
+            <summary>
+            Gets or sets the draw blue in procent. e.g 0%
+            </summary>
+            <value>The draw blue in procent.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.DrawGammaInProcent">
+            <summary>
+            Gets or sets the draw gamma in procent. e.g. 100%
+            </summary>
+            <value>The draw gamma in procent.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.ColorInversion">
+            <summary>
+            Gets or sets a value indicating whether [color inversion].
+            </summary>
+            <value><c>true</c> if [color inversion]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.ImageOpacityInProcent">
+            <summary>
+            Gets or sets the image opacity in procent. e.g. 100%
+            </summary>
+            <value>The image opacity in procent.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.ColorMode">
+            <summary>
+            Gets or sets the color mode. e.g. standard
+            </summary>
+            <value>The color mode.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.Node">
+            <summary>
+            The XmlNode which represent the property element.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Style.FrameStyle">
+            <summary>
+            Zusammenfassung für FrameStyle.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.FrameStyle.#ctor(AODL.TextDocument.Content.Frame,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.FrameStyle"/> class.
+            </summary>
+            <param name="frame">The frame.</param>
+            <param name="stylename">The stylename.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.FrameStyle.NewXmlNode(System.String)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="name">The style name.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.FrameStyle.GraphicProperties">
+            <summary>
+            Gets or sets the graphic properties.
+            </summary>
+            <value>The graphic properties.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.FrameStyle.Frame">
+            <summary>
+            Gets or sets the frame.
+            </summary>
+            <value>The frame.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.FrameStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+            <value>The Node</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.FrameStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.FrameStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.Frame">
+            <summary>
+            Zusammenfassung für Frame.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Frame.#ctor(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Frame"/> class.
+            </summary>
+            <param name="textdocument">The textdocument.</param>
+            <param name="stylename">The stylename.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Frame.#ctor(AODL.TextDocument.TextDocument,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Frame"/> class.
+            </summary>
+            <param name="textdocument">The textdocument.</param>
+            <param name="stylename">The stylename.</param>
+            <param name="graphicname">The graphicname.</param>
+            <param name="graphicfile">The graphicfile.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Frame.NewXmlNode(System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="stylename">The stylename which should be referenced with this frame.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Frame.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Frame.GraphicName">
+            <summary>
+            Gets or sets the name of the graphic.
+            </summary>
+            <value>The name of the graphic.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Frame.Document">
+            <summary>
+            The TextDocument to which this column.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Frame.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Frame.Style">
+            <summary>
+            The ColumnStyle which is referenced with this column.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Frame.TextContent">
+            <summary>
+            Not implemented!!! The text is added to Cell's only!
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.Graphic">
+            <summary>
+            Zusammenfassung für Graphic.
+            </summary>
+        </member>
     </members>
 </doc>

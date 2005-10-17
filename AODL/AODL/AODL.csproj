@@ -180,6 +180,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\Frame.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\Graphic.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\IContent.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -265,6 +275,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Style\FrameStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Style\IFamilyStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -331,6 +346,11 @@
                 />
                 <File
                     RelPath = "TextDocument\Style\Properties\ColumnProperties.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\GraphicProperties.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
