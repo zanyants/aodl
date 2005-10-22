@@ -1,4 +1,11 @@
+/*
+ * $Id: Graphic.cs,v 1.2 2005/10/22 10:47:41 larsbm Exp $
+ */
+
 using System;
+using System.Drawing;
+using System.Xml;
+using AODL.TextDocument.Style;
 
 namespace AODL.TextDocument.Content
 {
@@ -7,76 +14,146 @@ namespace AODL.TextDocument.Content
 	/// </summary>
 	public class Graphic : IContent
 	{
-		public Graphic()
+		private Frame _frame;
+		/// <summary>
+		/// Gets or sets the frame.
+		/// </summary>
+		/// <value>The frame.</value>
+		public Frame Frame
 		{
-			//
-			// TODO: Fügen Sie hier die Konstruktorlogik hinzu
-			//
+			get { return this._frame; }
+			set { this._frame = value; }
 		}
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Graphic"/> class.
+		/// </summary>
+		/// <param name="frame">The frame.</param>
+		/// <param name="graphiclink">The graphiclink. e.g. Pictures/1233.gif</param>
+		public Graphic(Frame frame, string graphiclink)
+		{
+			this.Frame			= frame;
+			this.Document		= frame.Document;
+			this.NewXmlNode("Pictures/"+graphiclink);
+		}
+		/// <summary>
+		/// Create a new XmlNode.
+		/// </summary>
+		/// <param name="graphiclink">The stylename which should be referenced with this frame.</param>
+		private void NewXmlNode(string graphiclink)
+		{			
+			this.Node		= this.Document.CreateNode("image", "draw");
+
+			XmlAttribute xa = this.Document.CreateAttribute("href", "xlink");
+			xa.Value		= graphiclink;
+
+			this.Node.Attributes.Append(xa);
+
+			xa				= this.Document.CreateAttribute("type", "xlink");
+			xa.Value		= "standard"; 
+
+			this.Node.Attributes.Append(xa);
+
+			xa				= this.Document.CreateAttribute("show", "xlink");
+			xa.Value		= "embed"; 
+
+			this.Node.Attributes.Append(xa);
+
+			xa				= this.Document.CreateAttribute("actuate", "xlink");
+			xa.Value		= "onLoad"; 
+
+			this.Node.Attributes.Append(xa);
+		}
+
+		/// <summary>
+		/// Create a XmlAttribute for propertie XmlNode.
+		/// </summary>
+		/// <param name="name">The attribute name.</param>
+		/// <param name="text">The attribute value.</param>
+		/// <param name="prefix">The namespace prefix.</param>
+		private void CreateAttribute(string name, string text, string prefix)
+		{
+			XmlAttribute xa = this.Document.CreateAttribute(name, prefix);
+			xa.Value		= text;
+			this.Node.Attributes.Append(xa);
+		}
+
 		#region IContent Member
 
+		private TextDocument _document;
+		/// <summary>
+		/// The TextDocument to which this column.
+		/// </summary>
 		public TextDocument Document
 		{
 			get
 			{
-				// TODO:  Getter-Implementierung für Graphic.Document hinzufügen
-				return null;
+				return this._document;
 			}
 			set
 			{
-				// TODO:  Getter-Implementierung für Graphic.Document hinzufügen
+				this._document = value;
 			}
 		}
 
-		public System.Xml.XmlNode Node
+		private XmlNode _node;
+		/// <summary>
+		/// The XmlNode.
+		/// </summary>
+		public XmlNode Node
 		{
 			get
 			{
-				// TODO:  Getter-Implementierung für Graphic.Node hinzufügen
-				return null;
+				return this._node;
 			}
 			set
 			{
-				// TODO:  Getter-Implementierung für Graphic.Node hinzufügen
+				this._node = value;
 			}
 		}
 
+		/// <summary>
+		/// A graphic doesn't have a style name.
+		/// </summary>
+		/// <value></value>
 		public string Stylename
 		{
 			get
 			{
-				// TODO:  Getter-Implementierung für Graphic.Stylename hinzufügen
 				return null;
 			}
 			set
 			{
-				// TODO:  Getter-Implementierung für Graphic.Stylename hinzufügen
+				
 			}
 		}
 
-		public AODL.TextDocument.Style.IStyle Style
+		private IStyle _style;
+		/// <summary>
+		/// A graphic doesn't have a style.
+		/// </summary>
+		public IStyle Style
 		{
 			get
 			{
-				// TODO:  Getter-Implementierung für Graphic.Style hinzufügen
 				return null;
 			}
 			set
 			{
-				// TODO:  Getter-Implementierung für Graphic.Style hinzufügen
+				
 			}
 		}
 
+		/// <summary>
+		/// Not implemented!!! 
+		/// </summary>
 		public ITextCollection TextContent
 		{
 			get
 			{
-				// TODO:  Getter-Implementierung für Graphic.TextContent hinzufügen
 				return null;
 			}
 			set
-			{
-				// TODO:  Getter-Implementierung für Graphic.TextContent hinzufügen
+			{				
 			}
 		}
 

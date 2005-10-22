@@ -1,5 +1,5 @@
 /*
- * $Id: FrameStyle.cs,v 1.1 2005/10/17 19:32:47 larsbm Exp $
+ * $Id: FrameStyle.cs,v 1.2 2005/10/22 10:47:41 larsbm Exp $
  */
 
 using System;
@@ -48,6 +48,8 @@ namespace AODL.TextDocument.Style
 			this.Document			= frame.Document;
 			this.GraphicProperties	= new GraphicProperties(this);
 			this.NewXmlNode(stylename);
+
+			this.Node.AppendChild(this.GraphicProperties.Node);
 		}
 
 		/// <summary>
@@ -129,6 +131,9 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: FrameStyle.cs,v $
+ * Revision 1.2  2005/10/22 10:47:41  larsbm
+ * - add graphic support
+ *
  * Revision 1.1  2005/10/17 19:32:47  larsbm
  * - start vers. 1.0.3.0
  * - add frame, framestyle, graphic, graphicproperties

@@ -1,5 +1,5 @@
 /*
- * $Id: GraphicProperties.cs,v 1.1 2005/10/17 19:32:47 larsbm Exp $
+ * $Id: GraphicProperties.cs,v 1.2 2005/10/22 10:47:41 larsbm Exp $
  */
 
 using System;
@@ -170,7 +170,7 @@ namespace AODL.TextDocument.Style.Properties
 					this.FrameStyle.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("contrast", value, "draw");
-				this._node.SelectSingleNode("@draw:constrast",
+				this._node.SelectSingleNode("@draw:contrast",
 					this.FrameStyle.Document.NamespaceManager).InnerText = value;
 			}
 		}
@@ -428,6 +428,9 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: GraphicProperties.cs,v $
+ * Revision 1.2  2005/10/22 10:47:41  larsbm
+ * - add graphic support
+ *
  * Revision 1.1  2005/10/17 19:32:47  larsbm
  * - start vers. 1.0.3.0
  * - add frame, framestyle, graphic, graphicproperties

@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.7 2005/10/16 08:36:29 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.8 2005/10/22 10:47:41 larsbm Exp $
  */
 
 using System;
@@ -156,6 +156,11 @@ namespace AODL.TextDocument
 			this.XmlDoc.SelectSingleNode(TextDocumentHelper.OfficeTextPath, 
 				this.NamespaceManager).AppendChild(((IContent)value).Node);
 
+			if(((IContent)value).GetType().GetInterface("IContentContainer") != null)
+				foreach(IContent content in ((IContentContainer)value).Content)
+					if(content.Style != null)
+						this.AppendStyleNode(content.Style.Node);
+
 			if(((IContent)value).Style != null)
 			{
 				IStyle style	= ((IContent)value).Style;			
@@ -231,6 +236,9 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.8  2005/10/22 10:47:41  larsbm
+ * - add graphic support
+ *
  * Revision 1.7  2005/10/16 08:36:29  larsbm
  * - Fixed bug [ 1327809 ] Invalid Cast Exception while insert table with cells that contains lists
  * - Fixed bug [ 1327820 ] Cell styles run into loop

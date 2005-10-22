@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.5 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.6 2005/10/22 10:47:41 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Represent a paragraph within a opendocument textdocument.
 	/// </summary>
-	public class Paragraph : IContent
+	public class Paragraph : IContent, IContentContainer
 	{
 		private ParentStyles _parentStyle;
 		/// <summary>
@@ -67,9 +67,11 @@ namespace AODL.TextDocument.Content
 			if(stylename != "Standard" && stylename != "Table_20_Contents")
 				this.Style				= (IStyle)new ParagraphStyle(this, stylename);
 			this.TextContent			= new ITextCollection();
+			this.Content				= new IContentCollection();
 			this.NewXmlNode(td, stylename);
 
 			this.TextContent.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Inserted);
+			this.Content.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
 		}
 
 		/// <summary>
@@ -180,11 +182,40 @@ namespace AODL.TextDocument.Content
 		{
 			this.Node.InnerXml += ((IText)value).Xml;
 		}
+
+		#region IContentContainer Member
+		private IContentCollection _content;
+		public IContentCollection Content
+		{
+			get
+			{
+				return this._content;
+			}
+			set
+			{
+				this._content = value;
+			}
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Content_s the inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void Content_Inserted(int index, object value)
+		{
+			this.Node.AppendChild(((IContent)value).Node);
+		}
 	}
 }
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.6  2005/10/22 10:47:41  larsbm
+ * - add graphic support
+ *
  * Revision 1.5  2005/10/15 11:40:31  larsbm
  * - finished first step for table support
  *

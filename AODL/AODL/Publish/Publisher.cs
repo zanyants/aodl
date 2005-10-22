@@ -1,14 +1,16 @@
 /*
- * $Id: Publisher.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ * $Id: Publisher.cs,v 1.3 2005/10/22 10:47:41 larsbm Exp $
  */
 
 using System;
+using System.Drawing.Imaging;
 using System.Reflection;
 using System.IO;
 using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.GZip;
 using AODL.TextDocument;
+using AODL.TextDocument.Content;
 
 namespace AODL.Publish
 {
@@ -43,6 +45,8 @@ namespace AODL.Publish
 			td.XmlDoc.Save(dir+@"\content.xml");
 			//Don't know why VS couldn't read a textfile resource
 			WriteMimetypeFile(dir+@"\mimetyp");
+			//Save graphics
+			SaveGraphic(td, dir);
 
 			CreateOpenDocument(filename, dir);
 		}
@@ -122,11 +126,42 @@ namespace AODL.Publish
 			sw.WriteLine("application/vnd.oasis.opendocument.text");
 			sw.Close();
 		}
+
+		/// <summary>
+		/// Saves all graphics used within the textdocument.
+		/// </summary>
+		/// <param name="document">The document.</param>
+		/// <param name="directory">The directory.</param>
+		private static void SaveGraphic(AODL.TextDocument.TextDocument document, string directory)
+		{
+			foreach(IContent content in document.Content)
+				if(content.GetType().GetInterface("IContentContainer") != null)
+					foreach(IContent continner in ((IContentContainer)content).Content)
+						if(continner.GetType().Name == "Frame")
+							if(((Frame)continner).Graphic != null)
+							{
+								try
+								{
+									string picturedir		= directory+@"\Pictures\";
+									if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
+									return;
+									string name				= picturedir+((Frame)continner).RealGraphicName;
+									((Frame)continner).Image.Save(name);
+								}
+								catch(Exception ex)
+								{
+									throw ex;
+								}
+							}
+		}
 	}
 }
 
 /*
  * $Log: Publisher.cs,v $
+ * Revision 1.3  2005/10/22 10:47:41  larsbm
+ * - add graphic support
+ *
  * Revision 1.2  2005/10/08 08:19:25  larsbm
  * - added cvs tags
  *
