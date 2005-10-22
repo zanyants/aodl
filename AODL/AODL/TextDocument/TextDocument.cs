@@ -1,8 +1,10 @@
 /*
- * $Id: TextDocument.cs,v 1.8 2005/10/22 10:47:41 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.9 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
+using System.Reflection;
+using System.IO;
 using System.Xml;
 using AODL.TextDocument.Content;
 using AODL.TextDocument.Style;
@@ -127,6 +129,60 @@ namespace AODL.TextDocument
 		}
 
 		/// <summary>
+		/// Adds a font to the document. All fonts that you use
+		/// within your text must be added to the document.
+		/// The class FontFamilies represent all available fonts.
+		/// </summary>
+		/// <param name="fontname">The fontname take it from class FontFamilies.</param>
+		public void AddFont(string fontname)
+		{
+			try
+			{
+				Assembly ass		= Assembly.GetExecutingAssembly();
+				Stream stream		= ass.GetManifestResourceStream("AODL.Resources.OD.fonts.xml");
+
+				XmlDocument fontdoc	= new XmlDocument();
+				fontdoc.Load(stream);
+
+				XmlNode exfontnode	= this.XmlDoc.SelectSingleNode(
+					"/office:document-content/office:font-face-decls/style:font-face[@style:name='"+fontname+"']", this.NamespaceManager);
+
+				if(exfontnode != null)
+					return; //Font exist;
+
+				XmlNode newfontnode	= fontdoc.SelectSingleNode(
+					"/office:document-content/office:font-face-decls/style:font-face[@style:name='"+fontname+"']", this.NamespaceManager);
+
+				if(newfontnode != null)
+				{
+					XmlNode fontsnode	= this.XmlDoc.SelectSingleNode(
+						"/office:document-content", this.NamespaceManager);
+					if(fontsnode != null)
+					{
+						foreach(XmlNode xn in fontsnode)
+							if(xn.Name == "office:font-face-decls")
+							{
+								XmlNode node		= this.CreateNode("font-face", "style");
+								foreach(XmlAttribute xa in newfontnode.Attributes)
+								{
+									XmlAttribute xanew	= this.CreateAttribute(xa.LocalName, xa.Prefix);
+									xanew.Value			= xa.Value;
+									node.Attributes.Append(xanew);
+								}
+								xn.AppendChild(node);
+								break;
+							}
+					}
+				}				
+			}
+			catch(Exception ex)
+			{
+				//Should never happen
+				throw ex;
+			}
+		}
+
+		/// <summary>
 		/// Return the namespaceuri for the given prefixname.
 		/// </summary>
 		/// <param name="prefix">The prefixname.</param>
@@ -236,6 +292,10 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.9  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.8  2005/10/22 10:47:41  larsbm
  * - add graphic support
  *

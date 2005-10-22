@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphStyle.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: ParagraphStyle.cs,v 1.4 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -115,9 +115,6 @@ namespace AODL.TextDocument.Style
 		/// </summary>
 		/// <param name="p">The Paragraph object to this object belongs.</param>
 		/// <param name="name">The style name.</param>
-//		public ParagraphStyle(Paragraph p, string name)
-//		{
-//			this.Paragraph	= p;
 		public ParagraphStyle(IContent c, string name)
 		{
 			this.Content	= c;
@@ -139,7 +136,7 @@ namespace AODL.TextDocument.Style
 			xa.Value		= name;
 			this.Node.Attributes.Append(xa);
 			xa				= td.CreateAttribute("family", "style");
-			xa.Value		= FamiliyStyles.paragraph.ToString();
+			xa.Value		= FamiliyStyles.Paragraph;
 			this.Node.Attributes.Append(xa);
 			xa				= td.CreateAttribute("parent-style-name", "style");
 			xa.Value		= ParentStyles.Standard.ToString();
@@ -230,6 +227,10 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: ParagraphStyle.cs,v $
+ * Revision 1.4  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.3  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

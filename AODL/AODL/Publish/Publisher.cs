@@ -1,5 +1,5 @@
 /*
- * $Id: Publisher.cs,v 1.3 2005/10/22 10:47:41 larsbm Exp $
+ * $Id: Publisher.cs,v 1.4 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -142,6 +142,7 @@ namespace AODL.Publish
 							{
 								try
 								{
+									//TODO: check supported image types
 									string picturedir		= directory+@"\Pictures\";
 									if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
 									return;
@@ -159,6 +160,10 @@ namespace AODL.Publish
 
 /*
  * $Log: Publisher.cs,v $
+ * Revision 1.4  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.3  2005/10/22 10:47:41  larsbm
  * - add graphic support
  *

@@ -1,5 +1,5 @@
 /*
- * $Id: TableStyle.cs,v 1.2 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: TableStyle.cs,v 1.3 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -62,7 +62,7 @@ namespace AODL.TextDocument.Style
 			this.Node.Attributes.Append(xa);
 
 			xa				= this.Document.CreateAttribute("family", "style");
-			xa.Value		= FamiliyStyles.table.ToString();;
+			xa.Value		= FamiliyStyles.Table;
 			this.Node.Attributes.Append(xa);
 		}
 
@@ -121,6 +121,10 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: TableStyle.cs,v $
+ * Revision 1.3  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.2  2005/10/15 11:40:31  larsbm
  * - finished first step for table support
  *

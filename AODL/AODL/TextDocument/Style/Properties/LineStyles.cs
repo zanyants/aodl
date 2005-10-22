@@ -1,5 +1,5 @@
 /*
- * $Id: LineStyles.cs,v 1.2 2005/10/08 07:55:35 larsbm Exp $
+ * $Id: LineStyles.cs,v 1.3 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -10,38 +10,49 @@ namespace AODL.TextDocument.Style.Properties
 	/// Represents the possible line styles used in OpenDocument.
 	/// e.g for the FormatedText.Underline
 	/// </summary>
-	public enum LineStyles
+	public class LineStyles
 	{
-		/* Set by hand, because of -
-		 * long-dash
-		 * dot-dash 
-		 * dot-dot-dash
-		 */
+		/// <summary>
+		/// long-dash
+		/// </summary>
+		public static readonly string longdash	= "long-dash";
+		/// <summary>
+		/// dot-dash
+		/// </summary>
+		public static readonly string dotdash	= "dot-dash";
+		/// <summary>
+		/// dot-dot-dash
+		/// </summary>
+		public static readonly string dotdotdash	= "dot-dot-dash";
 		/// <summary>
 		/// No style
 		/// </summary>
-		none,
+		public static readonly string none	= "none";
 		/// <summary>
 		/// solid
 		/// </summary>
-		solid,
+		public static readonly string solid	= "solid";
 		/// <summary>
 		/// dotted
 		/// </summary>
-		dotted,
+		public static readonly string dotted	= "dotted";
 		/// <summary>
 		/// dash
 		/// </summary>
-		dash,
+		public static readonly string dash	= "dash";
 		/// <summary>
 		/// wave
 		/// </summary>
-		wave
+		public static readonly string wave	= "wave";
 	}
 }
 
 /*
  * $Log: LineStyles.cs,v $
+ * Revision 1.3  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.2  2005/10/08 07:55:35  larsbm
  * - added cvs tags
  *

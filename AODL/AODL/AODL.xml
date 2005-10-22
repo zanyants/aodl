@@ -1137,6 +1137,21 @@
             e.g for the FormatedText.Underline
             </summary>
         </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.longdash">
+            <summary>
+            long-dash
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dotdash">
+            <summary>
+            dot-dash
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.LineStyles.dotdotdash">
+            <summary>
+            dot-dot-dash
+            </summary>
+        </member>
         <member name="F:AODL.TextDocument.Style.Properties.LineStyles.none">
             <summary>
             No style
@@ -1452,7 +1467,7 @@
         </member>
         <member name="P:AODL.TextDocument.Style.Properties.TextProperties.FontName">
             <summary>
-            Set font-name - object.FontName = "Arial";
+            Set font-name you will find all available fonts in class FontFamilies
             </summary>
         </member>
         <member name="P:AODL.TextDocument.Style.Properties.TextProperties.FontSize">
@@ -1579,12 +1594,557 @@
         </member>
         <member name="T:AODL.TextDocument.Style.FamiliyStyles">
             <summary>
-            Enum that represents th possible values. For a style emlement and his family-style attribute.
+            Class that represents th possible values. For a style emlement and his family-style attribute.
             </summary>
         </member>
-        <member name="T:AODL.TextDocument.Style.FontFamily">
+        <member name="F:AODL.TextDocument.Style.FamiliyStyles.Table">
             <summary>
-            Enum that represents th possible fonts.
+            table
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FamiliyStyles.TableColumn">
+            <summary>
+            column
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FamiliyStyles.TableCell">
+            <summary>
+            cell
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FamiliyStyles.TableRow">
+            <summary>
+            row
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FamiliyStyles.Paragraph">
+            <summary>
+            paragraph
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FamiliyStyles.Text">
+            <summary>
+            text
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FamiliyStyles.Graphic">
+            <summary>
+            graphic
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.FontFamilies">
+            <summary>
+            Class reprsent all 102 available fonts in OpenOffice.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Marlett">
+            <summary>
+            Marlett
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.OpenSymbol">
+            <summary>
+            OpenSymbol
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.VisualUI">
+            <summary>
+            VisualUI
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Wingdings">
+            <summary>
+            Wingdings
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MTExtra">
+            <summary>
+            MT Extra
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Webdings">
+            <summary>
+            Webdings
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Wingdings2">
+            <summary>
+            Wingdings 2
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Wingdings3">
+            <summary>
+            Wingdings 3
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.HolidayPiBT">
+            <summary>
+            HolidayPi BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Tahoma2">
+            <summary>
+            Tahoma2
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BitstreamVeraSansMono">
+            <summary>
+            Bitstream Vera Sans Mono
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.CourierNew">
+            <summary>
+            Courier New
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.LucidaConsole">
+            <summary>
+            Lucida Console
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.AcademyEngravedLET">
+            <summary>
+            Academy Engraved LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Gautami">
+            <summary>
+            Gautami
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.HighlightLET">
+            <summary>
+            Highlight LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.JohnHandyLET">
+            <summary>
+            John Handy LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.JokermanAltsLET">
+            <summary>
+            Jokerman Alts LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.LaBambaLET">
+            <summary>
+            La Bamba LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Latha">
+            <summary>
+            Latha
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.LucidaSansUnicode1">
+            <summary>
+            Lucida Sans Unicode1
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MVBoli">
+            <summary>
+            MV Boli
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Mangal">
+            <summary>
+            Mangal
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MekanikLET">
+            <summary>
+            Mekanik LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MilanoLET">
+            <summary>
+            Milano LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.OdessaLET">
+            <summary>
+            Odessa LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.OneStrokeScriptLET">
+            <summary>
+            One Stroke Script LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.OrangeLET">
+            <summary>
+            Orange LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.PumpDemiBoldLET">
+            <summary>
+            Pump Demi Bold LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.QuixleyLET">
+            <summary>
+            Quixley LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Raavi">
+            <summary>
+            Raavi
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.RageItalicLET">
+            <summary>
+            Rage Italic LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.RuachLET">
+            <summary>
+            Ruach LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.ScruffLET">
+            <summary>
+            Scruff LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Shruti">
+            <summary>
+            Shruti
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.SmudgerAltsLET">
+            <summary>
+            Smudger Alts LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Tahoma1">
+            <summary>
+            Tahoma1
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.TirantiSolidLET">
+            <summary>
+            Tiranti Solid LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Tunga">
+            <summary>
+            Tunga
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.UniversityRomanAltsLET">
+            <summary>
+            University Roman Alts LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.VictorianLET">
+            <summary>
+            Victorian LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.WestwoodLET">
+            <summary>
+            Westwood LET
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BlackadderITC">
+            <summary>
+            Blackadder ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BroadwayBT">
+            <summary>
+            Broadway BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.CurlzMT">
+            <summary>
+            Curlz MT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.FelixTitling">
+            <summary>
+            Felix Titling
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MatisseITC">
+            <summary>
+            Matisse ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.OldDreadfulNo7BT">
+            <summary>
+            OldDreadfulNo7 BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.TempusSansITC">
+            <summary>
+            Tempus Sans ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Modern">
+            <summary>
+            Modern
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BitstreamVeraSerif">
+            <summary>
+            Bitstream Vera Serif
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BookAntiqua">
+            <summary>
+            Book Antiqua
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BookmanOldStyle">
+            <summary>
+            Bookman Old Style
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.EngraversMT">
+            <summary>
+            Engravers MT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Garamond">
+            <summary>
+            Garamond
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Georgia">
+            <summary>
+            Georgia
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.PalatinoLinotype">
+            <summary>
+            Palatino Linotype
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Perpetua">
+            <summary>
+            Perpetua
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.RockwellExtraBold">
+            <summary>
+            Rockwell Extra Bold
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Roman">
+            <summary>
+            Roman
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Sylfaen">
+            <summary>
+            Sylfaen
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.TimesNewRoman">
+            <summary>
+            Times New Roman
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Blackletter686BT">
+            <summary>
+            Blackletter686 BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BradleyHandITC">
+            <summary>
+            Bradley Hand ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Calligraph421BT">
+            <summary>
+            Calligraph421 BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.CataneoBT">
+            <summary>
+            Cataneo BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.ComicSansMS">
+            <summary>
+            Comic Sans MS
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.EdwardianScriptITC">
+            <summary>
+            Edwardian Script ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.EstrangeloEdessa">
+            <summary>
+            Estrangelo Edessa
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.FrenchScriptMT">
+            <summary>
+            French Script MT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.KristenITC">
+            <summary>
+            Kristen ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MisterEarlBT">
+            <summary>
+            MisterEarl BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Mistral">
+            <summary>
+            Mistral
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Papyrus">
+            <summary>
+            Papyrus
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.ParkAvenueBT">
+            <summary>
+            ParkAvenue BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Script">
+            <summary>
+            Script
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Staccato222BT">
+            <summary>
+            Staccato222 BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Vivaldi">
+            <summary>
+            Vivaldi
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Arial">
+            <summary>
+            Arial
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.ArialBlack">
+            <summary>
+            Arial Black
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.ArialNarrow">
+            <summary>
+            Arial Narrow
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.BitstreamVeraSans">
+            <summary>
+            Bitstream Vera Sans
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.CenturyGothic">
+            <summary>
+            Century Gothic
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.CopperplateGothicBold">
+            <summary>
+            Copperplate Gothic Bold
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.CopperplateGothicLight">
+            <summary>
+            Copperplate Gothic Light
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.ErasDemiITC">
+            <summary>
+            Eras Demi ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.ErasLightITC">
+            <summary>
+            Eras Light ITC
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Eurostile">
+            <summary>
+            Eurostile
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.FranklinGothicBook">
+            <summary>
+            Franklin Gothic Book
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.FranklinGothicDemi">
+            <summary>
+            Franklin Gothic Demi
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.FranklinGothicMedium">
+            <summary>
+            Franklin Gothic Medium
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.FranklinGothicMediumCond">
+            <summary>
+            Franklin Gothic Medium Cond
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Impact">
+            <summary>
+            Impact
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.LucidaSans">
+            <summary>
+            Lucida Sans
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.LucidaSansUnicode">
+            <summary>
+            Lucida Sans Unicode
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MaiandraGD">
+            <summary>
+            Maiandra GD
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.MicrosoftSansSerif">
+            <summary>
+            Microsoft Sans Serif
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Square721BT">
+            <summary>
+            Square721 BT
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Tahoma">
+            <summary>
+            Tahoma
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.TrebuchetMS">
+            <summary>
+            Trebuchet MS
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.FontFamilies.Verdana">
+            <summary>
+            Verdana
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.FrameStyle">
@@ -1650,11 +2210,6 @@
             <summary>
             All classes that represent a font class must implement
             this interface.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Style.IFontStyle.Font">
-            <summary>
-            The font.
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.ListLevelStyle">
@@ -2024,6 +2579,14 @@
             Save the TextDocument as OpenDocument textdocument.
             </summary>
             <param name="filename">The filename. With or without full path. Without will save the file to application path!</param>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.AddFont(System.String)">
+            <summary>
+            Adds a font to the document. All fonts that you use
+            within your text must be added to the document.
+            The class FontFamilies represent all available fonts.
+            </summary>
+            <param name="fontname">The fontname take it from class FontFamilies.</param>
         </member>
         <member name="M:AODL.TextDocument.TextDocument.GetNamespaceUri(System.String)">
             <summary>

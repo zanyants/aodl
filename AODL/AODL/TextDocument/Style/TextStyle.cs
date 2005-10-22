@@ -1,5 +1,5 @@
 /*
- * $Id: TextStyle.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: TextStyle.cs,v 1.4 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -51,7 +51,7 @@ namespace AODL.TextDocument.Style
 			xa.Value		= name;
 			this.Node.Attributes.Append(xa);
 			xa				= td.CreateAttribute("family", "style");
-			xa.Value		= FamiliyStyles.text.ToString();
+			xa.Value		= FamiliyStyles.Text;
 			this.Node.Attributes.Append(xa);
 		}
 
@@ -142,6 +142,10 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: TextStyle.cs,v $
+ * Revision 1.4  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.3  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

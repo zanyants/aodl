@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<office:document-content 
+	xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" 
+	xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" 
+	xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0">
+<office:font-face-decls>
+  <style:font-face style:name="Marlett" svg:font-family="Marlett" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="OpenSymbol" svg:font-family="OpenSymbol" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="VisualUI" svg:font-family="VisualUI" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="Wingdings" svg:font-family="Wingdings" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="MT Extra" svg:font-family="'MT Extra'" style:font-family-generic="roman" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="Symbol" svg:font-family="Symbol" style:font-family-generic="roman" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="Webdings" svg:font-family="Webdings" style:font-family-generic="roman" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="Wingdings 2" svg:font-family="'Wingdings 2'" style:font-family-generic="roman" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="Wingdings 3" svg:font-family="'Wingdings 3'" style:font-family-generic="roman" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="HolidayPi BT" svg:font-family="'HolidayPi BT'" style:font-family-generic="swiss" style:font-pitch="variable" style:font-charset="x-symbol" /> 
+  <style:font-face style:name="Tahoma2" svg:font-family="Tahoma" /> 
+  <style:font-face style:name="Bitstream Vera Sans Mono" svg:font-family="'Bitstream Vera Sans Mono'" style:font-family-generic="modern" style:font-pitch="fixed" /> 
+  <style:font-face style:name="Courier New" svg:font-family="'Courier New'" style:font-family-generic="modern" style:font-pitch="fixed" /> 
+  <style:font-face style:name="Lucida Console" svg:font-family="'Lucida Console'" style:font-family-generic="modern" style:font-pitch="fixed" /> 
+  <style:font-face style:name="Academy Engraved LET" svg:font-family="'Academy Engraved LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Gautami" svg:font-family="Gautami" style:font-pitch="variable" /> 
+  <style:font-face style:name="Highlight LET" svg:font-family="'Highlight LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="John Handy LET" svg:font-family="'John Handy LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Jokerman Alts LET" svg:font-family="'Jokerman Alts LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="La Bamba LET" svg:font-family="'La Bamba LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Latha" svg:font-family="Latha" style:font-pitch="variable" /> 
+  <style:font-face style:name="Lucida Sans Unicode1" svg:font-family="'Lucida Sans Unicode'" style:font-pitch="variable" /> 
+  <style:font-face style:name="MV Boli" svg:font-family="'MV Boli'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Mangal" svg:font-family="Mangal" style:font-pitch="variable" /> 
+  <style:font-face style:name="Mekanik LET" svg:font-family="'Mekanik LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Milano LET" svg:font-family="'Milano LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Odessa LET" svg:font-family="'Odessa LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="One Stroke Script LET" svg:font-family="'One Stroke Script LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Orange LET" svg:font-family="'Orange LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Pump Demi Bold LET" svg:font-family="'Pump Demi Bold LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Quixley LET" svg:font-family="'Quixley LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Raavi" svg:font-family="Raavi" style:font-pitch="variable" /> 
+  <style:font-face style:name="Rage Italic LET" svg:font-family="'Rage Italic LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Ruach LET" svg:font-family="'Ruach LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Scruff LET" svg:font-family="'Scruff LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Shruti" svg:font-family="Shruti" style:font-pitch="variable" /> 
+  <style:font-face style:name="Smudger Alts LET" svg:font-family="'Smudger Alts LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Tahoma1" svg:font-family="Tahoma" style:font-pitch="variable" /> 
+  <style:font-face style:name="Tiranti Solid LET" svg:font-family="'Tiranti Solid LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Tunga" svg:font-family="Tunga" style:font-pitch="variable" /> 
+  <style:font-face style:name="University Roman Alts LET" svg:font-family="'University Roman Alts LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Victorian LET" svg:font-family="'Victorian LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Westwood LET" svg:font-family="'Westwood LET'" style:font-pitch="variable" /> 
+  <style:font-face style:name="Blackadder ITC" svg:font-family="'Blackadder ITC'" style:font-family-generic="decorative" style:font-pitch="variable" /> 
+  <style:font-face style:name="Broadway BT" svg:font-family="'Broadway BT'" style:font-family-generic="decorative" style:font-pitch="variable" /> 
+  <style:font-face style:name="Curlz MT" svg:font-family="'Curlz MT'" style:font-family-generic="decorative" style:font-pitch="variable" /> 
+  <style:font-face style:name="Felix Titling" svg:font-family="'Felix Titling'" style:font-family-generic="decorative" style:font-pitch="variable" /> 
+  <style:font-face style:name="Matisse ITC" svg:font-family="'Matisse ITC'" style:font-family-generic="decorative" style:font-pitch="variable" /> 
+  <style:font-face style:name="OldDreadfulNo7 BT" svg:font-family="'OldDreadfulNo7 BT'" style:font-family-generic="decorative" style:font-pitch="variable" /> 
+  <style:font-face style:name="Tempus Sans ITC" svg:font-family="'Tempus Sans ITC'" style:font-family-generic="decorative" style:font-pitch="variable" /> 
+  <style:font-face style:name="Modern" svg:font-family="Modern" style:font-family-generic="modern" style:font-pitch="variable" /> 
+  <style:font-face style:name="Bitstream Vera Serif" svg:font-family="'Bitstream Vera Serif'" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Book Antiqua" svg:font-family="'Book Antiqua'" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Bookman Old Style" svg:font-family="'Bookman Old Style'" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Engravers MT" svg:font-family="'Engravers MT'" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Garamond" svg:font-family="Garamond" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Georgia" svg:font-family="Georgia" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Palatino Linotype" svg:font-family="'Palatino Linotype'" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Perpetua" svg:font-family="Perpetua" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Rockwell Extra Bold" svg:font-family="'Rockwell Extra Bold'" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Roman" svg:font-family="Roman" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Sylfaen" svg:font-family="Sylfaen" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Times New Roman" svg:font-family="'Times New Roman'" style:font-family-generic="roman" style:font-pitch="variable" /> 
+  <style:font-face style:name="Blackletter686 BT" svg:font-family="'Blackletter686 BT'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Bradley Hand ITC" svg:font-family="'Bradley Hand ITC'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Calligraph421 BT" svg:font-family="'Calligraph421 BT'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Cataneo BT" svg:font-family="'Cataneo BT'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Comic Sans MS" svg:font-family="'Comic Sans MS'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Edwardian Script ITC" svg:font-family="'Edwardian Script ITC'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Estrangelo Edessa" svg:font-family="'Estrangelo Edessa'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="French Script MT" svg:font-family="'French Script MT'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Kristen ITC" svg:font-family="'Kristen ITC'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="MisterEarl BT" svg:font-family="'MisterEarl BT'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Mistral" svg:font-family="Mistral" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Papyrus" svg:font-family="Papyrus" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="ParkAvenue BT" svg:font-family="'ParkAvenue BT'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Script" svg:font-family="Script" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Staccato222 BT" svg:font-family="'Staccato222 BT'" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Vivaldi" svg:font-family="Vivaldi" style:font-family-generic="script" style:font-pitch="variable" /> 
+  <style:font-face style:name="Arial" svg:font-family="Arial" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Arial Black" svg:font-family="'Arial Black'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Arial Narrow" svg:font-family="'Arial Narrow'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Bitstream Vera Sans" svg:font-family="'Bitstream Vera Sans'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Century Gothic" svg:font-family="'Century Gothic'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Copperplate Gothic Bold" svg:font-family="'Copperplate Gothic Bold'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Copperplate Gothic Light" svg:font-family="'Copperplate Gothic Light'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Eras Demi ITC" svg:font-family="'Eras Demi ITC'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Eras Light ITC" svg:font-family="'Eras Light ITC'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Eurostile" svg:font-family="Eurostile" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Franklin Gothic Book" svg:font-family="'Franklin Gothic Book'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Franklin Gothic Demi" svg:font-family="'Franklin Gothic Demi'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Franklin Gothic Medium" svg:font-family="'Franklin Gothic Medium'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Franklin Gothic Medium Cond" svg:font-family="'Franklin Gothic Medium Cond'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Impact" svg:font-family="Impact" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Lucida Sans" svg:font-family="'Lucida Sans'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Lucida Sans Unicode" svg:font-family="'Lucida Sans Unicode'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Maiandra GD" svg:font-family="'Maiandra GD'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Microsoft Sans Serif" svg:font-family="'Microsoft Sans Serif'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Square721 BT" svg:font-family="'Square721 BT'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Tahoma" svg:font-family="Tahoma" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Trebuchet MS" svg:font-family="'Trebuchet MS'" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  <style:font-face style:name="Verdana" svg:font-family="Verdana" style:font-family-generic="swiss" style:font-pitch="variable" /> 
+  </office:font-face-decls>
+</office:document-content>
+

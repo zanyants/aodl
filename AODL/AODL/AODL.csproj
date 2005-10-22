@@ -125,6 +125,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Resources\OD\fonts.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Resources\OD\manifest.xml"
                     BuildAction = "EmbeddedResource"
                 />

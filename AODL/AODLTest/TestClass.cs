@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.4 2005/10/09 15:52:47 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.5 2005/10/22 15:52:10 larsbm Exp $ 
  */
 
 using System;
@@ -73,8 +73,8 @@ namespace AODLTest
 			((TextStyle)ft.Style).Properties.Bold = "bold";
 			((TextStyle)ft.Style).Properties.Italic = "italic";
 			((TextStyle)ft.Style).Properties.SetUnderlineStyles( 
-				LineStyles.wave.ToString(), LineWidths.bold.ToString(), "#A1B1C2");
-//			((TextStyle)ft.Style).Properties.Underline = LineStyles.dotted.ToString();
+				LineStyles.wave, LineWidths.bold.ToString(), "#A1B1C2");
+//			((TextStyle)ft.Style).Properties.Underline = LineStyles.dotted;
 //			((TextStyle)ft.Style).Properties.UnderlineColor = "font-color";
 //			((TextStyle)ft.Style).Properties.UnderlineWidth = LineWidths.auto.ToString();
 			p.TextContent.Add(ft);			
@@ -97,7 +97,7 @@ namespace AODLTest
 			((ParagraphStyle)p.Style).Properties.Alignment	= TextAlignments.justify.ToString();
 			//Set complet paragraph to italic
 			((ParagraphStyle)p.Style).Textproperties.Italic		= "italic";
-			((ParagraphStyle)p.Style).Textproperties.FontName	= "Arial";
+			((ParagraphStyle)p.Style).Textproperties.FontName	= FontFamilies.BroadwayBT;
 			((ParagraphStyle)p.Style).Textproperties.FontSize	= "18pt";
 
 			//add simple text
@@ -232,6 +232,10 @@ namespace AODLTest
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.5  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.4  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

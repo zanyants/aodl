@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocumentHelper.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: TextDocumentHelper.cs,v 1.4 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -56,6 +56,10 @@ namespace AODL.TextDocument
 				+ "<office:scripts />"
 				+ "<office:font-face-decls>"
 				+ "<style:font-face style:name=\"StarSymbol\" svg:font-family=\"StarSymbol\" style:font-charset=\"x-symbol\" />"
+				+ "<style:font-face style:name=\"Tahoma1\" svg:font-family=\"Tahoma\" /> "
+				+ "<style:font-face style:name=\"Lucida Sans Unicode\" svg:font-family=\"'Lucida Sans Unicode'\" style:font-pitch=\"variable\" />"
+				+ "<style:font-face style:name=\"Tahoma\" svg:font-family=\"Tahoma\" style:font-pitch=\"variable\" />" 
+				+ "<style:font-face style:name=\"Times New Roman\" svg:font-family=\"'Times New Roman'\" style:font-family-generic=\"roman\" style:font-pitch=\"variable\" />"
 			    + "</office:font-face-decls>"
 				+ "<office:automatic-styles>"
 				+ "</office:automatic-styles>"
@@ -104,6 +108,10 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocumentHelper.cs,v $
+ * Revision 1.4  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.3  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

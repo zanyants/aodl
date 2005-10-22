@@ -1,5 +1,5 @@
 /*
- * $Id: FrameStyle.cs,v 1.2 2005/10/22 10:47:41 larsbm Exp $
+ * $Id: FrameStyle.cs,v 1.3 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -65,7 +65,7 @@ namespace AODL.TextDocument.Style
 			this.Node.Attributes.Append(xa);
 
 			xa				= this.Document.CreateAttribute("family", "style");
-			xa.Value		= "graphic"; //TODO: Change enum to class (statics)
+			xa.Value		= FamiliyStyles.Graphic;
 			this.Node.Attributes.Append(xa);
 
 			xa				= this.Document.CreateAttribute("parent-style-name", "style");
@@ -131,6 +131,10 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: FrameStyle.cs,v $
+ * Revision 1.3  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.2  2005/10/22 10:47:41  larsbm
  * - add graphic support
  *

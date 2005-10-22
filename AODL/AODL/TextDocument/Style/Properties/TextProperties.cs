@@ -1,6 +1,6 @@
 
 /*
- * $Id: TextProperties.cs,v 1.4 2005/10/08 09:01:15 larsbm Exp $
+ * $Id: TextProperties.cs,v 1.5 2005/10/22 15:52:10 larsbm Exp $
  */
 
 using System;
@@ -145,7 +145,7 @@ namespace AODL.TextDocument.Style.Properties
 		}
 
 		/// <summary>
-		/// Set font-name - object.FontName = "Arial";
+		/// Set font-name you will find all available fonts in class FontFamilies
 		/// </summary>
 		public string FontName
 		{
@@ -159,6 +159,7 @@ namespace AODL.TextDocument.Style.Properties
 			}
 			set
 			{
+				this.Style.Document.AddFont(value);
 				XmlNode xn = this._node.SelectSingleNode("@style:font-name",
 					this.Style.Document.NamespaceManager);
 				if(xn == null)
@@ -262,6 +263,10 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: TextProperties.cs,v $
+ * Revision 1.5  2005/10/22 15:52:10  larsbm
+ * - Changed some styles from Enum to Class with statics
+ * - Add full support for available OpenOffice fonts
+ *
  * Revision 1.4  2005/10/08 09:01:15  larsbm
  * --- uncommented ---
  *
