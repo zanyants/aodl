@@ -9,45 +9,56 @@
 			<span style="FONT-WEIGHT: bold; FONT-FAMILY: Arial">Sample
 source offer :</span><br style="FONT-FAMILY: Arial">
 			<pre>
-string[] address	= new string[] {"Max Mustermann","Mustermann Str. 300","22222 Hamburg"};
-string[] recipient  = new string[] {"Heinz Willi", "Dorfstr. 1", @"22225 Hamburg\n\n"};
-string betreff		= @"Offer for 200 Intel Pentium 4 CPU's\n\n";
+<!--StartFragment -->
+<pre id="line1">//The text for the letter. In your own application you maybe will recieve
+//it from user input or a database
+string[] address	= new string[] 
+		{"Max Mustermann","Mustermann Str. 300","22222 Hamburg"};
+string[] recipient  = new string[] 
+		{"Heinz Willi", "Dorfstr. 1", @"22225 Hamburg\n\n"};
+string subject		= @"Offer for 200 Intel Pentium 4 CPU's\n\n";
 string bodyheader	= "Dear Mr. Willi,";
 string[] bodytext	= new string[] {
 @"thank you for your request. We can offer you the 200 Intel Pentium IV 3 Ghz CPU's 
 	for a price of 79,80 ? per unit.",
-@"This special offer is valid to 31.10.2005. If you accept, 
-	we can deliver within 24 hours.\n\n\n"
+@"This special offer is valid to 31.10.2005. If you accept, we can deliver within 
+	24 hours.\n\n\n"
 									};
 string regards		= @"Best regards \nMax Mustermann";
-
+//Create new Textdocument
 TextDocument td		= new TextDocument();
 td.New();
-
-for(int i=0; i &lt; address.Length; i++)
+//Add the adress
+for(int i=0; i &amp;<span class="entity">lt;</span> address.Length; i++)
 	td.Content.Add(new Paragraph(td, ParentStyles.Standard, address[i]));
-
+//Blank paragraph
 td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
-
-for(int i=0; i &lt; recipient.Length; i++)
+//Add recipient
+for(int i=0; i &amp;<span class="entity">lt;</span> recipient.Length; i++)
 	td.Content.Add(new Paragraph(td, ParentStyles.Standard, recipient[i]));
-
+//Blank paragraph
 td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
-td.Content.Add(new Paragraph(td, ParentStyles.Standard, betreff));
+//Add subject
+td.Content.Add(new Paragraph(td, ParentStyles.Standard, subject));
+//Add bodyheader
 td.Content.Add(new Paragraph(td, ParentStyles.Standard, bodyheader));
-
-for(int i=0; i &lt; bodytext.Length; i++)
+//Add body text
+for(int i=0; i &amp;<span class="entity">lt;</span> bodytext.Length; i++)
 {
 	Paragraph p		= new Paragraph(td, "Pb"+i.ToString());
-	((ParagraphStyle)p.Style).Properties.Alignment = TextAlignments.justify.ToString();
+	//Justify the paragraphs text
+	((ParagraphStyle)p.Style).Properties.Alignment = 
+			TextAlignments.justify.ToString();
 	p.TextContent.Add(new SimpleText(p, bodytext[i]));
 	td.Content.Add(p);
 }
-
+//Blank paragraph
 td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+//Add regards
 td.Content.Add(new Paragraph(td, ParentStyles.Standard, regards));
-
-td.SaveTo("OfferShortVersion.odt");				
+//Save to document (in the application folder)
+td.SaveTo("OfferShortVersion.odt");</pre>
+				
 				</pre>
 		<P></P>
 		<P><SMALL><SPAN style="FONT-WEIGHT: bold; FONT-FAMILY: Arial">This will result 

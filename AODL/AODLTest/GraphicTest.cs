@@ -13,7 +13,7 @@ namespace AODLTest
 	public class GraphicTest
 	{
 		//Must change this !!
-		private string _imagefile		= @"D:\lb.gif";
+		private string _imagefile		= @"D:\lb.png";
 
 		[Test]
 		public void GraphicsTest()

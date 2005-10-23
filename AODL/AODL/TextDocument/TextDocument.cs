@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.9 2005/10/22 15:52:10 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.10 2005/10/23 09:17:20 larsbm Exp $
  */
 
 using System;
@@ -16,20 +16,20 @@ namespace AODL.TextDocument
 	/// Represent a opendocument text document.
 	/// </summary>
 	/// <example>
-	/// <code>
-	/// 	TextDocument td		= new TextDocument();
-	/// 	//Create a blank document
-	///		td.New();
-	///		//Create a new paragraph
-	///		Paragraph p			= new Paragraph(td, "P1");
-	///		//Add some content
-	///		p.TextContent.Add( new SimpleText((IContent)p, "Hallo i'm simple text!"));
-	///		//Create and add some formated text tho the paragraph
-	///		FormatedText ft = new FormatedText((IContent)p, "T1", " And i'm formated text!");
-	///		((TextProperties)ft.Style.Properties).Bold = "bold";
-	///		p.TextContent.Add(ft);
-	///		//Add as document content 
-	///		td.Content.Add(p);
+	/// TextDocument td = new TextDocument();
+	/// td.New();
+	/// Paragraph p = new Paragraph(td, "P1");
+	/// //add text
+	/// p.TextContent.Add(new SimpleText(p, "HallO"));
+	/// //Add the Paragraph
+	/// td.Content.Add((IContent)p);
+	/// //Blank para
+	/// td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+	/// // new para
+	/// p = new Paragraph(td, "P2");
+	/// p.TextContent.Add(new SimpleText(p, "Hallo"));
+	/// td.Content.Add(p);
+	/// td.SaveTo("parablank.odt");
 	/// </code>
 	/// </example>
 	public class TextDocument : IContentContainer
@@ -292,6 +292,9 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.10  2005/10/23 09:17:20  larsbm
+ * - Release 1.0.3.0
+ *
  * Revision 1.9  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

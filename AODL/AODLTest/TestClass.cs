@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.5 2005/10/22 15:52:10 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.6 2005/10/23 09:17:20 larsbm Exp $ 
  */
 
 using System;
@@ -11,6 +11,7 @@ using AODL.TextDocument.Content;
 using AODL.Publish;
 using System.Xml;
 using System.IO;
+using System.Reflection;
 
 namespace AODLTest
 {
@@ -227,11 +228,22 @@ namespace AODLTest
 
 			td.SaveTo("OfferShortVersion.odt");
 		}
+
+		[Test]
+		public void AllFonts()
+		{
+			Type fontfamiliestype	= typeof(FontFamilies);
+			foreach(MemberInfo mi in fontfamiliestype.GetMembers())
+				Console.WriteLine(mi.Name+"<br>");
+		}
 	}
 }
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.6  2005/10/23 09:17:20  larsbm
+ * - Release 1.0.3.0
+ *
  * Revision 1.5  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

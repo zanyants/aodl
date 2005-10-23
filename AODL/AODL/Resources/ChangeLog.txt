@@ -1,4 +1,15 @@
-$Id: ChangeLog.txt,v 1.5 2005/10/16 08:36:29 larsbm Exp $
+$Id: ChangeLog.txt,v 1.6 2005/10/23 09:17:20 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.0.3.0 alpha
+
+- Add support for Frames with images. Supported image
+  types gif, jpg, png and bmp
+  
+- Add support for available OpenOffice fonts.
+
+- Changed enum FamilyStyles to class with static
+  properties.
 
 -------------------------------------------------------------
 AODL 1.0.2.1 alpha

@@ -29,7 +29,7 @@
             <property name="HtmlHelpName" value="AODL_MSDN_2003" />
             <property name="Title" value="An NDoc Documented Class Library" />
             <property name="OutputTarget" value="HtmlHelp" />
-            <property name="RootPageFileName" value="D:\projects\OpenDocument\Resources\Doc\AODL Startpage.html" />
+            <property name="RootPageFileName" value="D:\OpenDocument\Resources\Doc\AODL Startpage.html" />
             <property name="AdditionalContentResourceDirectory" value=".\includes\" />
             <property name="DocumentPrivates" value="True" />
             <property name="AssemblyVersionInfo" value="AssemblyVersion" />

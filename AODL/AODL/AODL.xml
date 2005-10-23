@@ -2526,28 +2526,7 @@
             The family tyle to this object belongs.
             </summary>
         </member>
-        <member name="T:AODL.TextDocument.TextDocument">
-            <summary>
-            Represent a opendocument text document.
-            </summary>
-            <example>
-            <code>
-            	TextDocument td		= new TextDocument();
-            	//Create a blank document
-            	td.New();
-            	//Create a new paragraph
-            	Paragraph p			= new Paragraph(td, "P1");
-            	//Add some content
-            	p.TextContent.Add( new SimpleText((IContent)p, "Hallo i'm simple text!"));
-            	//Create and add some formated text tho the paragraph
-            	FormatedText ft = new FormatedText((IContent)p, "T1", " And i'm formated text!");
-            	((TextProperties)ft.Style.Properties).Bold = "bold";
-            	p.TextContent.Add(ft);
-            	//Add as document content 
-            	td.Content.Add(p);
-            </code>
-            </example>
-        </member>
+        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "T:AODL.TextDocument.TextDocument" ignoriert -->
         <member name="M:AODL.TextDocument.TextDocument.#ctor">
             <summary>
             Create a new TextDocument object.
