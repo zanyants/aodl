@@ -638,6 +638,20 @@
             <param name="index">The index.</param>
             <param name="value">The value.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.TextContent_Removed(System.Int32,System.Object)">
+            <summary>
+            Texts the content_ removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.Content_Removed(System.Int32,System.Object)">
+            <summary>
+            Content_s the removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
         <member name="P:AODL.TextDocument.Content.Paragraph.ParentStyle">
             <summary>
             Gets the parent style.
@@ -2609,6 +2623,12 @@
             The contentcollection of the document. Represents all
             data to display.
             </summary>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.FontList">
+            <summary>
+            Gets or sets the font list.
+            </summary>
+            <value>The font list.</value>
         </member>
         <member name="T:AODL.TextDocument.TextDocumentHelper">
             <summary>

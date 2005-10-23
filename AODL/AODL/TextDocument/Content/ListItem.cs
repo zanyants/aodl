@@ -1,5 +1,5 @@
 /*
- * $Id: ListItem.cs,v 1.1 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: ListItem.cs,v 1.2 2005/10/23 16:47:48 larsbm Exp $
  */
 
 using System;
@@ -110,11 +110,11 @@ namespace AODL.TextDocument.Content
 		{
 			get
 			{
-				throw new NotSupportedException("The IStyle interface is not supported by ListItem!");
+				return null;
 			}
 			set
 			{
-				throw new NotSupportedException("The IStyle interface is not supported by ListItem!");
+				//throw new NotSupportedException("The IStyle interface is not supported by ListItem!");
 			}
 		}
 
@@ -125,11 +125,11 @@ namespace AODL.TextDocument.Content
 		{
 			get
 			{
-				throw new NotSupportedException("The IStyle interface is not supported by ListItem!");
+				return null;//throw new NotSupportedException("The IStyle interface is not supported by ListItem!");
 			}
 			set
 			{
-				throw new NotSupportedException("The IStyle interface is not supported by ListItem!");
+				//throw new NotSupportedException("The IStyle interface is not supported by ListItem!");
 			}
 		}
 
@@ -184,6 +184,11 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: ListItem.cs,v $
+ * Revision 1.2  2005/10/23 16:47:48  larsbm
+ * - Bugfix ListItem throws IStyleInterface not implemented exeption
+ * - now. build the document after call saveto instead prepare the do at runtime
+ * - add remove support for IText objects in the paragraph class
+ *
  * Revision 1.1  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

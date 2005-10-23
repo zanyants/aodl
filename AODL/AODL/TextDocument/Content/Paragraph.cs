@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.6 2005/10/22 10:47:41 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.7 2005/10/23 16:47:48 larsbm Exp $
  */
 
 using System;
@@ -72,6 +72,8 @@ namespace AODL.TextDocument.Content
 
 			this.TextContent.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Inserted);
 			this.Content.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
+			this.TextContent.Removed	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Removed);
+			this.Content.Removed		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Removed);
 		}
 
 		/// <summary>
@@ -208,11 +210,40 @@ namespace AODL.TextDocument.Content
 		{
 			this.Node.AppendChild(((IContent)value).Node);
 		}
+
+		/// <summary>
+		/// Texts the content_ removed.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void TextContent_Removed(int index, object value)
+		{
+			string inner	= this.Node.InnerXml;
+			string replace	= ((IText)value).Xml;
+			inner			= inner.Replace(replace, "");
+			this.Node.InnerXml	= inner;
+			//this.Node.InnerXml.Replace(((IText)value).Xml, "");
+		}
+
+		/// <summary>
+		/// Content_s the removed.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void Content_Removed(int index, object value)
+		{
+			this.Node.RemoveChild(((IContent)value).Node);
+		}
 	}
 }
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.7  2005/10/23 16:47:48  larsbm
+ * - Bugfix ListItem throws IStyleInterface not implemented exeption
+ * - now. build the document after call saveto instead prepare the do at runtime
+ * - add remove support for IText objects in the paragraph class
+ *
  * Revision 1.6  2005/10/22 10:47:41  larsbm
  * - add graphic support
  *

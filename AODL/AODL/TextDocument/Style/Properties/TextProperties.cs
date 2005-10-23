@@ -1,6 +1,6 @@
 
 /*
- * $Id: TextProperties.cs,v 1.5 2005/10/22 15:52:10 larsbm Exp $
+ * $Id: TextProperties.cs,v 1.6 2005/10/23 16:47:48 larsbm Exp $
  */
 
 using System;
@@ -159,7 +159,7 @@ namespace AODL.TextDocument.Style.Properties
 			}
 			set
 			{
-				this.Style.Document.AddFont(value);
+				this.Style.Document.FontList.Add(value);
 				XmlNode xn = this._node.SelectSingleNode("@style:font-name",
 					this.Style.Document.NamespaceManager);
 				if(xn == null)
@@ -263,6 +263,11 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: TextProperties.cs,v $
+ * Revision 1.6  2005/10/23 16:47:48  larsbm
+ * - Bugfix ListItem throws IStyleInterface not implemented exeption
+ * - now. build the document after call saveto instead prepare the do at runtime
+ * - add remove support for IText objects in the paragraph class
+ *
  * Revision 1.5  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

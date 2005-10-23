@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.6 2005/10/23 09:17:20 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.7 2005/10/23 16:47:48 larsbm Exp $ 
  */
 
 using System;
@@ -56,6 +56,33 @@ namespace AODLTest
 			p.TextContent.Add(new SimpleText(p, "Hallo"));
 			td.Content.Add(p);
 			td.SaveTo("parablank.odt");
+			Console.WriteLine("Document: {0}", td.XmlDoc.OuterXml);
+		}
+
+		[Test]
+		public void ParagraphAddRemoveTest()
+		{
+			TextDocument td = new TextDocument();
+			td.New();
+			Paragraph p = new Paragraph(td, "P1");
+			Assert.IsNotNull(p.Style, "Style object must exist!");
+			Assert.AreEqual(p.Style.GetType().Name, "ParagraphStyle", "IStyle object must be type of ParagraphStyle");
+			Assert.IsNotNull(((ParagraphStyle)p.Style).Properties, "Properties object must exist!");
+			//add text
+			p.TextContent.Add(new SimpleText(p, "Hello"));
+			IText itext		= p.TextContent[0];
+			p.TextContent.Remove(itext);
+			Console.Write(p.Node.Value);
+			Assert.IsTrue(p.Node.InnerXml.IndexOf("Hello") == -1, "Must be removed!");
+			//Add the Paragraph
+			td.Content.Add((IContent)p);
+			//Blank para
+			td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+			// new para
+			p = new Paragraph(td, "P2");
+			p.TextContent.Add(new SimpleText(p, "Hello i'm still here"));
+			td.Content.Add(p);
+			td.SaveTo("pararemoved.odt");
 			Console.WriteLine("Document: {0}", td.XmlDoc.OuterXml);
 		}
 
@@ -241,6 +268,11 @@ namespace AODLTest
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.7  2005/10/23 16:47:48  larsbm
+ * - Bugfix ListItem throws IStyleInterface not implemented exeption
+ * - now. build the document after call saveto instead prepare the do at runtime
+ * - add remove support for IText objects in the paragraph class
+ *
  * Revision 1.6  2005/10/23 09:17:20  larsbm
  * - Release 1.0.3.0
  *

@@ -1,8 +1,9 @@
 /*
- * $Id: TextDocument.cs,v 1.10 2005/10/23 09:17:20 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.11 2005/10/23 16:47:48 larsbm Exp $
  */
 
 using System;
+using System.Collections;
 using System.Reflection;
 using System.IO;
 using System.Xml;
@@ -65,13 +66,25 @@ namespace AODL.TextDocument
 			set { this._content = value; }
 		}
 
+		private ArrayList _fontList;
+		/// <summary>
+		/// Gets or sets the font list.
+		/// </summary>
+		/// <value>The font list.</value>
+		public ArrayList FontList
+		{
+			get { return this._fontList; }
+			set { this._fontList = value; }
+		}
+
 		/// <summary>
 		/// Create a new TextDocument object.
 		/// </summary>
 		public TextDocument()
 		{
-			this.Content	= new IContentCollection();
-			this.Content.Inserted +=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
+			this.Content			= new IContentCollection();
+			this.FontList			= new ArrayList();
+			//this.Content.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
 		}
 
 		/// <summary>
@@ -120,6 +133,7 @@ namespace AODL.TextDocument
 		{
 			try
 			{
+				this.AddIContentCollectionToDocument();
 				Publish.Publisher.PublishTo(this, filename);
 			}
 			catch(Exception ex)
@@ -128,13 +142,21 @@ namespace AODL.TextDocument
 			}
 		}
 
+		private void AddIContentCollectionToDocument()
+		{
+			foreach(string fontname in this.FontList)
+				this.AddFont(fontname);
+			for(int i=0; i < this.Content.Count; i++)
+				this.Content_Inserted(i, this.Content[i]);
+		}
+
 		/// <summary>
 		/// Adds a font to the document. All fonts that you use
 		/// within your text must be added to the document.
 		/// The class FontFamilies represent all available fonts.
 		/// </summary>
 		/// <param name="fontname">The fontname take it from class FontFamilies.</param>
-		public void AddFont(string fontname)
+		private void AddFont(string fontname)
 		{
 			try
 			{
@@ -215,7 +237,8 @@ namespace AODL.TextDocument
 			if(((IContent)value).GetType().GetInterface("IContentContainer") != null)
 				foreach(IContent content in ((IContentContainer)value).Content)
 					if(content.Style != null)
-						this.AppendStyleNode(content.Style.Node);
+						if(content.Style.Node != null)
+							this.AppendStyleNode(content.Style.Node);
 
 			if(((IContent)value).Style != null)
 			{
@@ -292,6 +315,11 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.11  2005/10/23 16:47:48  larsbm
+ * - Bugfix ListItem throws IStyleInterface not implemented exeption
+ * - now. build the document after call saveto instead prepare the do at runtime
+ * - add remove support for IText objects in the paragraph class
+ *
  * Revision 1.10  2005/10/23 09:17:20  larsbm
  * - Release 1.0.3.0
  *

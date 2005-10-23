@@ -51,7 +51,7 @@ namespace AODLTest
 
 			Assert.IsTrue(t.Rows[0].Cells.Count == 2, "Must be 2 Cells wihtin this row!");
 
-			Assert.AreEqual("table1.A1", t.Rows[0].Cells[0].Stylename, "Must be table1.A1");
+			Assert.AreEqual("table1.A11", t.Rows[0].Cells[0].Stylename, "Must be table1.A1");
 
 			foreach(Row r in t.Rows)
 				foreach(Cell c in r.Cells)
