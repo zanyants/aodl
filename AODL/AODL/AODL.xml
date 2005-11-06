@@ -4,6 +4,41 @@
         <name>AODL</name>
     </assembly>
     <members>
+        <member name="T:AODL.Import.IImporter">
+            <summary>
+            All classes that want to act as an importer have to
+            to implement this interface.
+            </summary>
+        </member>
+        <member name="T:AODL.Import.OpenDocumentTextImporter">
+            <summary>
+            OpenDocumentTextImporter - Importer for OpenDocuments in the Text format.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Import.OpenDocumentTextImporter"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.Import(System.String)">
+            <summary>
+            Imports the specified filename.
+            </summary>
+            <param name="filename">The filename.</param>
+            <returns>The created TextDocument</returns>
+        </member>
+        <member name="P:AODL.Import.OpenDocumentTextImporter.ImportError">
+            <summary>
+            Gets the import errors as ArrayList of strings.
+            </summary>
+            <value>The import errors.</value>
+        </member>
+        <member name="P:AODL.Import.OpenDocumentTextImporter.ImporterName">
+            <summary>
+            Gets the name of the importer.
+            </summary>
+            <value>The name of the importer.</value>
+        </member>
         <member name="T:AODL.Publish.Publisher">
             <summary>
             Class for generating an open documents.
@@ -2573,6 +2608,11 @@
             </summary>
             <param name="filename">The filename. With or without full path. Without will save the file to application path!</param>
         </member>
+        <member name="M:AODL.TextDocument.TextDocument.AddIContentCollectionToDocument">
+            <summary>
+            Adds the I content collection to document.
+            </summary>
+        </member>
         <member name="M:AODL.TextDocument.TextDocument.AddFont(System.String)">
             <summary>
             Adds a font to the document. All fonts that you use
@@ -2612,6 +2652,54 @@
             <summary>
             The xmldocument the textdocument based on.
             </summary>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.DocumentStyles">
+            <summary>
+            Gets or sets the document styes.
+            </summary>
+            <value>The document styes.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.DocumentSetting">
+            <summary>
+            Gets or sets the document setting.
+            </summary>
+            <value>The document setting.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.DocumentMetadata">
+            <summary>
+            Gets or sets the document metadata.
+            </summary>
+            <value>The document metadata.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.DocumentManifest">
+            <summary>
+            Gets or sets the document manifest.
+            </summary>
+            <value>The document manifest.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.DocumentConfigurations2">
+            <summary>
+            Gets or sets the document configurations2.
+            </summary>
+            <value>The document configurations2.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.DocumentPictures">
+            <summary>
+            Gets or sets the document pictures.
+            </summary>
+            <value>The document pictures.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.DocumentThumbnails">
+            <summary>
+            Gets or sets the document thumbnails.
+            </summary>
+            <value>The document thumbnails.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.MimeTyp">
+            <summary>
+            Gets the MIME typ.
+            </summary>
+            <value>The MIME typ.</value>
         </member>
         <member name="P:AODL.TextDocument.TextDocument.NamespaceManager">
             <summary>
@@ -2657,6 +2745,211 @@
             </summary>
             <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
             <returns>The XmlNamespaceManager object.</returns>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentStyles">
+            <summary>
+            DocumentStyles global Document Style
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentStyles"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentStyles.Styles">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentMetadata">
+            <summary>
+            DocumentMetadata global Document Metadata
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentMetadata"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Meta">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentSetting">
+            <summary>
+            DocumentSetting global Document Metadata
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentSetting.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentSetting"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentSetting.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentSetting.Settings">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentManifest">
+            <summary>
+            DocumentManifest global Document Manifest
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentManifest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentManifest"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentManifest.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentManifest.Manifest">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentConfiguration2">
+            <summary>
+            Zusammenfassung für DocumentConfiguration2.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentConfiguration2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentConfiguration2"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentConfiguration2.Load(System.String)">
+            <summary>
+            Loads the specified filename.
+            </summary>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentConfiguration2.FileName">
+            <summary>
+            Gets or sets the name of the file.
+            </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentConfiguration2.Configurations2Content">
+            <summary>
+            Gets or sets the content of the configurations2.
+            </summary>
+            <value>The content of the configurations2.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentPicture">
+            <summary>
+            Zusammenfassung für DocumentPicture.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPicture.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentPicture"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPicture.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentPicture"/> class.
+            </summary>
+            <param name="file">The file.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentPicture.Image">
+            <summary>
+            Gets or sets the image.
+            </summary>
+            <value>The image.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentPicture.ImageName">
+            <summary>
+            Gets or sets the name of the image.
+            </summary>
+            <value>The name of the image.</value>
+        </member>
+        <member name="T:AODL.Export.IExporter">
+            <summary>
+            IExporter all classes that want to act as exporter
+            have to implement this interface.
+            </summary>
+        </member>
+        <member name="T:AODL.Export.OpenDocumentTextExporter">
+            <summary>
+            Zusammenfassung für OpenDocumentTextExporter.
+            </summary>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.Export(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Exports the specified document.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.SaveExistingGraphics(AODL.TextDocument.DocumentPictureCollection,System.String)">
+            <summary>
+            Saves the existing graphics.
+            </summary>
+            <param name="pictures">The pictures.</param>
+            <param name="folder">The folder.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.WriteSingleFiles(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Writes the single files.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.CreateOpenDocument(System.String,System.String)">
+            <summary>
+            Create a zip archive with .odt.
+            </summary>
+            <param name="filename">The filename.</param>
+            <param name="directory">The directory to zip.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.PrepareDirectory(System.String)">
+            <summary>
+            Create an output directory with all necessary subfolders.
+            </summary>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.WriteMimetypeFile(System.String)">
+            <summary>
+            Helper Method: Don't know why, but it seems to be impossible
+            to embbed a textfile as resource
+            </summary>
+            <param name="file">The filename.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.SaveGraphic(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Saves all graphics used within the textdocument.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="P:AODL.Export.OpenDocumentTextExporter.ExportErros">
+            <summary>
+            Gets the export erros.
+            </summary>
+            <value>The export erros.</value>
         </member>
     </members>
 </doc>

@@ -1,4 +1,12 @@
-$Id: ChangeLog.txt,v 1.7 2005/10/23 17:02:23 larsbm Exp $
+$Id: ChangeLog.txt,v 1.8 2005/11/06 14:55:25 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.0.4.0 beta
+
+- Declare AODL as beta software
+- Interfaces for document export, so i future it will be
+  easy to export a document. Only write an special implemenation
+- Interfaces for import (still in development)
 
 -------------------------------------------------------------
 AODL 1.0.3.1 alpha

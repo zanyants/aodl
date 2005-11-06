@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.11 2005/10/23 16:47:48 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.12 2005/11/06 14:55:25 larsbm Exp $
  */
 
 using System;
@@ -10,6 +10,7 @@ using System.Xml;
 using AODL.TextDocument.Content;
 using AODL.TextDocument.Style;
 using AODL.TextDocument.Style.Properties;
+using AODL.Export;
 
 namespace AODL.TextDocument
 {
@@ -43,6 +44,93 @@ namespace AODL.TextDocument
 		{
 			get { return this._xmldoc; }
 			set { this._xmldoc = value; }
+		}
+
+		private DocumentStyles _documentStyles;
+		/// <summary>
+		/// Gets or sets the document styes.
+		/// </summary>
+		/// <value>The document styes.</value>
+		public DocumentStyles DocumentStyles
+		{
+			get { return this._documentStyles; }
+			set { this._documentStyles = value; }
+		}
+
+		private DocumentSetting _documentSetting;
+		/// <summary>
+		/// Gets or sets the document setting.
+		/// </summary>
+		/// <value>The document setting.</value>
+		public DocumentSetting DocumentSetting
+		{
+			get { return this._documentSetting; }
+			set { this._documentSetting = value; }
+		}
+
+		private DocumentMetadata _documentMetadata;
+		/// <summary>
+		/// Gets or sets the document metadata.
+		/// </summary>
+		/// <value>The document metadata.</value>
+		public DocumentMetadata DocumentMetadata
+		{
+			get { return this._documentMetadata; }
+			set { this._documentMetadata = value; }
+		}
+
+		private DocumentManifest _documentManifest;
+		/// <summary>
+		/// Gets or sets the document manifest.
+		/// </summary>
+		/// <value>The document manifest.</value>
+		public DocumentManifest DocumentManifest
+		{
+			get { return this._documentManifest; }
+			set { this._documentManifest = value; }
+		}
+
+		private DocumentConfiguration2 _documentConfigurations2;
+		/// <summary>
+		/// Gets or sets the document configurations2.
+		/// </summary>
+		/// <value>The document configurations2.</value>
+		public DocumentConfiguration2 DocumentConfigurations2
+		{
+			get { return this._documentConfigurations2; }
+			set { this._documentConfigurations2 = value; }
+		}
+
+		private DocumentPictureCollection _documentPictures;
+		/// <summary>
+		/// Gets or sets the document pictures.
+		/// </summary>
+		/// <value>The document pictures.</value>
+		public DocumentPictureCollection DocumentPictures
+		{
+			get { return this._documentPictures; }
+			set { this._documentPictures = value; }
+		}
+
+		private DocumentPictureCollection _documentThumbnails;
+		/// <summary>
+		/// Gets or sets the document thumbnails.
+		/// </summary>
+		/// <value>The document thumbnails.</value>
+		public DocumentPictureCollection DocumentThumbnails
+		{
+			get { return this._documentThumbnails; }
+			set { this._documentThumbnails = value; }
+		}
+
+		private string _mimeTyp		= "application/vnd.oasis.opendocument.text";
+		/// <summary>
+		/// Gets the MIME typ.
+		/// </summary>
+		/// <value>The MIME typ.</value>
+		public string MimeTyp
+		{
+			get { return this._mimeTyp; }
 		}
 
 		private XmlNamespaceManager _namespacemanager;
@@ -92,9 +180,27 @@ namespace AODL.TextDocument
 		/// </summary>
 		public void New()
 		{
-			this._xmldoc = new XmlDocument();
+			this._xmldoc					= new XmlDocument();
 			this._xmldoc.LoadXml(TextDocumentHelper.GetBlankDocument());
-			this.NamespaceManager = TextDocumentHelper.NameSpace(this._xmldoc.NameTable);
+			this.NamespaceManager			= TextDocumentHelper.NameSpace(this._xmldoc.NameTable);
+
+			this.DocumentConfigurations2	= new DocumentConfiguration2();
+
+			this.DocumentManifest			= new DocumentManifest();
+			this.DocumentManifest.New();
+
+			this.DocumentMetadata			= new DocumentMetadata();
+			this.DocumentMetadata.New();
+
+			this.DocumentPictures			= new DocumentPictureCollection();
+
+			this.DocumentSetting			= new DocumentSetting();
+			this.DocumentSetting.New();
+
+			this.DocumentStyles				= new DocumentStyles();
+			this.DocumentStyles.New();
+
+			this.DocumentThumbnails			= new DocumentPictureCollection();
 		}
 
 		/// <summary>
@@ -134,7 +240,9 @@ namespace AODL.TextDocument
 			try
 			{
 				this.AddIContentCollectionToDocument();
-				Publish.Publisher.PublishTo(this, filename);
+				IExporter exporter			= this.GetExporter(filename);
+				exporter.Export(this, filename);
+				//Publish.Publisher.PublishTo(this, filename);
 			}
 			catch(Exception ex)
 			{
@@ -142,6 +250,17 @@ namespace AODL.TextDocument
 			}
 		}
 
+		private IExporter GetExporter(string filename)
+		{
+			if(filename.EndsWith(".odt"))
+				return new AODL.Export.OpenDocumentTextExporter();
+
+			throw new Exception("Unknown Exporter name exception."+filename);
+		}
+
+		/// <summary>
+		/// Adds the I content collection to document.
+		/// </summary>
 		private void AddIContentCollectionToDocument()
 		{
 			foreach(string fontname in this.FontList)
@@ -315,6 +434,10 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.12  2005/11/06 14:55:25  larsbm
+ * - Interfaces for Import and Export
+ * - First implementation of IExport OpenDocumentTextExporter
+ *
  * Revision 1.11  2005/10/23 16:47:48  larsbm
  * - Bugfix ListItem throws IStyleInterface not implemented exeption
  * - now. build the document after call saveto instead prepare the do at runtime
