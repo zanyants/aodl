@@ -1,5 +1,5 @@
 /*
- * $Id: CellProperties.cs,v 1.1 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: CellProperties.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -248,6 +248,10 @@ namespace AODL.TextDocument.Style.Properties
 
 		#region IProperty Member
 		private XmlNode _node;
+		/// <summary>
+		/// The XmlNode which represent the property element.
+		/// </summary>
+		/// <value>The node</value>
 		public System.Xml.XmlNode Node
 		{
 			get

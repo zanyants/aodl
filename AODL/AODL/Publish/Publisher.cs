@@ -1,5 +1,5 @@
 /*
- * $Id: Publisher.cs,v 1.4 2005/10/22 15:52:10 larsbm Exp $
+ * $Id: Publisher.cs,v 1.5 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -15,9 +15,9 @@ using AODL.TextDocument.Content;
 namespace AODL.Publish
 {
 	/// <summary>
-	/// Class for generating an open documents.
+	/// Alternative internal class for generating an open document.
 	/// </summary>
-	public class Publisher
+	internal class Publisher
 	{
 		/// <summary>
 		/// Generate an open document.
@@ -160,6 +160,11 @@ namespace AODL.Publish
 
 /*
  * $Log: Publisher.cs,v $
+ * Revision 1.5  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.4  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

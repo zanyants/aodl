@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphProperties.cs,v 1.3 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: ParagraphProperties.cs,v 1.4 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -57,6 +57,32 @@ namespace AODL.TextDocument.Style.Properties
 			}
 		}
 
+		private TabStopStyleCollection _tabstopstylecollection;
+		/// <summary>
+		/// Gets or sets the tab stop style collection.
+		/// <b>Notice:</b> A TabStopStyleCollection will not work
+		/// within a Standard Paragraph!
+		/// </summary>
+		/// <value>The tab stop style collection.</value>
+		public TabStopStyleCollection TabStopStyleCollection
+		{
+			get { return this._tabstopstylecollection; }
+			set 
+			{ 
+				if(this.Paragraphstyle.Name == "Standard")
+					return;
+				if(this._tabstopstylecollection != null)
+				{
+					//Remove node and reset the collection
+					this.Node.RemoveChild(this._tabstopstylecollection.Node);
+					this._tabstopstylecollection = null; 
+				}
+				
+				this._tabstopstylecollection	= value;
+				this.Node.AppendChild(this._tabstopstylecollection.Node);
+			}
+		}
+
 		/// <summary>
 		/// Set paragraph alignment - object.Alignment = TextAlignments.right.ToString()
 		/// </summary>
@@ -92,6 +118,17 @@ namespace AODL.TextDocument.Style.Properties
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="ParagraphProperties"/> class.
+		/// </summary>
+		/// <param name="style">The style.</param>
+		/// <param name="node">The node.</param>
+		public ParagraphProperties(ParagraphStyle style, XmlNode node)
+		{
+			this.Paragraphstyle		= style;
+			this.Node				= node;
+		}
+
+		/// <summary>
 		/// Create a XmlAttribute for propertie XmlNode.
 		/// </summary>
 		/// <param name="name">The attribute name.</param>
@@ -111,16 +148,17 @@ namespace AODL.TextDocument.Style.Properties
 		private void NewXmlNode(TextDocument td)
 		{
 			this.Node		= td.CreateNode("paragraph-properties", "style");
-//			XmlAttribute xa = td.CreateAttribute("margin-left", "fo");
-//			xa.Value		= "0cm";
-//
-//			this.Node.Attributes.Append(xa);
 		}
 	}
 }
 
 /*
  * $Log: ParagraphProperties.cs,v $
+ * Revision 1.4  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.3  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

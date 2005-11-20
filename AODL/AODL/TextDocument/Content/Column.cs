@@ -1,5 +1,5 @@
 /*
- * $Id: Column.cs,v 1.1 2005/10/12 19:52:10 larsbm Exp $
+ * $Id: Column.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -84,6 +84,10 @@ namespace AODL.TextDocument.Content
 			}
 		}
 
+		/// <summary>
+		/// The stylename wihich is referenced with the content object.
+		/// </summary>
+		/// <value>The name</value>
 		public string Stylename
 		{
 			get
@@ -133,6 +137,11 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Column.cs,v $
+ * Revision 1.2  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.1  2005/10/12 19:52:10  larsbm
  * - start table implementation
  * - added uml diagramm

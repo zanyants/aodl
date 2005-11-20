@@ -1,5 +1,5 @@
 /*
- * $Id: ColumnProperties.cs,v 1.2 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: ColumnProperties.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -106,6 +106,10 @@ namespace AODL.TextDocument.Style.Properties
 		#region IProperty Member
 
 		private XmlNode _node;
+		/// <summary>
+		/// The XmlNode which represent the property element.
+		/// </summary>
+		/// <value>The node</value>
 		public XmlNode Node
 		{
 			get
@@ -124,6 +128,11 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: ColumnProperties.cs,v $
+ * Revision 1.3  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.2  2005/10/15 11:40:31  larsbm
  * - finished first step for table support
  *

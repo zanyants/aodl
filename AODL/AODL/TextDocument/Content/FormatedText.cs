@@ -1,5 +1,5 @@
 /*
- * $Id: FormatedText.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ * $Id: FormatedText.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -13,10 +13,21 @@ namespace AODL.TextDocument.Content
 	/// </summary>
 	public class FormatedText : IText
 	{
+		private FormatedTextCollection _formatedtextcollecion;
+		/// <summary>
+		/// Gets or sets the formated text collection.
+		/// </summary>
+		/// <value>The formated text collection.</value>
+		public FormatedTextCollection FormatedTextCollection
+		{
+			get { return this._formatedtextcollecion; }
+			set { this._formatedtextcollecion = value; }
+		}
+
 		/// <summary>
 		/// Empty default constructor.
 		/// </summary>
-		public FormatedText()
+		internal FormatedText()
 		{			
 		}
 
@@ -33,6 +44,10 @@ namespace AODL.TextDocument.Content
 			this.Content	= content;
 			this.Text		= text;
 			this.Style		= (IStyle)new TextStyle(this, name);
+
+			this._formatedtextcollecion				= new FormatedTextCollection();
+			this._formatedtextcollecion.Inserted	+= new AODL.Collections.CollectionWithEvents.CollectionChange(_formatedtextcollecion_Inserted);
+			this._formatedtextcollecion.Removed		+=new AODL.Collections.CollectionWithEvents.CollectionChange(_formatedtextcollecion_Removed);
 		}
 
 		/// <summary>
@@ -47,6 +62,20 @@ namespace AODL.TextDocument.Content
 			xa.Value		= stylename;
 
 			this.Node.Attributes.Append(xa);
+		}
+
+		/// <summary>
+		/// Transform control character like \n, \t into
+		/// their xml pendants.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns>The transformed text</returns>
+		private string ControlCharTransformer(string text)
+		{
+			text		= text.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+			text		= text.Replace(@"\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+
+			return text;
 		}
 
 		#region IText Member
@@ -78,7 +107,8 @@ namespace AODL.TextDocument.Content
 			}
 			set
 			{
-				this.Node.InnerXml = value.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+				//this.Node.InnerXml = value.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+				this.Node.InnerXml	= this.ControlCharTransformer(value);
 			}
 		}
 
@@ -126,11 +156,39 @@ namespace AODL.TextDocument.Content
 		}
 
 		#endregion
+
+		/// <summary>
+		/// _formatedtextcollecion_s the inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void _formatedtextcollecion_Inserted(int index, object value)
+		{
+			this.Node.InnerXml += ((FormatedText)value).Xml;
+		}
+
+		/// <summary>
+		/// _formatedtextcollecion_s the removed.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void _formatedtextcollecion_Removed(int index, object value)
+		{
+			string inner	= this.Node.InnerXml;
+			string replace	= ((FormatedText)value).Xml;
+			inner			= inner.Replace(replace, "");
+			this.Node.InnerXml	= inner;
+		}
 	}
 }
 
 /*
  * $Log: FormatedText.cs,v $
+ * Revision 1.3  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.2  2005/10/08 08:19:25  larsbm
  * - added cvs tags
  *

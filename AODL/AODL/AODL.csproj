@@ -129,6 +129,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Publish\XmlHelper\TextContentProcessor.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Publish\XmlHelper\XmlNodeProcessor.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Resources\ChangeLog.txt"
                     BuildAction = "Content"
                 />
@@ -214,6 +224,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\Bookmark.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\Cell.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -235,6 +250,11 @@
                 />
                 <File
                     RelPath = "TextDocument\Content\FormatedText.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\FormatedTextCollection.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -314,6 +334,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\XLink.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Style\CellStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -385,6 +410,21 @@
                 />
                 <File
                     RelPath = "TextDocument\Style\TableStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\TabStopLeaderStyles.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\TabStopStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\TabStopStyleCollection.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.1 2005/11/06 14:55:25 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -11,6 +11,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.GZip;
 using AODL.TextDocument;
 using AODL.TextDocument.Content;
+using AODL.Import;
 
 namespace AODL.Export
 {
@@ -20,7 +21,11 @@ namespace AODL.Export
 	public class OpenDocumentTextExporter : IExporter
 	{
 		private static readonly string dir		= Environment.CurrentDirectory+@"\tmp\";
+		private string[] _directories			= {"Configurations2", "META-INF", "Pictures", "Thumbnails"};
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OpenDocumentTextExporter"/> class.
+		/// </summary>
 		public OpenDocumentTextExporter()
 		{
 		}
@@ -65,6 +70,8 @@ namespace AODL.Export
 				SaveGraphic(document, dir);
 				//Now create the document
 				CreateOpenDocument(filename, dir);
+				//Clean up resources
+				this.CleanUpDirectory(dir);
 			}
 			catch(Exception ex)
 			{
@@ -82,7 +89,8 @@ namespace AODL.Export
 			try
 			{
 				foreach(DocumentPicture dpic in pictures)
-					dpic.Image.Save(folder+dpic.ImageName);
+					if(!File.Exists(folder+dpic.ImageName))
+						dpic.Image.Save(folder+dpic.ImageName);
 			}
 			catch(Exception ex)
 			{
@@ -116,24 +124,41 @@ namespace AODL.Export
 		/// <param name="directory">The directory to zip.</param>
 		private static void CreateOpenDocument(string filename, string directory)
 		{
-			FastZip fz = new FastZip();
-			fz.CreateEmptyDirectories = true;
-			fz.CreateZip(filename, directory, true, "");
+			try
+			{
+				FastZip fz = new FastZip();
+				fz.CreateEmptyDirectories = true;
+				fz.CreateZip(filename, directory, true, "");
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
 		}
 
 		/// <summary>
 		/// Create an output directory with all necessary subfolders.
 		/// </summary>
 		/// <param name="directory">The directory.</param>
-		private static void PrepareDirectory(string directory)
+		private void PrepareDirectory(string directory)
 		{
-			if(Directory.Exists(directory))
-				Directory.Delete(directory, true);
-			
-			Directory.CreateDirectory(directory+@"\META-INF");			
-			Directory.CreateDirectory(directory+@"\Configurations2");
-			Directory.CreateDirectory(directory+@"\Pictures");
-			Directory.CreateDirectory(directory+@"\Thumbnails");	
+			try
+			{
+				if(Directory.Exists(directory))
+					Directory.Delete(directory, true);
+
+				foreach(string d in this._directories)
+					Directory.CreateDirectory(directory+@"\"+d);
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
+
+//			Directory.CreateDirectory(directory+@"\META-INF");			
+//			Directory.CreateDirectory(directory+@"\Configurations2");
+//			Directory.CreateDirectory(directory+@"\Pictures");
+//			Directory.CreateDirectory(directory+@"\Thumbnails");	
 		}
 
 		/// <summary>
@@ -145,11 +170,43 @@ namespace AODL.Export
 		{
 			//Don't know why, but it seems to be impossible
 			//to embbed a textfile as resource
-			if(File.Exists(file))
-				File.Delete(file);
-			StreamWriter sw = File.CreateText(file);
-			sw.WriteLine("application/vnd.oasis.opendocument.text");
-			sw.Close();
+			try
+			{
+				if(File.Exists(file))
+					File.Delete(file);
+				StreamWriter sw = File.CreateText(file);
+				sw.WriteLine("application/vnd.oasis.opendocument.text");
+				sw.Close();
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		/// <summary>
+		/// Cleans the up directory.
+		/// </summary>
+		/// <param name="directory">The directory.</param>
+		private void CleanUpDirectory(string directory)
+		{
+			try
+			{
+				foreach(string d in this._directories)
+					Directory.Delete(directory+@"\"+d, true);
+
+				if(Directory.Exists(OpenDocumentTextImporter.dirpics))
+					Directory.Delete(OpenDocumentTextImporter.dirpics, true);
+
+				File.Delete(directory+DocumentMetadata.FileName);
+				File.Delete(directory+DocumentSetting.FileName);
+				File.Delete(directory+DocumentStyles.FileName);
+				File.Delete(directory+"content.xml");
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
 		}
 
 		/// <summary>
@@ -186,6 +243,11 @@ namespace AODL.Export
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.2  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.1  2005/11/06 14:55:25  larsbm
  * - Interfaces for Import and Export
  * - First implementation of IExport OpenDocumentTextExporter

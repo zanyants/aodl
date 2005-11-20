@@ -1,5 +1,5 @@
 /*
- * $Id: ListLevelProperties.cs,v 1.1 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: ListLevelProperties.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -35,6 +35,8 @@ namespace AODL.TextDocument.Style.Properties
 		/// Create the XmlNode which represent the propertie element.
 		/// </summary>
 		/// <param name="td">The TextDocument</param>
+		/// <param name="spacebefore">The space before the list item</param>
+		/// <param name="minlabelwidth">The minimal label width</param>
 		private void NewXmlNode(TextDocument td, string spacebefore, string minlabelwidth)
 		{
 			this.Node			= td.CreateNode("list-level-properties", "style");

@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentConfiguration2.cs,v 1.1 2005/11/06 14:55:25 larsbm Exp $
+ * $Id: DocumentConfiguration2.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -12,6 +12,9 @@ namespace AODL.TextDocument
 	/// </summary>
 	public class DocumentConfiguration2
 	{
+		/// <summary>
+		/// The folder name.
+		/// </summary>
 		public static readonly string FolderName = "Configurations2";
 
 		private string _filename;
@@ -69,6 +72,11 @@ namespace AODL.TextDocument
 
 /*
  * $Log: DocumentConfiguration2.cs,v $
+ * Revision 1.2  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.1  2005/11/06 14:55:25  larsbm
  * - Interfaces for Import and Export
  * - First implementation of IExport OpenDocumentTextExporter

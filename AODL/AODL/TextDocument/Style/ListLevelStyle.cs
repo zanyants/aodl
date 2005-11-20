@@ -1,5 +1,5 @@
 /*
- * $Id: ListLevelStyle.cs,v 1.1 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: ListLevelStyle.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -45,6 +45,10 @@ namespace AODL.TextDocument.Style
 		}
 
 		private TextProperties _textproperties;
+		/// <summary>
+		/// Gets or sets the text properties.
+		/// </summary>
+		/// <value>The text properties.</value>
 		public TextProperties TextProperties
 		{
 			get { return this._textproperties; }
@@ -192,6 +196,11 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: ListLevelStyle.cs,v $
+ * Revision 1.2  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.1  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

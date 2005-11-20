@@ -1,5 +1,5 @@
 /*
- * $Id: List.cs,v 1.1 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: List.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -64,7 +64,7 @@ namespace AODL.TextDocument.Content
 		/// Create a new List which is used to represent a inner list.
 		/// </summary>
 		/// <param name="td">The TextDocument</param>
-		/// <param name="List">The List to which this List belongs.</param>
+		/// <param name="outerlist">The List to which this List belongs.</param>
 		public List(TextDocument td, List outerlist)
 		{
 			this.Document		= td;

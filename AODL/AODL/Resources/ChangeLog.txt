@@ -1,4 +1,4 @@
-$Id: ChangeLog.txt,v 1.8 2005/11/06 14:55:25 larsbm Exp $
+$Id: ChangeLog.txt,v 1.9 2005/11/20 17:31:20 larsbm Exp $
 
 -------------------------------------------------------------
 AODL 1.0.4.0 beta
@@ -6,7 +6,22 @@ AODL 1.0.4.0 beta
 - Declare AODL as beta software
 - Interfaces for document export, so i future it will be
   easy to export a document. Only write an special implemenation
-- Interfaces for import (still in development)
+- Interfaces for import (still in development and this
+  feature is experimentell)
+  use Document.Load("some.odt"); 
+  Noice: All unknown content will be deleted, so if you use this
+  always save the loaded file to another filename.
+  Supported load types: All types which are creatable within
+  AODL
+- use the tab control charcter \t within your text to set 
+  a tab stop
+- New feature TabStopStyles. Up to now you attach a TabStop-
+  StyleCollection to ParagraphProperties to control the
+  appearance of tab stops.
+- New feature Bookmarks. Set standard bookmarks or define
+  Bookmark ranges
+- New feature XLink. Add simply XLinks to you document.
+  Supported Weblink, FTP link, Telnet links
 
 -------------------------------------------------------------
 AODL 1.0.3.1 alpha

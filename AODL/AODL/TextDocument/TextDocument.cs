@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.12 2005/11/06 14:55:25 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.13 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -11,6 +11,7 @@ using AODL.TextDocument.Content;
 using AODL.TextDocument.Style;
 using AODL.TextDocument.Style.Properties;
 using AODL.Export;
+using AODL.Import;
 
 namespace AODL.TextDocument
 {
@@ -18,6 +19,7 @@ namespace AODL.TextDocument
 	/// Represent a opendocument text document.
 	/// </summary>
 	/// <example>
+	/// <code>
 	/// TextDocument td = new TextDocument();
 	/// td.New();
 	/// Paragraph p = new Paragraph(td, "P1");
@@ -204,6 +206,28 @@ namespace AODL.TextDocument
 		}
 
 		/// <summary>
+		/// Loads the document by using the specified importer.
+		/// </summary>
+		/// <param name="file">The the file.</param>
+		public void Load(string file)
+		{
+			try
+			{
+				this._xmldoc					= new XmlDocument();
+				this._xmldoc.LoadXml(TextDocumentHelper.GetBlankDocument());
+
+				this.NamespaceManager			= TextDocumentHelper.NameSpace(this._xmldoc.NameTable);
+
+				IImporter importer				= this.GetImporter(file);
+				importer.Import(this,file);
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		/// <summary>
 		/// Create a new XmlNode for this document.
 		/// </summary>
 		/// <param name="name">The elementname.</param>
@@ -250,12 +274,30 @@ namespace AODL.TextDocument
 			}
 		}
 
+		/// <summary>
+		/// Gets the exporter.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		/// <returns></returns>
 		private IExporter GetExporter(string filename)
 		{
 			if(filename.EndsWith(".odt"))
 				return new AODL.Export.OpenDocumentTextExporter();
 
-			throw new Exception("Unknown Exporter name exception."+filename);
+			throw new Exception("Unknown Exporter name exception. No exporter found for file "+filename);
+		}
+
+		/// <summary>
+		/// Gets the importer.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		/// <returns></returns>
+		private IImporter GetImporter(string filename)
+		{
+			if(filename.EndsWith(".odt"))
+				return new OpenDocumentTextImporter();
+
+			throw new Exception("Unkown importer name! No importer found for file "+filename);
 		}
 
 		/// <summary>
@@ -434,6 +476,11 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.13  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.12  2005/11/06 14:55:25  larsbm
  * - Interfaces for Import and Export
  * - First implementation of IExport OpenDocumentTextExporter

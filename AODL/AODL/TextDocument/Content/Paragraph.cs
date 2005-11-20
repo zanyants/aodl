@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.7 2005/10/23 16:47:48 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.8 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -57,6 +57,20 @@ namespace AODL.TextDocument.Content
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="Paragraph"/> class.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <param name="document">The document.</param>
+		internal Paragraph(XmlNode node, TextDocument document)
+		{
+			this.Document				= document;
+			this.Node					= node;
+			this.InitStandards();
+//			if(this.Stylename != "Standard" && this.Stylename != "Table_20_Contents")
+//
+		}
+
+		/// <summary>
 		/// Create the Paragraph.
 		/// </summary>
 		/// <param name="td">The TextDocument.</param>
@@ -66,9 +80,24 @@ namespace AODL.TextDocument.Content
 			this.Document				= td;
 			if(stylename != "Standard" && stylename != "Table_20_Contents")
 				this.Style				= (IStyle)new ParagraphStyle(this, stylename);
+//			this.TextContent			= new ITextCollection();
+//			this.Content				= new IContentCollection();
+			this.InitStandards();
+			this.NewXmlNode(td, stylename);
+
+//			this.TextContent.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Inserted);
+//			this.Content.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
+//			this.TextContent.Removed	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Removed);
+//			this.Content.Removed		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Removed);
+		}
+
+		/// <summary>
+		/// Inits the standards.
+		/// </summary>
+		private void InitStandards()
+		{
 			this.TextContent			= new ITextCollection();
 			this.Content				= new IContentCollection();
-			this.NewXmlNode(td, stylename);
 
 			this.TextContent.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Inserted);
 			this.Content.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
@@ -124,7 +153,7 @@ namespace AODL.TextDocument.Content
 			}
 		}
 
-		private string _stylename;
+		
 		/// <summary>
 		/// The stylename which is referenced with this paragraph.
 		/// </summary>
@@ -187,6 +216,10 @@ namespace AODL.TextDocument.Content
 
 		#region IContentContainer Member
 		private IContentCollection _content;
+		/// <summary>
+		/// Gets or sets the content.
+		/// </summary>
+		/// <value>The content.</value>
 		public IContentCollection Content
 		{
 			get
@@ -239,6 +272,11 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.8  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.7  2005/10/23 16:47:48  larsbm
  * - Bugfix ListItem throws IStyleInterface not implemented exeption
  * - now. build the document after call saveto instead prepare the do at runtime

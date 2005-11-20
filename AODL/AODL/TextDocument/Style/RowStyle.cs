@@ -1,5 +1,5 @@
 /*
- * $Id: RowStyle.cs,v 1.2 2005/10/22 15:52:10 larsbm Exp $
+ * $Id: RowStyle.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -37,6 +37,11 @@ namespace AODL.TextDocument.Style
 			set { this._rowproperties = value; }
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RowStyle"/> class.
+		/// </summary>
+		/// <param name="row">The row.</param>
+		/// <param name="stylename">The stylename.</param>
 		public RowStyle(Row row, string stylename)
 		{
 			this.Row			= row;
@@ -121,6 +126,11 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: RowStyle.cs,v $
+ * Revision 1.3  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.2  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.7 2005/10/23 16:47:48 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.8 2005/11/20 17:31:20 larsbm Exp $ 
  */
 
 using System;
@@ -263,11 +263,111 @@ namespace AODLTest
 			foreach(MemberInfo mi in fontfamiliestype.GetMembers())
 				Console.WriteLine(mi.Name+"<br>");
 		}
+
+		[Test]
+		public void TabstopTest()
+		{
+			//Create new document
+			TextDocument document		= new TextDocument();
+			document.New();
+			//Create new paragraph
+			Paragraph par				= new Paragraph(document, "P1");
+			//Create a new TabStopStyle collection
+			TabStopStyleCollection tsc	= new TabStopStyleCollection(document);
+			//Create TabStopStyles
+			TabStopStyle ts				= new TabStopStyle(document, 4.98);
+			ts.LeaderStyle				= TabStopLeaderStyles.Dotted;
+			ts.LeaderText				= ".";
+			ts.Type						= TabStopTypes.Center;
+			//Add the tabstop
+			tsc.Add(ts);
+			//Append the TabStopStyleCollection
+			((ParagraphStyle)par.Style).Properties.TabStopStyleCollection = tsc;
+			//Add some text, use @ qualifier when ever you use control chars!
+			string mytebstoptext		= @"Hello\tHello again";
+			SimpleText stext			= new SimpleText(par, mytebstoptext);
+			//the simple text
+			par.TextContent.Add(stext);
+			//Add the paragraph to the content container
+			document.Content.Add(par);
+			//Save
+			document.SaveTo("tabstop.odt");
+		}
+
+		[Test]
+		public void BookmarkTest()
+		{
+			//Create a new TextDocument
+			TextDocument document		= new TextDocument();
+			document.New();
+			//Create a new Paragraph
+			Paragraph para				= new Paragraph(document, "P1");
+			//Create simple text
+			SimpleText stext			= new SimpleText(para, "Some text here");
+			//add the simple text
+			para.TextContent.Add(stext);
+			//add the paragraph
+			document.Content.Add(para);
+			//add a blank paragraph
+			document.Content.Add(new Paragraph(document, ParentStyles.Standard.ToString()));
+			//Create a new Paragraph
+			para						= new Paragraph(document, "P2");
+			//add some simple text
+			para.TextContent.Add(new SimpleText(para, "some simple text"));
+			//create a new standard bookmark
+			Bookmark bookmark			= new Bookmark(para, BookmarkType.Standard, "address");
+			//add bookmark to the paragraph
+			para.TextContent.Add(bookmark);
+			//add the paragraph to the document
+			document.Content.Add(para);
+
+			//create a paragraph, with a bookmark range Start -> End
+			para						= new Paragraph(document, "P3");
+			bookmark					= new Bookmark(para, BookmarkType.Start, "address2");
+			//add bookmark to the paragraph
+			para.TextContent.Add(bookmark);
+			//add some simple text
+			para.TextContent.Add(new SimpleText(para, "more text"));
+			//create a new end bookmark
+			bookmark			= new Bookmark(para, BookmarkType.End, "address2");
+			//add bookmark to the paragraph, so the encapsulated bookmark text is "more text"
+			para.TextContent.Add(bookmark);
+			//add the paragraph to the document content
+			document.Content.Add(para);
+			//save
+			document.SaveTo("bookmark.odt");
+		}
+
+		[Test]
+		public void XLinkTest()
+		{
+			//Create new TextDocument
+			TextDocument document		= new TextDocument();
+			document.New();
+			//Create a new Paragraph
+			Paragraph para				= new Paragraph(document, "P1");
+			//Create some simple text
+			SimpleText stext			= new SimpleText(para, "Some simple text");
+			//Create a XLink
+			XLink xlink					= new XLink(para, "http://www.sourceforge.net", "Sourceforge");
+			//Add the textcontent
+			para.TextContent.Add(stext);
+			para.TextContent.Add(xlink);
+			//Add paragraph to the document content
+			document.Content.Add(para);
+			//Save
+			document.SaveTo("XLink.odt");
+		}
 	}
 }
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.8  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.7  2005/10/23 16:47:48  larsbm
  * - Bugfix ListItem throws IStyleInterface not implemented exeption
  * - now. build the document after call saveto instead prepare the do at runtime

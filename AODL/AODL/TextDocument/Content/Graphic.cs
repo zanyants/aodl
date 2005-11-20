@@ -1,5 +1,5 @@
 /*
- * $Id: Graphic.cs,v 1.2 2005/10/22 10:47:41 larsbm Exp $
+ * $Id: Graphic.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -127,7 +127,7 @@ namespace AODL.TextDocument.Content
 			}
 		}
 
-		private IStyle _style;
+		//private IStyle _style;
 		/// <summary>
 		/// A graphic doesn't have a style.
 		/// </summary>

@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentManifest.cs,v 1.1 2005/11/06 14:55:25 larsbm Exp $
+ * $Id: DocumentManifest.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -14,7 +14,13 @@ namespace AODL.TextDocument
 	/// </summary>
 	public class DocumentManifest
 	{
+		/// <summary>
+		/// The folder name
+		/// </summary>
 		public static readonly string FolderName	= "META-INF";
+		/// <summary>
+		/// The file name
+		/// </summary>
 		public static readonly string FileName		= "manifest.xml";
 
 		private XmlDocument _manifest;
@@ -52,11 +58,33 @@ namespace AODL.TextDocument
 				throw ex;
 			}
 		}
+
+		/// <summary>
+		/// Loads from file.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		public void LoadFromFile(string file)
+		{
+			try
+			{
+				this.Manifest		= new XmlDocument();
+				this.Manifest.Load(file);
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
+		}
 	}
 }
 
 /*
  * $Log: DocumentManifest.cs,v $
+ * Revision 1.2  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.1  2005/11/06 14:55:25  larsbm
  * - Interfaces for Import and Export
  * - First implementation of IExport OpenDocumentTextExporter

@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.2 2005/10/22 10:47:41 larsbm Exp $
+ * $Id: Frame.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -239,6 +239,10 @@ namespace AODL.TextDocument.Content
 			}
 		}
 
+		/// <summary>
+		/// The stylename wihich is referenced with the content object.
+		/// </summary>
+		/// <value>The name</value>
 		public string Stylename
 		{
 			get
@@ -288,6 +292,11 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.3  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.2  2005/10/22 10:47:41  larsbm
  * - add graphic support
  *

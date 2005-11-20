@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphStyle.cs,v 1.4 2005/10/22 15:52:10 larsbm Exp $
+ * $Id: ParagraphStyle.cs,v 1.5 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -113,7 +113,7 @@ namespace AODL.TextDocument.Style
 		/// <summary>
 		/// Create a new ParagraphStyle object.
 		/// </summary>
-		/// <param name="p">The Paragraph object to this object belongs.</param>
+		/// <param name="c">The Paragraph object to this object belongs.</param>
 		/// <param name="name">The style name.</param>
 		public ParagraphStyle(IContent c, string name)
 		{
@@ -122,6 +122,18 @@ namespace AODL.TextDocument.Style
 			this.Properties = new ParagraphProperties(this);
 			this.NewXmlNode(c.Document, name);
 			this.Node.AppendChild(this.Properties.Node);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ParagraphStyle"/> class.
+		/// </summary>
+		/// <param name="content">The content.</param>
+		/// <param name="node">The node.</param>
+		public ParagraphStyle(IContent content, XmlNode node)
+		{
+			this.Content	= content;
+			this.Document	= content.Document;
+			this.Node		= node;
 		}
 
 		/// <summary>
@@ -227,6 +239,11 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: ParagraphStyle.cs,v $
+ * Revision 1.5  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.4  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

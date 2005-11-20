@@ -4,11 +4,368 @@
         <name>AODL</name>
     </assembly>
     <members>
+        <member name="T:AODL.Collections.CollectionWithEvents">
+            <summary>
+            The events for all collections used within AODL
+            </summary>
+        </member>
+        <member name="M:AODL.Collections.CollectionWithEvents.OnClear">
+            <summary>
+            Executes additional processes while deleting <see cref="T:System.Collections.CollectionBase"/>
+            </summary>
+        </member>
+        <member name="M:AODL.Collections.CollectionWithEvents.OnClearComplete">
+            <summary>
+            Executes additional processes after content deleted <see cref="T:System.Collections.CollectionBase"/>
+            </summary>
+        </member>
+        <member name="M:AODL.Collections.CollectionWithEvents.OnInsert(System.Int32,System.Object)">
+            <summary>
+            Executes additional processes before deleting an object.<see cref="T:System.Collections.CollectionBase"/>
+            </summary>
+            <param name="index">Zero based index <paramref name="value"/> which should be inserted</param>
+            <param name="value">The new value at <paramref name="index"/>.</param>
+        </member>
+        <member name="M:AODL.Collections.CollectionWithEvents.OnInsertComplete(System.Int32,System.Object)">
+            <summary>
+            Executes additional processes after inserting a new object<see cref="T:System.Collections.CollectionBase"/>
+            </summary>
+            <param name="index">Zero based index <paramref name="value"/> which should be inserted</param>
+            <param name="value">The new value at <paramref name="index"/>.</param>
+        </member>
+        <member name="M:AODL.Collections.CollectionWithEvents.OnRemove(System.Int32,System.Object)">
+            <summary>
+            Executes additional processes while deleting an object<see cref="T:System.Collections.CollectionBase"/>
+            </summary>
+            <param name="index">The zero based index of the object <paramref name="value"/> to delete</param>
+            <param name="value">The object to <paramref name="index"/> delete.</param>
+        </member>
+        <member name="M:AODL.Collections.CollectionWithEvents.OnRemoveComplete(System.Int32,System.Object)">
+            <summary>
+            Executes additional processes after an object is deleted <see cref="T:System.Collections.CollectionBase"/>
+            </summary>
+            <param name="index">Th zero based index, of the object <paramref name="value"/> which was deleted</param>
+            <param name="value">The object <paramref name="index"/> which was deleted.</param>
+        </member>
+        <member name="E:AODL.Collections.CollectionWithEvents.Clearing">
+            <summary>
+            The clearing event
+            </summary>
+        </member>
+        <member name="E:AODL.Collections.CollectionWithEvents.Cleared">
+            <summary>
+            The cleared event
+            </summary>
+        </member>
+        <member name="E:AODL.Collections.CollectionWithEvents.Inserting">
+            <summary>
+            The inserting event
+            </summary>
+        </member>
+        <member name="E:AODL.Collections.CollectionWithEvents.Inserted">
+            <summary>
+            The inserted event
+            </summary>
+        </member>
+        <member name="E:AODL.Collections.CollectionWithEvents.Removing">
+            <summary>
+            The removing event
+            </summary>
+        </member>
+        <member name="E:AODL.Collections.CollectionWithEvents.Removed">
+            <summary>
+            The removed event
+            </summary>
+        </member>
+        <member name="T:AODL.Collections.CollectionWithEvents.CollectionClear">
+            <summary>
+            The collection clear delegate
+            </summary>
+        </member>
+        <member name="T:AODL.Collections.CollectionWithEvents.CollectionChange">
+            <summary>
+            The collection change event.
+            </summary>
+        </member>
+        <member name="T:AODL.Import.XmlHelper.TextContentProcessor">
+            <summary>
+            Represent a Text Content Processor.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.TextContentProcessor.CreateFormatedText(AODL.TextDocument.TextDocument,AODL.TextDocument.Content.Paragraph,System.Xml.XmlNode)">
+            <summary>
+            Creates the formated text.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="paragraph">The paragraph.</param>
+            <param name="node">The node.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.TextContentProcessor.CreateBookmark(System.Xml.XmlNode,AODL.TextDocument.Content.Paragraph,AODL.TextDocument.Content.BookmarkType)">
+            <summary>
+            Creates the bookmark.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="paragraph">The paragraph.</param>
+            <param name="type">The type.</param>
+            <returns>The Bookmark</returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.TextContentProcessor.CreateXLink(System.Xml.XmlNode,AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Creates the X link.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="paragraph">The paragraph.</param>
+            <returns>The XLink object</returns>
+        </member>
+        <member name="T:AODL.Import.XmlHelper.XmlNodeProcessor">
+            <summary>
+            Internal class XmlNodeProcessor. This class is for
+            internal usage only!
+            </summary>
+        </member>
+        <member name="F:AODL.Import.XmlHelper.XmlNodeProcessor._textDocument">
+            <summary>
+            The textdocument
+            </summary>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.#ctor(AODL.TextDocument.TextDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Import.XmlHelper.XmlNodeProcessor"/> class.
+            </summary>
+            <param name="document">The document.</param>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.ReadContentNodes(System.String)">
+            <summary>
+            Reads the content nodes.
+            </summary>
+            <param name="contentFile">The content file.</param>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateParagraph(System.Xml.XmlNode)">
+            <summary>
+            Creates the paragraph.
+            </summary>
+            <param name="paragraphNode">The paragraph node.</param>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.ReadParagraphTextContent(AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Reads the content of the paragraph text.
+            </summary>
+            <param name="paragraph">The paragraph.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateGraphic(System.Xml.XmlNode)">
+            <summary>
+            Creates the graphic.
+            </summary>
+            <param name="graphicnode">The graphicnode.</param>
+            <returns>The Graphic object</returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateFrame(System.Xml.XmlNode)">
+            <summary>
+            Creates the frame.
+            </summary>
+            <param name="framenode">The framenode.</param>
+            <returns>The Frame object.</returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateList(System.Xml.XmlNode,AODL.TextDocument.Content.List)">
+            <summary>
+            Creates the list.
+            </summary>
+            <param name="listNode">The list node.</param>
+            <param name="outerlist">The outer list.</param>
+            <returns>The List object</returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateTable(System.Xml.XmlNode)">
+            <summary>
+            Creates the table.
+            </summary>
+            <param name="tablenode">The tablenode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetTabStopStyles(System.Xml.XmlNode)">
+            <summary>
+            Gets the tab stop styles.
+            </summary>
+            <param name="node">The node.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateUnknownContent(System.Xml.XmlNode)">
+            <summary>
+            Creates unknown content 
+            </summary>
+            <param name="unknownNode">The unknown node.</param>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetStyleName(System.String)">
+            <summary>
+            Gets the name of the style.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetTextBlock(System.String)">
+            <summary>
+            Gets the text block.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetAStyleNode(System.String,System.String)">
+            <summary>
+            Gets the A style node.
+            </summary>
+            <param name="style">The style.</param>
+            <param name="name">The name.</param>
+            <returns>The style node</returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetAValueFromAnAttribute(System.Xml.XmlNode,System.String)">
+            <summary>
+            Gets the A value from an attribute.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="attributname">The attributname.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetListStyle(System.Xml.XmlNode)">
+            <summary>
+            Gets the list style.
+            </summary>
+            <param name="node">The main list node.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetContent(System.Xml.XmlNode)">
+            <summary>
+            Gets the content.
+            </summary>
+            <param name="contentnode">The contentnode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.RemoveStyleNodes">
+            <summary>
+            Removes the style node.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.SetControlChars(System.String)">
+            <summary>
+            Replace the xml elements for linebreak and tabstop
+            with control chars.
+            </summary>
+            <param name="text">The text.</param>
+            <returns>The text with control chars</returns>
+        </member>
+        <member name="T:AODL.Export.IExporter">
+            <summary>
+            IExporter all classes that want to act as exporter
+            have to implement this interface.
+            </summary>
+        </member>
+        <member name="M:AODL.Export.IExporter.Export(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Exports the specified document.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="P:AODL.Export.IExporter.ExportErros">
+            <summary>
+            Gets the export erros.
+            </summary>
+            <value>The export erros.</value>
+        </member>
         <member name="T:AODL.Import.IImporter">
             <summary>
             All classes that want to act as an importer have to
             to implement this interface.
             </summary>
+        </member>
+        <member name="M:AODL.Import.IImporter.Import(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Imports the specified document.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="P:AODL.Import.IImporter.ImportError">
+            <summary>
+            Gets the import error.
+            </summary>
+            <value>The import error.</value>
+        </member>
+        <member name="P:AODL.Import.IImporter.ImporterName">
+            <summary>
+            Gets the name of the importer.
+            </summary>
+            <value>The name of the importer.</value>
+        </member>
+        <member name="T:AODL.Export.OpenDocumentTextExporter">
+            <summary>
+            Zusammenfassung für OpenDocumentTextExporter.
+            </summary>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Export.OpenDocumentTextExporter"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.Export(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Exports the specified document.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.SaveExistingGraphics(AODL.TextDocument.DocumentPictureCollection,System.String)">
+            <summary>
+            Saves the existing graphics.
+            </summary>
+            <param name="pictures">The pictures.</param>
+            <param name="folder">The folder.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.WriteSingleFiles(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Writes the single files.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.CreateOpenDocument(System.String,System.String)">
+            <summary>
+            Create a zip archive with .odt.
+            </summary>
+            <param name="filename">The filename.</param>
+            <param name="directory">The directory to zip.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.PrepareDirectory(System.String)">
+            <summary>
+            Create an output directory with all necessary subfolders.
+            </summary>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.WriteMimetypeFile(System.String)">
+            <summary>
+            Helper Method: Don't know why, but it seems to be impossible
+            to embbed a textfile as resource
+            </summary>
+            <param name="file">The filename.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.CleanUpDirectory(System.String)">
+            <summary>
+            Cleans the up directory.
+            </summary>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="M:AODL.Export.OpenDocumentTextExporter.SaveGraphic(AODL.TextDocument.TextDocument,System.String)">
+            <summary>
+            Saves all graphics used within the textdocument.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="P:AODL.Export.OpenDocumentTextExporter.ExportErros">
+            <summary>
+            Gets the export erros.
+            </summary>
+            <value>The export erros.</value>
         </member>
         <member name="T:AODL.Import.OpenDocumentTextImporter">
             <summary>
@@ -20,12 +377,46 @@
             Initializes a new instance of the <see cref="T:AODL.Import.OpenDocumentTextImporter"/> class.
             </summary>
         </member>
-        <member name="M:AODL.Import.OpenDocumentTextImporter.Import(System.String)">
+        <member name="M:AODL.Import.OpenDocumentTextImporter.Import(AODL.TextDocument.TextDocument,System.String)">
             <summary>
             Imports the specified filename.
             </summary>
-            <param name="filename">The filename.</param>
+            <param name="document">The TextDocument to fill.</param>
+            <param name="filename">The filename.</param>		
             <returns>The created TextDocument</returns>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.UnpackFiles(System.String)">
+            <summary>
+            Unpacks the files.
+            </summary>
+            <param name="file">The file.</param>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.MovePictures">
+            <summary>
+            Moves the pictures folder
+            To avoid gdi errors.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.ReadResources">
+            <summary>
+            Reads the resources.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.ReadDocumentConfigurations2">
+            <summary>
+            Reads the document configurations2.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.ReadImageResources(System.String)">
+            <summary>
+            Reads the image resources.
+            </summary>
+            <param name="folder">The folder.</param>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.ReadContent">
+            <summary>
+            Reads the content.
+            </summary>
         </member>
         <member name="P:AODL.Import.OpenDocumentTextImporter.ImportError">
             <summary>
@@ -41,7 +432,7 @@
         </member>
         <member name="T:AODL.Publish.Publisher">
             <summary>
-            Class for generating an open documents.
+            Alternative internal class for generating an open document.
             </summary>
         </member>
         <member name="M:AODL.Publish.Publisher.PublishTo(AODL.TextDocument.TextDocument,System.String)">
@@ -85,6 +476,134 @@
             <param name="document">The document.</param>
             <param name="directory">The directory.</param>
         </member>
+        <member name="T:AODL.TextDocument.Content.Bookmark">
+            <summary>
+            Represent a Bookmark.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.IText">
+            <summary>
+            All classes that will act as TextContent must implement
+            this interface.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Node">
+            <summary>
+            Represent the xml node within the content.xml file of the open document.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Text">
+            <summary>
+            The Text that will be displayed.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Style">
+            <summary>
+            An style object that is referenced with this TextContent e.g a FormatedText object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Content">
+            <summary>
+            A IText object must know his IContent object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IText.Xml">
+            <summary>
+            Returns the InnerXml value of the XmlNode.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Bookmark.#ctor(AODL.TextDocument.Content.Paragraph,AODL.TextDocument.Content.BookmarkType,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Bookmark"/> class.
+            </summary>
+            <param name="paragraph">The paragraph this Bookmark belong to.</param>
+            <param name="type">The type end or start.</param>
+            <param name="bookmarkname">The bookmark name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Bookmark.NewXmlNode(AODL.TextDocument.TextDocument,AODL.TextDocument.Content.BookmarkType,System.String)">
+            <summary>
+            Create the XmlNode.
+            </summary>
+            <param name="document">The TextDocument.</param>
+            <param name="type">The bookmark type.</param>
+            <param name="bookmarkname">The bookmark name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Bookmark.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Bookmark.BookmarkName">
+            <summary>
+            Gets or sets the name of the bookmark.
+            </summary>
+            <value>The name of the bookmark.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Bookmark.Paragraph">
+            <summary>
+            Gets or sets the paragraph.
+            </summary>
+            <value>The paragraph.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Bookmark.Node">
+            <summary>
+            Represent the xml node within the content.xml file of the open document.
+            </summary>
+            <value>The XmlNode</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Bookmark.Text">
+            <summary>
+            A Bookmark has no Text to display.
+            It only mark a special textposition
+            inside a paragraph.
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Bookmark.Style">
+            <summary>
+            A Bookmark has no Style to display.
+            It only mark a special textposition
+            inside a paragraph.
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Bookmark.Content">
+            <summary>
+            A Bookmark has no Style to display.
+            It only mark a special textposition
+            inside a paragraph.
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Bookmark.Xml">
+            <summary>
+            Returns the OuterXml value of the XmlNode.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.BookmarkType">
+            <summary>
+            Enum that represent the possible Bookmark types.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.BookmarkType.Start">
+            <summary>
+            A StartBookmark, requires also a EndBookmark!
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.BookmarkType.Standard">
+            <summary>
+            Standard bookmark
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.BookmarkType.End">
+            <summary>
+            A EndBookmark
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Content.Cell">
             <summary>
             Represent a Cell which used within a table resp. a row.
@@ -127,6 +646,12 @@
             All classes that want to act as a content conatiner
             have to implement this interface.
             </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContentContainer.Content">
+            <summary>
+            Gets or sets the content.
+            </summary>
+            <value>The content.</value>
         </member>
         <member name="M:AODL.TextDocument.Content.Cell.#ctor(AODL.TextDocument.Content.Row,System.String)">
             <summary>
@@ -199,6 +724,46 @@
             </summary>
             <value>The content.</value>
         </member>
+        <member name="T:AODL.TextDocument.Content.CellCollection">
+            <summary>
+            A Cell collection
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.CellCollection.Add(AODL.TextDocument.Content.Cell)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.CellCollection.Remove(AODL.TextDocument.Content.Cell)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.CellCollection.Insert(System.Int32,AODL.TextDocument.Content.Cell)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.CellCollection.Contains(AODL.TextDocument.Content.Cell)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.CellCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Content.Cell"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:AODL.TextDocument.Content.Column">
             <summary>
             The class Column represent a column which is used within a table.
@@ -232,6 +797,12 @@
             The XmlNode.
             </summary>
         </member>
+        <member name="P:AODL.TextDocument.Content.Column.Stylename">
+            <summary>
+            The stylename wihich is referenced with the content object.
+            </summary>
+            <value>The name</value>
+        </member>
         <member name="P:AODL.TextDocument.Content.Column.Style">
             <summary>
             The ColumnStyle which is referenced with this column.
@@ -242,40 +813,49 @@
             Not implemented!!! The text is added to Cell's only!
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Content.ColumnCollection">
+            <summary>
+            A Column collection
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ColumnCollection.Add(AODL.TextDocument.Content.Column)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ColumnCollection.Remove(AODL.TextDocument.Content.Column)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ColumnCollection.Insert(System.Int32,AODL.TextDocument.Content.Column)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ColumnCollection.Contains(AODL.TextDocument.Content.Column)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ColumnCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Content.Column"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:AODL.TextDocument.Content.FormatedText">
             <summary>
             Represent a formated Text e.g bold, italic, underline etc.
-            </summary>
-        </member>
-        <member name="T:AODL.TextDocument.Content.IText">
-            <summary>
-            All classes that will act as TextContent must implement
-            this interface.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IText.Node">
-            <summary>
-            Represent the xml node within the content.xml file of the open document.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IText.Text">
-            <summary>
-            The Text that will be displayed.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IText.Style">
-            <summary>
-            An style object that is referenced with this TextContent e.g a FormatedText object.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IText.Content">
-            <summary>
-            A IText object must know his IContent object.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.Content.IText.Xml">
-            <summary>
-            Returns the InnerXml value of the XmlNode.
             </summary>
         </member>
         <member name="M:AODL.TextDocument.Content.FormatedText.#ctor">
@@ -297,6 +877,34 @@
             </summary>
             <param name="td">The TextDocument.</param>
             <param name="stylename">The stylename which should be referenced with this FormatedText.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedText.ControlCharTransformer(System.String)">
+            <summary>
+            Transform control character like \n, \t into
+            their xml pendants.
+            </summary>
+            <param name="text">The text.</param>
+            <returns>The transformed text</returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedText._formatedtextcollecion_Inserted(System.Int32,System.Object)">
+            <summary>
+            _formatedtextcollecion_s the inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedText._formatedtextcollecion_Removed(System.Int32,System.Object)">
+            <summary>
+            _formatedtextcollecion_s the removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.FormatedText.FormatedTextCollection">
+            <summary>
+            Gets or sets the formated text collection.
+            </summary>
+            <value>The formated text collection.</value>
         </member>
         <member name="P:AODL.TextDocument.Content.FormatedText.Node">
             <summary>
@@ -322,6 +930,46 @@
             <summary>
             The IContent object the FormatedText object belongs to.
             </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.FormatedTextCollection">
+            <summary>
+            Represent a FormatedText collection
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedTextCollection.Add(AODL.TextDocument.Content.FormatedText)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedTextCollection.Remove(AODL.TextDocument.Content.FormatedText)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedTextCollection.Insert(System.Int32,AODL.TextDocument.Content.FormatedText)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.FormatedTextCollection.Contains(AODL.TextDocument.Content.FormatedText)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.FormatedTextCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Content.FormatedText"/> at the specified index.
+            </summary>
+            <value></value>
         </member>
         <member name="T:AODL.TextDocument.Content.Frame">
             <summary>
@@ -410,6 +1058,12 @@
             The XmlNode.
             </summary>
         </member>
+        <member name="P:AODL.TextDocument.Content.Frame.Stylename">
+            <summary>
+            The stylename wihich is referenced with the content object.
+            </summary>
+            <value>The name</value>
+        </member>
         <member name="P:AODL.TextDocument.Content.Frame.Style">
             <summary>
             The ColumnStyle which is referenced with this column.
@@ -483,10 +1137,80 @@
             A typed IContent Collection.
             </summary>
         </member>
+        <member name="M:AODL.TextDocument.Content.IContentCollection.Add(AODL.TextDocument.Content.IContent)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.IContentCollection.Remove(AODL.TextDocument.Content.IContent)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.IContentCollection.Insert(System.Int32,AODL.TextDocument.Content.IContent)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.IContentCollection.Contains(AODL.TextDocument.Content.IContent)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.IContentCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Content.IContent"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:AODL.TextDocument.Content.ITextCollection">
             <summary>
             A typed IText collection.
             </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ITextCollection.Add(AODL.TextDocument.Content.IText)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ITextCollection.Remove(AODL.TextDocument.Content.IText)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ITextCollection.Insert(System.Int32,AODL.TextDocument.Content.IText)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ITextCollection.Contains(AODL.TextDocument.Content.IText)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ITextCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Content.IText"/> at the specified index.
+            </summary>
+            <value></value>
         </member>
         <member name="T:AODL.TextDocument.Content.List">
             <summary>
@@ -507,7 +1231,7 @@
             Create a new List which is used to represent a inner list.
             </summary>
             <param name="td">The TextDocument</param>
-            <param name="List">The List to which this List belongs.</param>
+            <param name="outerlist">The List to which this List belongs.</param>
         </member>
         <member name="M:AODL.TextDocument.Content.List.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
             <summary>
@@ -645,12 +1369,24 @@
             <param name="style">The only accepted ParentStyle is Standard! All other styles will be ignored!</param>
             <param name="simpletext">The text which should be append within this paragraph.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.#ctor(System.Xml.XmlNode,AODL.TextDocument.TextDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Paragraph"/> class.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="document">The document.</param>
+        </member>
         <member name="M:AODL.TextDocument.Content.Paragraph.Init(AODL.TextDocument.TextDocument,System.String)">
             <summary>
             Create the Paragraph.
             </summary>
             <param name="td">The TextDocument.</param>
             <param name="stylename">The style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.InitStandards">
+            <summary>
+            Inits the standards.
+            </summary>
         </member>
         <member name="M:AODL.TextDocument.Content.Paragraph.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
             <summary>
@@ -718,6 +1454,52 @@
             Represent the textcontent of this paragraph.
             </summary>
         </member>
+        <member name="P:AODL.TextDocument.Content.Paragraph.Content">
+            <summary>
+            Gets or sets the content.
+            </summary>
+            <value>The content.</value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.ParagraphCollection">
+            <summary>
+            A Paragraph collection
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ParagraphCollection.Add(AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ParagraphCollection.Remove(AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ParagraphCollection.Insert(System.Int32,AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.ParagraphCollection.Contains(AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.ParagraphCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Content.Paragraph"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:AODL.TextDocument.Content.Row">
             <summary>
             Represent a row with used within a table.
@@ -784,9 +1566,54 @@
             </summary>
             <value></value>
         </member>
+        <member name="T:AODL.TextDocument.Content.RowCollection">
+            <summary>
+            A Row collection
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.RowCollection.Add(AODL.TextDocument.Content.Row)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.RowCollection.Remove(AODL.TextDocument.Content.Row)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.RowCollection.Insert(System.Int32,AODL.TextDocument.Content.Row)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.RowCollection.Contains(AODL.TextDocument.Content.Row)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.RowCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Content.Row"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:AODL.TextDocument.Content.SimpleText">
             <summary>
             Represent a simple non formated Displaytext.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.SimpleText.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.SimpleText"/> class.
             </summary>
         </member>
         <member name="M:AODL.TextDocument.Content.SimpleText.#ctor(AODL.TextDocument.Content.IContent,System.String)">
@@ -795,6 +1622,14 @@
             </summary>
             <param name="content">The IContent object the SimpleText object belongs to.</param>
             <param name="text">The Displaytext.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.SimpleText.ControlCharTransformer(System.String)">
+            <summary>
+            Transform control character like \n, \t into
+            their xml pendants.
+            </summary>
+            <param name="text">The text.</param>
+            <returns>The transformed text</returns>
         </member>
         <member name="P:AODL.TextDocument.Content.SimpleText.Node">
             <summary>
@@ -839,13 +1674,25 @@
             <param name="document">The Document.</param>
             <param name="stylename">The style name.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Table.Init">
+            <summary>
+            Inits the rows and columns for this instance.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.AppendContentNode(System.Xml.XmlNode)">
+            <summary>
+            Appends the content node.
+            </summary>
+            <param name="node">The node.</param>
+        </member>
         <member name="M:AODL.TextDocument.Content.Table.Init(System.Int32,System.Int32,System.Double)">
             <summary>
             Initiates the table with given count of rows and columns
             and the given width (width is cm).
             </summary>
-            <param name="rows"></param>
-            <param name="columns"></param>
+            <param name="rows">Count of rows</param>
+            <param name="columns">Count of columns</param>
+            <param name="width">Width of the table e.g 16.99</param>
         </member>
         <member name="M:AODL.TextDocument.Content.Table.AddColumns(System.Int32,System.Double)">
             <summary>
@@ -866,6 +1713,27 @@
             Create a new XmlNode.
             </summary>
             <param name="stylename">The stylename which should be referenced with this table.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.GetChar(System.Int32)">
+            <summary>
+            Get a char from the alphabet at the given position.
+            </summary>
+            <param name="number">The position</param>
+            <returns>The char</returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.Columns_Inserted(System.Int32,System.Object)">
+            <summary>
+            Columns_s the inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Table.Rows_Inserted(System.Int32,System.Object)">
+            <summary>
+            Rows_s the inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
         </member>
         <member name="P:AODL.TextDocument.Content.Table.Columns">
             <summary>
@@ -1006,6 +1874,12 @@
             </summary>
             <value>The color of the background.</value>
         </member>
+        <member name="P:AODL.TextDocument.Style.Properties.CellProperties.Node">
+            <summary>
+            The XmlNode which represent the property element.
+            </summary>
+            <value>The node</value>
+        </member>
         <member name="T:AODL.TextDocument.Style.Properties.Colors">
             <summary>
             Converter class. Convert any enum Color from System.Drawing.Color
@@ -1059,6 +1933,12 @@
             <summary>
             Set the column relative width
             </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ColumnProperties.Node">
+            <summary>
+            The XmlNode which represent the property element.
+            </summary>
+            <value>The node</value>
         </member>
         <member name="T:AODL.TextDocument.Style.Properties.GraphicProperties">
             <summary>
@@ -1281,6 +2161,8 @@
             Create the XmlNode which represent the propertie element.
             </summary>
             <param name="td">The TextDocument</param>
+            <param name="spacebefore">The space before the list item</param>
+            <param name="minlabelwidth">The minimal label width</param>
         </member>
         <member name="P:AODL.TextDocument.Style.Properties.ListLevelProperties.Style">
             <summary>
@@ -1318,6 +2200,13 @@
             </summary>
             <param name="pstyle">The ParagraphStyle object to this object belongs.</param>
         </member>
+        <member name="M:AODL.TextDocument.Style.Properties.ParagraphProperties.#ctor(AODL.TextDocument.Style.ParagraphStyle,System.Xml.XmlNode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.Properties.ParagraphProperties"/> class.
+            </summary>
+            <param name="style">The style.</param>
+            <param name="node">The node.</param>
+        </member>
         <member name="M:AODL.TextDocument.Style.Properties.ParagraphProperties.CreateAttribute(System.String,System.String,System.String)">
             <summary>
             Create a XmlAttribute for propertie XmlNode.
@@ -1346,6 +2235,14 @@
             <summary>
             Margin left. in cm an object .MarginLeft = "1cm";
             </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.TabStopStyleCollection">
+            <summary>
+            Gets or sets the tab stop style collection.
+            <b>Notice:</b> A TabStopStyleCollection will not work
+            within a Standard Paragraph!
+            </summary>
+            <value>The tab stop style collection.</value>
         </member>
         <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Alignment">
             <summary>
@@ -1448,6 +2345,36 @@
         <member name="T:AODL.TextDocument.Style.Properties.TextAlignments">
             <summary>
             Possible text alignments.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextAlignments.start">
+            <summary>
+            Start
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextAlignments.end">
+            <summary>
+            End
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextAlignments.left">
+            <summary>
+            Left
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextAlignments.right">
+            <summary>
+            Right
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextAlignments.center">
+            <summary>
+            center
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextAlignments.justify">
+            <summary>
+            Justify
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.Properties.TextProperties">
@@ -2294,6 +3221,12 @@
             The list level properties.
             </summary>
         </member>
+        <member name="P:AODL.TextDocument.Style.ListLevelStyle.TextProperties">
+            <summary>
+            Gets or sets the text properties.
+            </summary>
+            <value>The text properties.</value>
+        </member>
         <member name="P:AODL.TextDocument.Style.ListLevelStyle.Node">
             <summary>
             The XmlNode.
@@ -2308,6 +3241,46 @@
             <summary>
             The TextDocument to this ListLevelStyle object belongs.
             </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.ListLevelStyleCollection">
+            <summary>
+            A ListLevelStyle collection
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListLevelStyleCollection.Add(AODL.TextDocument.Style.ListLevelStyle)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListLevelStyleCollection.Remove(AODL.TextDocument.Style.ListLevelStyle)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListLevelStyleCollection.Insert(System.Int32,AODL.TextDocument.Style.ListLevelStyle)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ListLevelStyleCollection.Contains(AODL.TextDocument.Style.ListLevelStyle)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Style.ListLevelStyleCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Style.ListLevelStyle"/> at the specified index.
+            </summary>
+            <value></value>
         </member>
         <member name="T:AODL.TextDocument.Style.ListStyle">
             <summary>
@@ -2370,8 +3343,15 @@
             <summary>
             Create a new ParagraphStyle object.
             </summary>
-            <param name="p">The Paragraph object to this object belongs.</param>
+            <param name="c">The Paragraph object to this object belongs.</param>
             <param name="name">The style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.ParagraphStyle.#ctor(AODL.TextDocument.Content.IContent,System.Xml.XmlNode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.ParagraphStyle"/> class.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="node">The node.</param>
         </member>
         <member name="M:AODL.TextDocument.Style.ParagraphStyle.NewXmlNode(AODL.TextDocument.TextDocument,System.String)">
             <summary>
@@ -2442,10 +3422,27 @@
             Enum that represents th possible values. For a style emlement and his parent-style attribute.
             </summary>
         </member>
+        <member name="F:AODL.TextDocument.Style.ParentStyles.Standard">
+            <summary>
+            Standard
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.ParentStyles.Table">
+            <summary>
+            Table
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Style.RowStyle">
             <summary>
             Zusammenfassung für RowStyle.
             </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.RowStyle.#ctor(AODL.TextDocument.Content.Row,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.RowStyle"/> class.
+            </summary>
+            <param name="row">The row.</param>
+            <param name="stylename">The stylename.</param>
         </member>
         <member name="M:AODL.TextDocument.Style.RowStyle.NewXmlNode(System.String)">
             <summary>
@@ -2526,6 +3523,179 @@
             The TextDocument to this style belongs.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Style.TabStopLeaderStyles">
+            <summary>
+            Represent all possible TabStopLeader Styles.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopLeaderStyles.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.TabStopLeaderStyles"/> class.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.TabStopLeaderStyles.Dotted">
+            <summary>
+            Dotted style
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.TabStopLeaderStyles.Solid">
+            <summary>
+            Dotted style
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.TabStopTypes">
+            <summary>
+            Represent all possible TabStopLeader Styles.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopTypes.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.TabStopLeaderStyles"/> class.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.TabStopTypes.Right">
+            <summary>
+            Right
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.TabStopTypes.Center">
+            <summary>
+            Center
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.TabStopStyle">
+            <summary>
+            Class represent a TabStopStyle.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyle.#ctor(AODL.TextDocument.TextDocument,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.TabStopStyle"/> class.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="position">The position.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyle.#ctor(AODL.TextDocument.TextDocument,System.Xml.XmlNode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.TabStopStyle"/> class.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="node">The node.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyle.NewXmlNode(System.Double)">
+            <summary>
+            Create the XmlNode that represent this element.
+            </summary>
+            <param name="position">The position.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyle.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyle.Position">
+            <summary>
+            Position e.g = "4.98cm";
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyle.Type">
+            <summary>
+            A Tabstoptype e.g center
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyle.LeaderStyle">
+            <summary>
+            The Tabstop LeaderStyle e.g dotted
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyle.LeaderText">
+            <summary>
+            The Tabstop Leader text e.g. "."
+            Use this if you use the LeaderStyle property
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyle.Name">
+            <summary>
+            Not supported a Tabstop style doesn't have a stylename.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Style.TabStopStyleCollection">
+            <summary>
+            Represent a TabStopStyle collection which could be
+            used within a ParagraphStyle object.
+            Notice: A TabStopStyleCollection will not work
+            within a Standard Paragraph!
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyleCollection.#ctor(AODL.TextDocument.TextDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.TabStopStyleCollection"/> class.
+            </summary>
+            <param name="document">The document.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyleCollection.Add(AODL.TextDocument.Style.TabStopStyle)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyleCollection.Remove(AODL.TextDocument.Style.TabStopStyle)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyleCollection.Insert(System.Int32,AODL.TextDocument.Style.TabStopStyle)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.TabStopStyleCollection.Contains(AODL.TextDocument.Style.TabStopStyle)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyleCollection.Node">
+            <summary>
+            Gets or sets the node.
+            </summary>
+            <value>The node.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyleCollection.Document">
+            <summary>
+            Gets or sets the document.
+            </summary>
+            <value>The document.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.TabStopStyleCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.Style.TabStopStyle"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:AODL.TextDocument.Style.TextStyle">
             <summary>
             Represent the style for a FormatedText object.
@@ -2575,7 +3745,263 @@
             The family tyle to this object belongs.
             </summary>
         </member>
-        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "T:AODL.TextDocument.TextDocument" ignoriert -->
+        <member name="T:AODL.TextDocument.DocumentConfiguration2">
+            <summary>
+            Zusammenfassung für DocumentConfiguration2.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.DocumentConfiguration2.FolderName">
+            <summary>
+            The folder name.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentConfiguration2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentConfiguration2"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentConfiguration2.Load(System.String)">
+            <summary>
+            Loads the specified filename.
+            </summary>
+            <param name="filename">The filename.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentConfiguration2.FileName">
+            <summary>
+            Gets or sets the name of the file.
+            </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentConfiguration2.Configurations2Content">
+            <summary>
+            Gets or sets the content of the configurations2.
+            </summary>
+            <value>The content of the configurations2.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentManifest">
+            <summary>
+            DocumentManifest global Document Manifest
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.DocumentManifest.FolderName">
+            <summary>
+            The folder name
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.DocumentManifest.FileName">
+            <summary>
+            The file name
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentManifest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentManifest"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentManifest.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentManifest.LoadFromFile(System.String)">
+            <summary>
+            Loads from file.
+            </summary>
+            <param name="file">The file.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentManifest.Manifest">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentMetadata">
+            <summary>
+            DocumentMetadata global Document Metadata
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.DocumentMetadata.FileName">
+            <summary>
+            The file name
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentMetadata"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.LoadFromFile(System.String)">
+            <summary>
+            Loads from file.
+            </summary>
+            <param name="file">The file.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Meta">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentPicture">
+            <summary>
+            Zusammenfassung für DocumentPicture.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPicture.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentPicture"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPicture.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentPicture"/> class.
+            </summary>
+            <param name="file">The file.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentPicture.Image">
+            <summary>
+            Gets or sets the image.
+            </summary>
+            <value>The image.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentPicture.ImageName">
+            <summary>
+            Gets or sets the name of the image.
+            </summary>
+            <value>The name of the image.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentPictureCollection">
+            <summary>
+            A DocumentPicture collection.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPictureCollection.Add(AODL.TextDocument.DocumentPicture)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPictureCollection.Remove(AODL.TextDocument.DocumentPicture)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPictureCollection.Insert(System.Int32,AODL.TextDocument.DocumentPicture)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentPictureCollection.Contains(AODL.TextDocument.DocumentPicture)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentPictureCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:AODL.TextDocument.DocumentPicture"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentSetting">
+            <summary>
+            DocumentSetting global Document Metadata
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.DocumentSetting.FileName">
+            <summary>
+            The file name.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentSetting.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentSetting"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentSetting.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentSetting.LoadFromFile(System.String)">
+            <summary>
+            Loads from file.
+            </summary>
+            <param name="file">The file.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentSetting.Settings">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.DocumentStyles">
+            <summary>
+            DocumentStyles global Document Style
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.DocumentStyles.FileName">
+            <summary>
+            The file name.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentStyles"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.New">
+            <summary>
+            Load the style from assmebly resource.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.LoadFromFile(System.String)">
+            <summary>
+            Loads from file.
+            </summary>
+            <param name="file">The file.</param>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentStyles.Styles">
+            <summary>
+            Gets or sets the styles.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:AODL.TextDocument.TextDocument">
+            <summary>
+            Represent a opendocument text document.
+            </summary>
+            <example>
+            <code>
+            TextDocument td = new TextDocument();
+            td.New();
+            Paragraph p = new Paragraph(td, "P1");
+            //add text
+            p.TextContent.Add(new SimpleText(p, "HallO"));
+            //Add the Paragraph
+            td.Content.Add((IContent)p);
+            //Blank para
+            td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
+            // new para
+            p = new Paragraph(td, "P2");
+            p.TextContent.Add(new SimpleText(p, "Hallo"));
+            td.Content.Add(p);
+            td.SaveTo("parablank.odt");
+            </code>
+            </example>
+        </member>
         <member name="M:AODL.TextDocument.TextDocument.#ctor">
             <summary>
             Create a new TextDocument object.
@@ -2585,6 +4011,12 @@
             <summary>
             Create a blank new document.
             </summary>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.Load(System.String)">
+            <summary>
+            Loads the document by using the specified importer.
+            </summary>
+            <param name="file">The the file.</param>
         </member>
         <member name="M:AODL.TextDocument.TextDocument.CreateNode(System.String,System.String)">
             <summary>
@@ -2607,6 +4039,20 @@
             Save the TextDocument as OpenDocument textdocument.
             </summary>
             <param name="filename">The filename. With or without full path. Without will save the file to application path!</param>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.GetExporter(System.String)">
+            <summary>
+            Gets the exporter.
+            </summary>
+            <param name="filename">The filename.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.GetImporter(System.String)">
+            <summary>
+            Gets the importer.
+            </summary>
+            <param name="filename">The filename.</param>
+            <returns></returns>
         </member>
         <member name="M:AODL.TextDocument.TextDocument.AddIContentCollectionToDocument">
             <summary>
@@ -2746,210 +4192,109 @@
             <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
             <returns>The XmlNamespaceManager object.</returns>
         </member>
-        <member name="T:AODL.TextDocument.DocumentStyles">
+        <member name="T:AODL.TextDocument.Content.XLink">
             <summary>
-            DocumentStyles global Document Style
+            Represent a hyperlink, which could be 
+            a web-, ftp- or telnet link
             </summary>
         </member>
-        <member name="M:AODL.TextDocument.DocumentStyles.#ctor">
+        <member name="M:AODL.TextDocument.Content.XLink.#ctor(AODL.TextDocument.Content.Paragraph,System.String,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentStyles"/> class.
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.XLink"/> class.
             </summary>
+            <param name="paragraph">The paragraph.</param>
+            <param name="href">The href.</param>
+            <param name="name">The name.</param>
         </member>
-        <member name="M:AODL.TextDocument.DocumentStyles.New">
+        <member name="M:AODL.TextDocument.Content.XLink.#ctor(AODL.TextDocument.Content.Paragraph)">
             <summary>
-            Load the style from assmebly resource.
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.XLink"/> class.
             </summary>
+            <param name="paragraph">The paragraph.</param>
         </member>
-        <member name="P:AODL.TextDocument.DocumentStyles.Styles">
+        <member name="M:AODL.TextDocument.Content.XLink.NewXmlNode(AODL.TextDocument.TextDocument,System.String,System.String)">
             <summary>
-            Gets or sets the styles.
-            </summary>
-            <value>The styles.</value>
-        </member>
-        <member name="T:AODL.TextDocument.DocumentMetadata">
-            <summary>
-            DocumentMetadata global Document Metadata
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentMetadata.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentMetadata"/> class.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentMetadata.New">
-            <summary>
-            Load the style from assmebly resource.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.DocumentMetadata.Meta">
-            <summary>
-            Gets or sets the styles.
-            </summary>
-            <value>The styles.</value>
-        </member>
-        <member name="T:AODL.TextDocument.DocumentSetting">
-            <summary>
-            DocumentSetting global Document Metadata
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentSetting.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentSetting"/> class.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentSetting.New">
-            <summary>
-            Load the style from assmebly resource.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.DocumentSetting.Settings">
-            <summary>
-            Gets or sets the styles.
-            </summary>
-            <value>The styles.</value>
-        </member>
-        <member name="T:AODL.TextDocument.DocumentManifest">
-            <summary>
-            DocumentManifest global Document Manifest
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentManifest.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentManifest"/> class.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentManifest.New">
-            <summary>
-            Load the style from assmebly resource.
-            </summary>
-        </member>
-        <member name="P:AODL.TextDocument.DocumentManifest.Manifest">
-            <summary>
-            Gets or sets the styles.
-            </summary>
-            <value>The styles.</value>
-        </member>
-        <member name="T:AODL.TextDocument.DocumentConfiguration2">
-            <summary>
-            Zusammenfassung für DocumentConfiguration2.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentConfiguration2.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentConfiguration2"/> class.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentConfiguration2.Load(System.String)">
-            <summary>
-            Loads the specified filename.
-            </summary>
-            <param name="filename">The filename.</param>
-        </member>
-        <member name="P:AODL.TextDocument.DocumentConfiguration2.FileName">
-            <summary>
-            Gets or sets the name of the file.
-            </summary>
-            <value>The name of the file.</value>
-        </member>
-        <member name="P:AODL.TextDocument.DocumentConfiguration2.Configurations2Content">
-            <summary>
-            Gets or sets the content of the configurations2.
-            </summary>
-            <value>The content of the configurations2.</value>
-        </member>
-        <member name="T:AODL.TextDocument.DocumentPicture">
-            <summary>
-            Zusammenfassung für DocumentPicture.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentPicture.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentPicture"/> class.
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.DocumentPicture.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentPicture"/> class.
-            </summary>
-            <param name="file">The file.</param>
-        </member>
-        <member name="P:AODL.TextDocument.DocumentPicture.Image">
-            <summary>
-            Gets or sets the image.
-            </summary>
-            <value>The image.</value>
-        </member>
-        <member name="P:AODL.TextDocument.DocumentPicture.ImageName">
-            <summary>
-            Gets or sets the name of the image.
-            </summary>
-            <value>The name of the image.</value>
-        </member>
-        <member name="T:AODL.Export.IExporter">
-            <summary>
-            IExporter all classes that want to act as exporter
-            have to implement this interface.
-            </summary>
-        </member>
-        <member name="T:AODL.Export.OpenDocumentTextExporter">
-            <summary>
-            Zusammenfassung für OpenDocumentTextExporter.
-            </summary>
-        </member>
-        <member name="M:AODL.Export.OpenDocumentTextExporter.Export(AODL.TextDocument.TextDocument,System.String)">
-            <summary>
-            Exports the specified document.
+            News the XML node.
             </summary>
             <param name="document">The document.</param>
-            <param name="filename">The filename.</param>
+            <param name="href">The href.</param>
+            <param name="name">The name.</param>
         </member>
-        <member name="M:AODL.Export.OpenDocumentTextExporter.SaveExistingGraphics(AODL.TextDocument.DocumentPictureCollection,System.String)">
+        <member name="M:AODL.TextDocument.Content.XLink.CreateAttribute(System.String,System.String,System.String)">
             <summary>
-            Saves the existing graphics.
+            Creates the attribute.
             </summary>
-            <param name="pictures">The pictures.</param>
-            <param name="folder">The folder.</param>
+            <param name="name">The name.</param>
+            <param name="text">The text.</param>
+            <param name="prefix">The prefix.</param>
         </member>
-        <member name="M:AODL.Export.OpenDocumentTextExporter.WriteSingleFiles(System.Xml.XmlDocument,System.String)">
+        <member name="P:AODL.TextDocument.Content.XLink.Paragraph">
             <summary>
-            Writes the single files.
+            Gets or sets the paragraph.
             </summary>
-            <param name="document">The document.</param>
-            <param name="filename">The filename.</param>
+            <value>The paragraph.</value>
         </member>
-        <member name="M:AODL.Export.OpenDocumentTextExporter.CreateOpenDocument(System.String,System.String)">
+        <member name="P:AODL.TextDocument.Content.XLink.Href">
             <summary>
-            Create a zip archive with .odt.
+            Gets or sets the href. e.g http://www.sourceforge.net
             </summary>
-            <param name="filename">The filename.</param>
-            <param name="directory">The directory to zip.</param>
+            <value>The href.</value>
         </member>
-        <member name="M:AODL.Export.OpenDocumentTextExporter.PrepareDirectory(System.String)">
+        <member name="P:AODL.TextDocument.Content.XLink.XLinkType">
             <summary>
-            Create an output directory with all necessary subfolders.
+            Gets or sets the type of the X link.
             </summary>
-            <param name="directory">The directory.</param>
+            <value>The type of the X link.</value>
         </member>
-        <member name="M:AODL.Export.OpenDocumentTextExporter.WriteMimetypeFile(System.String)">
+        <member name="P:AODL.TextDocument.Content.XLink.OfficeName">
             <summary>
-            Helper Method: Don't know why, but it seems to be impossible
-            to embbed a textfile as resource
+            This is not the display text! Gets or sets the office name 
             </summary>
-            <param name="file">The filename.</param>
+            <value>The name of the office.</value>
         </member>
-        <member name="M:AODL.Export.OpenDocumentTextExporter.SaveGraphic(AODL.TextDocument.TextDocument,System.String)">
+        <member name="P:AODL.TextDocument.Content.XLink.TargetFrameName">
             <summary>
-            Saves all graphics used within the textdocument.
+            Gets or sets the name of the target frame.
+            e.g. _blank, _top
             </summary>
-            <param name="document">The document.</param>
-            <param name="directory">The directory.</param>
+            <value>The name of the target frame.</value>
         </member>
-        <member name="P:AODL.Export.OpenDocumentTextExporter.ExportErros">
+        <member name="P:AODL.TextDocument.Content.XLink.Show">
             <summary>
-            Gets the export erros.
+            Gets or sets the show.
+            Standard value is <b>new</b>
             </summary>
-            <value>The export erros.</value>
+            <value>The show.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Node">
+            <summary>
+            Represent the xml node within the content.xml file of the open document.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Text">
+            <summary>
+            The Text that will be displayed.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Style">
+            <summary>
+            A Xlink object doesn't have a style object.
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Content">
+            <summary>
+            A XLink object doesn't have a content container.
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Xml">
+            <summary>
+            Returns the InnerXml value of the XmlNode.
+            </summary>
+            <value>Outer Xml of the node.</value>
         </member>
     </members>
 </doc>

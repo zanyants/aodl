@@ -4,16 +4,16 @@ using AODL.Collections;
 namespace AODL.TextDocument.Content
 {
 	/// <summary>
-	/// A Column collection
+	/// Represent a FormatedText collection
 	/// </summary>
-	public class ColumnCollection : CollectionWithEvents
+	public class FormatedTextCollection : CollectionWithEvents
 	{
 		/// <summary>
 		/// Adds the specified value.
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		public int Add(AODL.TextDocument.Content.Column value)
+		public int Add(AODL.TextDocument.Content.FormatedText value)
 		{
 			return base.List.Add(value as object);
 		}
@@ -22,7 +22,7 @@ namespace AODL.TextDocument.Content
 		/// Removes the specified value.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		public void Remove(AODL.TextDocument.Content.Column value)
+		public void Remove(AODL.TextDocument.Content.FormatedText value)
 		{
 			base.List.Remove(value as object);
 		}
@@ -32,7 +32,7 @@ namespace AODL.TextDocument.Content
 		/// </summary>
 		/// <param name="index">The index.</param>
 		/// <param name="value">The value.</param>
-		public void Insert(int index, AODL.TextDocument.Content.Column value)
+		public void Insert(int index, AODL.TextDocument.Content.FormatedText value)
 		{
 			base.List.Insert(index, value as object);
 		}
@@ -44,18 +44,18 @@ namespace AODL.TextDocument.Content
 		/// <returns>
 		/// 	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
 		/// </returns>
-		public bool Contains(AODL.TextDocument.Content.Column value)
+		public bool Contains(AODL.TextDocument.Content.FormatedText value)
 		{
 			return base.List.Contains(value as object);
 		}
 
 		/// <summary>
-		/// Gets the <see cref="Column"/> at the specified index.
+		/// Gets the <see cref="FormatedText"/> at the specified index.
 		/// </summary>
 		/// <value></value>
-		public AODL.TextDocument.Content.Column this[int index]
+		public AODL.TextDocument.Content.FormatedText this[int index]
 		{
-			get { return (base.List[index] as AODL.TextDocument.Content.Column); }
+			get { return (base.List[index] as AODL.TextDocument.Content.FormatedText); }
 		}
 	}
 }

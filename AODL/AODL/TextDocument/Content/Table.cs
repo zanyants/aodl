@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.3 2005/10/16 08:36:29 larsbm Exp $
+ * $Id: Table.cs,v 1.4 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -50,16 +50,42 @@ namespace AODL.TextDocument.Content
 		}
 
 		/// <summary>
+		/// Inits the rows and columns for this instance.
+		/// </summary>
+		internal void Init()
+		{
+			this.Columns			= new ColumnCollection();
+			this.Rows				= new RowCollection();
+
+			this.Columns.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(Columns_Inserted);
+			this.Rows.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Rows_Inserted);
+		}
+		
+		/// <summary>
+		/// Appends the content node.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		internal void AppendContentNode(XmlNode node)
+		{
+			if(this.Node != null)
+				this.Node.AppendChild(node);
+		}
+
+		/// <summary>
 		/// Initiates the table with given count of rows and columns
 		/// and the given width (width is cm).
 		/// </summary>
-		/// <param name="rows"></param>
-		/// <param name="columns"></param>
+		/// <param name="rows">Count of rows</param>
+		/// <param name="columns">Count of columns</param>
+		/// <param name="width">Width of the table e.g 16.99</param>
 		public void Init(int rows, int columns, double width)
 		{
 			((TableStyle)this.Style).Properties.Width	= width.ToString("F2")+"cm";
 			this.Columns								= new ColumnCollection();
 			this.Rows									= new RowCollection();
+
+			this.Columns.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(Columns_Inserted);
+			this.Rows.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Rows_Inserted);
 
 			this.AddColumns(columns, width);
 			this.AddRows(rows, columns);
@@ -78,7 +104,7 @@ namespace AODL.TextDocument.Content
 				Column c									= new Column(this, this.Stylename+"."+GetChar(i).ToString());
 				((ColumnStyle)c.Style).Properties.Width		= colwidth.ToString("F3")+"cm".Replace(",",".");
 				this.Columns.Add(c);
-				this.Node.AppendChild(c.Node);
+				//this.Node.AppendChild(c.Node);
 			}
 		}
 
@@ -106,7 +132,7 @@ namespace AODL.TextDocument.Content
 					((CellStyle)c.Style).CellProperties.Border = "0.002cm solid #000000";
 					r.Cells.Add(c);
 				}
-				this.Node.AppendChild(r.Node);
+				//this.Node.AppendChild(r.Node);
 			}
 		}
 
@@ -229,6 +255,11 @@ namespace AODL.TextDocument.Content
 
 		#endregion
 
+		/// <summary>
+		/// Get a char from the alphabet at the given position.
+		/// </summary>
+		/// <param name="number">The position</param>
+		/// <returns>The char</returns>
 		public static char GetChar(int number)
 		{
 			//TODO: Complete alphabet for more than 26 entries
@@ -239,11 +270,38 @@ namespace AODL.TextDocument.Content
 				return alpha[number];
 			return 'Z';
 		}
+
+		/// <summary>
+		/// Columns_s the inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void Columns_Inserted(int index, object value)
+		{
+			if(this.Node != null)
+				this.Node.AppendChild(((Column)value).Node);
+		}
+
+		/// <summary>
+		/// Rows_s the inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void Rows_Inserted(int index, object value)
+		{
+			if(this.Node != null)
+				this.Node.AppendChild(((Row)value).Node);
+		}
 	}
 }
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.4  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.3  2005/10/16 08:36:29  larsbm
  * - Fixed bug [ 1327809 ] Invalid Cast Exception while insert table with cells that contains lists
  * - Fixed bug [ 1327820 ] Cell styles run into loop

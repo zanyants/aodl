@@ -1,5 +1,5 @@
 /*
- * $Id: SimpleText.cs,v 1.2 2005/10/08 08:19:25 larsbm Exp $
+ * $Id: SimpleText.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
  */
 
 using System;
@@ -12,7 +12,9 @@ namespace AODL.TextDocument.Content
 	/// </summary>
 	public class SimpleText : IText
 	{
-		//Empty defaultconstructor.
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SimpleText"/> class.
+		/// </summary>
 		public SimpleText()
 		{
 		}
@@ -26,6 +28,20 @@ namespace AODL.TextDocument.Content
 		{
 			this.Text		= text;
 			this.Content	= content;
+		}
+
+		/// <summary>
+		/// Transform control character like \n, \t into
+		/// their xml pendants.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns>The transformed text</returns>
+		private string ControlCharTransformer(string text)
+		{
+			text		= text.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+			text		= text.Replace(@"\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+
+			return text;
 		}
 
 		#region IText Member
@@ -61,7 +77,8 @@ namespace AODL.TextDocument.Content
 			}
 			set
 			{
-				this._text = value.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+				//this._text = value.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+				this._text	= this.ControlCharTransformer(value);
 			}
 		}
 		
@@ -116,6 +133,11 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: SimpleText.cs,v $
+ * Revision 1.3  2005/11/20 17:31:20  larsbm
+ * - added suport for XLinks, TabStopStyles
+ * - First experimental of loading dcuments
+ * - load and save via importer and exporter interfaces
+ *
  * Revision 1.2  2005/10/08 08:19:25  larsbm
  * - added cvs tags
  *
