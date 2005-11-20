@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.8 2005/11/20 17:31:20 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.9 2005/11/20 19:30:23 larsbm Exp $ 
  */
 
 using System;
@@ -358,11 +358,35 @@ namespace AODLTest
 			//Save
 			document.SaveTo("XLink.odt");
 		}
+
+		[Test]
+		public void FootnoteText()
+		{
+			//Create new TextDocument
+			TextDocument document		= new TextDocument();
+			document.New();
+			//Create a new Paragph
+			Paragraph para				= new Paragraph(document, "P1");
+			//Create some simple Text
+			SimpleText stext			= new SimpleText(para, "Some simple text. And I have a footnode");
+			//Create a Footnote
+			Footnote fnote				= new Footnote(para, "FooterText", "1", FootnoteType.footnode);
+			//Add the text content
+			para.TextContent.Add(stext);
+			para.TextContent.Add(fnote);
+			//Add the paragraph
+			document.Content.Add(para);
+			//Save
+			document.SaveTo("footnote.odt");
+		}
 	}
 }
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.9  2005/11/20 19:30:23  larsbm
+ * - Added Foot- and Endnote support
+ *
  * Revision 1.8  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

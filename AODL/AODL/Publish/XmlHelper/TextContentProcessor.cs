@@ -1,5 +1,5 @@
 /*
- * $Id: TextContentProcessor.cs,v 1.1 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: TextContentProcessor.cs,v 1.2 2005/11/20 19:30:23 larsbm Exp $
  */
 
 using System;
@@ -52,6 +52,9 @@ namespace AODL.Import.XmlHelper
 							break;
 						case "text:a":
 							itextcol.Add(CreateXLink(child, paragraph));
+							break;
+						case "text:note":
+							itextcol.Add(CreateFootnote(child, paragraph));
 							break;
 						default:
 							break;
@@ -160,6 +163,27 @@ namespace AODL.Import.XmlHelper
 				xlink.Node				= node.CloneNode(true);
 
 				return xlink;
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		/// <summary>
+		/// Creates the footnote.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <param name="paragraph">The paragraph.</param>
+		/// <returns>The Footnote</returns>
+		public static Footnote CreateFootnote(XmlNode node, Paragraph paragraph)
+		{
+			try
+			{
+				Footnote fnote			= new Footnote(paragraph);
+				fnote.Node				= node.CloneNode(true);
+
+				return fnote;
 			}
 			catch(Exception ex)
 			{

@@ -1778,6 +1778,110 @@
             The IContentCollection. Here find rows, columns and cells.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Content.XLink">
+            <summary>
+            Represent a hyperlink, which could be 
+            a web-, ftp- or telnet link
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.XLink.#ctor(AODL.TextDocument.Content.Paragraph,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.XLink"/> class.
+            </summary>
+            <param name="paragraph">The paragraph.</param>
+            <param name="href">The href.</param>
+            <param name="name">The name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.XLink.#ctor(AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.XLink"/> class.
+            </summary>
+            <param name="paragraph">The paragraph.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.XLink.NewXmlNode(AODL.TextDocument.TextDocument,System.String,System.String)">
+            <summary>
+            News the XML node.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="href">The href.</param>
+            <param name="name">The name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.XLink.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Creates the attribute.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="text">The text.</param>
+            <param name="prefix">The prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Paragraph">
+            <summary>
+            Gets or sets the paragraph.
+            </summary>
+            <value>The paragraph.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Href">
+            <summary>
+            Gets or sets the href. e.g http://www.sourceforge.net
+            </summary>
+            <value>The href.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.XLinkType">
+            <summary>
+            Gets or sets the type of the X link.
+            </summary>
+            <value>The type of the X link.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.OfficeName">
+            <summary>
+            This is not the display text! Gets or sets the office name 
+            </summary>
+            <value>The name of the office.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.TargetFrameName">
+            <summary>
+            Gets or sets the name of the target frame.
+            e.g. _blank, _top
+            </summary>
+            <value>The name of the target frame.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Show">
+            <summary>
+            Gets or sets the show.
+            Standard value is <b>new</b>
+            </summary>
+            <value>The show.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Node">
+            <summary>
+            Represent the xml node within the content.xml file of the open document.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Text">
+            <summary>
+            The Text that will be displayed.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Style">
+            <summary>
+            A Xlink object doesn't have a style object.
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Content">
+            <summary>
+            A XLink object doesn't have a content container.
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.XLink.Xml">
+            <summary>
+            Returns the InnerXml value of the XmlNode.
+            </summary>
+            <value>Outer Xml of the node.</value>
+        </member>
         <member name="T:AODL.TextDocument.Style.Properties.CellProperties">
             <summary>
             Represent the Cell Properties within a Cell which is used
@@ -4192,109 +4296,78 @@
             <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
             <returns>The XmlNamespaceManager object.</returns>
         </member>
-        <member name="T:AODL.TextDocument.Content.XLink">
+        <member name="T:AODL.TextDocument.Content.Footnote">
             <summary>
-            Represent a hyperlink, which could be 
-            a web-, ftp- or telnet link
+            Represent a Footnote which could be 
+            a Foot- or a Endnote
             </summary>
         </member>
-        <member name="M:AODL.TextDocument.Content.XLink.#ctor(AODL.TextDocument.Content.Paragraph,System.String,System.String)">
+        <member name="M:AODL.TextDocument.Content.Footnote.#ctor(AODL.TextDocument.Content.IContent,System.String,System.String,AODL.TextDocument.Content.FootnoteType)">
             <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.XLink"/> class.
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Footnote"/> class.
             </summary>
-            <param name="paragraph">The paragraph.</param>
-            <param name="href">The href.</param>
-            <param name="name">The name.</param>
+            <param name="content">The content.</param>
+            <param name="notetext">The notetext.</param>
+            <param name="id">The id.</param>
+            <param name="type">The type.</param>
         </member>
-        <member name="M:AODL.TextDocument.Content.XLink.#ctor(AODL.TextDocument.Content.Paragraph)">
+        <member name="M:AODL.TextDocument.Content.Footnote.NewXmlNode(AODL.TextDocument.TextDocument,System.String,System.String,AODL.TextDocument.Content.FootnoteType)">
             <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.XLink"/> class.
+            Create a new XmlNode.
             </summary>
-            <param name="paragraph">The paragraph.</param>
+            <param name="td">The TextDocument.</param>
+            <param name="stylename">The stylename which should be referenced with this FormatedText.</param>
         </member>
-        <member name="M:AODL.TextDocument.Content.XLink.NewXmlNode(AODL.TextDocument.TextDocument,System.String,System.String)">
+        <member name="P:AODL.TextDocument.Content.Footnote.Id">
             <summary>
-            News the XML node.
+            Gets or sets the id.
             </summary>
-            <param name="document">The document.</param>
-            <param name="href">The href.</param>
-            <param name="name">The name.</param>
+            <value>The id.</value>
         </member>
-        <member name="M:AODL.TextDocument.Content.XLink.CreateAttribute(System.String,System.String,System.String)">
-            <summary>
-            Creates the attribute.
-            </summary>
-            <param name="name">The name.</param>
-            <param name="text">The text.</param>
-            <param name="prefix">The prefix.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Paragraph">
-            <summary>
-            Gets or sets the paragraph.
-            </summary>
-            <value>The paragraph.</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Href">
-            <summary>
-            Gets or sets the href. e.g http://www.sourceforge.net
-            </summary>
-            <value>The href.</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.XLink.XLinkType">
-            <summary>
-            Gets or sets the type of the X link.
-            </summary>
-            <value>The type of the X link.</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.XLink.OfficeName">
-            <summary>
-            This is not the display text! Gets or sets the office name 
-            </summary>
-            <value>The name of the office.</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.XLink.TargetFrameName">
-            <summary>
-            Gets or sets the name of the target frame.
-            e.g. _blank, _top
-            </summary>
-            <value>The name of the target frame.</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Show">
-            <summary>
-            Gets or sets the show.
-            Standard value is <b>new</b>
-            </summary>
-            <value>The show.</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Node">
+        <member name="P:AODL.TextDocument.Content.Footnote.Node">
             <summary>
             Represent the xml node within the content.xml file of the open document.
             </summary>
-            <value></value>
+            <value>The node</value>
         </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Text">
+        <member name="P:AODL.TextDocument.Content.Footnote.Text">
             <summary>
             The Text that will be displayed.
             </summary>
+            <value>The Text</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Style">
+            <summary>
+            An Footnode has no local style. 
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Content">
+            <summary>
+            A IText object must know his IContent object.
+            </summary>
             <value></value>
         </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Style">
+        <member name="P:AODL.TextDocument.Content.Footnote.Xml">
             <summary>
-            A Xlink object doesn't have a style object.
+            Returns the OuterXml value of the XmlNode.
             </summary>
-            <value>null</value>
+            <value></value>
         </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Content">
+        <member name="T:AODL.TextDocument.Content.FootnoteType">
             <summary>
-            A XLink object doesn't have a content container.
+            Represent the possible footnodes
             </summary>
-            <value>null</value>
         </member>
-        <member name="P:AODL.TextDocument.Content.XLink.Xml">
+        <member name="F:AODL.TextDocument.Content.FootnoteType.footnode">
             <summary>
-            Returns the InnerXml value of the XmlNode.
+            A footnode
             </summary>
-            <value>Outer Xml of the node.</value>
+        </member>
+        <member name="F:AODL.TextDocument.Content.FootnoteType.endnote">
+            <summary>
+            A endnote
+            </summary>
         </member>
     </members>
 </doc>
