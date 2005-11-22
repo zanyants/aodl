@@ -118,6 +118,14 @@
             <param name="paragraph">The paragraph.</param>
             <returns>The XLink object</returns>
         </member>
+        <member name="M:AODL.Import.XmlHelper.TextContentProcessor.CreateFootnote(System.Xml.XmlNode,AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Creates the footnote.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="paragraph">The paragraph.</param>
+            <returns>The Footnote</returns>
+        </member>
         <member name="T:AODL.Import.XmlHelper.XmlNodeProcessor">
             <summary>
             Internal class XmlNodeProcessor. This class is for
@@ -852,6 +860,87 @@
             Gets the <see cref="T:AODL.TextDocument.Content.Column"/> at the specified index.
             </summary>
             <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.Footnote">
+            <summary>
+            Represent a Footnote which could be 
+            a Foot- or a Endnote
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Footnote.#ctor(AODL.TextDocument.Content.IContent,System.String,System.String,AODL.TextDocument.Content.FootnoteType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Footnote"/> class.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="notetext">The notetext.</param>
+            <param name="id">The id.</param>
+            <param name="type">The type.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Footnote.#ctor(AODL.TextDocument.Content.IContent)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Footnote"/> class.
+            </summary>
+            <param name="content">The content.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Footnote.NewXmlNode(AODL.TextDocument.TextDocument,System.String,System.String,AODL.TextDocument.Content.FootnoteType)">
+            <summary>
+            News the XML node.
+            </summary>
+            <param name="td">The TextDocument.</param>
+            <param name="id">The id.</param>
+            <param name="notetext">The notetext.</param>
+            <param name="type">The type.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Id">
+            <summary>
+            Gets or sets the id.
+            </summary>
+            <value>The id.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Node">
+            <summary>
+            Represent the xml node within the content.xml file of the open document.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Text">
+            <summary>
+            The Text that will be displayed.
+            </summary>
+            <value>The Text</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Style">
+            <summary>
+            An Footnode has no local style. 
+            </summary>
+            <value>null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Content">
+            <summary>
+            A IText object must know his IContent object.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Footnote.Xml">
+            <summary>
+            Returns the OuterXml value of the XmlNode.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.FootnoteType">
+            <summary>
+            Represent the possible footnodes
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.FootnoteType.footnode">
+            <summary>
+            A footnode
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.FootnoteType.endnote">
+            <summary>
+            A endnote
+            </summary>
         </member>
         <member name="T:AODL.TextDocument.Content.FormatedText">
             <summary>
@@ -4077,6 +4166,36 @@
             </summary>
             <param name="file">The file.</param>
         </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.InsertFooter(AODL.TextDocument.Content.Paragraph,AODL.TextDocument.TextDocument)">
+            <summary>
+            Inserts the footer.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="document">The document.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.InsertHeader(AODL.TextDocument.Content.Paragraph,AODL.TextDocument.TextDocument)">
+            <summary>
+            Inserts the header.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="document">The document.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.InsertParagraphStyle(AODL.TextDocument.Content.Paragraph,AODL.TextDocument.TextDocument)">
+            <summary>
+            Inserts the paragraph style.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="document">The document.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.CreateNode(System.String,System.String,AODL.TextDocument.TextDocument)">
+            <summary>
+            Creates the node.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="prefix">The prefix.</param>
+            <param name="document">The prefix.</param>
+            <returns>The XmlNode</returns>
+        </member>
         <member name="P:AODL.TextDocument.DocumentStyles.Styles">
             <summary>
             Gets or sets the styles.
@@ -4143,6 +4262,20 @@
             Save the TextDocument as OpenDocument textdocument.
             </summary>
             <param name="filename">The filename. With or without full path. Without will save the file to application path!</param>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.InsertFooter(AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Insert a footer. 
+            If a footer already exist it will be replaced.
+            </summary>
+            <param name="paragraph">The paragraph.</param>
+        </member>
+        <member name="M:AODL.TextDocument.TextDocument.InsertHeader(AODL.TextDocument.Content.Paragraph)">
+            <summary>
+            Insert a header 
+            If a header already exist it will be replaced.
+            </summary>
+            <param name="paragraph">The content.</param>
         </member>
         <member name="M:AODL.TextDocument.TextDocument.GetExporter(System.String)">
             <summary>
@@ -4295,79 +4428,6 @@
             </summary>
             <param name="nametable">The XmlNameTable of the TextDocument object XmlDocument.</param>
             <returns>The XmlNamespaceManager object.</returns>
-        </member>
-        <member name="T:AODL.TextDocument.Content.Footnote">
-            <summary>
-            Represent a Footnote which could be 
-            a Foot- or a Endnote
-            </summary>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Footnote.#ctor(AODL.TextDocument.Content.IContent,System.String,System.String,AODL.TextDocument.Content.FootnoteType)">
-            <summary>
-            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.Footnote"/> class.
-            </summary>
-            <param name="content">The content.</param>
-            <param name="notetext">The notetext.</param>
-            <param name="id">The id.</param>
-            <param name="type">The type.</param>
-        </member>
-        <member name="M:AODL.TextDocument.Content.Footnote.NewXmlNode(AODL.TextDocument.TextDocument,System.String,System.String,AODL.TextDocument.Content.FootnoteType)">
-            <summary>
-            Create a new XmlNode.
-            </summary>
-            <param name="td">The TextDocument.</param>
-            <param name="stylename">The stylename which should be referenced with this FormatedText.</param>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Footnote.Id">
-            <summary>
-            Gets or sets the id.
-            </summary>
-            <value>The id.</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Footnote.Node">
-            <summary>
-            Represent the xml node within the content.xml file of the open document.
-            </summary>
-            <value>The node</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Footnote.Text">
-            <summary>
-            The Text that will be displayed.
-            </summary>
-            <value>The Text</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Footnote.Style">
-            <summary>
-            An Footnode has no local style. 
-            </summary>
-            <value>null</value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Footnote.Content">
-            <summary>
-            A IText object must know his IContent object.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:AODL.TextDocument.Content.Footnote.Xml">
-            <summary>
-            Returns the OuterXml value of the XmlNode.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:AODL.TextDocument.Content.FootnoteType">
-            <summary>
-            Represent the possible footnodes
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Content.FootnoteType.footnode">
-            <summary>
-            A footnode
-            </summary>
-        </member>
-        <member name="F:AODL.TextDocument.Content.FootnoteType.endnote">
-            <summary>
-            A endnote
-            </summary>
         </member>
     </members>
 </doc>

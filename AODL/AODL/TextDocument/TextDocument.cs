@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.13 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.14 2005/11/22 21:09:19 larsbm Exp $
  */
 
 using System;
@@ -275,6 +275,42 @@ namespace AODL.TextDocument
 		}
 
 		/// <summary>
+		/// Insert a footer. 
+		/// If a footer already exist it will be replaced.
+		/// </summary>
+		/// <param name="paragraph">The paragraph.</param>
+		public void InsertFooter(Paragraph paragraph)
+		{
+			try
+			{
+				if(this.DocumentStyles != null)
+					this.DocumentStyles.InsertFooter(paragraph, this);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Insert a header 
+		/// If a header already exist it will be replaced.
+		/// </summary>
+		/// <param name="paragraph">The content.</param>
+		public void InsertHeader(Paragraph paragraph)
+		{
+			try
+			{
+				if(this.DocumentStyles != null)
+					this.DocumentStyles.InsertHeader(paragraph, this);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
 		/// Gets the exporter.
 		/// </summary>
 		/// <param name="filename">The filename.</param>
@@ -370,7 +406,7 @@ namespace AODL.TextDocument
 		/// </summary>
 		/// <param name="prefix">The prefixname.</param>
 		/// <returns></returns>
-		private string GetNamespaceUri(string prefix)
+		internal string GetNamespaceUri(string prefix)
 		{
 			foreach (string prefixx in NamespaceManager)
 				if(prefix == prefixx)				
@@ -476,6 +512,9 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.14  2005/11/22 21:09:19  larsbm
+ * - Add simple header and footer support
+ *
  * Revision 1.13  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

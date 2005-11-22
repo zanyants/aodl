@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.9 2005/11/20 19:30:23 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.10 2005/11/22 21:09:19 larsbm Exp $ 
  */
 
 using System;
@@ -379,11 +379,38 @@ namespace AODLTest
 			//Save
 			document.SaveTo("footnote.odt");
 		}
+
+		[Test]
+		public void FooterAndHeader()
+		{
+			//Create a new document
+			TextDocument td		= new TextDocument();
+			td.New();
+			//Create a new paragraph
+			Paragraph p			= new Paragraph(td, "P1");
+			//Create some formated text
+			FormatedText ftext	= new FormatedText(p, "F1", "Im the Header");
+			((TextStyle)ftext.Style).Properties.Italic = "italic";
+			//add the text
+			p.TextContent.Add(ftext);
+			//Insert paragraph as header
+			td.InsertHeader(p);
+			//New paragraph 
+			p					= new Paragraph(td, ParentStyles.Standard,
+				"I'm the Footer");
+			//Insert paragraph as footer
+			td.InsertFooter(p);
+			//Save
+			td.SaveTo("Header_Footer.odt");
+		}
 	}
 }
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.10  2005/11/22 21:09:19  larsbm
+ * - Add simple header and footer support
+ *
  * Revision 1.9  2005/11/20 19:30:23  larsbm
  * - Added Foot- and Endnote support
  *

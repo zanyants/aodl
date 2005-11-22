@@ -1,11 +1,13 @@
 /*
- * $Id: DocumentStyles.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: DocumentStyles.cs,v 1.3 2005/11/22 21:09:19 larsbm Exp $
  */
 
 using System;
 using System.Xml;
 using System.Reflection;
 using System.IO;
+using AODL.TextDocument.Content;
+using AODL.TextDocument.Style;
 
 namespace AODL.TextDocument
 {
@@ -71,11 +73,133 @@ namespace AODL.TextDocument
 				throw ex;
 			}
 		}
+
+		/// <summary>
+		/// Inserts the footer.
+		/// </summary>
+		/// <param name="content">The content.</param>
+		/// <param name="document">The document.</param>
+		internal void InsertFooter(Paragraph content, TextDocument document)
+		{
+			try
+			{
+				bool exist			= true;
+				XmlNode node		= this._styles.SelectSingleNode("//office:master-styles/style:master-page/style:footer", document.NamespaceManager);//
+				if(node != null)
+					node.InnerXml	= "";
+				else
+				{
+					node			= this.CreateNode("footer", "style", document);
+					exist			= false;
+				}
+
+				XmlNode	impnode		= this.Styles.ImportNode(content.Node, true);
+				node.AppendChild(impnode);
+
+				if(!exist)
+					this._styles.SelectSingleNode("//office:master-styles/style:master-page", 
+						document.NamespaceManager).AppendChild(node);
+
+				this.InsertParagraphStyle(content, document);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Inserts the header.
+		/// </summary>
+		/// <param name="content">The content.</param>
+		/// <param name="document">The document.</param>
+		internal void InsertHeader(Paragraph content, TextDocument document)
+		{
+			try
+			{
+				bool exist			= true;
+				XmlNode node		= this._styles.SelectSingleNode("//office:master-styles/style:master-page/style:header", document.NamespaceManager);//
+				if(node != null)
+					node.InnerXml	= "";
+				else
+				{
+					node			= this.CreateNode("header", "style", document);
+					exist			= false;
+				}
+
+				XmlNode	impnode		= this.Styles.ImportNode(content.Node, true);
+				node.AppendChild(impnode);
+
+				if(!exist)
+					this._styles.SelectSingleNode("//office:master-styles/style:master-page", 
+						document.NamespaceManager).AppendChild(node);
+
+				this.InsertParagraphStyle(content, document);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Inserts the paragraph style.
+		/// </summary>
+		/// <param name="content">The content.</param>
+		/// <param name="document">The document.</param>
+		private void InsertParagraphStyle(Paragraph content, TextDocument document)
+		{
+			try
+			{
+				if(content.Style != null)
+				{
+					XmlNode node		= this.Styles.ImportNode(content.Style.Node, true);
+					this.Styles.SelectSingleNode("//office:styles",
+						document.NamespaceManager).AppendChild(node);
+				}
+
+				if(content.TextContent != null)
+					foreach(IText it in content.TextContent)
+						if(it is FormatedText)
+						{
+							XmlNode node		= this.Styles.ImportNode(it.Style.Node, true);
+							this.Styles.SelectSingleNode("//office:styles",
+								document.NamespaceManager).AppendChild(node);
+						}
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Creates the node.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="prefix">The prefix.</param>
+		/// <param name="document">The prefix.</param>
+		/// <returns>The XmlNode</returns>
+		private XmlNode CreateNode(string name, string prefix, TextDocument document)
+		{
+			try
+			{
+				string nuri = document.GetNamespaceUri(prefix);
+				return this.Styles.CreateElement(prefix, name, nuri);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
 	}
 }
 
 /*
  * $Log: DocumentStyles.cs,v $
+ * Revision 1.3  2005/11/22 21:09:19  larsbm
+ * - Add simple header and footer support
+ *
  * Revision 1.2  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments
