@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.14 2005/11/22 21:09:19 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.15 2005/11/23 19:18:17 larsbm Exp $
  */
 
 using System;
@@ -22,16 +22,16 @@ namespace AODL.TextDocument
 	/// <code>
 	/// TextDocument td = new TextDocument();
 	/// td.New();
-	/// Paragraph p = new Paragraph(td, "P1");
+	/// Paragraph p = new Paragraph(td, "P1");	
 	/// //add text
-	/// p.TextContent.Add(new SimpleText(p, "HallO"));
+	/// p.TextContent.Add(new SimpleText(p, "Hello"));
 	/// //Add the Paragraph
 	/// td.Content.Add((IContent)p);
 	/// //Blank para
 	/// td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
 	/// // new para
 	/// p = new Paragraph(td, "P2");
-	/// p.TextContent.Add(new SimpleText(p, "Hallo"));
+	/// p.TextContent.Add(new SimpleText(p, "Hello again"));
 	/// td.Content.Add(p);
 	/// td.SaveTo("parablank.odt");
 	/// </code>
@@ -512,6 +512,12 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.15  2005/11/23 19:18:17  larsbm
+ * - New Textproperties
+ * - New Paragraphproperties
+ * - New Border Helper
+ * - Textproprtie helper
+ *
  * Revision 1.14  2005/11/22 21:09:19  larsbm
  * - Add simple header and footer support
  *

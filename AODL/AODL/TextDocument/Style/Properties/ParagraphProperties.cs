@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphProperties.cs,v 1.4 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: ParagraphProperties.cs,v 1.5 2005/11/23 19:18:17 larsbm Exp $
  */
 
 using System;
@@ -54,6 +54,86 @@ namespace AODL.TextDocument.Style.Properties
 					this.CreateAttribute("margin-left", value, "fo");
 				this._node.SelectSingleNode("@fo:margin-left",
 					  this.Paragraphstyle.Content.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the border.
+		/// This could be e.g. 0.002cm solid #000000 (width, linestyle, color)
+		/// or none
+		/// </summary>
+		/// <value>The border.</value>
+		public string Border
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:border",
+					this.Paragraphstyle.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:border",
+					this.Paragraphstyle.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("border", value, "fo");
+				this._node.SelectSingleNode("@fo:border",
+					this.Paragraphstyle.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the padding. 
+		/// Default 0.049cm 
+		/// Use this in combination with the Border property
+		/// </summary>
+		/// <value>The padding.</value>
+		public string Padding
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:padding",
+					this.Paragraphstyle.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:padding",
+					this.Paragraphstyle.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("padding", value, "fo");
+				this._node.SelectSingleNode("@fo:padding",
+					this.Paragraphstyle.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the line height in %.
+		/// 200% means double space
+		/// </summary>
+		/// <value>The line height.</value>
+		public string LineSpacing
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:line-height",
+					this.Paragraphstyle.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:line-height",
+					this.Paragraphstyle.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("line-height", value, "fo");
+				this._node.SelectSingleNode("@fo:line-height",
+					this.Paragraphstyle.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -150,10 +230,35 @@ namespace AODL.TextDocument.Style.Properties
 			this.Node		= td.CreateNode("paragraph-properties", "style");
 		}
 	}
+
+	/// <summary>
+	/// Some helper constants for Paragraph properties
+	/// </summary>
+	public class ParagraphHelper
+	{
+		/// <summary>
+		/// Line spacing 1.5 lines
+		/// </summary>
+		public static readonly string LineSpacing15	= "150%";
+		/// <summary>
+		/// Line spacing double
+		/// </summary>
+		public static readonly string LineDouble	= "200%";
+		/// <summary>
+		/// Line spacing three lines
+		/// </summary>
+		public static readonly string LineSpacing3	= "300%";
+	}
 }
 
 /*
  * $Log: ParagraphProperties.cs,v $
+ * Revision 1.5  2005/11/23 19:18:17  larsbm
+ * - New Textproperties
+ * - New Paragraphproperties
+ * - New Border Helper
+ * - Textproprtie helper
+ *
  * Revision 1.4  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

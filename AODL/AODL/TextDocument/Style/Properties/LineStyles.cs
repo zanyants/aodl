@@ -1,5 +1,5 @@
 /*
- * $Id: LineStyles.cs,v 1.3 2005/10/22 15:52:10 larsbm Exp $
+ * $Id: LineStyles.cs,v 1.4 2005/11/23 19:18:17 larsbm Exp $
  */
 
 using System;
@@ -45,10 +45,35 @@ namespace AODL.TextDocument.Style.Properties
 		/// </summary>
 		public static readonly string wave	= "wave";
 	}
+
+	/// <summary>
+	/// Border helper class
+	/// </summary>
+	public class Border
+	{
+		/// <summary>
+		/// Normal solid
+		/// </summary>
+		public static readonly string NormalSolid	= "0.002cm solid #000000";
+		/// <summary>
+		/// Middlle solid
+		/// </summary>
+		public static readonly string MiddleSolid	= "0.004cm solid #000000";
+		/// <summary>
+		/// Heavy solid
+		/// </summary>
+		public static readonly string HeavySolid	= "0.008cm solid #000000";
+	}
 }
 
 /*
  * $Log: LineStyles.cs,v $
+ * Revision 1.4  2005/11/23 19:18:17  larsbm
+ * - New Textproperties
+ * - New Paragraphproperties
+ * - New Border Helper
+ * - Textproprtie helper
+ *
  * Revision 1.3  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

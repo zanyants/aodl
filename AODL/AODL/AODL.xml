@@ -2299,6 +2299,26 @@
             wave
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Style.Properties.Border">
+            <summary>
+            Border helper class
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.Border.NormalSolid">
+            <summary>
+            Normal solid
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.Border.MiddleSolid">
+            <summary>
+            Middlle solid
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.Border.HeavySolid">
+            <summary>
+            Heavy solid
+            </summary>
+        </member>
         <member name="T:AODL.TextDocument.Style.Properties.LineWidths">
             <summary>
             Possible settings for LineWidths
@@ -2429,6 +2449,29 @@
             Margin left. in cm an object .MarginLeft = "1cm";
             </summary>
         </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Border">
+            <summary>
+            Gets or sets the border.
+            This could be e.g. 0.002cm solid #000000 (width, linestyle, color)
+            or none
+            </summary>
+            <value>The border.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Padding">
+            <summary>
+            Gets or sets the padding. 
+            Default 0.049cm 
+            Use this in combination with the Border property
+            </summary>
+            <value>The padding.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.LineSpacing">
+            <summary>
+            Gets or sets the line height in %.
+            200% means double space
+            </summary>
+            <value>The line height.</value>
+        </member>
         <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.TabStopStyleCollection">
             <summary>
             Gets or sets the tab stop style collection.
@@ -2440,6 +2483,26 @@
         <member name="P:AODL.TextDocument.Style.Properties.ParagraphProperties.Alignment">
             <summary>
             Set paragraph alignment - object.Alignment = TextAlignments.right.ToString()
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.ParagraphHelper">
+            <summary>
+            Some helper constants for Paragraph properties
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.ParagraphHelper.LineSpacing15">
+            <summary>
+            Line spacing 1.5 lines
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.ParagraphHelper.LineDouble">
+            <summary>
+            Line spacing double
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.ParagraphHelper.LineSpacing3">
+            <summary>
+            Line spacing three lines
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.Properties.RowProperties">
@@ -2614,6 +2677,43 @@
             Set font-weight bold object.Bold = "bold";
             </summary>
         </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Position">
+            <summary>
+            Set text position, could be sub- ("sub 58%") or superscript ("super 58%")
+            See TextPropertieHelper for possible settings
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Shadow">
+            <summary>
+            Set text shadow e.g. "1pt 1pt"
+            See TextPropertieHelper for possible settings
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Outline">
+            <summary>
+            Set text outline e.g. "true"
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.TextLineThrough">
+            <summary>
+            Set text to line through
+            See LineStyles for possible settings
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.FontColor">
+            <summary>
+            Set the font color
+            Use Colors.GetColor(Color color) to set 
+            on of the available .net colors
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.TextProperties.BackgroundColor">
+            <summary>
+            Set the background color
+            Use Colors.GetColor(Color color) to set 
+            on of the available .net colors
+            </summary>
+        </member>
         <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Italic">
             <summary>
             Set font-style italic object.Italic = "italic";
@@ -2647,6 +2747,36 @@
         <member name="P:AODL.TextDocument.Style.Properties.TextProperties.Node">
             <summary>
             Represent the XmlNode for the propertie element.
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.TextPropertieHelper">
+            <summary>
+            Propertie Helpers
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextPropertieHelper.Subscript">
+            <summary>
+            Subscript use within Postion
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextPropertieHelper.Superscript">
+            <summary>
+            Superscript use within Postion
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextPropertieHelper.Shadowlight">
+            <summary>
+            Light shadow use within Shadow
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextPropertieHelper.Shadowmidlle">
+            <summary>
+            Middle shadow use within Shadow
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Style.Properties.TextPropertieHelper.Shadowheavy">
+            <summary>
+            Heavy shadow use within Shadow
             </summary>
         </member>
         <member name="T:AODL.TextDocument.Style.CellStyle">
@@ -4210,16 +4340,16 @@
             <code>
             TextDocument td = new TextDocument();
             td.New();
-            Paragraph p = new Paragraph(td, "P1");
+            Paragraph p = new Paragraph(td, "P1");	
             //add text
-            p.TextContent.Add(new SimpleText(p, "HallO"));
+            p.TextContent.Add(new SimpleText(p, "Hello"));
             //Add the Paragraph
             td.Content.Add((IContent)p);
             //Blank para
             td.Content.Add(new Paragraph(td, ParentStyles.Standard.ToString()));
             // new para
             p = new Paragraph(td, "P2");
-            p.TextContent.Add(new SimpleText(p, "Hallo"));
+            p.TextContent.Add(new SimpleText(p, "Hello again"));
             td.Content.Add(p);
             td.SaveTo("parablank.odt");
             </code>

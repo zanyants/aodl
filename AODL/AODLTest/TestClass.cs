@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.10 2005/11/22 21:09:19 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.11 2005/11/23 19:18:17 larsbm Exp $ 
  */
 
 using System;
@@ -403,11 +403,79 @@ namespace AODLTest
 			//Save
 			td.SaveTo("Header_Footer.odt");
 		}
+
+		[Test]
+		public void NewTextAndParagraphProps()
+		{
+			//Create a new TextDocument
+			TextDocument document		= new TextDocument();
+			document.New();
+			//Create new Paragraph
+			Paragraph paragraph			= new Paragraph(document, "P1");
+			//Create paragraph border
+			((ParagraphStyle)paragraph.Style).Properties.Border =
+				Border.MiddleSolid;
+			//Set line spacing to double
+			((ParagraphStyle)paragraph.Style).Properties.LineSpacing =
+				ParagraphHelper.LineDouble;
+			//Create some formated text
+			FormatedText ftext			= new FormatedText(paragraph, "T1", @"Outline\n");
+			//Set text as Outline
+			((TextStyle)ftext.Style).Properties.Outline		= "true";
+			//Add to paragraph
+			paragraph.TextContent.Add(ftext);
+			//Create some formated text
+			ftext						= new FormatedText(paragraph, "T2", @"Colored\n");
+			//Set font color
+			((TextStyle)ftext.Style).Properties.FontColor	= Colors.GetColor(System.Drawing.Color.Cyan);
+			//Add to paragraph
+			paragraph.TextContent.Add(ftext);
+			//Create some formated text
+			ftext						= new FormatedText(paragraph, "T3", @"Backcolor\n");
+			//Set background color
+			((TextStyle)ftext.Style).Properties.BackgroundColor	= Colors.GetColor(System.Drawing.Color.Cyan);
+			//Add to paragraph
+			paragraph.TextContent.Add(ftext);
+			//Create some formated text
+			ftext						= new FormatedText(paragraph, "T4", @"Shadow\n");
+			//Set shadow
+			((TextStyle)ftext.Style).Properties.Shadow		= TextPropertieHelper.Shadowmidlle;
+			//Add to paragraph
+			paragraph.TextContent.Add(ftext);
+			//Create some formated text
+			ftext						= new FormatedText(paragraph, "T5", @"Subscript\n");
+			//Set subscript
+			((TextStyle)ftext.Style).Properties.Position	= TextPropertieHelper.Subscript;
+			//Add to paragraph
+			paragraph.TextContent.Add(ftext);
+			//Create some formated text
+			ftext						= new FormatedText(paragraph, "T6", @"Superscript\n");
+			//Set superscript
+			((TextStyle)ftext.Style).Properties.Position	= TextPropertieHelper.Superscript;
+			//Add to paragraph
+			paragraph.TextContent.Add(ftext);
+			//Create some formated text
+			ftext						= new FormatedText(paragraph, "T7", @"Strice through\n");
+			//Set superscript
+			((TextStyle)ftext.Style).Properties.TextLineThrough = LineStyles.solid;
+			//Add to paragraph
+			paragraph.TextContent.Add(ftext);
+			//finally add paragraph to the document
+			document.Content.Add(paragraph);
+			//Save the document
+			document.SaveTo("NewProperties.odt");
+		}
 	}
 }
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.11  2005/11/23 19:18:17  larsbm
+ * - New Textproperties
+ * - New Paragraphproperties
+ * - New Border Helper
+ * - Textproprtie helper
+ *
  * Revision 1.10  2005/11/22 21:09:19  larsbm
  * - Add simple header and footer support
  *

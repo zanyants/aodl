@@ -1,6 +1,6 @@
 
 /*
- * $Id: TextProperties.cs,v 1.6 2005/10/23 16:47:48 larsbm Exp $
+ * $Id: TextProperties.cs,v 1.7 2005/11/23 19:18:17 larsbm Exp $
  */
 
 using System;
@@ -44,6 +44,157 @@ namespace AODL.TextDocument.Style.Properties
 				if(xn == null)
 					this.CreateAttribute("font-weight", value, "fo");
 				this._node.SelectSingleNode("@fo:font-weight",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Set text position, could be sub- ("sub 58%") or superscript ("super 58%")
+		/// See TextPropertieHelper for possible settings
+		/// </summary>
+		public string Position
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@style:text-position",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@style:text-position",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("text-position", value, "style");
+				this._node.SelectSingleNode("@style:text-position",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Set text shadow e.g. "1pt 1pt"
+		/// See TextPropertieHelper for possible settings
+		/// </summary>
+		public string Shadow
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@style:text-shadow",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@style:text-shadow",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("text-shadow", value, "style");
+				this._node.SelectSingleNode("@style:text-shadow",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Set text outline e.g. "true"
+		/// </summary>
+		public string Outline
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@style:text-outline",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@style:text-outline",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("text-outline", value, "style");
+				this._node.SelectSingleNode("@style:text-outline",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Set text to line through
+		/// See LineStyles for possible settings
+		/// </summary>
+		public string TextLineThrough
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@style:text-line-through-style",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@style:text-line-through-style",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("text-line-through-style", value, "style");
+				this._node.SelectSingleNode("@style:text-line-through-style",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Set the font color
+		/// Use Colors.GetColor(Color color) to set 
+		/// on of the available .net colors
+		/// </summary>
+		public string FontColor
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:color",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:color",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("color", value, "fo");
+				this._node.SelectSingleNode("@fo:color",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Set the background color
+		/// Use Colors.GetColor(Color color) to set 
+		/// on of the available .net colors
+		/// </summary>
+		public string BackgroundColor
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:background-color",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:background-color",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("background-color", value, "fo");
+				this._node.SelectSingleNode("@fo:background-color",
 					this.Style.Document.NamespaceManager).InnerText = value;
 			}
 		}
@@ -259,10 +410,43 @@ namespace AODL.TextDocument.Style.Properties
 
 		#endregion
 	}
+
+	/// <summary>
+	/// Propertie Helpers
+	/// </summary>
+	public class TextPropertieHelper
+	{
+		/// <summary>
+		/// Subscript use within Postion
+		/// </summary>
+		public static readonly string Subscript		= "sub 58%";
+		/// <summary>
+		/// Superscript use within Postion
+		/// </summary>
+		public static readonly string Superscript	= "super 58%";
+		/// <summary>
+		/// Light shadow use within Shadow
+		/// </summary>
+		public static readonly string Shadowlight	= "1pt 1pt";
+		/// <summary>
+		/// Middle shadow use within Shadow
+		/// </summary>
+		public static readonly string Shadowmidlle	= "3pt 3pt";
+		/// <summary>
+		/// Heavy shadow use within Shadow
+		/// </summary>
+		public static readonly string Shadowheavy	= "6pt 6pt";
+	}
 }
 
 /*
  * $Log: TextProperties.cs,v $
+ * Revision 1.7  2005/11/23 19:18:17  larsbm
+ * - New Textproperties
+ * - New Paragraphproperties
+ * - New Border Helper
+ * - Textproprtie helper
+ *
  * Revision 1.6  2005/10/23 16:47:48  larsbm
  * - Bugfix ListItem throws IStyleInterface not implemented exeption
  * - now. build the document after call saveto instead prepare the do at runtime
