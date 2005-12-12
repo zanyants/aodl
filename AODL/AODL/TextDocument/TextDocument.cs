@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.15 2005/11/23 19:18:17 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.16 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -36,7 +36,7 @@ namespace AODL.TextDocument
 	/// td.SaveTo("parablank.odt");
 	/// </code>
 	/// </example>
-	public class TextDocument : IContentContainer
+	public class TextDocument : IContentContainer, IDisposable
 	{
 		private XmlDocument _xmldoc;
 		/// <summary>
@@ -223,7 +223,7 @@ namespace AODL.TextDocument
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -266,11 +266,10 @@ namespace AODL.TextDocument
 				this.AddIContentCollectionToDocument();
 				IExporter exporter			= this.GetExporter(filename);
 				exporter.Export(this, filename);
-				//Publish.Publisher.PublishTo(this, filename);
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -319,6 +318,8 @@ namespace AODL.TextDocument
 		{
 			if(filename.EndsWith(".odt"))
 				return new AODL.Export.OpenDocumentTextExporter();
+			else if(filename.EndsWith(".htm") || filename.EndsWith(".html"))
+				return new AODL.Export.OpenDocumentHtmlExporter();
 
 			throw new Exception("Unknown Exporter name exception. No exporter found for file "+filename);
 		}
@@ -397,7 +398,7 @@ namespace AODL.TextDocument
 			catch(Exception ex)
 			{
 				//Should never happen
-				throw ex;
+				throw;
 			}
 		}
 
@@ -470,7 +471,48 @@ namespace AODL.TextDocument
 			foreach(Column col in table.Columns)
 				this.AppendStyleNode(col.Style.Node);
 
-			foreach(Row row in table.Rows)
+			if(table.RowHeader != null)
+				this.InsertRows(table.RowHeader.RowCollection);
+
+			this.InsertRows(table.Rows);
+			#region old Todo: delete after test
+//			foreach(Row row in table.Rows)
+//			{
+//				this.AppendStyleNode(row.Style.Node);
+//				foreach(Cell cell in row.Cells)
+//				{
+//					this.AppendStyleNode(cell.Style.Node);
+//					foreach(IContent content in cell.Content)
+//					{
+//						if(content.GetType().Name == "Paragraph")
+//						{
+//							if(((Paragraph)content).ParentStyle != ParentStyles.Table
+//								&& ((Paragraph)content).ParentStyle != ParentStyles.Standard)
+//							{
+//								this.AppendStyleNode(content.Style.Node);
+//								foreach(IText text in ((Paragraph)content).TextContent)
+//									if(text.GetType().Name == "FormatedText")
+//										this.AppendStyleNode(text.Style.Node);
+//							}
+//						}
+//						else if(content.GetType().Name == "List")
+//						{
+//							this.AppendStyleNode(content.Style.Node);
+//							this.AppendStyleNode(((List)content).ParagraphStyle.Node);
+//						}
+//					}
+//				}
+//			}
+			#endregion
+		}
+
+		/// <summary>
+		/// Inserts the rows.
+		/// </summary>
+		/// <param name="rows">The rows.</param>
+		private void InsertRows(RowCollection rows)
+		{
+			foreach(Row row in rows)
 			{
 				this.AppendStyleNode(row.Style.Node);
 				foreach(Cell cell in row.Cells)
@@ -480,7 +522,8 @@ namespace AODL.TextDocument
 					{
 						if(content.GetType().Name == "Paragraph")
 						{
-							if(((Paragraph)content).ParentStyle != ParentStyles.Table)
+							if(((Paragraph)content).ParentStyle != ParentStyles.Table
+								&& ((Paragraph)content).ParentStyle != ParentStyles.Standard)
 							{
 								this.AppendStyleNode(content.Style.Node);
 								foreach(IText text in ((Paragraph)content).TextContent)
@@ -507,11 +550,67 @@ namespace AODL.TextDocument
 			this.XmlDoc.SelectSingleNode(TextDocumentHelper.AutomaticStylePath,
 				this.NamespaceManager).AppendChild(node);
 		}
+
+		#region IDisposable Member
+
+		private bool _disposed = false;
+
+		/// <summary>
+		/// Führt anwendungsspezifische Aufgaben durch, die mit der Freigabe, der Zurückgabe oder dem Zurücksetzen von nicht verwalteten Ressourcen zusammenhängen.
+		/// </summary>
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		/// <summary>
+		/// Disposes the specified disposing.
+		/// </summary>
+		/// <param name="disposing">if set to <c>true</c> [disposing].</param>
+		private void Dispose(bool disposing)
+		{
+			if(!this._disposed)
+			{
+				if(disposing)
+				{
+					if(this.Content != null)
+						foreach(IContent content in this.Content)
+							if(content is Paragraph)
+								if(((Paragraph)content).Content != null)
+									foreach(IContent content1 in ((Paragraph)content).Content)
+										if(content1 is Frame)
+											if(((Frame)content1).Image != null)
+												((Frame)content1).Dispose();
+
+					foreach(DocumentPicture dPic in this.DocumentPictures)
+						dPic.Image.Dispose();
+
+					foreach(DocumentPicture dPic in this.DocumentThumbnails)
+						dPic.Image.Dispose();
+				}
+			}
+			_disposed = true;         
+		}
+
+		~TextDocument()      
+		{
+			Dispose(false);
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.16  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.15  2005/11/23 19:18:17  larsbm
  * - New Textproperties
  * - New Paragraphproperties

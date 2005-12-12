@@ -1,5 +1,5 @@
 /*
- * $Id: FormatedText.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: FormatedText.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Represent a formated Text e.g bold, italic, underline etc.
 	/// </summary>
-	public class FormatedText : IText
+	public class FormatedText : IText, IHtml
 	{
 		private FormatedTextCollection _formatedtextcollecion;
 		/// <summary>
@@ -72,10 +72,16 @@ namespace AODL.TextDocument.Content
 		/// <returns>The transformed text</returns>
 		private string ControlCharTransformer(string text)
 		{
-			text		= text.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
-			text		= text.Replace(@"\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+//			text		= text.Replace("&", "&amp;");
+//			text		= text.Replace("<", "&lt;");
+//			text		= text.Replace(">", "&gt;");
+//
+//			text		= text.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+//			text		= text.Replace(@"\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+//
+//			text		= WhiteSpace.GetWhiteSpaceXml(text);
 
-			return text;
+			return TextContentSpecialCharacter.ReplaceSpecialCharacter(text);
 		}
 
 		#region IText Member
@@ -179,11 +185,103 @@ namespace AODL.TextDocument.Content
 			inner			= inner.Replace(replace, "");
 			this.Node.InnerXml	= inner;
 		}
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string style	= ((TextStyle)this.Style).Properties.GetHtmlStyle();
+			string html		= "<span ";
+			string text		= this.GetTextWithHtmlControl();
+
+			if(style.Length > 0)
+				html		= html + style + ">\n";
+			else
+				html		+= ">\n";
+
+			if(text.Length > 0)
+				html		+= text;
+
+			html			+= "</span>\n";
+
+			html			= this.GetSubOrSupStartTag()+html+this.GetSubOrSupEndTag();
+
+			return html;
+		}
+
+		/// <summary>
+		/// Gets the text with HTML controls
+		/// as Tab as &nbsp; and line-break as br tag
+		/// </summary>
+		/// <returns>The string</returns>
+		private string GetTextWithHtmlControl()
+		{
+			string text		= "";
+
+			foreach(XmlNode node in this.Node)
+			{
+				if(node.LocalName == "tab")
+					text	+= "&nbsp;&nbsp;&nbsp;";
+				else if(node.LocalName == "line-break")
+					text	+= "<br>";
+				else if(node.LocalName == "s")
+					text	+= WhiteSpace.GetWhiteSpaceHtml(node.OuterXml);
+				else if(node.InnerText.Length > 0)
+					text	+= node.InnerText;
+			}
+
+			return text;
+		}
+
+		/// <summary>
+		/// Gets the sub or sup start tag.
+		/// </summary>
+		/// <returns></returns>
+		private string GetSubOrSupStartTag()
+		{
+			if(((TextStyle)this.Style).Properties.Position != null)
+				if(((TextStyle)this.Style).Properties.Position.Length > 0)
+					if(((TextStyle)this.Style).Properties.Position.ToLower().StartsWith("sub"))
+						return "<sub>";
+					else
+						return "<sup>";
+			
+			return "";
+		}
+
+		/// <summary>
+		/// Gets the sub or sup end tag.
+		/// </summary>
+		/// <returns></returns>
+		private string GetSubOrSupEndTag()
+		{
+			if(((TextStyle)this.Style).Properties.Position != null)
+				if(((TextStyle)this.Style).Properties.Position.Length > 0)
+					if(((TextStyle)this.Style).Properties.Position.ToLower().StartsWith("sub"))
+						return "</sub>";
+					else
+						return "</sup>";
+
+			return "";
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: FormatedText.cs,v $
+ * Revision 1.4  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.3  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

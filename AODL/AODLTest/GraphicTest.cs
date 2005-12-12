@@ -33,10 +33,11 @@ namespace AODLTest
 				textdocument.Content.Add(p);
 
 				textdocument.SaveTo("grapic.odt");
+				textdocument.Dispose();
 			}
 			catch(Exception ex)
 			{
-				Console.Write(ex.Message);
+				//Console.Write(ex.Message);
 			}
 		}
 
@@ -57,10 +58,10 @@ namespace AODLTest
 				string stylename = xn.SelectSingleNode("@style:name", xm).InnerText;
 				
 				string x = "\t\t///<summary>\n\t\t///"+stylename+"\n\t\t///</summary>\n\t\tpublic static readonly string "+stylename.Replace(" ","")+" = \""+stylename+"\";";
-				Console.WriteLine(x);
+				//Console.WriteLine(x);
 			}
 
-			Console.WriteLine(xnl.Count);
+			//Console.WriteLine(xnl.Count);
 		}
 	}
 }

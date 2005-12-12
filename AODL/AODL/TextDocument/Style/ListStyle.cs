@@ -1,5 +1,5 @@
 /*
- * $Id: ListStyle.cs,v 1.1 2005/10/09 15:52:47 larsbm Exp $
+ * $Id: ListStyle.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -65,7 +65,7 @@ namespace AODL.TextDocument.Style
 				}
 				catch(Exception ex)
 				{
-					throw ex;
+					throw;
 				}
 			}
 
@@ -148,6 +148,13 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: ListStyle.cs,v $
+ * Revision 1.2  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.1  2005/10/09 15:52:47  larsbm
  * - Changed some design at the paragraph usage
  * - add list support

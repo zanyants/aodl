@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.4 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: Table.cs,v 1.5 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,8 +11,13 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Zusammenfassung für Table.
 	/// </summary>
-	public class Table : IContent, IContentContainer
+	public class Table : IContent, IContentContainer, IHtml
 	{
+		/// <summary>
+		/// The first row is a header row.
+		/// </summary>
+		private bool _firstRowIsHeader	= false;
+
 		private ColumnCollection _columns;
 		/// <summary>
 		/// The Columns that belong to this belong.
@@ -32,6 +37,17 @@ namespace AODL.TextDocument.Content
 		{
 			get { return this._rows; }
 			set { this._rows = value; }
+		}
+
+		private RowHeader _rowHeader;
+		/// <summary>
+		/// Gets or sets the row header.
+		/// </summary>
+		/// <value>The row header.</value>
+		public RowHeader RowHeader
+		{
+			get { return this._rowHeader; }
+			set { this._rowHeader = value; }
 		}
 
 		/// <summary>
@@ -88,7 +104,25 @@ namespace AODL.TextDocument.Content
 			this.Rows.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Rows_Inserted);
 
 			this.AddColumns(columns, width);
+			if(this._firstRowIsHeader)
+				this.Node.AppendChild(this.RowHeader.Node);
 			this.AddRows(rows, columns);
+		}
+
+		/// <summary>
+		/// Initiates the table with given count of rows and columns
+		/// and the given width (width is cm) and set first row as
+		/// header row if firstHeaderRow is set to true.
+		/// </summary>
+		/// <param name="rows">The rows.</param>
+		/// <param name="columns">The columns.</param>
+		/// <param name="width">The width.</param>
+		/// <param name="firstRowIsHeader">if set to <c>true</c> [first row is header].</param>
+		public void Init(int rows, int columns, double width, bool firstRowIsHeader)
+		{
+			this._firstRowIsHeader	= firstRowIsHeader;
+			this.RowHeader			= new RowHeader(this);			
+			this.Init(rows, columns, width);
 		}
 
 		/// <summary>
@@ -117,9 +151,20 @@ namespace AODL.TextDocument.Content
 		{
 			for(int i=0; i<count; i++)
 			{
+				bool rowHeader	= false;
 				int irow		= i+1;
 				Row r			= new Row(this, this.Stylename+"."+irow.ToString());
-				this.Rows.Add(r);
+				
+				//If first row is a header row
+				if(this._firstRowIsHeader && i==0)
+				{
+					this.RowHeader.RowCollection.Add(r);
+					rowHeader	= true;
+				}
+
+				if(!rowHeader)
+					this.Rows.Add(r);
+					
 
 				for(int ii=0; ii<cells; ii++)
 				{
@@ -292,11 +337,46 @@ namespace AODL.TextDocument.Content
 			if(this.Node != null)
 				this.Node.AppendChild(((Row)value).Node);
 		}
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html			= "<table hspace=\"14\" vspace=\"14\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" bgcolor=\"#000000\" ";
+
+			if(((TableStyle)this.Style).Properties != null)
+				html			+= ((TableStyle)this.Style).Properties.GetHtmlStyle();
+
+			html				+= ">\n";
+
+			if(this.RowHeader != null)
+				html			+= this.RowHeader.GetHtml();
+
+			foreach(Row	row in this.Rows)
+					html		+= row.GetHtml()+"\n";
+
+			html				+= "</table>\n";
+
+			return html;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.5  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.4  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

@@ -1,5 +1,5 @@
 /*
- * $Id: CellProperties.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: CellProperties.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -12,7 +12,7 @@ namespace AODL.TextDocument.Style.Properties
 	/// Represent the Cell Properties within a Cell which is used
 	/// within a Tabe resp. a Row.
 	/// </summary>
-	public class CellProperties :IProperty
+	public class CellProperties :IProperty, IHtmlStyle
 	{
 		private CellStyle _cellstyle;
 		/// <summary>
@@ -262,6 +262,34 @@ namespace AODL.TextDocument.Style.Properties
 			{
 				this._node = value;
 			}
+		}
+
+		#endregion
+
+		#region IHtmlStyle Member
+
+		/// <summary>
+		/// Get the css style fragement
+		/// </summary>
+		/// <returns>The css style attribute</returns>
+		public string GetHtmlStyle()
+		{
+			string style		= "style=\"";
+
+			if(this.BackgroundColor != null)
+				if(this.BackgroundColor.ToLower() != "transparent")
+					style	+= "background-color: "+this.BackgroundColor+"; ";
+				else
+					style	+= "background-color: #FFFFFF; ";
+			else
+				style	+= "background-color: #FFFFFF; ";
+
+			if(!style.EndsWith("; "))
+				style	= "";
+			else
+				style	+= "\"";
+
+			return style;
 		}
 
 		#endregion

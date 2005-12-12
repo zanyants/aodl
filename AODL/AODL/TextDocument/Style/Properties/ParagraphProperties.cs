@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphProperties.cs,v 1.5 2005/11/23 19:18:17 larsbm Exp $
+ * $Id: ParagraphProperties.cs,v 1.6 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Style.Properties
 	/// <summary>
 	/// Represent access to the possible attributes of of an paragraph-propertie element.
 	/// </summary>
-	public class ParagraphProperties : IProperty
+	public class ParagraphProperties : IProperty, IHtmlStyle
 	{
 		private ParagraphStyle _paragraphStyle;
 		/// <summary>
@@ -229,6 +229,37 @@ namespace AODL.TextDocument.Style.Properties
 		{
 			this.Node		= td.CreateNode("paragraph-properties", "style");
 		}
+
+		#region IHtmlStyle Member
+
+		/// <summary>
+		/// Get the css style fragement
+		/// </summary>
+		/// <returns>The css style attribute</returns>
+		public string GetHtmlStyle()
+		{
+			string style		= "style=\"";
+
+			if(this.Alignment != null)
+				style	+= "text-align: "+this.Alignment+"; ";
+			if(this.MarginLeft != null)
+				style	+= "text-indent: "+this.MarginLeft+"; ";
+			if(this.LineSpacing != null)
+				style	+= "line-height: "+this.LineSpacing+"; ";
+			if(this.Border != null && this.Padding == null)
+				style	+= "border-width:1px; border-style:solid; padding: 0.5cm; ";
+			if(this.Border != null && this.Padding != null)
+				style	+= "border-width:1px; border-style:solid; padding:"+this.Padding+"; ";
+
+			if(!style.EndsWith("; "))
+				style	= "";
+			else
+				style	+= "\"";
+
+			return style;
+		}
+
+		#endregion
 	}
 
 	/// <summary>
@@ -253,6 +284,13 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: ParagraphProperties.cs,v $
+ * Revision 1.6  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.5  2005/11/23 19:18:17  larsbm
  * - New Textproperties
  * - New Paragraphproperties

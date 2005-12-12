@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentConfiguration2.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: DocumentConfiguration2.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -64,7 +64,7 @@ namespace AODL.TextDocument
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 	}
@@ -72,6 +72,13 @@ namespace AODL.TextDocument
 
 /*
  * $Log: DocumentConfiguration2.cs,v $
+ * Revision 1.3  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.2  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

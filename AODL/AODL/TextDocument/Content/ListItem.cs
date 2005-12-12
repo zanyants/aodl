@@ -1,5 +1,5 @@
 /*
- * $Id: ListItem.cs,v 1.2 2005/10/23 16:47:48 larsbm Exp $
+ * $Id: ListItem.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -14,7 +14,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Zusammenfassung für ListItem.
 	/// </summary>
-	public class ListItem : IContent, IContentContainer
+	public class ListItem : IContent, IContentContainer, IHtml
 	{
 		private Paragraph _paragraph;
 		/// <summary>
@@ -179,11 +179,42 @@ namespace AODL.TextDocument.Content
 		{
 			this.Node.AppendChild(((IContent)value).Node);
 		}
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html			= "<li>\n";
+
+			if(this.Paragraph != null)
+					html		+= this.Paragraph.GetHtml()+"\n";
+
+			foreach(IContent content in this.Content)
+				if(content is IHtml)
+					html		+= ((IHtml)content).GetHtml();
+
+			html				+= "</li>\n";
+
+			return html;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: ListItem.cs,v $
+ * Revision 1.3  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.2  2005/10/23 16:47:48  larsbm
  * - Bugfix ListItem throws IStyleInterface not implemented exeption
  * - now. build the document after call saveto instead prepare the do at runtime

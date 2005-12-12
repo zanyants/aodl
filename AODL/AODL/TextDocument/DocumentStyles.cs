@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentStyles.cs,v 1.3 2005/11/22 21:09:19 larsbm Exp $
+ * $Id: DocumentStyles.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -53,7 +53,7 @@ namespace AODL.TextDocument
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -70,7 +70,7 @@ namespace AODL.TextDocument
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -197,6 +197,13 @@ namespace AODL.TextDocument
 
 /*
  * $Log: DocumentStyles.cs,v $
+ * Revision 1.4  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.3  2005/11/22 21:09:19  larsbm
  * - Add simple header and footer support
  *

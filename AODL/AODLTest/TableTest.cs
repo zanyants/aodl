@@ -154,5 +154,31 @@ namespace AODLTest
 
 			doc.SaveTo("tablewithList.odt");
 		}
+
+		[Test]
+		public void RowHeaderTest()
+		{
+			TextDocument doc		= new TextDocument();
+			doc.New();
+
+			Table table				= new Table(doc, "table1");
+			table.Init(5, 2, 16.99, true);
+
+			//Set the row header
+			if(table.RowHeader != null)
+			{
+				//Headline
+				table.RowHeader.RowCollection[0].Cells[0].InsertText("Application");
+				table.RowHeader.RowCollection[0].Cells[1].InsertText("Short cut");
+			}
+
+			foreach(Row r in table.Rows)
+				foreach(Cell c in r.Cells)
+					c.InsertText("Hello");
+
+			doc.Content.Add(table);
+
+			doc.SaveTo("tableheader.odt");
+		}
 	}
 }

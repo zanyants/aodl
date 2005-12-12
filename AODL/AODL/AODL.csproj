@@ -114,6 +114,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Publish\OpenDocumentHtmlExporter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Publish\OpenDocumentTextExporter.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -156,6 +161,10 @@
                 />
                 <File
                     RelPath = "Resources\OD\fonts.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Resources\OD\htmltemplate.html"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -274,6 +283,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\Header.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\IContent.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -285,6 +299,11 @@
                 />
                 <File
                     RelPath = "TextDocument\Content\IContentContainer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\IHtml.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -329,12 +348,27 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\RowHeader.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\SimpleText.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "TextDocument\Content\Table.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\TextContentSpecialCharacter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\WhiteSpace.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -455,6 +489,11 @@
                 />
                 <File
                     RelPath = "TextDocument\Style\Properties\GraphicProperties.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\IHtmlStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

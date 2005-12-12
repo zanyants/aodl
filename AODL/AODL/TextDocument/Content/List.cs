@@ -1,5 +1,5 @@
 /*
- * $Id: List.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: List.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -13,7 +13,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Represent a list which could be a numbered or bullet style list.
 	/// </summary>
-	public class List : IContent, IContentContainer
+	public class List : IContent, IContentContainer, IHtml
 	{
 		private ParagraphStyle _paragraphstyle;
 		/// <summary>
@@ -39,6 +39,16 @@ namespace AODL.TextDocument.Content
 			set { this._content = value; }
 		}
 
+		private ListStyles _type;
+		/// <summary>
+		/// Gets the type of the list.
+		/// </summary>
+		/// <value>The type of the list.</value>
+		public ListStyles ListType
+		{
+			get { return this._type; }
+		}
+
 		/// <summary>
 		/// Create a new List object
 		/// </summary>
@@ -53,6 +63,7 @@ namespace AODL.TextDocument.Content
 			this.Style							= (IStyle)new ListStyle(this, stylename);
 			this.ParagraphStyle					= new ParagraphStyle(this, paragraphstylename);
 			this.ParagraphStyle.ListStyleName	= stylename;
+			this._type							= typ;
 			((ListStyle)this.Style).AutomaticAddListLevelStyles(typ);
 
 			this.NewXmlNode(td, stylename);
@@ -70,6 +81,7 @@ namespace AODL.TextDocument.Content
 			this.Document		= td;
 			this.ParagraphStyle	= outerlist.ParagraphStyle;			
 			this.Content		= new IContentCollection();
+			this._type			= outerlist.ListType;
 			//Create an inner list node, don't need a style
 			//use the parents list style
 			this.NewXmlNode(td, null);
@@ -184,5 +196,35 @@ namespace AODL.TextDocument.Content
 		{
 			this.Node.AppendChild(((IContent)value).Node);
 		}
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html			= null;
+
+			if(this.ListType == ListStyles.Bullet)
+				html			= "<ul>\n";
+			else if(this.ListType == ListStyles.Number)
+				html			= "<ol>\n";
+			
+			foreach(IContent content in this.Content)
+				if(content is IHtml)
+					html		+= ((IHtml)content).GetHtml();
+
+			if(this.ListType == ListStyles.Bullet)
+				html			+= "</ul>\n";
+			else if(this.ListType == ListStyles.Number)
+				html			+= "</ol>\n";
+			//html				+= "</ul>\n";
+
+			return html;
+		}
+
+		#endregion
 	}
 }

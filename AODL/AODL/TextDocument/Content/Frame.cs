@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: Frame.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -13,7 +13,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Zusammenfassung für Frame.
 	/// </summary>
-	public class Frame : IContent
+	public class Frame : IContent, IHtml, IDisposable
 	{
 		private Graphic _graphic;
 		/// <summary>
@@ -201,7 +201,7 @@ namespace AODL.TextDocument.Content
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -287,11 +287,74 @@ namespace AODL.TextDocument.Content
 		}
 
 		#endregion
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			if(this.Graphic != null)
+				return Graphic.GetHtml();
+			return "";
+		}
+
+		#endregion
+
+		#region IDisposable Member
+
+		private bool _disposed = false;
+
+		/// <summary>
+		/// Führt anwendungsspezifische Aufgaben durch, die mit der Freigabe, der Zurückgabe oder dem Zurücksetzen von nicht verwalteten Ressourcen zusammenhängen.
+		/// </summary>
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		/// <summary>
+		/// Disposes the specified disposing.
+		/// </summary>
+		/// <param name="disposing">if set to <c>true</c> [disposing].</param>
+		private void Dispose(bool disposing)
+		{
+			if(!this._disposed)
+			{
+				if(disposing)
+				{
+					if(this._image != null)
+						this._image.Dispose();
+				}
+			}
+			_disposed = true;         
+		}
+
+		/// <summary>
+		/// Releases unmanaged resources and performs other cleanup operations before the
+		/// <see cref="AODL.TextDocument.Content.Frame"/> is reclaimed by garbage collection.
+		/// </summary>
+		~Frame()      
+		{
+			Dispose(false);
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.4  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.3  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

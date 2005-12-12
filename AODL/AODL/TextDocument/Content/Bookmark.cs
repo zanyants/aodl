@@ -1,5 +1,5 @@
 /*
- * $Id: Bookmark.cs,v 1.1 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: Bookmark.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -22,7 +22,7 @@ namespace AODL.TextDocument.Content
 			get 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@text:name", 
-					this.Paragraph.Document.NamespaceManager) ;
+					this.IContent.Document.NamespaceManager) ;
 				if(xn != null)
 					return xn.InnerText;
 				return null;
@@ -30,35 +30,35 @@ namespace AODL.TextDocument.Content
 			set 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@text:name",
-					this.Paragraph.Document.NamespaceManager);
+					this.IContent.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("name", value, "text");
 				this._node.SelectSingleNode("@text:name",
-					this.Paragraph.Document.NamespaceManager).InnerText = value;
+					this.IContent.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
-		private Paragraph _paragraph;
+		private IContent _icontent;
 		/// <summary>
 		/// Gets or sets the paragraph.
 		/// </summary>
 		/// <value>The paragraph.</value>
-		public Paragraph Paragraph
+		public IContent IContent
 		{
-			get { return this._paragraph; }
-			set { this._paragraph = value; }
+			get { return this._icontent; }
+			set { this._icontent = value; }
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Bookmark"/> class.
 		/// </summary>
-		/// <param name="paragraph">The paragraph this Bookmark belong to.</param>
+		/// <param name="content">The paragraph this Bookmark belong to.</param>
 		/// <param name="type">The type end or start.</param>
 		/// <param name="bookmarkname">The bookmark name.</param>
-		public Bookmark(Paragraph paragraph, BookmarkType type, string bookmarkname)
+		public Bookmark(IContent content, BookmarkType type, string bookmarkname)
 		{
-			this.Paragraph		= paragraph;
-			this.NewXmlNode(paragraph.Document, type, bookmarkname);
+			this.IContent		= content;
+			this.NewXmlNode(content.Document, type, bookmarkname);
 		}
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace AODL.TextDocument.Content
 		/// <param name="prefix">The namespace prefix.</param>
 		private void CreateAttribute(string name, string text, string prefix)
 		{
-			XmlAttribute xa = this.Paragraph.Document.CreateAttribute(name, prefix);
+			XmlAttribute xa = this.Content.Document.CreateAttribute(name, prefix);
 			xa.Value		= text;
 			this.Node.Attributes.Append(xa);
 		}
@@ -208,6 +208,13 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Bookmark.cs,v $
+ * Revision 1.2  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.1  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

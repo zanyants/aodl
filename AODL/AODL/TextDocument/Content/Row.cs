@@ -1,5 +1,5 @@
 /*
- * $Id: Row.cs,v 1.1 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: Row.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Represent a row with used within a table.
 	/// </summary>
-	public class Row : IContent
+	public class Row : IContent, IHtml
 	{
 		private Table _table;
 		/// <summary>
@@ -164,5 +164,31 @@ namespace AODL.TextDocument.Content
 		{
 			this.Node.AppendChild(((Cell)value).Node);
 		}
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html		= "<tr ";
+
+			if(((RowStyle)this.Style).RowProperties != null)
+				html		+= ((RowStyle)this.Style).RowProperties.GetHtmlStyle();
+
+			html			+= ">\n";
+
+			foreach(Cell cell in this.Cells)
+				if(cell is IHtml)
+					html	+= cell.GetHtml()+"\n";
+
+			html			+= "</tr>";
+
+			return html;
+		}
+
+		#endregion
 	}
 }

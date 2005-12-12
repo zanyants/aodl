@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextImporter.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: OpenDocumentTextImporter.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -8,13 +8,17 @@ using System.Drawing.Imaging;
 using System.Reflection;
 using System.IO;
 using System.Xml;
-using ICSharpCode.SharpZipLib.Checksums;
-using ICSharpCode.SharpZipLib.Zip;
-using ICSharpCode.SharpZipLib.GZip;
+//using ICSharpCode.SharpZipLib.Checksums;
+//using ICSharpCode.SharpZipLib.Zip;
+//using ICSharpCode.SharpZipLib.GZip;
 using AODL.TextDocument;
 using AODL.TextDocument.Content;
 using AODL.Import.XmlHelper;
-
+using ICSharpCode.SharpZipLib.BZip2;
+using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+using ICSharpCode.SharpZipLib.GZip;
 
 namespace AODL.Import
 {
@@ -54,7 +58,7 @@ namespace AODL.Import
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -94,16 +98,61 @@ namespace AODL.Import
 		{
 			try
 			{
-				FileInfo fi		= new FileInfo(file);				
-				FastZip fz		= new FastZip();
-				fz.ExtractZip(file, dir, "");
+				if(!Directory.Exists(dir))
+					Directory.CreateDirectory(dir);
 
+				ZipInputStream s = new ZipInputStream(File.OpenRead(file));
+		
+				ZipEntry theEntry;
+				while ((theEntry = s.GetNextEntry()) != null) 
+				{
+			
+					string directoryName = Path.GetDirectoryName(theEntry.Name);
+					string fileName      = Path.GetFileName(theEntry.Name);
+
+					if(directoryName != String.Empty)
+						Directory.CreateDirectory(dir+directoryName);
+			
+					if (fileName != String.Empty) 
+					{
+						FileStream streamWriter = File.Create(dir+theEntry.Name);
+				
+						int size = 2048;
+						byte[] data = new byte[2048];
+						while (true) 
+						{
+							size = s.Read(data, 0, data.Length);
+							if (size > 0) 
+							{
+								streamWriter.Write(data, 0, size);
+							} 
+							else 
+							{
+								break;
+							}
+						}
+				
+						streamWriter.Close();
+					}
+				}
+				s.Close();
+//				ZipOutputStream zipStream = new ZipOutputStream(File.Create("demo.zip"));
+//				ZipEntry zipEntry = new ZipEntry("emptyFolder/");
+//				zipStream.PutNextEntry(zipEntry);
+//
+//				FileInfo fi		= new FileInfo(file);				
+//				FastZip fz		= new FastZip();
+//				fz.ExtractZip(file, dir, "");
+//
+//				int generation	= GC.GetGeneration(fz);
+//				GC.Collect(generation);
+				
 				this.MovePictures();
 				this.ReadResources();
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -152,7 +201,7 @@ namespace AODL.Import
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -179,7 +228,7 @@ namespace AODL.Import
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -205,7 +254,7 @@ namespace AODL.Import
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 
 			return dpc;
@@ -223,7 +272,7 @@ namespace AODL.Import
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -232,6 +281,13 @@ namespace AODL.Import
 
 /*
  * $Log: OpenDocumentTextImporter.cs,v $
+ * Revision 1.3  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.2  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

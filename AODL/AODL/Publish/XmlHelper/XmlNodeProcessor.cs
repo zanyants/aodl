@@ -1,11 +1,12 @@
 /*
- * $Id: XmlNodeProcessor.cs,v 1.1 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: XmlNodeProcessor.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
+using System.Text.RegularExpressions;
 using AODL.TextDocument;
 using AODL.TextDocument.Content;
 using AODL.TextDocument.Style;
@@ -49,28 +50,29 @@ namespace AODL.Import.XmlHelper
 				XmlNode node				= this._textDocument.XmlDoc.SelectSingleNode(TextDocumentHelper.OfficeTextPath, this._textDocument.NamespaceManager);
 				if(node != null)
 				{
+					this.CreateContent(node);
 //					this._textDocument.XmlDoc.RemoveChild(node);
-					foreach(XmlNode nodeChild in node.ChildNodes)
-					{
-						switch(nodeChild.Name)
-						{
-							case "text:p":
-								Paragraph para		= this.CreateParagraph(nodeChild.CloneNode(true));
-								this._textDocument.Content.Add(para);
-								break;
-							case "text:list":
-								List list			= this.CreateList(nodeChild.CloneNode(true), null);
-								this._textDocument.Content.Add(list);
-								break;
-							case "table:table":
-								Table table			= this.CreateTable(nodeChild.CloneNode(true));
-								this._textDocument.Content.Add(table);
-								break;
-							default:
-								this.CreateUnknownContent(nodeChild.CloneNode(true));
-								break;
-						}
-					}
+//					foreach(XmlNode nodeChild in node.ChildNodes)
+//					{
+//						switch(nodeChild.Name)
+//						{
+//							case "text:p":
+//								Paragraph para		= this.CreateParagraph(nodeChild.CloneNode(true));
+//								this._textDocument.Content.Add(para);
+//								break;
+//							case "text:list":
+//								List list			= this.CreateList(nodeChild.CloneNode(true), null);
+//								this._textDocument.Content.Add(list);
+//								break;
+//							case "table:table":
+//								Table table			= this.CreateTable(nodeChild.CloneNode(true));
+//								this._textDocument.Content.Add(table);
+//								break;
+//							default:
+//								this.CreateUnknownContent(nodeChild.CloneNode(true));
+//								break;
+//						}
+//					}
 				}
 				//Remove all existing content and office styles, will be created new
 				node.RemoveAll();
@@ -78,7 +80,44 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
+			}
+		}
+
+		public void CreateContent(XmlNode node)
+		{
+			try
+			{
+				foreach(XmlNode nodeChild in node.ChildNodes)
+				{
+					switch(nodeChild.Name)
+					{
+						case "text:p":
+							Paragraph para		= this.CreateParagraph(nodeChild.CloneNode(true));
+							this._textDocument.Content.Add(para);
+							break;
+						case "text:list":
+							List list			= this.CreateList(nodeChild.CloneNode(true), null);
+							this._textDocument.Content.Add(list);
+							break;
+						case "table:table":
+							Table table			= this.CreateTable(nodeChild.CloneNode(true));
+							this._textDocument.Content.Add(table);
+							break;
+						case "text:h":
+							Header header		= this.CreateHeader(nodeChild.CloneNode(true));
+							if(header != null)
+								this._textDocument.Content.Add(header);
+							break;
+						default:
+							this.CreateUnknownContent(nodeChild.CloneNode(true));
+							break;
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				throw;
 			}
 		}
 
@@ -107,6 +146,9 @@ namespace AODL.Import.XmlHelper
 					XmlNode propertieNode		= styleNode.SelectSingleNode("style:paragraph-properties",
 						this._textDocument.NamespaceManager);
 
+					XmlNode txtpropertieNode	= styleNode.SelectSingleNode("style:text-properties",
+						this._textDocument.NamespaceManager);
+
 					ParagraphProperties pp		= null;
 
 					XmlNode tabstyles			= null;
@@ -125,8 +167,15 @@ namespace AODL.Import.XmlHelper
 						pstyle.Properties.TabStopStyleCollection	= this.GetTabStopStyles(tabstyles);
 					p.Style						= pstyle;
 
-					if(styles != null)
-						styles.RemoveChild(styleNode);
+					if(txtpropertieNode != null)
+					{
+						TextProperties tt		= new TextProperties(p.Style);
+						tt.Node					= txtpropertieNode;
+						((ParagraphStyle)p.Style).Textproperties = tt;
+					}
+
+//					if(styles != null)
+//						styles.RemoveChild(styleNode);
 				}
 			}
 //			Console.WriteLine("Create para: {0}", p.Node.OuterXml);
@@ -155,11 +204,13 @@ namespace AODL.Import.XmlHelper
 				}
 
 			string text					= this.SetControlChars(paragraph.Node.InnerXml);
-			//paragraph.Node.InnerXml		= "";
+			//paragraph.Node.InnerXml	= "";
 			paragraph.Node.InnerXml		= text;
 
-			paragraph					= TextContentProcessor.SplitTextContent(this._textDocument, paragraph);	
+			//Console.WriteLine(paragraph.Node.OuterXml);
 
+			paragraph					= TextContentProcessor.SplitTextContent(this._textDocument, paragraph);	
+			#region old
 //			if(text.IndexOf("/>") == 0)
 //			{
 //				//Is only simple text
@@ -248,8 +299,45 @@ namespace AODL.Import.XmlHelper
 //					}
 //				}
 //			}
+			#endregion
 
 			return paragraph;
+		}
+
+		private Header CreateHeader(XmlNode headernode)
+		{
+			try
+			{
+				XmlNode node			= headernode.SelectSingleNode("//@text:style-name", this._textDocument.NamespaceManager);
+				if(node != null)
+				{
+					if(!node.InnerText.StartsWith("Heading"))
+					{
+						//Check if a the referenced paragraphstyle reference a heading as parentstyle
+						XmlNode stylenode	= this._textDocument.XmlDoc.SelectSingleNode("//style:style[@style:name='"+node.InnerText+"']", this._textDocument.NamespaceManager);
+						if(stylenode != null)
+						{
+							XmlNode parentstyle	= stylenode.SelectSingleNode("@style:parent-style-name",
+								this._textDocument.NamespaceManager);
+							if(parentstyle != null)
+								if(parentstyle.InnerText.StartsWith("Heading"))
+									headernode.SelectSingleNode("@text:style-name", 
+										this._textDocument.NamespaceManager).InnerText = parentstyle.InnerText;
+						}
+					}
+				}
+
+				Header header			= new Header(headernode, this._textDocument);
+				string text				= this.SetControlChars(header.Node.InnerXml);
+				header.Node.InnerXml	= text;
+
+				return TextContentProcessor.SplitTextContent(this._textDocument, header);
+			}
+			catch(Exception ex)
+			{
+			}
+
+			return null;
 		}
 
 		/// <summary>
@@ -265,7 +353,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -318,7 +406,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -390,7 +478,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -433,47 +521,110 @@ namespace AODL.Import.XmlHelper
 					}
 					else if(node.OuterXml.StartsWith("<table:table-row"))
 					{
-						stylename					= this.GetStyleName(node.OuterXml);
-						XmlNode rowstylenode		= this.GetAStyleNode("style:style", stylename);						
+						Row row						= this.CreateRow(node, table);
+						
+						#region old Todo: delete
+						//						stylename					= this.GetStyleName(node.OuterXml);
+						//						XmlNode rowstylenode		= this.GetAStyleNode("style:style", stylename);						
+						//
+						//						Row row						= new Row(table, stylename);
+						//						row.Style.Node				= rowstylenode;
+						//
+						//						if(rowstylenode.ChildNodes.Count > 0)
+						//							if(rowstylenode.ChildNodes.Item(0).Name == "style:table-row-properties")
+						//								((RowStyle)row.Style).RowProperties.Node	=
+						//									rowstylenode.ChildNodes.Item(0).CloneNode(true);
+						//												
+						//						foreach(XmlNode nodecell in node.ChildNodes)
+						//						{
+						//							stylename					= this.GetStyleName(nodecell.OuterXml);
+						//							XmlNode cellstylenode		= this.GetAStyleNode("style:style", stylename);
+						//
+						//							Cell cell					= new Cell(row, stylename);
+						//							cell.Style.Node				= cellstylenode;
+						//
+						//							if(cellstylenode.ChildNodes.Count > 0)
+						//								if(cellstylenode.ChildNodes.Item(0).Name == "style:table-cell-properties")
+						//									((CellStyle)cell.Style).CellProperties.Node	=
+						//										cellstylenode.ChildNodes.Item(0).CloneNode(true);
+						//
+						//							foreach(XmlNode cellcontent in nodecell.ChildNodes)
+						//							{
+						//								IContent icontent		= this.GetContent(cellcontent);
+						//								if(icontent != null)
+						//									cell.Content.Add(icontent);
+						//							}
+						//
+						//							row.Cells.Add(cell);
+						//						}
+						#endregion
 
-						Row row						= new Row(table, stylename);
-						row.Style.Node				= rowstylenode;
-
-						if(rowstylenode.ChildNodes.Count > 0)
-							if(rowstylenode.ChildNodes.Item(0).Name == "style:table-row-properties")
-								((RowStyle)row.Style).RowProperties.Node	=
-									rowstylenode.ChildNodes.Item(0).CloneNode(true);
-												
-						foreach(XmlNode nodecell in node.ChildNodes)
-						{
-							stylename					= this.GetStyleName(nodecell.OuterXml);
-							XmlNode cellstylenode		= this.GetAStyleNode("style:style", stylename);
-
-							Cell cell					= new Cell(row, stylename);
-							cell.Style.Node				= cellstylenode;
-
-							if(nodecell.ChildNodes.Count > 0)
-								if(nodecell.ChildNodes.Item(0).Name == "style:table-cell-properties")
-									((CellStyle)cell.Style).CellProperties.Node	=
-										nodecell.ChildNodes.Item(0).CloneNode(true);
-
-							foreach(XmlNode cellcontent in nodecell.ChildNodes)
+						if(row != null)
+							table.Rows.Add(row);
+					}
+					else if(node.OuterXml.StartsWith("<table:table-header-rows"))
+					{
+						RowHeader rowHeader			= new RowHeader(table);
+						foreach(XmlNode child in node.ChildNodes)
+							if(child.Name == "table:table-row")
 							{
-								IContent icontent		= this.GetContent(cellcontent);
-								if(icontent != null)
-									cell.Content.Add(icontent);
+								Row row				= this.CreateRow(child, table);
+								if(row != null)
+									rowHeader.RowCollection.Add(row);
 							}
-
-							row.Cells.Add(cell);
-						}
-						table.Rows.Add(row);
+						table.RowHeader				= rowHeader;
 					}
 				}
 				return table;
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
+			}
+		}
+
+		private Row CreateRow(XmlNode node, Table table)
+		{
+			try
+			{
+				string stylename			= this.GetStyleName(node.OuterXml);
+				XmlNode rowstylenode		= this.GetAStyleNode("style:style", stylename);						
+
+				Row row						= new Row(table, stylename);
+				row.Style.Node				= rowstylenode;
+
+				if(rowstylenode.ChildNodes.Count > 0)
+					if(rowstylenode.ChildNodes.Item(0).Name == "style:table-row-properties")
+						((RowStyle)row.Style).RowProperties.Node	=
+							rowstylenode.ChildNodes.Item(0).CloneNode(true);
+												
+				foreach(XmlNode nodecell in node.ChildNodes)
+				{
+					stylename					= this.GetStyleName(nodecell.OuterXml);
+					XmlNode cellstylenode		= this.GetAStyleNode("style:style", stylename);
+
+					Cell cell					= new Cell(row, stylename);
+					cell.Style.Node				= cellstylenode;
+
+					if(cellstylenode.ChildNodes.Count > 0)
+						if(cellstylenode.ChildNodes.Item(0).Name == "style:table-cell-properties")
+							((CellStyle)cell.Style).CellProperties.Node	=
+								cellstylenode.ChildNodes.Item(0).CloneNode(true);
+
+					foreach(XmlNode cellcontent in nodecell.ChildNodes)
+					{
+						IContent icontent		= this.GetContent(cellcontent);
+						if(icontent != null)
+							cell.Content.Add(icontent);
+					}
+
+					row.Cells.Add(cell);
+				}
+				return row;
+			}
+			catch(Exception ex)
+			{
+				throw;
 			}
 		}
 
@@ -498,7 +649,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -508,7 +659,15 @@ namespace AODL.Import.XmlHelper
 		/// <param name="unknownNode">The unknown node.</param>
 		private void CreateUnknownContent(XmlNode unknownNode)
 		{
-			Console.WriteLine("Unknown: {0}", unknownNode.OuterXml);
+			//Console.WriteLine("Unknown: {0}", unknownNode.OuterXml);
+			try
+			{
+				foreach(XmlNode node in unknownNode.ChildNodes)
+					this.CreateContent(node);
+			}
+			catch(Exception ex)
+			{
+			}
 		}
 
 		/// <summary>
@@ -555,7 +714,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -576,7 +735,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -604,7 +763,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 
 			return ListStyles.Number;
@@ -648,7 +807,7 @@ namespace AODL.Import.XmlHelper
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -670,11 +829,52 @@ namespace AODL.Import.XmlHelper
 
 			return text;
 		}
+
+		/// <summary>
+		/// Replaces the white space tags.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns></returns>
+		private string ReplaceWhiteSpaceTags(string text)
+		{
+			try
+			{
+				ArrayList matchList		= new ArrayList();
+				string pat = @"<text:s text:c="+'"'.ToString()+@"\d+"+'"'.ToString()+" />";
+				Regex r = new Regex(pat, RegexOptions.IgnoreCase);
+				Match m = r.Match(text);
+				while (m.Success) 
+				{
+					WhiteSpace w		= new WhiteSpace();
+					w.Value				= m.Value;
+					string number		= m.Value.Replace(@"<text:s text:c="+'"'.ToString(), "");
+					number				= number.Replace('"'.ToString()+" />", "");
+					w.Replacement		= "\\ws"+number;					
+					matchList.Add(w);
+					m = m.NextMatch();
+				}
+				
+				foreach(WhiteSpace w in matchList)
+					text		= text.Replace(w.Value, w.Replacement);
+			}
+			catch(Exception ex)
+			{
+				//unhandled, only whitespaces aren' displayed correct
+			}
+			return text;
+		}
 	}
 }
 
 /*
  * $Log: XmlNodeProcessor.cs,v $
+ * Revision 1.2  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.1  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

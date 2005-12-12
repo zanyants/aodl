@@ -1,5 +1,5 @@
 /*
- * $Id: Footnote.cs,v 1.1 2005/11/20 19:30:23 larsbm Exp $
+ * $Id: Footnote.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -94,7 +94,7 @@ namespace AODL.TextDocument.Content
 
 			//Node Footnode text
 			node			 = td.CreateNode("p", "text");
-			node.InnerText	 = notetext;
+			node.InnerXml	 = TextContentSpecialCharacter.ReplaceSpecialCharacter(notetext);
 
 			xa				 = td.CreateAttribute("style-name", "text");
 			xa.Value		 = (type == FootnoteType.footnode)?"Footnote":"Endnote";

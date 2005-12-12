@@ -1,5 +1,5 @@
 /*
- * $Id: RowProperties.cs,v 1.1 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: RowProperties.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Style.Properties
 	/// <summary>
 	/// Zusammenfassung für RowProperties.
 	/// </summary>
-	public class RowProperties : IProperty
+	public class RowProperties : IProperty, IHtmlStyle
 	{
 		private RowStyle _rowstyle;
 		/// <summary>
@@ -101,11 +101,37 @@ namespace AODL.TextDocument.Style.Properties
 		}
 
 		#endregion
+
+		#region IHtmlStyle Member
+
+		public string GetHtmlStyle()
+		{
+			string style		= "style=\"";
+
+			if(this.BackgroundColor != null)
+				style	+= "background-color: "+this.BackgroundColor+"; ";
+
+			if(!style.EndsWith("; "))
+				style	= "";
+			else
+				style	+= "\"";
+
+			return style;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: RowProperties.cs,v $
+ * Revision 1.2  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.1  2005/10/15 11:40:31  larsbm
  * - finished first step for table support
  *

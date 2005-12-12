@@ -1,5 +1,5 @@
 /*
- * $Id: XLink.cs,v 1.1 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: XLink.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 using System;
 using System.Xml;
@@ -10,17 +10,17 @@ namespace AODL.TextDocument.Content
 	/// Represent a hyperlink, which could be 
 	/// a web-, ftp- or telnet link
 	/// </summary>
-	public class XLink : IText
+	public class XLink : IText, IHtml
 	{
-		private Paragraph _paragraph;
+		private IContent _icontent;
 		/// <summary>
 		/// Gets or sets the paragraph.
 		/// </summary>
 		/// <value>The paragraph.</value>
-		public Paragraph Paragraph
+		public IContent IContent
 		{
-			get { return this._paragraph; }
-			set { this._paragraph = value; }
+			get { return this._icontent; }
+			set { this._icontent = value; }
 		}
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace AODL.TextDocument.Content
 			get 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@xlink:href", 
-					this.Paragraph.Document.NamespaceManager) ;
+					this.IContent.Document.NamespaceManager) ;
 				if(xn != null)
 					return xn.InnerText;
 				return null;
@@ -40,11 +40,11 @@ namespace AODL.TextDocument.Content
 			set 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@xlink:href",
-					this.Paragraph.Document.NamespaceManager);
+					this.IContent.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("href", value, "xlink");
 				this._node.SelectSingleNode("@xlink:href",
-					this.Paragraph.Document.NamespaceManager).InnerText = value;
+					this.IContent.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace AODL.TextDocument.Content
 			get 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@xlink:type", 
-					this.Paragraph.Document.NamespaceManager) ;
+					this.IContent.Document.NamespaceManager) ;
 				if(xn != null)
 					return xn.InnerText;
 				return null;
@@ -65,11 +65,11 @@ namespace AODL.TextDocument.Content
 			set 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@xlink:type",
-					this.Paragraph.Document.NamespaceManager);
+					this.IContent.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("type", value, "xlink");
 				this._node.SelectSingleNode("@xlink:type",
-					this.Paragraph.Document.NamespaceManager).InnerText = value;
+					this.IContent.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace AODL.TextDocument.Content
 			get 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@office:name", 
-					this.Paragraph.Document.NamespaceManager) ;
+					this.IContent.Document.NamespaceManager) ;
 				if(xn != null)
 					return xn.InnerText;
 				return null;
@@ -90,11 +90,11 @@ namespace AODL.TextDocument.Content
 			set 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@office:name",
-					this.Paragraph.Document.NamespaceManager);
+					this.IContent.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("name", value, "office");
 				this._node.SelectSingleNode("@office:name",
-					this.Paragraph.Document.NamespaceManager).InnerText = value;
+					this.IContent.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -108,7 +108,7 @@ namespace AODL.TextDocument.Content
 			get 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@office:target-frame-name", 
-					this.Paragraph.Document.NamespaceManager) ;
+					this.IContent.Document.NamespaceManager) ;
 				if(xn != null)
 					return xn.InnerText;
 				return null;
@@ -116,11 +116,11 @@ namespace AODL.TextDocument.Content
 			set 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@office:target-frame-name",
-					this.Paragraph.Document.NamespaceManager);
+					this.IContent.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("target-frame-name", value, "office");
 				this._node.SelectSingleNode("@office:target-frame-name",
-					this.Paragraph.Document.NamespaceManager).InnerText = value;
+					this.IContent.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -134,7 +134,7 @@ namespace AODL.TextDocument.Content
 			get 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@xlink:show", 
-					this.Paragraph.Document.NamespaceManager) ;
+					this.IContent.Document.NamespaceManager) ;
 				if(xn != null)
 					return xn.InnerText;
 				return null;
@@ -142,34 +142,34 @@ namespace AODL.TextDocument.Content
 			set 
 			{ 
 				XmlNode xn = this._node.SelectSingleNode("@xlink:show",
-					this.Paragraph.Document.NamespaceManager);
+					this.IContent.Document.NamespaceManager);
 				if(xn == null)
 					this.CreateAttribute("show", value, "xlink");
 				this._node.SelectSingleNode("@xlink:show",
-					this.Paragraph.Document.NamespaceManager).InnerText = value;
+					this.IContent.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XLink"/> class.
 		/// </summary>
-		/// <param name="paragraph">The paragraph.</param>
+		/// <param name="content">The paragraph.</param>
 		/// <param name="href">The href.</param>
 		/// <param name="name">The name.</param>
-		public XLink(Paragraph paragraph, string href, string name)
+		public XLink(IContent content, string href, string name)
 		{
-			this.Paragraph		= paragraph;
-			this.NewXmlNode(paragraph.Document, href, name);
+			this.IContent		= content;
+			this.NewXmlNode(content.Document, href, name);
 			this.Node.InnerText	= name;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XLink"/> class.
 		/// </summary>
-		/// <param name="paragraph">The paragraph.</param>
-		internal XLink(Paragraph paragraph)
+		/// <param name="content">The paragraph.</param>
+		internal XLink(IContent content)
 		{
-			this.Paragraph		= paragraph;
+			this.IContent		= content;
 		}
 
 		/// <summary>
@@ -201,7 +201,7 @@ namespace AODL.TextDocument.Content
 		/// <param name="prefix">The prefix.</param>
 		private void CreateAttribute(string name, string text, string prefix)
 		{
-			XmlAttribute xa = this.Paragraph.Document.CreateAttribute(name, prefix);
+			XmlAttribute xa = this.IContent.Document.CreateAttribute(name, prefix);
 			xa.Value		= text;
 			this.Node.Attributes.Append(xa);
 		}
@@ -288,11 +288,48 @@ namespace AODL.TextDocument.Content
 		}
 
 		#endregion
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html		= "<a href=\"";
+
+			if(this.Href != null)
+				html	+= this.Href+"\"";
+
+			if(this.TargetFrameName != null)
+				html	+= " target=\""+this.TargetFrameName+"\"";
+
+			if(this.Href != null)
+			{
+				html	+= ">\n";
+				html	+= this.Text;
+				html	+= "</a>";
+			}
+			else
+				html	= "";
+				
+			return html;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: XLink.cs,v $
+ * Revision 1.2  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.1  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

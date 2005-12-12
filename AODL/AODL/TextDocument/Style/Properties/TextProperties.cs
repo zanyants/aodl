@@ -1,6 +1,6 @@
 
 /*
- * $Id: TextProperties.cs,v 1.7 2005/11/23 19:18:17 larsbm Exp $
+ * $Id: TextProperties.cs,v 1.8 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -12,7 +12,7 @@ namespace AODL.TextDocument.Style.Properties
 	/// <summary>
 	/// Represent access to the possible attributes of of an text-propertie element.
 	/// </summary>
-	public class TextProperties : IProperty
+	public class TextProperties : IProperty, IHtmlStyle
 	{
 		private IStyle _style;
 		/// <summary>
@@ -409,6 +409,43 @@ namespace AODL.TextDocument.Style.Properties
 		}
 
 		#endregion
+
+		#region IHtmlStyle Member
+
+		/// <summary>
+		/// Get the css style fragement
+		/// </summary>
+		/// <returns>The css style attribute</returns>
+		public string GetHtmlStyle()
+		{
+			string style		= "style=\"";
+
+			if(this.Italic != null)
+				style	+= "font-style: italic; ";
+			if(this.Bold != null)
+				style	+= "font-weight: "+this.Bold+"; ";
+			if(this.Underline != null)
+				style	+= "text-decoration: underline; ";
+			if(this.TextLineThrough != null)
+				style	+= "text-decoration: line-through; ";
+			if(this.FontName != null)
+				style	+= "font-family: "+FontFamilies.HtmlFont(this.FontName)+"; ";
+			if(this.FontSize != null)
+				style	+= "font-size: "+FontFamilies.PtToPx(this.FontSize)+"; ";
+			if(this.FontColor != null)
+				style	+= "color: "+this.FontColor+"; ";
+			if(this.BackgroundColor != null)
+				style	+= "background-color: "+this.BackgroundColor+"; ";
+
+			if(!style.EndsWith("; "))
+				style	= "";
+			else
+				style	+= "\"";
+
+			return style;
+		}
+
+		#endregion
 	}
 
 	/// <summary>
@@ -441,6 +478,13 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: TextProperties.cs,v $
+ * Revision 1.8  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.7  2005/11/23 19:18:17  larsbm
  * - New Textproperties
  * - New Paragraphproperties

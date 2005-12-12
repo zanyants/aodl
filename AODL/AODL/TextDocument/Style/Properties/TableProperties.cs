@@ -1,5 +1,5 @@
 /*
- * $Id: TableProperties.cs,v 1.1 2005/10/12 19:52:56 larsbm Exp $
+ * $Id: TableProperties.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Style.Properties
 	/// <summary>
 	/// Zusammenfassung für TableProperties.
 	/// </summary>
-	public class TableProperties : IProperty
+	public class TableProperties : IProperty, IHtmlStyle
 	{
 		private TableStyle _style;
 		/// <summary>
@@ -149,11 +149,43 @@ namespace AODL.TextDocument.Style.Properties
 		}
 
 		#endregion
+
+		#region IHtmlStyle Member
+
+		/// <summary>
+		/// Get the css style fragement
+		/// </summary>
+		/// <returns>The css style attribute</returns>
+		public string GetHtmlStyle()
+		{
+			string style		= "style=\"";
+
+			if(this.Width != null)
+				style	+= "width: "+this.Width.Replace(",", ".")+"; ";
+
+			if(!style.EndsWith("; "))
+				style	= "";
+			else
+				style	+= "\"";
+
+			//style		+= " border=\"1\"";
+
+			return style;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: TableProperties.cs,v $
+ * Revision 1.2  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.1  2005/10/12 19:52:56  larsbm
  * - start table implementation
  * - added uml diagramm

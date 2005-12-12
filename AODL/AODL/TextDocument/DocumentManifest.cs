@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentManifest.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: DocumentManifest.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -55,7 +55,7 @@ namespace AODL.TextDocument
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -72,7 +72,40 @@ namespace AODL.TextDocument
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				this.DTDReplacer(file);
+				this.LoadFromFile(file);
+			}
+		}
+
+		/// <summary>
+		/// DTDs the replacer, XmlDocument couldn't be loaded
+		/// because the DTD wasn't found
+		/// </summary>
+		/// <param name="file">The file.</param>
+		private void DTDReplacer(string file)
+		{
+			try
+			{
+				string text				= null;
+				using (StreamReader sr = new StreamReader(file)) 
+				{
+					String line;
+					while ((line = sr.ReadLine()) != null) 
+						text			+= line;
+					sr.Close();
+				}
+				//replace it
+				text					= text.Replace("<!DOCTYPE manifest:manifest PUBLIC \"-//OpenOffice.org//DTD Manifest 1.0//EN\" \"Manifest.dtd\">", "");
+				//Overwrite it
+				FileStream fstream		= File.Create(file);
+				StreamWriter swriter	= new StreamWriter(fstream);
+				swriter.WriteLine(text);
+				swriter.Close();
+				fstream.Close();
+			}
+			catch(Exception ex)
+			{
+				throw;
 			}
 		}
 	}
@@ -80,6 +113,13 @@ namespace AODL.TextDocument
 
 /*
  * $Log: DocumentManifest.cs,v $
+ * Revision 1.3  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.2  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

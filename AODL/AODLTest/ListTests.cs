@@ -26,13 +26,13 @@ namespace AODLTest
 			List li				= new List(this._td, "L1", ListStyles.Number, "L1P1");
 			Assert.IsNotNull(li.Node, "Node object must exist!");
 
-			Console.WriteLine(li.Node.OuterXml);
+			//Console.WriteLine(li.Node.OuterXml);
 
 			Assert.IsNotNull(li.Style, "Style object must exist!");
 
 			Assert.AreEqual(li.Style.GetType().Name, "ListStyle", "Must be a ListStyle type");
 
-			Console.WriteLine(li.Style.Node.OuterXml);
+			//Console.WriteLine(li.Style.Node.OuterXml);
 
 			Assert.IsNotNull(((ListStyle)li.Style).ListlevelStyles, "ListLevelStyleCollection must exist!");
 

@@ -1,4 +1,25 @@
-$Id: ChangeLog.txt,v 1.10 2005/11/23 19:18:17 larsbm Exp $
+$Id: ChangeLog.txt,v 1.11 2005/12/12 19:39:17 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.1.0.0 beta
+
+- Support Headings via class Header
+- Support Teble Row Header via class RowHeader
+- Recursive loading from unknown content. While a unknown
+  content has supported content it will be loaded. With this
+  technology. So also contents as Table of contents and alpabetical
+  indexes could be loaded.
+- Better whitespace handling.
+- New interface IHtml, all contents and textcontents that could
+  be exported as HTML implement this interface.
+- New TextDocument export as HTML. Simple save the TextDocument
+  with a html prefix (.html|.htm).
+- Some changes to perform faster builing and saving.
+
+-------------------------------------------------------------
+AODL 1.0.5.1 beta
+
+- Fixed bug "Xml special charcter exception"
 
 -------------------------------------------------------------
 AODL 1.0.5.0 beta

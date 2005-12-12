@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentPicture.cs,v 1.1 2005/11/06 14:55:25 larsbm Exp $
+ * $Id: DocumentPicture.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -58,7 +58,7 @@ namespace AODL.TextDocument
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 	}

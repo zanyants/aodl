@@ -1,5 +1,5 @@
 /*
- * $Id: SimpleText.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: SimpleText.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -10,7 +10,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Represent a simple non formated Displaytext.
 	/// </summary>
-	public class SimpleText : IText
+	public class SimpleText : IText, IHtml
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SimpleText"/> class.
@@ -38,10 +38,16 @@ namespace AODL.TextDocument.Content
 		/// <returns>The transformed text</returns>
 		private string ControlCharTransformer(string text)
 		{
-			text		= text.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
-			text		= text.Replace(@"\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
-
-			return text;
+//			text		= text.Replace("&", "&amp;");
+//			text		= text.Replace("<", "&lt;");
+//			text		= text.Replace(">", "&gt;");
+//
+//			text		= text.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+//			text		= text.Replace(@"\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+//
+//			text		= WhiteSpace.GetWhiteSpaceXml(text);
+			
+			return TextContentSpecialCharacter.ReplaceSpecialCharacter(text);
 		}
 
 		#region IText Member
@@ -128,11 +134,40 @@ namespace AODL.TextDocument.Content
 		}
 
 		#endregion
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string text = "";
+											 
+			text		= this.Text.Replace("<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />", @"<br>");
+			text		= this.Text.Replace("<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />", "&nbsp;&nbsp;&nbsp;");
+			text		= this.Text.Replace("<text:line-break />", @"<br>");
+			text		= this.Text.Replace("<text:tab />", "&nbsp;&nbsp;&nbsp;");
+			text		= this.Text.Replace("<text:line-break/>", @"<br>");
+			text		= this.Text.Replace("<text:tab/>", "&nbsp;&nbsp;&nbsp;");
+
+			return WhiteSpace.GetWhiteSpaceHtml(text);;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: SimpleText.cs,v $
+ * Revision 1.4  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.3  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

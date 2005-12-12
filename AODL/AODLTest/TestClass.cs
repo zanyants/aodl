@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.11 2005/11/23 19:18:17 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.12 2005/12/12 19:39:16 larsbm Exp $ 
  */
 
 using System;
@@ -33,7 +33,7 @@ namespace AODLTest
 			TextDocument td = new TextDocument();
 			td.New();
 			Assert.IsNotNull(td.XmlDoc, "Must exist!");
-			Console.WriteLine("Doc: {0}", td.XmlDoc.OuterXml);
+			//Console.WriteLine("Doc: {0}", td.XmlDoc.OuterXml);
 		}
 
 		[Test]
@@ -56,7 +56,7 @@ namespace AODLTest
 			p.TextContent.Add(new SimpleText(p, "Hallo"));
 			td.Content.Add(p);
 			td.SaveTo("parablank.odt");
-			Console.WriteLine("Document: {0}", td.XmlDoc.OuterXml);
+			//Console.WriteLine("Document: {0}", td.XmlDoc.OuterXml);
 		}
 
 		[Test]
@@ -72,7 +72,7 @@ namespace AODLTest
 			p.TextContent.Add(new SimpleText(p, "Hello"));
 			IText itext		= p.TextContent[0];
 			p.TextContent.Remove(itext);
-			Console.Write(p.Node.Value);
+			//Console.Write(p.Node.Value);
 			Assert.IsTrue(p.Node.InnerXml.IndexOf("Hello") == -1, "Must be removed!");
 			//Add the Paragraph
 			td.Content.Add((IContent)p);
@@ -83,7 +83,7 @@ namespace AODLTest
 			p.TextContent.Add(new SimpleText(p, "Hello i'm still here"));
 			td.Content.Add(p);
 			td.SaveTo("pararemoved.odt");
-			Console.WriteLine("Document: {0}", td.XmlDoc.OuterXml);
+			//Console.WriteLine("Document: {0}", td.XmlDoc.OuterXml);
 		}
 
 		[Test]
@@ -97,7 +97,7 @@ namespace AODLTest
 			//Add some content
 			p.TextContent.Add( new SimpleText((IContent)p, "Hallo i'm simple text!"));
 			Assert.IsTrue(p.TextContent.Count > 0, "Must be greater than zero!");
-			FormatedText ft = new FormatedText((IContent)p, "T1", " And i'm formated text!");
+			FormatedText ft = new FormatedText((IContent)p, "T1", " \"And < > &     i'm formated text!");
 			((TextStyle)ft.Style).Properties.Bold = "bold";
 			((TextStyle)ft.Style).Properties.Italic = "italic";
 			((TextStyle)ft.Style).Properties.SetUnderlineStyles( 
@@ -109,7 +109,7 @@ namespace AODLTest
 			Assert.IsTrue(p.TextContent.Count == 2, "Must be two!");
 			//Add as document content 
 			td.Content.Add(p);
-			Console.WriteLine(td.XmlDoc.OuterXml);
+			//Console.WriteLine(td.XmlDoc.OuterXml);
 			//Generate and save
 			td.SaveTo("ParagraphTest.odt");
 		}
@@ -152,7 +152,7 @@ namespace AODLTest
 		{
 			Assert.AreEqual("#0000ff", Colors.GetColor(System.Drawing.Color.Blue),
 				"Must be equal");
-			Console.WriteLine("Blue : {0}", Colors.GetColor(System.Drawing.Color.Blue));
+			//Console.WriteLine("Blue : {0}", Colors.GetColor(System.Drawing.Color.Blue));
 		}
 
 		[Test]
@@ -164,7 +164,7 @@ namespace AODLTest
 			string bodyheader	= "Dear Mr. Willi,";
 			string[] bodytext	= new string[] {
 									  @"thank you for your request. We can offer you the 200 Intel Pentium IV 3 Ghz CPU's for a price of 79,80 € per unit.",
-									  @"This special offer is valid to 31.10.2005. If you accept, we can deliver within 24 hours.\n\n\n"
+									  @"This special offer < & >; is valid to 31.10.2005. If you accept, we can deliver within 24 hours.\n\n\n"
 								  };
 			string regards		= @"Best regards \nMax Mustermann";
 
@@ -370,7 +370,7 @@ namespace AODLTest
 			//Create some simple Text
 			SimpleText stext			= new SimpleText(para, "Some simple text. And I have a footnode");
 			//Create a Footnote
-			Footnote fnote				= new Footnote(para, "FooterText", "1", FootnoteType.footnode);
+			Footnote fnote				= new Footnote(para, "Footer \"     Text", "1", FootnoteType.footnode);
 			//Add the text content
 			para.TextContent.Add(stext);
 			para.TextContent.Add(fnote);
@@ -465,11 +465,50 @@ namespace AODLTest
 			//Save the document
 			document.SaveTo("NewProperties.odt");
 		}
+
+		[Test]
+		public void HeadingsTest()
+		{
+			//Create a new text document
+			TextDocument document		= new TextDocument();
+			document.New();
+			//Create a new Heading
+			Header header				= new Header(document, Headings.Heading, "\"I'm the\n first   Headline!\"");
+			//Add header
+			document.Content.Add(header);
+			document.SaveTo("Heading.odt");
+		}
+
+		[Test]
+		public void WhiteSpaceTest()
+		{
+			//Create new TextDocument
+			TextDocument document		= new TextDocument();
+			document.New();
+			//Create a new Paragraph
+			Paragraph para				= new Paragraph(document, "P1");
+			//Create some simple text with whitespaces
+			SimpleText stext			= new SimpleText(para, "Some simple text add 12 whitespace         \"and go on.");			
+			//Add the textcontent
+			para.TextContent.Add(stext);
+			//Add paragraph to the document content
+			document.Content.Add(para);
+			//Save
+			document.SaveTo("Whitespaces.odt");
+		}
+
 	}
 }
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.12  2005/12/12 19:39:16  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.11  2005/11/23 19:18:17  larsbm
  * - New Textproperties
  * - New Paragraphproperties

@@ -1,5 +1,5 @@
 /*
- * $Id: FontFamily.cs,v 1.3 2005/10/22 15:52:10 larsbm Exp $
+ * $Id: FontFamily.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,6 +11,47 @@ namespace AODL.TextDocument.Style
 	/// </summary>
 	public class FontFamilies
 	{
+		/// <summary>
+		/// Pts to px.
+		/// </summary>
+		/// <param name="point">The point.</param>
+		/// <returns>The font size in pixel</returns>
+		internal static string PtToPx(string point)
+		{
+			try
+			{
+				int size	= Convert.ToInt32(point.Replace("pt",""));
+				if(size < 12)
+					size++;
+				return size.ToString()+"pt";
+			}
+			catch(Exception ex)
+			{
+				//unhandled
+			}
+			return point;
+		}
+
+		/// <summary>
+		/// Replace some numberings of OO fonts 
+		/// </summary>
+		/// <param name="ooFont">The oo font.</param>
+		/// <returns>The html font</returns>
+		internal static string HtmlFont(string ooFont)
+		{
+			try
+			{
+				string[] number		= new string[] {"0","1","2","3"};
+				foreach(string n in number)
+					ooFont			= ooFont.Replace(n, "");
+			}
+			catch(Exception ex)
+			{
+				//unhandled
+			}
+			return ooFont;
+		}
+
 		///<summary>
 		///Marlett
 		///</summary>
@@ -424,6 +465,13 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: FontFamily.cs,v $
+ * Revision 1.4  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.3  2005/10/22 15:52:10  larsbm
  * - Changed some styles from Enum to Class with statics
  * - Add full support for available OpenOffice fonts

@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AODC", "AODC.csproj", "{F5F16829-6511-4EDD-B5AD-3B50A4ACFF80}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F5F16829-6511-4EDD-B5AD-3B50A4ACFF80}.Debug.ActiveCfg = Debug|.NET
+		{F5F16829-6511-4EDD-B5AD-3B50A4ACFF80}.Debug.Build.0 = Debug|.NET
+		{F5F16829-6511-4EDD-B5AD-3B50A4ACFF80}.Release.ActiveCfg = Release|.NET
+		{F5F16829-6511-4EDD-B5AD-3B50A4ACFF80}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

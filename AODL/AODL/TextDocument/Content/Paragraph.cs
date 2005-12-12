@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.8 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.9 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Represent a paragraph within a opendocument textdocument.
 	/// </summary>
-	public class Paragraph : IContent, IContentContainer
+	public class Paragraph : IContent, IContentContainer, IHtml
 	{
 		private ParentStyles _parentStyle;
 		/// <summary>
@@ -267,11 +267,326 @@ namespace AODL.TextDocument.Content
 		{
 			this.Node.RemoveChild(((IContent)value).Node);
 		}
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html			= "<p ";
+			string textStyle	= null;
+			bool useSpan		= false;
+			bool useGlobal		= false;
+
+			if(this.Style != null)
+			{
+				if(((ParagraphStyle)this.Style).ParentStyle == "Heading")
+					useGlobal	= true;
+				else
+				{
+					if(((ParagraphStyle)this.Style).Properties != null)
+						html			+= ((ParagraphStyle)this.Style).Properties.GetHtmlStyle();
+
+					if(((ParagraphStyle)this.Style).Textproperties != null)
+					{
+						textStyle		= ((ParagraphStyle)this.Style).Textproperties.GetHtmlStyle();
+						if(textStyle.Length > 0)
+						{
+							html		+= "<span "+textStyle;
+							useSpan		= true;
+						}
+					}
+				}
+			}	
+			else
+				useGlobal		= true;
+
+			if(useGlobal)
+			{
+				string global	= this.GetHtmlStyleFromGlobalStyles();
+				if(global.Length > 0)
+					html		+= global;
+			}
+
+			html				+= ">\n";			
+
+			//There are two possibilities
+			//whether the paragraph is a content-
+			//or a textcontainer
+			if(this.TextContent.Count > 0)
+			{
+				if(useSpan)
+					return html + this.GetTextHtmlContent()+"</span></p>\n";
+				else
+					return html + this.GetTextHtmlContent()+"</p>\n";
+			}
+			else
+			{
+				string text		= this.GetContentHtmlContent();
+				text			= (text!=String.Empty) ? text : "&nbsp;";
+
+				if(useSpan)
+					return html + text +"</span></p>\n";
+				else
+					return html + text +"</p>\n";
+			}
+		}
+
+		/// <summary>
+		/// Gets the content of the text HTML.
+		/// </summary>
+		/// <returns>Textcontent as Html string</returns>
+		private string GetTextHtmlContent()
+		{
+			string html		= "";
+
+			foreach(IText itext in this.TextContent)
+			{
+				if(itext is IHtml)
+					html	+= ((IHtml)itext).GetHtml()+"\n";
+			}
+
+			return html;
+		}
+
+		/// <summary>
+		/// Gets the content of the text HTML.
+		/// </summary>
+		/// <returns>Textcontent as Html string</returns>
+		private string GetContentHtmlContent()
+		{
+			string html		= "";
+
+			foreach(IContent icontent in this.Content)
+			{
+				if(icontent is IHtml)
+					html	+= ((IHtml)icontent).GetHtml();
+			}
+
+			return html;
+		}
+
+		/// <summary>
+		/// Gets the HTML style from global styles.
+		/// This isn't supported by AODL yet. But if
+		/// OpenDocument text documents are loaded,
+		/// this could be.
+		/// </summary>
+		/// <returns>The style from Global Styles</returns>
+		private string GetHtmlStyleFromGlobalStyles()
+		{
+			try
+			{
+				string style		= "style=\"";
+
+				XmlNode styleNode	= this.Document.DocumentStyles.Styles.SelectSingleNode(
+					"//office:styles/style:style[@style:name='"+this.Stylename+"']", this.Document.NamespaceManager);
+
+				if(styleNode == null)
+					styleNode	= this.Document.DocumentStyles.Styles.SelectSingleNode(
+						"//office:styles/style:style[@style:name='"+((ParagraphStyle)this.Style).ParentStyle+"']", this.Document.NamespaceManager);
+
+				if(styleNode != null)
+				{
+					XmlNode paraPropNode	= styleNode.SelectSingleNode("style:paragraph-properties",
+						this.Document.NamespaceManager);
+
+					//Last change via parent style
+					XmlNode parentNode	= styleNode.SelectSingleNode("@style:parent-style-name",
+						this.Document.NamespaceManager);
+
+					XmlNode paraPropNodeP	= null;
+					XmlNode parentStyleNode	= null;
+					if(parentNode != null)
+						if(parentNode.InnerText != null)
+						{
+							Console.WriteLine("Parent-Style-Name: {0}", parentNode.InnerText);
+							parentStyleNode	= this.Document.DocumentStyles.Styles.SelectSingleNode(
+								"//office:styles/style:style[@style:name='"+parentNode.InnerText+"']", this.Document.NamespaceManager);
+							
+							if(parentStyleNode != null)
+								paraPropNodeP	= parentStyleNode.SelectSingleNode("style:paragraph-properties",
+									this.Document.NamespaceManager);
+						}
+					
+
+					//Check first parent style paragraph properties
+					if(paraPropNodeP != null)
+					{
+						Console.WriteLine("ParentStyleNode: {0}", parentStyleNode.OuterXml);
+						string alignMent	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:text-align");
+						if(alignMent != null)
+							style	+= "text-align: "+alignMent+"; ";
+
+						string lineSpace	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:line-height");
+						if(alignMent != null)
+							style	+= "text-align: "+lineSpace+"; ";
+
+						string marginTop	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:margin-top");
+						if(marginTop != null)
+							style	+= "margin-top: "+marginTop+"; ";
+
+						string marginBottom	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:margin-bottom");
+						if(marginBottom != null)
+							style	+= "margin-bottom: "+marginBottom+"; ";
+
+						string marginLeft	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:margin-left");
+						if(marginLeft != null)
+							style	+= "margin-left: "+marginLeft+"; ";
+
+						string marginRight	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:margin-right");
+						if(marginRight != null)
+							style	+= "margin-right: "+marginRight+"; ";
+					}
+					//Check paragraph properties, maybe parents style is overwritten or extended
+					if(paraPropNode != null)
+					{
+						string alignMent	= this.GetGlobalStyleElement(paraPropNode, "@fo:text-align");
+						if(alignMent != null)
+							style	+= "text-align: "+alignMent+"; ";
+
+						string lineSpace	= this.GetGlobalStyleElement(paraPropNode, "@fo:line-height");
+						if(alignMent != null)
+							style	+= "text-align: "+lineSpace+"; ";
+
+						string marginTop	= this.GetGlobalStyleElement(paraPropNode, "@fo:margin-top");
+						if(marginTop != null)
+							style	+= "margin-top: "+marginTop+"; ";
+
+						string marginBottom	= this.GetGlobalStyleElement(paraPropNode, "@fo:margin-bottom");
+						if(marginBottom != null)
+							style	+= "margin-bottom: "+marginBottom+"; ";
+
+						string marginLeft	= this.GetGlobalStyleElement(paraPropNode, "@fo:margin-left");
+						if(marginLeft != null)
+							style	+= "margin-left: "+marginLeft+"; ";
+
+						string marginRight	= this.GetGlobalStyleElement(paraPropNode, "@fo:margin-right");
+						if(marginRight != null)
+							style	+= "margin-right: "+marginRight+"; ";
+					}
+
+					XmlNode textPropNode	= styleNode.SelectSingleNode("style:text-properties",
+						this.Document.NamespaceManager);
+
+					XmlNode textPropNodeP	= null;
+					if(parentStyleNode != null)
+						textPropNodeP		= parentStyleNode.SelectSingleNode("style:text-properties",
+							this.Document.NamespaceManager);
+
+					//Check first text properties of parent style
+					if(textPropNodeP != null)
+					{
+						string fontSize		= this.GetGlobalStyleElement(textPropNodeP, "@fo:font-size");
+						if(fontSize != null)
+							style	+= "font-size: "+FontFamilies.PtToPx(fontSize)+"; ";
+
+						string italic		= this.GetGlobalStyleElement(textPropNodeP, "@fo:font-style");
+						if(italic != null)
+							style	+= "font-size: italic; ";
+
+						string bold		= this.GetGlobalStyleElement(textPropNodeP, "@fo:font-weight");
+						if(bold != null)
+							style	+= "font-weight: bold; ";
+
+						string underline = this.GetGlobalStyleElement(textPropNodeP, "@style:text-underline-style");
+						if(underline != null)
+							style	+= "text-decoration: underline; ";
+
+						string fontName = this.GetGlobalStyleElement(textPropNodeP, "@style:font-name");
+						if(fontName != null)
+							style	+= "font-family: "+FontFamilies.HtmlFont(fontName)+"; ";
+
+						string color	= this.GetGlobalStyleElement(textPropNodeP, "@fo:color");
+						if(color != null)
+							style	+= "color: "+color+"; ";
+					}
+					//Check now text properties of style, maybe some setting are overwritten or extended
+					if(textPropNode != null)
+					{
+						string fontSize		= this.GetGlobalStyleElement(textPropNode, "@fo:font-size");
+						if(fontSize != null)
+							style	+= "font-size: "+FontFamilies.PtToPx(fontSize)+"; ";
+
+						string italic		= this.GetGlobalStyleElement(textPropNode, "@fo:font-style");
+						if(italic != null)
+							style	+= "font-size: italic; ";
+
+						string bold		= this.GetGlobalStyleElement(textPropNode, "@fo:font-weight");
+						if(bold != null)
+							style	+= "font-weight: bold; ";
+
+						string underline = this.GetGlobalStyleElement(textPropNode, "@style:text-underline-style");
+						if(underline != null)
+							style	+= "text-decoration: underline; ";
+
+						string fontName = this.GetGlobalStyleElement(textPropNode, "@style:font-name");
+						if(fontName != null)
+							style	+= "font-family: "+FontFamilies.HtmlFont(fontName)+"; ";
+
+						string color	= this.GetGlobalStyleElement(textPropNode, "@fo:color");
+						if(color != null)
+							style	+= "color: "+color+"; ";
+					}
+				}
+
+				if(!style.EndsWith("; "))
+					style	= "";
+				else
+					style	+= "\"";
+
+				return style;
+			}
+			catch(Exception ex)
+			{
+				//unhandled, only a paragraph style wouldn't be displayed correct
+				Console.WriteLine("GetHtmlStyleFromGlobalStyles(): {0}", ex.Message);
+			}
+			
+			return "";
+		}
+
+		/// <summary>
+		/// Gets the global style element.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <param name="style">The style.</param>
+		/// <returns>The element style value</returns>
+		private string GetGlobalStyleElement(XmlNode node, string style)
+		{
+			try
+			{
+				XmlNode elementNode = node.SelectSingleNode(style,
+					this.Document.NamespaceManager);
+
+				if(elementNode != null)
+					if(elementNode.InnerText != null)
+						return elementNode.InnerText;
+						
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine("GetGlobalStyleElement: {0}", ex.Message);
+			}
+			return null;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.9  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.8  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

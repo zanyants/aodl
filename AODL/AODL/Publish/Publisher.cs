@@ -1,5 +1,5 @@
 /*
- * $Id: Publisher.cs,v 1.5 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: Publisher.cs,v 1.6 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -151,7 +151,7 @@ namespace AODL.Publish
 								}
 								catch(Exception ex)
 								{
-									throw ex;
+									throw;
 								}
 							}
 		}
@@ -160,6 +160,13 @@ namespace AODL.Publish
 
 /*
  * $Log: Publisher.cs,v $
+ * Revision 1.6  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.5  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

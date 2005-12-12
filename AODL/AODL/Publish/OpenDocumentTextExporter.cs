@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.2 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -75,7 +75,7 @@ namespace AODL.Export
 			}
 			catch(Exception ex)
 			{
-				throw ex; 
+				throw; 
 			}
 		}
 
@@ -94,7 +94,7 @@ namespace AODL.Export
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -111,7 +111,7 @@ namespace AODL.Export
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -129,10 +129,11 @@ namespace AODL.Export
 				FastZip fz = new FastZip();
 				fz.CreateEmptyDirectories = true;
 				fz.CreateZip(filename, directory, true, "");
+				fz			= null;
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -152,7 +153,7 @@ namespace AODL.Export
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 
 //			Directory.CreateDirectory(directory+@"\META-INF");			
@@ -180,7 +181,7 @@ namespace AODL.Export
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -205,7 +206,7 @@ namespace AODL.Export
 			}
 			catch(Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -214,7 +215,7 @@ namespace AODL.Export
 		/// </summary>
 		/// <param name="document">The document.</param>
 		/// <param name="directory">The directory.</param>
-		private static void SaveGraphic(AODL.TextDocument.TextDocument document, string directory)
+		internal static void SaveGraphic(AODL.TextDocument.TextDocument document, string directory)
 		{
 			foreach(IContent content in document.Content)
 				if(content.GetType().GetInterface("IContentContainer") != null)
@@ -233,7 +234,7 @@ namespace AODL.Export
 								}
 								catch(Exception ex)
 								{
-									throw ex;
+									throw;
 								}
 							}
 		}
@@ -243,6 +244,13 @@ namespace AODL.Export
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.3  2005/12/12 19:39:17  larsbm
+ * - Added Paragraph Header
+ * - Added Table Row Header
+ * - Fixed some bugs
+ * - better whitespace handling
+ * - Implmemenation of HTML Exporter
+ *
  * Revision 1.2  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

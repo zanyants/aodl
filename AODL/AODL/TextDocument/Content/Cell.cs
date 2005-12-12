@@ -1,5 +1,5 @@
 /*
- * $Id: Cell.cs,v 1.1 2005/10/15 11:40:31 larsbm Exp $
+ * $Id: Cell.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Represent a Cell which used within a table resp. a row.
 	/// </summary>
-	public class Cell : IContent, IContentContainer
+	public class Cell : IContent, IContentContainer, IHtml
 	{
 		private Row _row;
 		/// <summary>
@@ -189,5 +189,76 @@ namespace AODL.TextDocument.Content
 		{
 			this.Node.AppendChild(((IContent)value).Node);
 		}
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html			= "<td ";
+
+			if(((CellStyle)this.Style).CellProperties != null)
+				html			+= ((CellStyle)this.Style).CellProperties.GetHtmlStyle();
+
+			string htmlwidth	= this.GetHtmlWidth();
+			if(htmlwidth != null)
+				if(html.IndexOf("style=") == -1)
+					html		+= "style=\""+htmlwidth+"\"";
+				else
+					html		= html.Substring(0, html.Length-1)+htmlwidth+"\"";				
+
+			html				+= ">\n";
+
+			foreach(IContent content in this.Content)
+				if(content is IHtml)
+					html		+= ((IHtml)content).GetHtml();
+
+			if(this.Content != null)
+				if(this.Content.Count == 0)
+					html		+= "&nbsp;";
+
+			html				+= "\n</td>\n";
+
+			return html;
+		}
+
+		/// <summary>
+		/// Gets the width of the HTML.
+		/// </summary>
+		/// <returns></returns>
+		private string GetHtmlWidth()
+		{
+			try
+			{
+				int index		= 0;
+				foreach(Cell cell in this.Row.Cells)
+				{
+					if(cell == this)
+					{
+						if(this.Row.Table.Columns != null)
+							if(index <= this.Row.Table.Columns.Count)
+							{
+								Column column	= this.Row.Table.Columns[index];
+								if(column != null)
+									if(((ColumnStyle)column.Style).Properties.Width != null)
+										return " width: "+((ColumnStyle)column.Style).Properties.Width.Replace(",",".")+"; ";
+
+								
+							}
+					}
+					index++;
+				}				
+			}
+			catch(Exception ex)
+			{
+				//Doesn't matter
+			}
+			return "";
+		}
+
+		#endregion
 	}
 }

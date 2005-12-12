@@ -1,5 +1,5 @@
 /*
- * $Id: Graphic.cs,v 1.3 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: Graphic.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
  */
 
 using System;
@@ -12,7 +12,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// Zusammenfassung für Graphic.
 	/// </summary>
-	public class Graphic : IContent
+	public class Graphic : IContent, IHtml
 	{
 		private Frame _frame;
 		/// <summary>
@@ -155,6 +155,40 @@ namespace AODL.TextDocument.Content
 			set
 			{				
 			}
+		}
+
+		#endregion
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html		= "<img src=\""+this.GetHtmlImgFolder()+"\" hspace=\"14\" vspace=\"14\">\n";
+
+			return html;
+		}
+
+		/// <summary>
+		/// Gets the HTML img folder.
+		/// </summary>
+		/// <returns></returns>
+		private string GetHtmlImgFolder()
+		{
+			try
+			{
+				if(this.Frame.RealGraphicName != null)
+				{
+					return "temphtmlimg/Pictures/"+this.Frame.RealGraphicName;
+				}
+			}
+			catch(Exception ex)
+			{
+			}
+			return "";
 		}
 
 		#endregion
