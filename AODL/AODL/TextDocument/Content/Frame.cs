@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Frame.cs,v 1.5 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -15,6 +15,17 @@ namespace AODL.TextDocument.Content
 	/// </summary>
 	public class Frame : IContent, IHtml, IDisposable
 	{
+		private IContentCollection _contentCollection;
+		/// <summary>
+		/// Gets or sets the content collection.
+		/// </summary>
+		/// <value>The content collection.</value>
+		public IContentCollection ContentCollection
+		{
+			get { return this._contentCollection; }
+			set { this._contentCollection = value; }
+		}
+
 		private Graphic _graphic;
 		/// <summary>
 		/// Gets the graphic.
@@ -33,6 +44,18 @@ namespace AODL.TextDocument.Content
 		public string RealGraphicName
 		{
 			get { return this._realgraphicname; }
+			set { this._realgraphicname = value; }
+		}
+
+		private string _graphicSourcePath;
+		/// <summary>
+		/// Gets or sets the graphic source path.
+		/// </summary>
+		/// <value>The graphic source path.</value>
+		public string GraphicSourcePath
+		{
+			get { return this._graphicSourcePath; }
+			set { this._graphicSourcePath = value; }
 		}
 
 		private Image _image;
@@ -127,8 +150,12 @@ namespace AODL.TextDocument.Content
 		/// <param name="stylename">The stylename.</param>
 		public Frame(TextDocument textdocument, string stylename)
 		{
-			this.Document		= textdocument;
+			this.Document			= textdocument;
+			this.Style				= (FrameStyle)new FrameStyle(this, stylename);
+			this.ContentCollection	= new IContentCollection();
 			this.NewXmlNode(stylename);
+
+			this.ContentCollection.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(ContentCollection_Inserted);
 		}
 
 		/// <summary>
@@ -143,11 +170,14 @@ namespace AODL.TextDocument.Content
 			this.Document			= textdocument;
 			this.NewXmlNode(stylename);
 			this.GraphicName		= graphicname;
+			this.GraphicSourcePath	= graphicfile;
 			this._realgraphicname	= this.LoadImageFromFile(graphicfile);
 			this._graphic			= new Graphic(this, this._realgraphicname);
 			this.Style				= (FrameStyle)new FrameStyle(this, stylename);
+			this.ContentCollection	= new IContentCollection();
 
 			this.Node.AppendChild(this.Graphic.Node);
+			this.ContentCollection.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(ContentCollection_Inserted);
 		}
 
 		/// <summary>
@@ -191,11 +221,15 @@ namespace AODL.TextDocument.Content
 			try
 			{
 				double pxtocm		= 37.7928; //TODO: Check ! px to cm
-				this._image			= Image.FromFile(graphicfilename);
-				double pixelheight	= Convert.ToDouble(this._image.Height)/pxtocm;
-				double pixelweidth	= Convert.ToDouble(this._image.Width)/pxtocm;
+				Image image			= Image.FromFile(graphicfilename);
+				double pixelheight	= Convert.ToDouble(image.Height)/pxtocm;
+				double pixelweidth	= Convert.ToDouble(image.Width)/pxtocm;
+//				this._image			= Image.FromFile(graphicfilename);
+//				double pixelheight	= Convert.ToDouble(this._image.Height)/pxtocm;
+//				double pixelweidth	= Convert.ToDouble(this._image.Width)/pxtocm;
 				this.GraphicHeight	= pixelheight.ToString("F3").Replace(",",".")+"cm";
 				this.GraphicWidth	= pixelweidth.ToString("F3").Replace(",",".")+"cm";
+				image.Dispose();
 
 				return new FileInfo(graphicfilename).Name;
 			}
@@ -203,6 +237,16 @@ namespace AODL.TextDocument.Content
 			{
 				throw;
 			}
+		}
+
+		/// <summary>
+		/// Contents the collection_ inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void ContentCollection_Inserted(int index, object value)
+		{
+			this.Node.AppendChild(((IContent)value).Node);
 		}
 
 		#region IContent Member
@@ -296,9 +340,15 @@ namespace AODL.TextDocument.Content
 		/// <returns>The html string</returns>
 		public string GetHtml()
 		{
+			string html			= "";
 			if(this.Graphic != null)
-				return Graphic.GetHtml();
-			return "";
+				html			= Graphic.GetHtml();
+
+			foreach(IContent content in this.ContentCollection)
+				if(content is IHtml)
+					html		+= ((IHtml)content).GetHtml();
+
+			return html;
 		}
 
 		#endregion
@@ -348,6 +398,12 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.5  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.4  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

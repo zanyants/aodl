@@ -1,5 +1,5 @@
 /*
- * $Id: TestClass.cs,v 1.12 2005/12/12 19:39:16 larsbm Exp $ 
+ * $Id: TestClass.cs,v 1.13 2005/12/18 18:29:46 larsbm Exp $ 
  */
 
 using System;
@@ -212,6 +212,9 @@ namespace AODLTest
 			td.Content.Add(pb);
 
 			td.SaveTo("OfferLongVersion.odt");
+
+			MetaData metaData			= new MetaData();
+			metaData.DisplyMetaData(td);
 		}
 
 		[Test]
@@ -502,6 +505,12 @@ namespace AODLTest
 
 /*
  * $Log: TestClass.cs,v $
+ * Revision 1.13  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.12  2005/12/12 19:39:16  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

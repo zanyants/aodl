@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.4 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -217,33 +217,86 @@ namespace AODL.Export
 		/// <param name="directory">The directory.</param>
 		internal static void SaveGraphic(AODL.TextDocument.TextDocument document, string directory)
 		{
-			foreach(IContent content in document.Content)
-				if(content.GetType().GetInterface("IContentContainer") != null)
-					foreach(IContent continner in ((IContentContainer)content).Content)
-						if(continner.GetType().Name == "Frame")
-							if(((Frame)continner).Graphic != null)
-							{
-								try
-								{
-									//TODO: check supported image types
-									string picturedir		= directory+@"\Pictures\";
-									if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
-										return;
-									string name				= picturedir+((Frame)continner).RealGraphicName;
-									((Frame)continner).Image.Save(name);
-								}
-								catch(Exception ex)
-								{
-									throw;
-								}
-							}
+			CopyGraphics(document, directory);
+//			foreach(IContent content in document.Content)
+//				if(content.GetType().GetInterface("IContentContainer") != null)
+//					foreach(IContent continner in ((IContentContainer)content).Content)
+//						if(continner.GetType().Name == "Frame")
+//							if(((Frame)continner).Graphic != null)
+//								SaveGraphic((Frame)continner, directory);
+//							{
+//								try
+//								{
+//									//TODO: check supported image types
+//									string picturedir		= directory+@"\Pictures\";
+//									if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
+//										return;
+//									string name				= picturedir+((Frame)continner).RealGraphicName;
+//									((Frame)continner).Image.Save(name);
+//								}
+//								catch(Exception ex)
+//								{
+//									throw;
+//								}
+//							}
+//			foreach(IContent content in document.Content)
+//				if(content is Table)
+//					foreach(Row row in ((Table)content).Rows)
+//						foreach(Cell cell in row.Cells)
+//							foreach(IContent content1 in cell.Content)
+//								if(content1 is IContentContainer)
+//									foreach(IContent content2 in ((IContentContainer)content1).Content)
+//										if(content2 is Frame)
+//											if(((Frame)content2).Graphic != null)
+//												SaveGraphic((Frame)content2, directory);
+		}
+
+		private static void SaveGraphic(Frame continner, string directory)
+		{
+			try
+			{
+				//TODO: check supported image types
+				string picturedir		= directory+@"\Pictures\";
+				if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
+					return;
+				string name				= picturedir+((Frame)continner).RealGraphicName;
+				((Frame)continner).Image.Save(name);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
 		}
 		
+		private static void CopyGraphics(AODL.TextDocument.TextDocument document, string directory)
+		{
+			try
+			{
+				string picturedir		= directory+@"\Pictures\";
+
+				foreach(Graphic graphic in document.Graphics)
+				{
+					string target		= picturedir+graphic.Frame.RealGraphicName;
+					File.Copy(graphic.Frame.GraphicSourcePath,  target, true);
+				}
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine("CopyGraphics: {0}", ex.Message);
+				throw;
+			}
+		}
 	}
 }
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.4  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.3  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

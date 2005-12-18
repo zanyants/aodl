@@ -1,5 +1,5 @@
 /*
- * $Id: Cell.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Cell.cs,v 1.3 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -22,6 +22,32 @@ namespace AODL.TextDocument.Content
 		{
 			get { return this._row; }
 			set { this._row = value; }
+		}
+
+		/// <summary>
+		/// Use this to merge cells, the count of ColumnRepeating,
+		/// need the same count of following CellSpan objects e.g. "2"
+		/// </summary>
+		/// <value>Count of Columns to be repeated</value>
+		public string ColumnRepeating
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@table:number-columns-spanned",
+					this.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@table:number-columns-spanned",
+					this.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("number-columns-spanned", value, "table");
+				this._node.SelectSingleNode("@table:number-columns-spanned",
+					this.Document.NamespaceManager).InnerText = value;
+			}
 		}
 
 		/// <summary>
@@ -66,6 +92,19 @@ namespace AODL.TextDocument.Content
 			xa				= this.Document.CreateAttribute("value-type", "office");
 			xa.Value		= "string";
 
+			this.Node.Attributes.Append(xa);
+		}
+
+		/// <summary>
+		/// Create a XmlAttribute for propertie XmlNode.
+		/// </summary>
+		/// <param name="name">The attribute name.</param>
+		/// <param name="text">The attribute value.</param>
+		/// <param name="prefix">The namespace prefix.</param>
+		private void CreateAttribute(string name, string text, string prefix)
+		{
+			XmlAttribute xa = this.Document.CreateAttribute(name, prefix);
+			xa.Value		= text;
 			this.Node.Attributes.Append(xa);
 		}
 
@@ -199,6 +238,9 @@ namespace AODL.TextDocument.Content
 		public string GetHtml()
 		{
 			string html			= "<td ";
+
+			if(this.ColumnRepeating != null)
+				html			+= "colspan="+this.ColumnRepeating+" ";
 
 			if(((CellStyle)this.Style).CellProperties != null)
 				html			+= ((CellStyle)this.Style).CellProperties.GetHtmlStyle();

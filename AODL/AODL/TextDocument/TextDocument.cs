@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.16 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.17 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -46,6 +46,16 @@ namespace AODL.TextDocument
 		{
 			get { return this._xmldoc; }
 			set { this._xmldoc = value; }
+		}
+
+		private ArrayList _graphics;
+		/// <summary>
+		/// Gets the graphics.
+		/// </summary>
+		/// <value>The graphics.</value>
+		internal ArrayList Graphics
+		{
+			get { return this._graphics; }
 		}
 
 		private DocumentStyles _documentStyles;
@@ -174,6 +184,7 @@ namespace AODL.TextDocument
 		{
 			this.Content			= new IContentCollection();
 			this.FontList			= new ArrayList();
+			this._graphics			= new ArrayList();
 			//this.Content.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
 		}
 
@@ -191,7 +202,7 @@ namespace AODL.TextDocument
 			this.DocumentManifest			= new DocumentManifest();
 			this.DocumentManifest.New();
 
-			this.DocumentMetadata			= new DocumentMetadata();
+			this.DocumentMetadata			= new DocumentMetadata(this);
 			this.DocumentMetadata.New();
 
 			this.DocumentPictures			= new DocumentPictureCollection();
@@ -309,6 +320,48 @@ namespace AODL.TextDocument
 			}
 		}
 
+/*		/// <summary>
+		/// Inserts the given IText object after the bookmark with the
+		/// given name.
+		/// </summary>
+		/// <param name="bookmarkName">Name of the bookmark, where the IText object should
+		/// be inserted.</param>
+		/// <param name="textContent">The IText object to insert.</param>
+		/// <returns>True if the IText object is inserted, otherwise false.</returns>
+		public bool InsertTextAtBookmark(string bookmarkName, IText textContent)
+		{
+			try
+			{
+				return false;	
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		
+		/// <summary>
+		/// Search for the given text and replace it with the given IText object.
+		/// The first text that match the search criteria will be replaced!
+		/// </summary>
+		/// <param name="searchText">The search text to replace.</param>
+		/// <param name="textContent">The IText object to insert.</param>
+		/// <remarks>Do not use linebreaks, tabstops and search text which reached 
+		/// over more paragraphs</remarks>
+		/// <returns>True, if the text was found and replaced otherwise false.</returns>
+		public bool FindAndReplaceText(string searchText, IText textContent)
+		{
+			try
+			{
+				return false;
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+*/
 		/// <summary>
 		/// Gets the exporter.
 		/// </summary>
@@ -574,20 +627,20 @@ namespace AODL.TextDocument
 			{
 				if(disposing)
 				{
-					if(this.Content != null)
-						foreach(IContent content in this.Content)
-							if(content is Paragraph)
-								if(((Paragraph)content).Content != null)
-									foreach(IContent content1 in ((Paragraph)content).Content)
-										if(content1 is Frame)
-											if(((Frame)content1).Image != null)
-												((Frame)content1).Dispose();
-
-					foreach(DocumentPicture dPic in this.DocumentPictures)
-						dPic.Image.Dispose();
-
-					foreach(DocumentPicture dPic in this.DocumentThumbnails)
-						dPic.Image.Dispose();
+//					if(this.Content != null)
+//						foreach(IContent content in this.Content)
+//							if(content is Paragraph)
+//								if(((Paragraph)content).Content != null)
+//									foreach(IContent content1 in ((Paragraph)content).Content)
+//										if(content1 is Frame)
+//											if(((Frame)content1).Image != null)
+//												((Frame)content1).Dispose();
+//
+//					foreach(DocumentPicture dPic in this.DocumentPictures)
+//						dPic.Image.Dispose();
+//
+//					foreach(DocumentPicture dPic in this.DocumentThumbnails)
+//						dPic.Image.Dispose();
 				}
 			}
 			_disposed = true;         
@@ -604,6 +657,12 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.17  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.16  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

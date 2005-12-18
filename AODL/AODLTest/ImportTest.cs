@@ -86,19 +86,30 @@ namespace AODLTest
 		public void SaveAsHtmlWithTable()
 		{
 			TextDocument document		= new TextDocument();
-			document.Load("XLink.odt");
-			document.SaveTo("xlink.html");
+			document.Load("tablewithList.odt");
+			document.SaveTo("tablewithList.html");
 			document.Dispose();
 		}
 
 		[Test]
-		public void RealStressTest()
+		public void ProgrammaticControl()
 		{
 			TextDocument document		= new TextDocument();
-			document.Load("AndrewMacroPart.odt");
-			document.SaveTo("AndrewMacro.html");
+			document.Load("ProgrammaticControlOfMenuAndToolbarItems.odt");
+			document.SaveTo("ProgrammaticControlOfMenuAndToolbarItems.html");
+//			document.Load("AndrewMacroPart.odt");
+//			document.SaveTo("AndrewMacro.html");
 //			document.Load("OfferLongVersion.odt");
 //			document.SaveTo("OfferLongVersion.html");
+			document.Dispose();
+		}
+
+		[Test]
+		public void Howto_special_char()
+		{
+			TextDocument document		= new TextDocument();
+			document.Load("Howto_special_char.odt");
+			document.SaveTo("Howto_special_char.html");
 			document.Dispose();
 		}
 

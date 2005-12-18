@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Controler.cs,v 1.1 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Controler.cs,v 1.2 2005/12/18 18:29:48 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -353,6 +353,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using System.Windows.Forms;
 using AODL.TextDocument;
 
 namespace AODC
@@ -370,6 +371,7 @@ namespace AODC
 		/// Target exist
 		/// </summary>
 		private string _targetExist	= "The target file already exist!";
+		private string _targetUse	= "The target file isn't writable, because it is used by antother programm!\n\nClose this file first and then try again!";
 		/// <summary>
 		/// Success
 		/// </summary>
@@ -378,6 +380,27 @@ namespace AODC
 		/// The source file doesn't exist
 		/// </summary>
 		private string _sourceMiss	= "The source file doesn't exist.";
+		private TextDocument _textDocument;
+
+		/// <summary>
+		/// Gets the text document.
+		/// </summary>
+		/// <value>The text document.</value>
+		public AODL.TextDocument.TextDocument TextDocument
+		{
+			get { return this._textDocument; }
+		}
+
+		private DateTime _start;
+		private TimeSpan _elapsedTime;
+		/// <summary>
+		/// Gets the elapsed time.
+		/// </summary>
+		/// <value>The elapsed time.</value>
+		public TimeSpan ElapsedTime
+		{
+			get { return this._elapsedTime; }
+		}
 
 		private MyThread _myThread;
 		private Thread _thread;
@@ -390,6 +413,9 @@ namespace AODC
 
 		public delegate void Error(string err);
 		public static event Error OnError;
+
+		public delegate void CException(Exception ex);
+		public static event CException OnCException;
 
 		public Controler()
 		{
@@ -406,6 +432,12 @@ namespace AODC
 		{
 			try
 			{
+				if(File.Exists(target))
+					if(!this.IsFileWritable(target))
+					{
+						OnError(this._targetUse);
+						return;
+					}
 				
 				if(File.Exists(source) && source.ToLower().EndsWith(".odt"))
 				{
@@ -432,11 +464,13 @@ namespace AODC
 		{
 			try
 			{
-				TextDocument textDocument	= new TextDocument();
-				textDocument.Load(args[0].ToString());
-				textDocument.SaveTo(args[1].ToString());
-				textDocument.Dispose();
-				textDocument				= new TextDocument();
+				_start			= DateTime.Now;
+				_textDocument	= new TextDocument();
+				_textDocument.Load(args[0].ToString());
+				_textDocument.SaveTo(args[1].ToString());
+				_textDocument.Dispose();
+				_elapsedTime	= DateTime.Now - _start;
+				
 				Thread.Sleep(1000);
 				OnFinished();
 				OnReady();				
@@ -446,7 +480,7 @@ namespace AODC
 				if(!ex.Message.ToLower().StartsWith("thread was"))
 				{
 					this.Controler_OnReady();
-					throw;
+					OnCException(ex);
 				}
 			}
 		}
@@ -476,22 +510,7 @@ namespace AODC
 		{
 			try
 			{
-				ArrayList aApps			= new ArrayList();
-				if(!File.Exists(this._config))
-					return aApps;
-
-				XmlDocument doc			= new XmlDocument();
-				doc.Load(this._config);
-
-				XmlNode root			= doc.SelectSingleNode("//apps");
-
-				foreach(XmlNode appNode in root.ChildNodes)
-				{
-					string t	= appNode.OuterXml;
-					aApps.Add(appNode.SelectSingleNode("@appname").InnerText);
-				}
-
-				return aApps;
+				return Config.GetStartApplications();
 			}
 			catch(Exception ex)
 			{
@@ -507,29 +526,7 @@ namespace AODC
 		{
 			try
 			{
-				if(!File.Exists(filePath))
-					return;
-
-				FileInfo fInfo			= new FileInfo(filePath);
-
-				this.CreateConfig();
-
-				XmlDocument doc			= new XmlDocument();
-				doc.Load(this._config);
-
-				XmlNode node			= doc.CreateElement("app");
-
-				XmlAttribute attr		= doc.CreateAttribute("appname");
-				attr.Value				= fInfo.Name;
-				node.Attributes.Append(attr);
-
-				attr					= doc.CreateAttribute("apppath");
-				attr.Value				= fInfo.FullName;
-				node.Attributes.Append(attr);
-
-				doc.DocumentElement.AppendChild(node);
-
-				doc.Save(this._config);
+				Config.AddStartApplication(filePath);
 			}
 			catch(Exception ex)
 			{
@@ -546,46 +543,21 @@ namespace AODC
 		{
 			try
 			{
-				XmlDocument doc			= new XmlDocument();
-				doc.Load(this._config);
-
-				XmlNode node			= doc.SelectSingleNode("apps");
-				if(node != null)
+				string error			= "The display application wasn't found!";
+				string error1			= "There is no path entry for the given display application!";
+				string appPath			= Config.GetAppPathValue(appName);
+				
+				if(appPath != null)
 				{
-					foreach(XmlNode child in node.ChildNodes)
+					if(File.Exists(appPath))
 					{
-						XmlNode node1		= child.SelectSingleNode("@appname");
-						XmlNode node2		= child.SelectSingleNode("@apppath");
-						if(node1 != null && node2 != null)
-							if(node1.InnerText == appName)
-								this.Load(file, node2.InnerText);
+						this.Load(file, appPath);
 					}
+					else
+						MessageBox.Show(error, "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
-			}
-			catch(Exception ex)
-			{
-				throw;
-			}
-		}
-
-		/// <summary>
-		/// if not exist create the config file.
-		/// </summary>
-		private void CreateConfig()
-		{
-			try
-			{
-				FileStream fstream		= null;
-				if(!File.Exists(this._config))
-				{
-					fstream					= File.Create(this._config);
-					StreamWriter swriter	= new StreamWriter(fstream);
-					swriter.WriteLine("<?xml version=\"1.0\" ?>");
-					swriter.WriteLine("<apps>");
-					swriter.WriteLine("</apps>");
-					swriter.Close();
-					fstream.Close();
-				}
+				else
+					MessageBox.Show(error1, "Xml error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			catch(Exception ex)
 			{
@@ -622,5 +594,31 @@ namespace AODC
 			{
 			}
 		}
+
+		/// <summary>
+		/// Determines whether [is file writable] [the specified file to check].
+		/// </summary>
+		/// <param name="fileToCheck">The file to check.</param>
+		/// <returns>
+		/// 	<c>true</c> if [is file writable] [the specified file to check]; otherwise, <c>false</c>.
+		/// </returns>
+		private bool IsFileWritable(string fileToCheck)
+		{
+			FileStream fileStream;
+			
+			try
+			{
+				fileStream		 = new FileStream(fileToCheck,FileMode.Open,
+					FileAccess.ReadWrite, FileShare.None);
+			}
+			catch
+			{
+				return false;
+			}
+			
+			fileStream.Close();
+		
+			return true;
+		} 
 	}
 }

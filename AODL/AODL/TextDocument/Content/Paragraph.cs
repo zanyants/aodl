@@ -1,8 +1,9 @@
 /*
- * $Id: Paragraph.cs,v 1.9 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.10 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
+using System.Collections;
 using System.Xml;
 using AODL.TextDocument.Style;
 
@@ -13,6 +14,13 @@ namespace AODL.TextDocument.Content
 	/// </summary>
 	public class Paragraph : IContent, IContentContainer, IHtml
 	{
+		private ArrayList _mixedContent;
+
+		/// <summary>
+		/// Mixed content - needed for alternative
+		/// exporter implementations. In OpenDocument
+		/// the order will be right automatically.
+		/// </summary>
 		private ParentStyles _parentStyle;
 		/// <summary>
 		/// Gets the parent style.
@@ -98,6 +106,9 @@ namespace AODL.TextDocument.Content
 		{
 			this.TextContent			= new ITextCollection();
 			this.Content				= new IContentCollection();
+			this._mixedContent			= new ArrayList();
+
+			this.Document.DocumentMetadata.ParagraphCount	+= 1;
 
 			this.TextContent.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(TextContent_Inserted);
 			this.Content.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
@@ -212,6 +223,22 @@ namespace AODL.TextDocument.Content
 		private void TextContent_Inserted(int index, object value)
 		{
 			this.Node.InnerXml += ((IText)value).Xml;
+			this._mixedContent.Add(value);
+
+			if(((IText)value).Text != null)
+			{
+				try
+				{
+					string text		= ((IText)value).Text;
+					this.Document.DocumentMetadata.CharacterCount	+= text.Length;
+					string[] words	= text.Split(' ');
+					this.Document.DocumentMetadata.WordCount		+= words.Length;
+				}
+				catch(Exception ex)
+				{
+					//unhandled, only word and character count wouldn' be correct
+				}
+			}
 		}
 
 		#region IContentContainer Member
@@ -242,6 +269,7 @@ namespace AODL.TextDocument.Content
 		private void Content_Inserted(int index, object value)
 		{
 			this.Node.AppendChild(((IContent)value).Node);
+			this._mixedContent.Add(value);
 		}
 
 		/// <summary>
@@ -256,6 +284,7 @@ namespace AODL.TextDocument.Content
 			inner			= inner.Replace(replace, "");
 			this.Node.InnerXml	= inner;
 			//this.Node.InnerXml.Replace(((IText)value).Xml, "");
+			this.RemoveMixedContent(value);
 		}
 
 		/// <summary>
@@ -266,6 +295,17 @@ namespace AODL.TextDocument.Content
 		private void Content_Removed(int index, object value)
 		{
 			this.Node.RemoveChild(((IContent)value).Node);
+			this.RemoveMixedContent(value);
+		}
+
+		/// <summary>
+		/// Removes the mixed content
+		/// </summary>
+		/// <param name="value">The value.</param>
+		private void RemoveMixedContent(object value)
+		{
+			if(this._mixedContent.Contains(value))
+				this._mixedContent.Remove(value);
 		}
 
 		#region IHtml Member
@@ -313,26 +353,39 @@ namespace AODL.TextDocument.Content
 
 			html				+= ">\n";			
 
-			//There are two possibilities
-			//whether the paragraph is a content-
-			//or a textcontainer
-			if(this.TextContent.Count > 0)
+			//There check all content if they
+			//support HTML
+			foreach(object content in this._mixedContent)
 			{
-				if(useSpan)
-					return html + this.GetTextHtmlContent()+"</span></p>\n";
-				else
-					return html + this.GetTextHtmlContent()+"</p>\n";
+				if(content is IHtml)
+				{
+					string text		= ((IHtml)content).GetHtml();
+					html			+= text;
+				}
 			}
-			else
-			{
-				string text		= this.GetContentHtmlContent();
-				text			= (text!=String.Empty) ? text : "&nbsp;";
 
-				if(useSpan)
-					return html + text +"</span></p>\n";
-				else
-					return html + text +"</p>\n";
-			}
+			if(useSpan)
+				return html +"</span>&nbsp;</p>\n";
+			else
+				return html +"&nbsp;</p>\n";
+
+//			if(this.TextContent.Count > 0)
+//			{
+//				if(useSpan)
+//					return html + this.GetTextHtmlContent()+"</span></p>\n";
+//				else
+//					return html + this.GetTextHtmlContent()+"</p>\n";
+//			}
+//			else
+//			{
+//				string text		= this.GetContentHtmlContent();
+//				text			= (text!=String.Empty) ? text : "&nbsp;";
+//
+//				if(useSpan)
+//					return html + text +"</span></p>\n";
+//				else
+//					return html + text +"</p>\n";
+//			}
 		}
 
 		/// <summary>
@@ -403,7 +456,7 @@ namespace AODL.TextDocument.Content
 					if(parentNode != null)
 						if(parentNode.InnerText != null)
 						{
-							Console.WriteLine("Parent-Style-Name: {0}", parentNode.InnerText);
+							//Console.WriteLine("Parent-Style-Name: {0}", parentNode.InnerText);
 							parentStyleNode	= this.Document.DocumentStyles.Styles.SelectSingleNode(
 								"//office:styles/style:style[@style:name='"+parentNode.InnerText+"']", this.Document.NamespaceManager);
 							
@@ -416,14 +469,18 @@ namespace AODL.TextDocument.Content
 					//Check first parent style paragraph properties
 					if(paraPropNodeP != null)
 					{
-						Console.WriteLine("ParentStyleNode: {0}", parentStyleNode.OuterXml);
+						//Console.WriteLine("ParentStyleNode: {0}", parentStyleNode.OuterXml);
 						string alignMent	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:text-align");
 						if(alignMent != null)
-							style	+= "text-align: "+alignMent+"; ";
+						{ 
+							alignMent	= alignMent.ToLower().Replace("end", "right");
+							if(alignMent.ToLower() == "center" || alignMent.ToLower() == "right")
+								style	+= "text-align: "+alignMent+"; ";
+						}
 
 						string lineSpace	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:line-height");
-						if(alignMent != null)
-							style	+= "text-align: "+lineSpace+"; ";
+						if(lineSpace != null)
+							style	+= "line-height: "+lineSpace+"; ";
 
 						string marginTop	= this.GetGlobalStyleElement(paraPropNodeP, "@fo:margin-top");
 						if(marginTop != null)
@@ -446,11 +503,15 @@ namespace AODL.TextDocument.Content
 					{
 						string alignMent	= this.GetGlobalStyleElement(paraPropNode, "@fo:text-align");
 						if(alignMent != null)
-							style	+= "text-align: "+alignMent+"; ";
+						{ 
+							alignMent	= alignMent.ToLower().Replace("end", "right");
+							if(alignMent.ToLower() == "center" || alignMent.ToLower() == "right")
+								style	+= "text-align: "+alignMent+"; ";
+						}
 
 						string lineSpace	= this.GetGlobalStyleElement(paraPropNode, "@fo:line-height");
-						if(alignMent != null)
-							style	+= "text-align: "+lineSpace+"; ";
+						if(lineSpace != null)
+							style	+= "line-height: "+lineSpace+"; ";
 
 						string marginTop	= this.GetGlobalStyleElement(paraPropNode, "@fo:margin-top");
 						if(marginTop != null)
@@ -543,7 +604,7 @@ namespace AODL.TextDocument.Content
 			catch(Exception ex)
 			{
 				//unhandled, only a paragraph style wouldn't be displayed correct
-				Console.WriteLine("GetHtmlStyleFromGlobalStyles(): {0}", ex.Message);
+				//Console.WriteLine("GetHtmlStyleFromGlobalStyles(): {0}", ex.Message);
 			}
 			
 			return "";
@@ -569,7 +630,7 @@ namespace AODL.TextDocument.Content
 			}
 			catch(Exception ex)
 			{
-				Console.WriteLine("GetGlobalStyleElement: {0}", ex.Message);
+				//Console.WriteLine("GetGlobalStyleElement: {0}", ex.Message);
 			}
 			return null;
 		}
@@ -580,6 +641,12 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.10  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.9  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

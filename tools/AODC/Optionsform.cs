@@ -343,107 +343,223 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Updater.cs,v 1.2 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Optionsform.cs,v 1.1 2005/12/18 18:29:48 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
 using System;
-using System.IO;
-using System.Net;
+using System.Drawing;
+using System.Collections;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace AODC
 {
 	/// <summary>
-	/// Zusammenfassung für Updater.
+	/// Zusammenfassung für Optionsform.
 	/// </summary>
-	public class Updater
+	public class Optionsform : System.Windows.Forms.Form
 	{
-		public Updater()
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.ComboBox cbxUpdateReminder;
+		private System.Windows.Forms.Button btnSave;
+		private System.Windows.Forms.Button Cancel;
+		private System.Windows.Forms.Label label2;
+		/// <summary>
+		/// Erforderliche Designervariable.
+		/// </summary>
+		private System.ComponentModel.Container components = null;
+
+		public Optionsform()
 		{
+			//
+			// Erforderlich für die Windows Form-Designerunterstützung
+			//
+			InitializeComponent();
+
+			//
+			// TODO: Fügen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
+			//
 		}
 
 		/// <summary>
-		/// Updates the specified current version.
+		/// Die verwendeten Ressourcen bereinigen.
 		/// </summary>
-		/// <param name="currentVersion">The current version.</param>
-		/// <returns></returns>
-		public static bool Update(string currentVersion)
+		protected override void Dispose( bool disposing )
+		{
+			if( disposing )
+			{
+				if(components != null)
+				{
+					components.Dispose();
+				}
+			}
+			base.Dispose( disposing );
+		}
+
+		#region Vom Windows Form-Designer generierter Code
+		/// <summary>
+		/// Erforderliche Methode für die Designerunterstützung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.cbxUpdateReminder = new System.Windows.Forms.ComboBox();
+			this.btnSave = new System.Windows.Forms.Button();
+			this.Cancel = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
+			this.groupBox1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.label2);
+			this.groupBox1.Controls.Add(this.cbxUpdateReminder);
+			this.groupBox1.Controls.Add(this.label1);
+			this.groupBox1.Location = new System.Drawing.Point(8, 8);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(336, 64);
+			this.groupBox1.TabIndex = 0;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Settings";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(16, 24);
+			this.label1.Name = "label1";
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Update Reminder:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// cbxUpdateReminder
+			// 
+			this.cbxUpdateReminder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbxUpdateReminder.Items.AddRange(new object[] {
+																   "5",
+																   "10",
+																   "20",
+																   "Never"});
+			this.cbxUpdateReminder.Location = new System.Drawing.Point(120, 24);
+			this.cbxUpdateReminder.Name = "cbxUpdateReminder";
+			this.cbxUpdateReminder.Size = new System.Drawing.Size(152, 21);
+			this.cbxUpdateReminder.TabIndex = 1;
+			// 
+			// btnSave
+			// 
+			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnSave.Location = new System.Drawing.Point(184, 80);
+			this.btnSave.Name = "btnSave";
+			this.btnSave.TabIndex = 1;
+			this.btnSave.Text = "Save";
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+			// 
+			// Cancel
+			// 
+			this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.Cancel.Location = new System.Drawing.Point(264, 80);
+			this.Cancel.Name = "Cancel";
+			this.Cancel.TabIndex = 2;
+			this.Cancel.Text = "Cancel";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(280, 24);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(48, 23);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Days";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// Optionsform
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(354, 112);
+			this.Controls.Add(this.Cancel);
+			this.Controls.Add(this.btnSave);
+			this.Controls.Add(this.groupBox1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.Name = "Optionsform";
+			this.Text = "Options";
+			this.Load += new System.EventHandler(this.Optionsform_Load);
+			this.groupBox1.ResumeLayout(false);
+			this.ResumeLayout(false);
+
+		}
+		#endregion
+
+		private void btnSave_Click(object sender, System.EventArgs e)
 		{
 			try
 			{
-				double version				= Convert.ToDouble(currentVersion);
-				WebRequest webRequest		= WebRequest.Create("http://aodl.sourceforge.net/version.txt");
-				WebResponse webResponse		= webRequest.GetResponse();
-				
-				using (StreamReader sr = new StreamReader(webResponse.GetResponseStream())) 
+				if(this.cbxUpdateReminder.SelectedIndex != -1)
 				{
-					String line;
-					while ((line = sr.ReadLine()) != null) 
+					Config.SetValueForKey("updateReminder", 
+						this.cbxUpdateReminder.SelectedItem.ToString());
+
+					MessageBox.Show("Configuration file saved",
+						"Configuration saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					this.WriteLastUpdateCheck();
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("Error while saving the configuration file!",
+					"Configuration error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Load event of the Optionsform control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void Optionsform_Load(object sender, System.EventArgs e)
+		{
+			try
+			{
+				string updateReminder	= Config.GetValueFromKey("updateReminder");
+				if(updateReminder != null)
+				{
+					this.cbxUpdateReminder.SelectedItem = updateReminder;
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("Error while reading the configuration file!",
+					"Configuration error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Writes the last update check.
+		/// </summary>
+		private void WriteLastUpdateCheck()
+		{
+			try
+			{
+				string lastUpdateCheck		= Config.GetValueFromKey("lastUpdateCheck");
+				
+				if(lastUpdateCheck == null)
+				{
+					Config.SetValueForKey("lastUpdateCheck", DateTime.Now.ToShortDateString());
+					
+					if(MessageBox.Show("Should AODC check for Updates now?",
+						"Update check", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+						== DialogResult.Yes)
 					{
-						if(Convert.ToDouble(line) > version)
-							return true;
+						Updater.UpdateDialog(Application.ProductVersion, false);
 					}
 				}
-				return false;
 			}
 			catch(Exception ex)
 			{
-				Console.WriteLine("Updater.Update() : {0}", ex.Message);
+				MessageBox.Show("Error while reading the configuration file. For key 'LastUpdateCheck'.",
+					"Configuration error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-
-			return false;
-		}
-		
-		/// <summary>
-		/// Updates the dialog.
-		/// </summary>
-		/// <param name="currentVersion">The current version.</param>
-		public static void UpdateDialog(string currentVersion, bool showUpdateQuestion)
-		{
-			try
-			{
-				if(showUpdateQuestion)
-					if(!UpdateQuestion())
-						return;
-				if(Update(currentVersion))
-				{
-					if(MessageBox.Show("A new version of AODC is available.\nTo download the new version click \"OK\"\nand on the download page choose the\nlatest version of AODL.", 
-						"New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-						== DialogResult.Yes)
-						System.Diagnostics.Process.Start("http://sourceforge.net/project/showfiles.php?group_id=149912");
-				}
-				else
-				{
-					MessageBox.Show("Your version of AODC is up to date!", 
-						"No new version.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
-
-				Config.SetValueForKey("lastUpdateCheck", DateTime.Now.ToShortDateString());
-			}
-			catch(Exception ex)
-			{
-			}
-		}
-
-		/// <summary>
-		/// Updates the question.
-		/// </summary>
-		/// <returns></returns>
-		public static bool UpdateQuestion()
-		{
-			try
-			{
-				if(MessageBox.Show("Do you want to check for a new version of AODC?\nAn established internet connection have to be available!", 
-						"Upate now", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-						== DialogResult.Yes)
-					return true;
-			}
-			catch(Exception ex)
-			{
-			}
-
-			return false;
 		}
 	}
 }

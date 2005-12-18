@@ -1,5 +1,5 @@
 /*
- * $Id: WhiteSpace.cs,v 1.1 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: WhiteSpace.cs,v 1.2 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -91,7 +91,7 @@ namespace AODL.TextDocument.Content
 						int cnt			= Convert.ToInt32(m1.Value);
 						for(int i=0; i<cnt; i++)
 							html			+= "&nbsp;";
-						Console.WriteLine(html);
+						//Console.WriteLine(html);
 						break;
 					}
 					if(html.Length > 0)
@@ -141,6 +141,12 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: WhiteSpace.cs,v $
+ * Revision 1.2  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.1  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

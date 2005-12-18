@@ -374,6 +374,13 @@
             <param name="text">The text.</param>
             <returns>The cleaned text</returns>
         </member>
+        <member name="M:AODL.Export.OpenDocumentHtmlExporter.SetMetaContent(System.String)">
+            <summary>
+            Sets the content of the meta.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
         <member name="P:AODL.Export.OpenDocumentHtmlExporter.ExportErros">
             <summary>
             Gets the export erros.
@@ -499,6 +506,11 @@
         <member name="M:AODL.Import.OpenDocumentTextImporter.ReadContent">
             <summary>
             Reads the content.
+            </summary>
+        </member>
+        <member name="M:AODL.Import.OpenDocumentTextImporter.InitMetaData">
+            <summary>
+            Inits the meta data.
             </summary>
         </member>
         <member name="P:AODL.Import.OpenDocumentTextImporter.ImportError">
@@ -768,6 +780,14 @@
             </summary>
             <param name="stylename">The stylename which should be referenced with this row.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Cell.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
         <member name="M:AODL.TextDocument.Content.Cell.Content_Inserted(System.Int32,System.Object)">
             <summary>
             Content_s the inserted.
@@ -792,6 +812,13 @@
             Gets or sets the row.
             </summary>
             <value>The row.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Cell.ColumnRepeating">
+            <summary>
+            Use this to merge cells, the count of ColumnRepeating,
+            need the same count of following CellSpan objects e.g. "2"
+            </summary>
+            <value>Count of Columns to be repeated</value>
         </member>
         <member name="P:AODL.TextDocument.Content.Cell.Document">
             <summary>
@@ -957,6 +984,98 @@
         <member name="P:AODL.TextDocument.Content.ColumnCollection.Item(System.Int32)">
             <summary>
             Gets the <see cref="T:AODL.TextDocument.Content.Column"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.DrawTextBox">
+            <summary>
+            DrawTextBox represent drawed textbox which
+            could be used to host Illustrations.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.DrawTextBox.#ctor(AODL.TextDocument.Content.IContent)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.DrawTextBox"/> class.
+            </summary>
+            <param name="content">The content.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.DrawTextBox.NewXmlNode">
+            <summary>
+            Create new XML node.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.DrawTextBox.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.DrawTextBox.ContentCollection_Inserted(System.Int32,System.Object)">
+            <summary>
+            Contents the collection_ inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.DrawTextBox.GetHtml">
+            <summary>
+            Return the content as Html string
+            </summary>
+            <returns>The html string</returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.ContentCollection">
+            <summary>
+            Gets or sets the content collection.
+            </summary>
+            <value>The content collection.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.MinHeight">
+            <summary>
+            Gets or sets the height of the min. e.g. 7.80cm
+            </summary>
+            <value>The height of the min.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.MaxHeight">
+            <summary>
+            Gets or sets the height of the max. e.g. 8.00cm
+            </summary>
+            <value>The height of the max.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.MinWidth">
+            <summary>
+            Gets or sets the width of the min. e.g. 8.00cm
+            </summary>
+            <value>The width of the min.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.MaxWidth">
+            <summary>
+            Gets or sets the width of the max. e.g. 8.00cm
+            </summary>
+            <value>The width of the max.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.Node">
+            <summary>
+            Represents the XmlNode within the content.xml from the odt file.
+            </summary>
+            <value>The Xml node.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.Stylename">
+            <summary>
+            Return null. Not supported by this object.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.Style">
+            <summary>
+            Returns null not supported by this object.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.DrawTextBox.TextContent">
+            <summary>
+            Returns null. Not supported by this Object.
             </summary>
             <value></value>
         </member>
@@ -1219,6 +1338,13 @@
             </summary>
             <param name="graphicfilename">The graphicfilename.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Frame.ContentCollection_Inserted(System.Int32,System.Object)">
+            <summary>
+            Contents the collection_ inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
         <member name="M:AODL.TextDocument.Content.Frame.GetHtml">
             <summary>
             Return the content as Html string
@@ -1242,6 +1368,12 @@
             <see cref="T:AODL.TextDocument.Content.Frame"/> is reclaimed by garbage collection.
             </summary>
         </member>
+        <member name="P:AODL.TextDocument.Content.Frame.ContentCollection">
+            <summary>
+            Gets or sets the content collection.
+            </summary>
+            <value>The content collection.</value>
+        </member>
         <member name="P:AODL.TextDocument.Content.Frame.Graphic">
             <summary>
             Gets the graphic.
@@ -1253,6 +1385,12 @@
             Gets the name of the real graphic.
             </summary>
             <value>The name of the real graphic.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Frame.GraphicSourcePath">
+            <summary>
+            Gets or sets the graphic source path.
+            </summary>
+            <value>The graphic source path.</value>
         </member>
         <member name="P:AODL.TextDocument.Content.Frame.Image">
             <summary>
@@ -1341,6 +1479,14 @@
             Gets the HTML img folder.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Graphic.GetSizeInPix">
+            <summary>
+            Gets the size in pix. As it is set in the frame.
+            This is needed, because the size of the graphic
+            could be another.
+            </summary>
+            <returns>The size in pixel</returns>
         </member>
         <member name="P:AODL.TextDocument.Content.Graphic.Frame">
             <summary>
@@ -1753,6 +1899,7 @@
             <summary>
             The ListItem has a Paragraph which represent his TextContent.
             </summary>
+            <remarks>Depricated: Use the IContentCollection Content instead</remarks>
         </member>
         <member name="P:AODL.TextDocument.Content.ListItem.List">
             <summary>
@@ -1798,6 +1945,13 @@
         <member name="T:AODL.TextDocument.Content.Paragraph">
             <summary>
             Represent a paragraph within a opendocument textdocument.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.Paragraph._parentStyle">
+            <summary>
+            Mixed content - needed for alternative
+            exporter implementations. In OpenDocument
+            the order will be right automatically.
             </summary>
         </member>
         <member name="M:AODL.TextDocument.Content.Paragraph.#ctor(AODL.TextDocument.TextDocument,System.String)">
@@ -1872,6 +2026,12 @@
             Content_s the removed.
             </summary>
             <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Paragraph.RemoveMixedContent(System.Object)">
+            <summary>
+            Removes the mixed content
+            </summary>
             <param name="value">The value.</param>
         </member>
         <member name="M:AODL.TextDocument.Content.Paragraph.GetHtml">
@@ -2776,7 +2936,7 @@
         </member>
         <member name="P:AODL.TextDocument.Style.Properties.GraphicProperties.HorizontalPosition">
             <summary>
-            Gets or sets the horizontal position. e.g center
+            Gets or sets the horizontal position. e.g center, left, right
             </summary>
             <value>The horizontal position.</value>
         </member>
@@ -4792,6 +4952,12 @@
             The file name
             </summary>
         </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.#ctor(AODL.TextDocument.TextDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentMetadata"/> class.
+            </summary>
+            <param name="textDocument">The text document.</param>
+        </member>
         <member name="M:AODL.TextDocument.DocumentMetadata.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentMetadata"/> class.
@@ -4808,11 +4974,192 @@
             </summary>
             <param name="file">The file.</param>
         </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.GetUserDefinedInfo(AODL.TextDocument.UserDefinedInfo)">
+            <summary>
+            Gets the user defined info.
+            </summary>
+            <param name="info">The info.</param>
+            <returns>Info string for the given field.</returns>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.SetUserDefinedInfo(AODL.TextDocument.UserDefinedInfo,System.String)">
+            <summary>
+            Sets the user defined info.
+            </summary>
+            <param name="info">The info.</param>
+            <param name="text">The text.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.GetUserDefinedNode(AODL.TextDocument.UserDefinedInfo)">
+            <summary>
+            Gets the user defined node.
+            </summary>
+            <param name="info">The info.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.Init">
+            <summary>
+            Inits this instance.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentMetadata.GetHtml">
+            <summary>
+            Return the content as Html string
+            </summary>
+            <returns>The html string</returns>
+        </member>
         <member name="P:AODL.TextDocument.DocumentMetadata.Meta">
             <summary>
             Gets or sets the styles.
             </summary>
             <value>The styles.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.TextDocument">
+            <summary>
+            Gets or sets the text document.
+            </summary>
+            <value>The text document.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Generator">
+            <summary>
+            Gets or sets the generator.
+            </summary>
+            <value>The generator.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Title">
+            <summary>
+            Gets or sets the title.
+            April News
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Subject">
+            <summary>
+            Gets or sets the subject.
+            e.g. April Mailing
+            </summary>
+            <value>The subject.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.InitialCreator">
+            <summary>
+            Gets or sets the initial creator.
+            e.g. Your Name
+            </summary>
+            <value>The initial creator.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Creator">
+            <summary>
+            Gets or sets the creator.
+            </summary>
+            <value>The creator.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.CreationDate">
+            <summary>
+            Gets or sets the creation date.
+            e.g. 2003-02-11T16:41:37
+            <code>
+            //Get a DateTime which is needed
+            DateTime.Now.ToString("s");
+            </code>
+            </summary>
+            <value>The creation date.</value>
+            <remarks>This is should not be set to the Last modified date.
+            For last update use the last modified property.
+            The date format must be: 2003-02-11T16:41:37
+            otherwise maybe some Editors wouldn't load the file
+            correct or crash.</remarks>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.LastModified">
+            <summary>
+            Gets or sets the last modified date.
+            e.g. 2003-02-11T16:41:37
+            </summary>
+            <value>The last modified date.</value>
+            <remarks>
+            The date format must be: 2003-02-11T16:41:37
+            otherwise maybe some Editors wouldn't load the file
+            correct or crash.</remarks>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Keywords">
+            <summary>
+            Gets or sets the keywords.
+            </summary>
+            <value>The keywords.</value>
+            <remarks>Set keywords sperated by whitespaces.</remarks>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.Language">
+            <summary>
+            Gets or sets the language.
+            e.g. en-US, de-DE, ...
+            </summary>
+            <value>The language.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.TableCount">
+            <summary>
+            Gets or sets the table count.
+            </summary>
+            <value>The table count.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.ImageCount">
+            <summary>
+            Gets or sets the image count.
+            </summary>
+            <value>The image count.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.ObjectCount">
+            <summary>
+            Gets or sets the object count.
+            </summary>
+            <value>The object count.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.PageCount">
+            <summary>
+            Gets or sets the page count.
+            </summary>
+            <value>The page count.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.ParagraphCount">
+            <summary>
+            Gets or sets the paragraph count.
+            </summary>
+            <value>The paragraph count.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.WordCount">
+            <summary>
+            Gets or sets the word count.
+            </summary>
+            <value>The word count.</value>
+        </member>
+        <member name="P:AODL.TextDocument.DocumentMetadata.CharacterCount">
+            <summary>
+            Gets or sets the character count.
+            </summary>
+            <value>The character count.</value>
+        </member>
+        <member name="T:AODL.TextDocument.UserDefinedInfo">
+            <summary>
+            UserDefinedInfo, each OpenDocument TextDocument
+            support up to 4 user defined fields, where you
+            can place additional information.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.UserDefinedInfo.Info1">
+            <summary>
+            Info field 1
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.UserDefinedInfo.Info2">
+            <summary>
+            Info field 2
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.UserDefinedInfo.Info3">
+            <summary>
+            Info field 3
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.UserDefinedInfo.Info4">
+            <summary>
+            Info field 4
+            </summary>
         </member>
         <member name="T:AODL.TextDocument.DocumentPicture">
             <summary>
@@ -5126,6 +5473,12 @@
             <summary>
             The xmldocument the textdocument based on.
             </summary>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.Graphics">
+            <summary>
+            Gets the graphics.
+            </summary>
+            <value>The graphics.</value>
         </member>
         <member name="P:AODL.TextDocument.TextDocument.DocumentStyles">
             <summary>

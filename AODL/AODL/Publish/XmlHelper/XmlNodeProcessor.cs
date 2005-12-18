@@ -1,5 +1,5 @@
 /*
- * $Id: XmlNodeProcessor.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: XmlNodeProcessor.cs,v 1.3 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -198,7 +198,9 @@ namespace AODL.Import.XmlHelper
 				{
 					XmlNode framenode	= paragraph.Node.ChildNodes.Item(0).CloneNode(true);
 					paragraph.Node.RemoveAll();
-					paragraph.Content.Add(this.CreateFrame(framenode));
+					IContent content	= this.CreateFrame(framenode);
+					if(content != null)
+						paragraph.Content.Add(content);
 
 					return paragraph;
 				}
@@ -362,7 +364,7 @@ namespace AODL.Import.XmlHelper
 		/// </summary>
 		/// <param name="framenode">The framenode.</param>
 		/// <returns>The Frame object.</returns>
-		private Frame CreateFrame(XmlNode framenode)
+		internal Frame CreateFrame(XmlNode framenode)
 		{
 			try
 			{
@@ -373,9 +375,22 @@ namespace AODL.Import.XmlHelper
 				XmlNode graphicnode			= null;
 				XmlNode graphicproperties	= null;
 
+				//Console.WriteLine("frame: {0}", framenode.OuterXml);
+
+				//Up to now, the only sopported, inner content of a frame is a graphic
 				if(framenode.ChildNodes.Count > 0)
 					if(framenode.ChildNodes.Item(0).OuterXml.StartsWith("<draw:image"))
 						graphicnode			= framenode.ChildNodes.Item(0).CloneNode(true);
+
+				//If not graphic, it could be text-box, ole or something else
+				//try to find graphic frame inside
+				if(graphicnode == null)
+				{
+					XmlNode child		= framenode.SelectSingleNode("//draw:frame", this._textDocument.NamespaceManager);
+					if(child != null)
+						frame		= this.CreateFrame(child);
+					return frame;
+				}
 
 				string graphicpath			= this.GetAValueFromAnAttribute(graphicnode, "@xlink:href");
 
@@ -396,6 +411,20 @@ namespace AODL.Import.XmlHelper
 					frame.Style.Node		= stylenode;
 					frame.Graphic.Node		= graphicnode;
 					((FrameStyle)frame.Style).GraphicProperties.Node = graphicproperties;
+
+					XmlNode nodeSize		= framenode.SelectSingleNode("@svg:height", 
+						this._textDocument.NamespaceManager);
+
+					if(nodeSize != null)
+						if(nodeSize.InnerText != null)
+							frame.GraphicHeight	= nodeSize.InnerText;
+
+					nodeSize		= framenode.SelectSingleNode("@svg:width", 
+						this._textDocument.NamespaceManager);
+
+					if(nodeSize != null)
+						if(nodeSize.InnerText != null)
+							frame.GraphicWidth	= nodeSize.InnerText;
 
 					//The image is loaded, so delete it
 					//File.Delete(graphicpath);
@@ -462,8 +491,17 @@ namespace AODL.Import.XmlHelper
 							{
 								if(node.ChildNodes.Item(i).OuterXml.StartsWith("<text:p"))
 								{
-									li.Paragraph	= this.CreateParagraph(node.ChildNodes.Item(i).CloneNode(true));
-									list.Content.Add(li);
+									//Console.WriteLine("ListItem Content: {0}, ", node.ChildNodes.Item(i).OuterXml);
+									Paragraph para	= this.CreateParagraph(node.ChildNodes.Item(i).CloneNode(true));
+									li.Content.Add(para);
+//									li.Paragraph	= this.CreateParagraph(node.ChildNodes.Item(i).CloneNode(true));
+//									list.Content.Add(li);
+								}
+								else if(node.ChildNodes.Item(i).Name == "table:table")
+								{
+									Table table		= this.CreateTable(node.ChildNodes.Item(i).CloneNode(true));
+									if(table != null)
+										li.Content.Add(table);
 								}
 								else if(node.ChildNodes.Item(i).OuterXml.StartsWith("<text:list"))
 								{
@@ -471,6 +509,7 @@ namespace AODL.Import.XmlHelper
 									li.Content.Add(innerlist);
 								}
 							}
+							list.Content.Add(li);
 						}
 					}
 				}
@@ -498,7 +537,7 @@ namespace AODL.Import.XmlHelper
 				table.Style.Node			= tablestylenode;
 
 				if(tablestylenode.ChildNodes.Count > 0)
-					if(tablestylenode.ChildNodes.Item(0).Name == "style:text-properties")
+					if(tablestylenode.ChildNodes.Item(0).Name == "style:table-properties")
 						((TableStyle)table.Style).Properties.Node	=
 							tablestylenode.ChildNodes.Item(0).CloneNode(true);
 
@@ -600,25 +639,41 @@ namespace AODL.Import.XmlHelper
 												
 				foreach(XmlNode nodecell in node.ChildNodes)
 				{
-					stylename					= this.GetStyleName(nodecell.OuterXml);
-					XmlNode cellstylenode		= this.GetAStyleNode("style:style", stylename);
-
-					Cell cell					= new Cell(row, stylename);
-					cell.Style.Node				= cellstylenode;
-
-					if(cellstylenode.ChildNodes.Count > 0)
-						if(cellstylenode.ChildNodes.Item(0).Name == "style:table-cell-properties")
-							((CellStyle)cell.Style).CellProperties.Node	=
-								cellstylenode.ChildNodes.Item(0).CloneNode(true);
-
-					foreach(XmlNode cellcontent in nodecell.ChildNodes)
+					if(nodecell.Name != "table:covered-table-cell")
 					{
-						IContent icontent		= this.GetContent(cellcontent);
-						if(icontent != null)
-							cell.Content.Add(icontent);
-					}
+						stylename					= this.GetStyleName(nodecell.OuterXml);
+						XmlNode cellstylenode		= this.GetAStyleNode("style:style", stylename);
 
-					row.Cells.Add(cell);
+						Cell cell					= new Cell(row, stylename);
+						cell.Style.Node				= cellstylenode;
+
+						XmlNode nodeColRepeating	= nodecell.SelectSingleNode("@table:number-columns-spanned",
+							this._textDocument.NamespaceManager);
+
+						if(nodeColRepeating != null)
+							if(nodeColRepeating.InnerText.Length > 0)
+								cell.ColumnRepeating	= nodeColRepeating.InnerText;
+
+						if(cellstylenode.ChildNodes.Count > 0)
+							if(cellstylenode.ChildNodes.Item(0).Name == "style:table-cell-properties")
+								((CellStyle)cell.Style).CellProperties.Node	=
+									cellstylenode.ChildNodes.Item(0).CloneNode(true);
+
+						foreach(XmlNode cellcontent in nodecell.ChildNodes)
+						{
+							IContent icontent		= this.GetContent(cellcontent);
+							if(icontent != null)
+								cell.Content.Add(icontent);
+						}
+
+						row.Cells.Add(cell);
+					}
+//					else if(nodecell.Name == "table:covered-table-cell")
+//					{
+//						Console.WriteLine("covered cell");
+//						CellSpan cellSpan			= new CellSpan(row);
+//						row.Cells.Add(cellSpan);
+//					}
 				}
 				return row;
 			}
@@ -662,8 +717,14 @@ namespace AODL.Import.XmlHelper
 			//Console.WriteLine("Unknown: {0}", unknownNode.OuterXml);
 			try
 			{
-				foreach(XmlNode node in unknownNode.ChildNodes)
-					this.CreateContent(node);
+//				foreach(XmlNode node in unknownNode.ChildNodes)
+//				{
+//					Console.WriteLine("Create Unknown Content from: {0}", node.OuterXml);
+//					if(node.OuterXml.IndexOf("OOoPDLtext") != -1)
+//						Console.WriteLine("H");
+//					this.CreateContent(node);
+//				}
+				this.CreateContent(unknownNode);
 			}
 			catch(Exception ex)
 			{
@@ -728,6 +789,7 @@ namespace AODL.Import.XmlHelper
 		{
 			try
 			{
+				//Console.WriteLine(attributname);
 				string avalue			= node.SelectSingleNode(attributname,
 					this._textDocument.NamespaceManager).Value;
 
@@ -868,6 +930,12 @@ namespace AODL.Import.XmlHelper
 
 /*
  * $Log: XmlNodeProcessor.cs,v $
+ * Revision 1.3  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.2  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

@@ -113,9 +113,24 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Config.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Controler.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Errorform.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Errorform.resx"
+                    DependentUpon = "Errorform.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Mainform.cs"
@@ -133,12 +148,26 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Optionsform.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Optionsform.resx"
+                    DependentUpon = "Optionsform.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Updater.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Resources\AODL.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Resources\Changelog.txt"
                     BuildAction = "Content"
                 />
                 <File

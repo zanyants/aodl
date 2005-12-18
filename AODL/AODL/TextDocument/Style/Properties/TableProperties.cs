@@ -1,5 +1,5 @@
 /*
- * $Id: TableProperties.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: TableProperties.cs,v 1.3 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -111,7 +111,7 @@ namespace AODL.TextDocument.Style.Properties
 		/// <param name="td">The TextDocument</param>
 		private void NewXmlNode(TextDocument td)
 		{
-			this.Node		= td.CreateNode("text-properties", "style");
+			this.Node		= td.CreateNode("table-properties", "style");
 			//Set default properties
 			this.Width		= "16.99cm";
 			this.Align		= "margin";
@@ -179,6 +179,12 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: TableProperties.cs,v $
+ * Revision 1.3  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.2  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

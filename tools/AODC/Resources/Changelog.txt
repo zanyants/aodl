@@ -1,0 +1,18 @@
+-------------------------------
+18.12.2004 AODC 1.0.1.0 beta
+
+Changes and new features
+- Option form, now auto check for last update
+  available
+- Error reporter, if something goes wrong
+- Better html
+- Faster conversation
+
+Bugfixes
+- [ 1381958 ] Illustration Bug
+- [ 1383623 ] Conversation Thread missed error event
+
+-------------------------------
+14.12.2004 AODC 1.0.0.1 alpha
+
+- fixed column span bug

@@ -1,5 +1,5 @@
 /*
- * $Id: GraphicProperties.cs,v 1.2 2005/10/22 10:47:41 larsbm Exp $
+ * $Id: GraphicProperties.cs,v 1.3 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -25,7 +25,7 @@ namespace AODL.TextDocument.Style.Properties
 		}
 
 		/// <summary>
-		/// Gets or sets the horizontal position. e.g center
+		/// Gets or sets the horizontal position. e.g center, left, right
 		/// </summary>
 		/// <value>The horizontal position.</value>
 		public string HorizontalPosition
@@ -428,6 +428,12 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: GraphicProperties.cs,v $
+ * Revision 1.3  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.2  2005/10/22 10:47:41  larsbm
  * - add graphic support
  *

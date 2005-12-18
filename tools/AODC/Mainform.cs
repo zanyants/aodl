@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Mainform.cs,v 1.1 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Mainform.cs,v 1.2 2005/12/18 18:29:48 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -365,7 +365,6 @@ namespace AODC
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox tbxFile;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Button btnConvert;
 		private System.Windows.Forms.Button btnConvertOnly;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label label3;
@@ -385,6 +384,16 @@ namespace AODC
 		private System.Windows.Forms.MenuItem menuItem5;
 		private System.Windows.Forms.MenuItem menuItem6;
 		private System.Windows.Forms.MenuItem menuItem7;
+		private System.Windows.Forms.MenuItem menuItem8;
+		private System.Windows.Forms.CheckBox ckbxConvertOpen;
+		private System.Windows.Forms.MenuItem menuItem9;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.ListView listView1;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
+		private System.Windows.Forms.ColumnHeader columnHeader2;
+		private System.Windows.Forms.ColumnHeader columnHeader3;
+		private System.Windows.Forms.ColumnHeader columnHeader4;
+		private System.Windows.Forms.Label label5;
 		private bool _convertAndDisplay		= false;
 
 		/// <summary>
@@ -396,7 +405,9 @@ namespace AODC
 			this._controler				= new Controler();
 			InitializeComponent();
 			Controler.OnError			+=new AODC.Controler.Error(Controler_OnError);
+			Controler.OnCException		+=new AODC.Controler.CException(Controler_OnCException);
 			Controler.OnFinished		+=new AODC.Controler.Finished(Controler_OnFinished);
+			this.CheckForLastUpdateCheck();
 		}
 
 		/// <summary>
@@ -433,7 +444,6 @@ namespace AODC
 			this.label3 = new System.Windows.Forms.Label();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.btnConvertOnly = new System.Windows.Forms.Button();
-			this.btnConvert = new System.Windows.Forms.Button();
 			this.cbxApps = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.btnChooseFile = new System.Windows.Forms.Button();
@@ -444,10 +454,20 @@ namespace AODC
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.menuItem7 = new System.Windows.Forms.MenuItem();
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.menuItem8 = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.menuItem6 = new System.Windows.Forms.MenuItem();
 			this.menuItem4 = new System.Windows.Forms.MenuItem();
-			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.menuItem9 = new System.Windows.Forms.MenuItem();
+			this.ckbxConvertOpen = new System.Windows.Forms.CheckBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.listView1 = new System.Windows.Forms.ListView();
+			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+			this.label5 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// ckbxOverwrite
@@ -460,8 +480,9 @@ namespace AODC
 			// 
 			// btnAddApp
 			// 
+			this.btnAddApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnAddApp.Location = new System.Drawing.Point(360, 104);
+			this.btnAddApp.Location = new System.Drawing.Point(608, 104);
 			this.btnAddApp.Name = "btnAddApp";
 			this.btnAddApp.Size = new System.Drawing.Size(24, 23);
 			this.btnAddApp.TabIndex = 11;
@@ -470,9 +491,11 @@ namespace AODC
 			// 
 			// tbxTargetFilename
 			// 
+			this.tbxTargetFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.tbxTargetFilename.Location = new System.Drawing.Point(96, 40);
 			this.tbxTargetFilename.Name = "tbxTargetFilename";
-			this.tbxTargetFilename.Size = new System.Drawing.Size(256, 20);
+			this.tbxTargetFilename.Size = new System.Drawing.Size(496, 20);
 			this.tbxTargetFilename.TabIndex = 10;
 			this.tbxTargetFilename.Text = "";
 			// 
@@ -485,37 +508,32 @@ namespace AODC
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Location = new System.Drawing.Point(8, 168);
+			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.progressBar1.Location = new System.Drawing.Point(8, 288);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(384, 23);
+			this.progressBar1.Size = new System.Drawing.Size(624, 23);
+			this.progressBar1.Step = 2;
 			this.progressBar1.TabIndex = 8;
 			// 
 			// btnConvertOnly
 			// 
 			this.btnConvertOnly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnConvertOnly.Location = new System.Drawing.Point(112, 136);
+			this.btnConvertOnly.Location = new System.Drawing.Point(8, 136);
 			this.btnConvertOnly.Name = "btnConvertOnly";
 			this.btnConvertOnly.Size = new System.Drawing.Size(80, 23);
 			this.btnConvertOnly.TabIndex = 6;
-			this.btnConvertOnly.Text = "Convert Only";
+			this.btnConvertOnly.Text = "Convert";
 			this.btnConvertOnly.Click += new System.EventHandler(this.btnConvertOnly_Click);
-			// 
-			// btnConvert
-			// 
-			this.btnConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnConvert.Location = new System.Drawing.Point(8, 136);
-			this.btnConvert.Name = "btnConvert";
-			this.btnConvert.Size = new System.Drawing.Size(96, 23);
-			this.btnConvert.TabIndex = 5;
-			this.btnConvert.Text = "Convert && Open";
-			this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
 			// 
 			// cbxApps
 			// 
+			this.cbxApps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.cbxApps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbxApps.Location = new System.Drawing.Point(96, 104);
 			this.cbxApps.Name = "cbxApps";
-			this.cbxApps.Size = new System.Drawing.Size(256, 21);
+			this.cbxApps.Size = new System.Drawing.Size(496, 21);
 			this.cbxApps.TabIndex = 4;
 			// 
 			// label2
@@ -527,8 +545,9 @@ namespace AODC
 			// 
 			// btnChooseFile
 			// 
+			this.btnChooseFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnChooseFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnChooseFile.Location = new System.Drawing.Point(360, 8);
+			this.btnChooseFile.Location = new System.Drawing.Point(608, 8);
 			this.btnChooseFile.Name = "btnChooseFile";
 			this.btnChooseFile.Size = new System.Drawing.Size(24, 23);
 			this.btnChooseFile.TabIndex = 2;
@@ -537,9 +556,11 @@ namespace AODC
 			// 
 			// tbxFile
 			// 
+			this.tbxFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.tbxFile.Location = new System.Drawing.Point(96, 8);
 			this.tbxFile.Name = "tbxFile";
-			this.tbxFile.Size = new System.Drawing.Size(256, 20);
+			this.tbxFile.Size = new System.Drawing.Size(496, 20);
 			this.tbxFile.TabIndex = 1;
 			this.tbxFile.Text = "";
 			// 
@@ -559,8 +580,8 @@ namespace AODC
 			// 
 			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					  this.menuItem1,
-																					  this.menuItem3,
-																					  this.menuItem5});
+																					  this.menuItem5,
+																					  this.menuItem3});
 			// 
 			// menuItem1
 			// 
@@ -584,12 +605,27 @@ namespace AODC
 			this.menuItem2.Text = "Exit";
 			this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
 			// 
+			// menuItem5
+			// 
+			this.menuItem5.Index = 1;
+			this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																					  this.menuItem8});
+			this.menuItem5.Text = "&Options";
+			// 
+			// menuItem8
+			// 
+			this.menuItem8.Index = 0;
+			this.menuItem8.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
+			this.menuItem8.Text = "Preferences";
+			this.menuItem8.Click += new System.EventHandler(this.menuItem8_Click);
+			// 
 			// menuItem3
 			// 
-			this.menuItem3.Index = 1;
+			this.menuItem3.Index = 2;
 			this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					  this.menuItem6,
-																					  this.menuItem4});
+																					  this.menuItem4,
+																					  this.menuItem9});
 			this.menuItem3.Text = "&Help";
 			// 
 			// menuItem6
@@ -605,32 +641,96 @@ namespace AODC
 			this.menuItem4.Text = "Info";
 			this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
 			// 
-			// menuItem5
+			// menuItem9
 			// 
-			this.menuItem5.Index = 2;
-			this.menuItem5.Text = "";
+			this.menuItem9.Index = 2;
+			this.menuItem9.Text = "Goto Homepage";
+			this.menuItem9.Click += new System.EventHandler(this.menuItem9_Click);
+			// 
+			// ckbxConvertOpen
+			// 
+			this.ckbxConvertOpen.Location = new System.Drawing.Point(216, 72);
+			this.ckbxConvertOpen.Name = "ckbxConvertOpen";
+			this.ckbxConvertOpen.Size = new System.Drawing.Size(112, 24);
+			this.ckbxConvertOpen.TabIndex = 13;
+			this.ckbxConvertOpen.Text = "Convert && Open";
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(8, 176);
+			this.label4.Name = "label4";
+			this.label4.TabIndex = 14;
+			this.label4.Text = "Document Info:";
+			// 
+			// listView1
+			// 
+			this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+																						this.columnHeader1,
+																						this.columnHeader2,
+																						this.columnHeader3,
+																						this.columnHeader4});
+			this.listView1.Location = new System.Drawing.Point(8, 200);
+			this.listView1.Name = "listView1";
+			this.listView1.Size = new System.Drawing.Size(624, 72);
+			this.listView1.TabIndex = 15;
+			this.listView1.View = System.Windows.Forms.View.Details;
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Title";
+			this.columnHeader1.Width = 162;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Autor";
+			this.columnHeader2.Width = 99;
+			// 
+			// columnHeader3
+			// 
+			this.columnHeader3.Text = "Last modified";
+			this.columnHeader3.Width = 119;
+			// 
+			// columnHeader4
+			// 
+			this.columnHeader4.Text = "Content Count";
+			this.columnHeader4.Width = 239;
+			// 
+			// label5
+			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.label5.BackColor = System.Drawing.Color.White;
+			this.label5.Location = new System.Drawing.Point(248, 294);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(176, 16);
+			this.label5.TabIndex = 16;
 			// 
 			// Mainform
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(400, 195);
+			this.ClientSize = new System.Drawing.Size(640, 321);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.listView1);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.ckbxConvertOpen);
 			this.Controls.Add(this.btnConvertOnly);
-			this.Controls.Add(this.btnConvert);
 			this.Controls.Add(this.cbxApps);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.btnChooseFile);
 			this.Controls.Add(this.tbxFile);
+			this.Controls.Add(this.tbxTargetFilename);
 			this.Controls.Add(this.ckbxOverwrite);
 			this.Controls.Add(this.btnAddApp);
-			this.Controls.Add(this.tbxTargetFilename);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.progressBar1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(408, 250);
 			this.Menu = this.mainMenu1;
-			this.MinimumSize = new System.Drawing.Size(408, 250);
+			this.MinimumSize = new System.Drawing.Size(648, 356);
 			this.Name = "Mainform";
 			this.Text = "AODC - An OpenDocument Converter";
 			this.Load += new System.EventHandler(this.Form1_Load);
@@ -735,8 +835,6 @@ namespace AODC
 		{
 			try
 			{
-				_convertAndDisplay		= true;
-
 				if(!this.SourceValidation())
 					return;
 
@@ -745,8 +843,8 @@ namespace AODC
 				this._controler.Convert(this.tbxFile.Text,
 					this.tbxTargetFilename.Text, this.ckbxOverwrite.Checked);
 				
-				this.ToogleButtons(false);
-				
+				//this.ToogleButtons(false);
+				this.label5.Text			= "";
 			}
 			catch(Exception ex)
 			{
@@ -763,13 +861,20 @@ namespace AODC
 		{
 			try
 			{
+				if(this.ckbxConvertOpen.Checked)
+				{
+					this.btnConvert_Click(null, null);
+					return;
+				}
+
 				if(!this.SourceValidation())
 					return;
 
 				this.timer1.Start();
 				this._controler.Convert(this.tbxFile.Text,
 					this.tbxTargetFilename.Text, this.ckbxOverwrite.Checked);
-				this.ToogleButtons(false);
+				//this.ToogleButtons(false);
+				this.label5.Text			= "";
 			}
 			catch(Exception ex)
 			{
@@ -785,6 +890,9 @@ namespace AODC
 		private void timer1_Tick(object sender, System.EventArgs e)
 		{
 			this.progressBar1.PerformStep();
+
+			if(this.progressBar1.Value >= 100)
+				this.progressBar1.Value			= 0;
 		}
 
 		/// <summary>
@@ -807,9 +915,101 @@ namespace AODC
 			this.timer1.Stop();
 			this.progressBar1.Value		= 0;
 			MessageBox.Show("Conversion complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			this.DisplayDocumentInfo();
+			this.DisplayConversationTime();
 			this.Display();
 			this.ToogleButtons(true);
 		}
+
+		/// <summary>
+		/// Displays the conversation time.
+		/// </summary>
+		private void DisplayConversationTime()
+		{
+			try
+			{
+				if(this._controler != null)
+				{
+					string min			= this._controler.ElapsedTime.Minutes.ToString();
+					string sec			= this._controler.ElapsedTime.Seconds.ToString();
+					this.label5.Text	= "Time total "+min+" min. "+sec+" sec.";
+				}
+			}
+			catch(Exception ex)
+			{
+			}
+		}
+
+		#region Document Info
+		/// <summary>
+		/// Displays the document info.
+		/// </summary>
+		private void DisplayDocumentInfo()
+		{
+			this.listView1.Items.Clear();
+			
+			try
+			{
+				if(this._controler.TextDocument != null)
+					if(this._controler.TextDocument.DocumentMetadata != null)
+					{
+						string autor		= "";
+						string title		= "";
+						string lastmodified	= "";
+						string content		= "";
+
+						if(this._controler.TextDocument.DocumentMetadata.InitialCreator != null)
+							if(this._controler.TextDocument.DocumentMetadata.InitialCreator.Length > 0)
+								autor	= this._controler.TextDocument.DocumentMetadata.InitialCreator;
+					
+						if(autor.Length == 0)
+							if(this._controler.TextDocument.DocumentMetadata.Creator != null)
+								if(this._controler.TextDocument.DocumentMetadata.Creator.Length > 0)
+									autor	= this._controler.TextDocument.DocumentMetadata.Creator;
+
+						if(autor.Length == 0)
+							autor			= "Unkown";
+
+						if(this._controler.TextDocument.DocumentMetadata.LastModified != null)
+							if(this._controler.TextDocument.DocumentMetadata.LastModified.Length > 0)
+								lastmodified	= this._controler.TextDocument.DocumentMetadata.LastModified;
+
+						if(lastmodified.Length == 0)
+							if(this._controler.TextDocument.DocumentMetadata.CreationDate != null)
+								if(this._controler.TextDocument.DocumentMetadata.CreationDate.Length > 0)
+									lastmodified	= this._controler.TextDocument.DocumentMetadata.CreationDate;
+
+						if(lastmodified.Length == 0)
+							lastmodified		= "Unknown";
+
+						if(this._controler.TextDocument.DocumentMetadata.Title != null)
+							if(this._controler.TextDocument.DocumentMetadata.Title.Length > 0)
+								title	= this._controler.TextDocument.DocumentMetadata.Title;
+
+						if(title.Length == 0)
+							title		= "Untitled";
+
+						content			+= "Pages "+this._controler.TextDocument.DocumentMetadata.PageCount.ToString()+", ";
+						content			+= "Tables "+this._controler.TextDocument.DocumentMetadata.TableCount.ToString()+", ";
+						content			+= "Img "+this._controler.TextDocument.DocumentMetadata.ImageCount.ToString()+", ";
+						content			+= "Para. "+this._controler.TextDocument.DocumentMetadata.PageCount.ToString()+", ";
+						content			+= "Words "+this._controler.TextDocument.DocumentMetadata.WordCount.ToString();
+					
+						ListViewItem lvi	= new ListViewItem(title);
+						lvi.SubItems.Add(autor);
+						lvi.SubItems.Add(lastmodified);
+						lvi.SubItems.Add(content);
+
+						this.listView1.Items.Add(lvi);
+					}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("An error occour while try to recieve Document Info",
+					"Document Info error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+		#endregion
 
 		/// <summary>
 		/// Toogles the buttons.
@@ -817,7 +1017,6 @@ namespace AODC
 		/// <param name="enable">if set to <c>true</c> [enable].</param>
 		private void ToogleButtons(bool enable)
 		{
-			this.btnConvert.Enabled		= enable;
 			this.btnConvertOnly.Enabled	= enable;
 		}
 
@@ -826,14 +1025,14 @@ namespace AODC
 		/// </summary>
 		private void Display()
 		{
-			if(this._convertAndDisplay)
+			if(this.ckbxConvertOpen.Checked)
 			{
 				this._controler.OpenFileWith(this.tbxTargetFilename.Text,
 					this.cbxApps.SelectedItem.ToString());
-				_convertAndDisplay			= false;
 			}
 		}
 
+		#region menu item clicks
 		/// <summary>
 		/// Handles the Click event of the menuItem2 control.
 		/// </summary>
@@ -863,7 +1062,7 @@ namespace AODC
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void menuItem6_Click(object sender, System.EventArgs e)
 		{
-			Updater.UpdateDialog(Application.ProductVersion);
+			Updater.UpdateDialog(Application.ProductVersion, true);
 		}
 
 		/// <summary>
@@ -874,6 +1073,60 @@ namespace AODC
 		private void menuItem7_Click(object sender, System.EventArgs e)
 		{
 			this.btnChooseFile_Click(null, null);
+		}
+
+		/// <summary>
+		/// Handles the Click event of the menuItem8 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void menuItem8_Click(object sender, System.EventArgs e)
+		{
+			Optionsform optionsForm		= new Optionsform();
+			optionsForm.ShowDialog();
+		}
+
+		/// <summary>
+		/// Handles the Click event of the menuItem9 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void menuItem9_Click(object sender, System.EventArgs e)
+		{
+			try
+			{
+				System.Diagnostics.Process.Start("IEXPLORE.EXE", "http://aodl.sourceforge.net");
+			}
+			catch(Exception ex)
+			{
+			}
+		}
+		#endregion
+
+		private void CheckForLastUpdateCheck()
+		{
+			try
+			{
+				string sLastUpdateCheck		= Config.GetValueFromKey("lastUpdateCheck");
+				string updateReminder		= Config.GetValueFromKey("updateReminder");
+
+				if(sLastUpdateCheck != null && updateReminder != null)
+				{
+					if(updateReminder != "Never")
+					{
+						DateTime lastUpdateCheck	= Convert.ToDateTime(sLastUpdateCheck);
+						int days					= Convert.ToInt32(updateReminder);
+						TimeSpan timeSpan			= new TimeSpan(days, 0, 0, 0);
+						TimeSpan timeLastCheck		= DateTime.Now - lastUpdateCheck;
+						
+						if(timeLastCheck.Days >= days)
+							Updater.UpdateDialog(Application.ProductVersion, true);
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+			}
 		}
 
 		#region Validation
@@ -909,15 +1162,15 @@ namespace AODC
 			{
 				if(Path.GetExtension(target).ToLower() != ".html"
 					&& Path.GetExtension(target).ToLower() != ".htm")
-					error.Add("You must define a HTML target file!\nWhich must have the extension html or htm");
+					error.Add("You must define a HTML target file! Which must have the extension html or htm");
 			}
 			else
 				error.Add("You must define a HTML target file!");
 
 			if(File.Exists(target) && !this.ckbxOverwrite.Checked)
-				error.Add("The target file olready exist!\nUse the override Checkbox!");
+				error.Add("The target file olready exist! Use the override Checkbox!");
 
-			if(this._convertAndDisplay && this.cbxApps.SelectedIndex == -1)
+			if(this.ckbxConvertOpen.Checked && this.cbxApps.SelectedIndex == -1)
 				error.Add("You must choose a display application!");
 
 			if(error.Count > 0)
@@ -981,5 +1234,19 @@ namespace AODC
 //			this.Close();
 //		}
 		#endregion
+
+		/// <summary>
+		/// Controler_s the on C exception.
+		/// </summary>
+		/// <param name="ex">The ex.</param>
+		private void Controler_OnCException(Exception ex)
+		{
+			this.timer1.Stop();
+			this.progressBar1.Value		= 0;
+			this.ToogleButtons(true);
+
+			Errorform errorForm			= new Errorform(ex);
+			errorForm.ShowDialog();
+		}
 	}
 }

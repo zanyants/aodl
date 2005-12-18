@@ -343,107 +343,285 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Updater.cs,v 1.2 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Errorform.cs,v 1.1 2005/12/18 18:29:48 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
 using System;
-using System.IO;
-using System.Net;
+using System.Drawing;
+using System.Collections;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace AODC
 {
 	/// <summary>
-	/// Zusammenfassung für Updater.
+	/// Zusammenfassung für Errorform.
 	/// </summary>
-	public class Updater
+	public class Errorform : System.Windows.Forms.Form
 	{
-		public Updater()
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox tbxError;
+		private System.Windows.Forms.Button btnFull;
+		private System.Windows.Forms.Button btnClipboard;
+		private System.Windows.Forms.Button btnCancel;
+		private System.ComponentModel.IContainer components;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ImageList imageList1;
+		private System.Windows.Forms.Button btnHelp;
+		private System.Windows.Forms.Button btnReport;
+
+		/// <summary>
+		/// The exception
+		/// </summary>
+		private Exception _execption;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Errorform"/> class.
+		/// </summary>
+		/// <param name="ex">The ex.</param>
+		public Errorform(Exception ex)
 		{
+			InitializeComponent();
+			this._execption			= ex;
+			this.tbxError.Text		= ex.Message;
 		}
 
 		/// <summary>
-		/// Updates the specified current version.
+		/// Die verwendeten Ressourcen bereinigen.
 		/// </summary>
-		/// <param name="currentVersion">The current version.</param>
-		/// <returns></returns>
-		public static bool Update(string currentVersion)
+		protected override void Dispose( bool disposing )
 		{
-			try
+			if( disposing )
 			{
-				double version				= Convert.ToDouble(currentVersion);
-				WebRequest webRequest		= WebRequest.Create("http://aodl.sourceforge.net/version.txt");
-				WebResponse webResponse		= webRequest.GetResponse();
-				
-				using (StreamReader sr = new StreamReader(webResponse.GetResponseStream())) 
+				if(components != null)
 				{
-					String line;
-					while ((line = sr.ReadLine()) != null) 
-					{
-						if(Convert.ToDouble(line) > version)
-							return true;
-					}
+					components.Dispose();
 				}
-				return false;
 			}
-			catch(Exception ex)
-			{
-				Console.WriteLine("Updater.Update() : {0}", ex.Message);
-			}
-
-			return false;
-		}
-		
-		/// <summary>
-		/// Updates the dialog.
-		/// </summary>
-		/// <param name="currentVersion">The current version.</param>
-		public static void UpdateDialog(string currentVersion, bool showUpdateQuestion)
-		{
-			try
-			{
-				if(showUpdateQuestion)
-					if(!UpdateQuestion())
-						return;
-				if(Update(currentVersion))
-				{
-					if(MessageBox.Show("A new version of AODC is available.\nTo download the new version click \"OK\"\nand on the download page choose the\nlatest version of AODL.", 
-						"New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-						== DialogResult.Yes)
-						System.Diagnostics.Process.Start("http://sourceforge.net/project/showfiles.php?group_id=149912");
-				}
-				else
-				{
-					MessageBox.Show("Your version of AODC is up to date!", 
-						"No new version.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
-
-				Config.SetValueForKey("lastUpdateCheck", DateTime.Now.ToShortDateString());
-			}
-			catch(Exception ex)
-			{
-			}
+			base.Dispose( disposing );
 		}
 
+		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Updates the question.
+		/// Erforderliche Methode für die Designerunterstützung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
 		/// </summary>
-		/// <returns></returns>
-		public static bool UpdateQuestion()
+		private void InitializeComponent()
+		{
+			this.components = new System.ComponentModel.Container();
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(Errorform));
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.tbxError = new System.Windows.Forms.TextBox();
+			this.btnFull = new System.Windows.Forms.Button();
+			this.btnClipboard = new System.Windows.Forms.Button();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.label3 = new System.Windows.Forms.Label();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.btnHelp = new System.Windows.Forms.Button();
+			this.btnReport = new System.Windows.Forms.Button();
+			this.SuspendLayout();
+			// 
+			// label1
+			// 
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.label1.Location = new System.Drawing.Point(128, 32);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(336, 24);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "An error occur while trying to convert the input file !";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(16, 72);
+			this.label2.Name = "label2";
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Error Message:";
+			// 
+			// tbxError
+			// 
+			this.tbxError.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbxError.Location = new System.Drawing.Point(16, 96);
+			this.tbxError.Multiline = true;
+			this.tbxError.Name = "tbxError";
+			this.tbxError.ReadOnly = true;
+			this.tbxError.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.tbxError.Size = new System.Drawing.Size(488, 168);
+			this.tbxError.TabIndex = 3;
+			this.tbxError.Text = "";
+			this.tbxError.WordWrap = false;
+			// 
+			// btnFull
+			// 
+			this.btnFull.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnFull.Location = new System.Drawing.Point(16, 272);
+			this.btnFull.Name = "btnFull";
+			this.btnFull.Size = new System.Drawing.Size(112, 23);
+			this.btnFull.TabIndex = 4;
+			this.btnFull.Text = "Show full error text";
+			this.btnFull.Click += new System.EventHandler(this.btnFull_Click);
+			// 
+			// btnClipboard
+			// 
+			this.btnClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnClipboard.Location = new System.Drawing.Point(136, 272);
+			this.btnClipboard.Name = "btnClipboard";
+			this.btnClipboard.Size = new System.Drawing.Size(88, 23);
+			this.btnClipboard.TabIndex = 5;
+			this.btnClipboard.Text = "To Clipboard";
+			this.btnClipboard.Click += new System.EventHandler(this.btnClipboard_Click);
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.Location = new System.Drawing.Point(432, 272);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.TabIndex = 8;
+			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			// 
+			// label3
+			// 
+			this.label3.ImageIndex = 0;
+			this.label3.ImageList = this.imageList1;
+			this.label3.Location = new System.Drawing.Point(40, 16);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(72, 48);
+			this.label3.TabIndex = 0;
+			// 
+			// imageList1
+			// 
+			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+			this.imageList1.ImageSize = new System.Drawing.Size(40, 43);
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Magenta;
+			// 
+			// btnHelp
+			// 
+			this.btnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnHelp.Location = new System.Drawing.Point(352, 272);
+			this.btnHelp.Name = "btnHelp";
+			this.btnHelp.TabIndex = 7;
+			this.btnHelp.Text = "Help";
+			this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+			// 
+			// btnReport
+			// 
+			this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnReport.Location = new System.Drawing.Point(232, 272);
+			this.btnReport.Name = "btnReport";
+			this.btnReport.TabIndex = 6;
+			this.btnReport.Text = "Report";
+			this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+			// 
+			// Errorform
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(514, 304);
+			this.Controls.Add(this.btnReport);
+			this.Controls.Add(this.btnHelp);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnClipboard);
+			this.Controls.Add(this.btnFull);
+			this.Controls.Add(this.tbxError);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.Name = "Errorform";
+			this.Text = "Conversation Error";
+			this.ResumeLayout(false);
+
+		}
+		#endregion
+
+
+		/// <summary>
+		/// Shows the help box.
+		/// </summary>
+		private void ShowHelpBox()
+		{
+			string msg		= "Maybe the error that occur is a bug? If you are sure that\n"
+				+ "the source file isn't corrupt and readable, you could report\n"
+				+ "this error. This will help to optimize the application in the\n"
+				+ "future.\n\nUse first the Show full error text button to see the \n"
+				+ "complete error source!\n\nThe Report button will direct you to the"
+				+ "AODC homepage were you could report this error.";
+
+			MessageBox.Show(msg, "Error help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnFull control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void btnFull_Click(object sender, System.EventArgs e)
+		{
+			this.tbxError.Text		+= "\r\n-------Source-------\r\n";
+			this.tbxError.Text		+= "\r\n"+this._execption.Source+"\r\n";
+			this.tbxError.Text		+= "\r\n-------Stacktrace-------\r\n";
+			this.tbxError.Text		+= "\r\n"+this._execption.StackTrace+"\r\n";
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnHelp control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void btnHelp_Click(object sender, System.EventArgs e)
+		{
+			this.ShowHelpBox();
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnReport control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void btnReport_Click(object sender, System.EventArgs e)
 		{
 			try
 			{
-				if(MessageBox.Show("Do you want to check for a new version of AODC?\nAn established internet connection have to be available!", 
-						"Upate now", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-						== DialogResult.Yes)
-					return true;
+				System.Diagnostics.Process.Start("IEXPLORE.EXE","http://aodl.sourceforge.net/bugs.html");
 			}
 			catch(Exception ex)
 			{
+				string exs	= ex.Message;
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnClipboard control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void btnClipboard_Click(object sender, System.EventArgs e)
+		{
+			this.btnFull_Click(null, null);
+			this.tbxError.SelectAll();
+			if(tbxError.SelectedText != "")
+			{
+				Clipboard.SetDataObject(tbxError.SelectedText);
+				MessageBox.Show("The error text is copied into the Clipboard. Now, you can use the\n"
+					+ "Report button to announce this error.", "Data copied", MessageBoxButtons.OK,
+					MessageBoxIcon.Information);
 			}
 
-			return false;
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnCancel control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void btnCancel_Click(object sender, System.EventArgs e)
+		{
+			this.Close();
 		}
 	}
 }

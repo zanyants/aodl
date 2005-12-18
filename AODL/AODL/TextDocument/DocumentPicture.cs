@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentPicture.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: DocumentPicture.cs,v 1.3 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -50,9 +50,9 @@ namespace AODL.TextDocument
 		{
 			try
 			{
-				if(!File.Exists(file))
-					throw new Exception("The imagefile "+file+" doesn't exist!");
-				this.Image		= Image.FromFile(file);
+//				if(!File.Exists(file))
+//					throw new Exception("The imagefile "+file+" doesn't exist!");
+//				this.Image		= Image.FromFile(file);
 				FileInfo fi		= new FileInfo(file);
 				this.ImageName	= fi.Name;
 			}

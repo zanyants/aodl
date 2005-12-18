@@ -1,4 +1,41 @@
-$Id: ChangeLog.txt,v 1.11 2005/12/12 19:39:17 larsbm Exp $
+$Id: ChangeLog.txt,v 1.12 2005/12/18 18:29:46 larsbm Exp $
+-------------------------------------------------------------
+AODL 1.1.1.0 beta
+
+Changes and new features
+- Changed from Image.Save to File.Copy(source, target) to avoid
+  performance trouble.
+- Graphic in HTML - now will be displayed with correct width 
+  and size in pixel
+- Paragraph now support mixed content when using the HTML exporter. 
+  (e.g. 1. text, 2. graphic 3. text). This already supported by
+  the default OpenDocument exporter.
+- Meta Data support. From now on, AODL offer full support for
+  OpenDocument Meta Data. Which mean, get and set all meta data
+  e.g. autor, creation date, ....
+
+Depricated
+- Up to now, ListItem.Paragarph will be supported, but it is
+  depricated. Use the ListItem IContentCollectio ListItem.Content
+  instead. See code snippet section on the homepage for how
+  to use it.
+- TextDocument.Disposed - there is no more need of call this,
+  because Images only would be short loaded, analyzed and immediately
+  disposed.
+
+Bugfixes
+- [ 1381958 ] Illustration Bug fixed
+- [ 1383357 ] Table alignment in HTML display
+- [ 1383363 ] Table border differ in Browser and Word
+  Remarks: The displayed border depents on the used Word 
+  Vers., because every version depents on differnt HTML engines.
+- Not found by user - Paragraph alignment was set to end, but
+  thats not a possible setting for CSS alignments.
+
+-------------------------------------------------------------
+AODL 1.1.0.1 beta
+
+- Bugfix column span repeating, will crash
 
 -------------------------------------------------------------
 AODL 1.1.0.0 beta

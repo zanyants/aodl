@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.5 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Table.cs,v 1.6 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -63,6 +63,8 @@ namespace AODL.TextDocument.Content
 			this.Content		= new IContentCollection();
 			this.NewXmlNode(stylename);
 			this.Style			= (TableStyle)new TableStyle(this, stylename);
+
+			this.Document.DocumentMetadata.TableCount	+= 1;
 		}
 
 		/// <summary>
@@ -346,10 +348,28 @@ namespace AODL.TextDocument.Content
 		/// <returns>The html string</returns>
 		public string GetHtml()
 		{
-			string html			= "<table hspace=\"14\" vspace=\"14\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" bgcolor=\"#000000\" ";
+			bool isRightAlign	= false;
+			string outerHtml	= "<table border=0 cellspacing=0 cellpadding=0 border=0 style=\"width: 16.55cm; \">\n\n<tr>\n<td align=right>\n";
+			string html			= "<table hspace=\"14\" vspace=\"14\" cellpadding=\"2\" cellspacing=\"2\" border=\"0\" bgcolor=\"#000000\" ";
+			string htmlRight	= "<table cellpadding=\"2\" cellspacing=\"2\" border=\"0\" bgcolor=\"#000000\" ";
 
 			if(((TableStyle)this.Style).Properties != null)
+			{				
+				if(((TableStyle)this.Style).Properties.Align != null)
+				{
+					string align		= ((TableStyle)this.Style).Properties.Align.ToLower();
+					if(align == "right")
+					{
+						isRightAlign	= true;
+						html			= htmlRight;
+					}
+					else if(align == "margin")
+						align			= "left";
+					html		+= " align=\""+align+"\" ";
+
+				}
 				html			+= ((TableStyle)this.Style).Properties.GetHtmlStyle();
+			}
 
 			html				+= ">\n";
 
@@ -361,6 +381,12 @@ namespace AODL.TextDocument.Content
 
 			html				+= "</table>\n";
 
+			//Wrapp a right align table with outer table,
+			//because following content will be right to
+			//the table!
+			if(isRightAlign)
+				html			= outerHtml + html + "\n</td>\n</tr>\n</table>\n";
+
 			return html;
 		}
 
@@ -370,6 +396,12 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.6  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.5  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

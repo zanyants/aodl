@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentHtmlExporter.cs,v 1.1 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: OpenDocumentHtmlExporter.cs,v 1.2 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -16,6 +16,8 @@ namespace AODL.Export
 	/// </summary>
 	public class OpenDocumentHtmlExporter : IExporter
 	{
+		private TextDocument.TextDocument _textDocument;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OpenDocumentHtmlExporter"/> class.
 		/// </summary>
@@ -48,6 +50,7 @@ namespace AODL.Export
 		{
 			try
 			{
+				this._textDocument	= document;
 				string targDir		= Environment.CurrentDirectory;
 				int index			= filename.LastIndexOf(@"\");
 				if(index != -1)
@@ -114,6 +117,8 @@ namespace AODL.Export
 						template	+= this.ReplaceControlNodes(((IHtml)content).GetHtml());
 
 				template		+= "</body>\n</html>";
+
+				template		= this.SetMetaContent(template);
 				
 				return template;
 			}
@@ -158,7 +163,7 @@ namespace AODL.Export
 				text		= text.Replace("<text:line-break />", @"<br>");
 				text		= text.Replace("<text:tab />", "&nbsp;&nbsp;&nbsp;");
 				text		= text.Replace("<text:line-break/>", @"<br>");
-				text		= text.Replace("<text:tab/>", "&nbsp;&nbsp;&nbsp;");
+				text		= text.Replace("<text:tab/>", "&nbsp;&nbsp;&nbsp;");				
 			}
 			catch(Exception ex)
 			{
@@ -166,11 +171,39 @@ namespace AODL.Export
 			}
 			return text;
 		}
+
+		/// <summary>
+		/// Sets the content of the meta.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns></returns>
+		private string SetMetaContent(string text)
+		{
+			try
+			{
+				string metaContent	= ((IHtml)this._textDocument.DocumentMetadata).GetHtml();
+
+				if(metaContent != String.Empty)
+					text			= text.Replace("<!--meta-->", metaContent);
+			}
+			catch(Exception ex)
+			{
+				//unhandled only meta content wouldn't be displayed
+			}
+
+			return text;
+		}
 	}
 }
 
 /*
  * $Log: OpenDocumentHtmlExporter.cs,v $
+ * Revision 1.2  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.1  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

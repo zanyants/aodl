@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextImporter.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: OpenDocumentTextImporter.cs,v 1.4 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -184,7 +184,7 @@ namespace AODL.Import
 				this._textdocument.DocumentManifest				= new DocumentManifest();
 				this._textdocument.DocumentManifest.LoadFromFile(dir+DocumentManifest.FolderName+"\\"+DocumentManifest.FileName);
 
-				this._textdocument.DocumentMetadata				= new DocumentMetadata();
+				this._textdocument.DocumentMetadata				= new DocumentMetadata(this._textdocument);
 				this._textdocument.DocumentMetadata.LoadFromFile(dir+DocumentMetadata.FileName);
 
 				this._textdocument.DocumentSetting				= new DocumentSetting();
@@ -198,6 +198,8 @@ namespace AODL.Import
 				this._textdocument.DocumentThumbnails			= this.ReadImageResources(dir+"Thumbnails");
 
 				//There's no really need to read the fonts.
+
+				this.InitMetaData();
 			}
 			catch(Exception ex)
 			{
@@ -276,11 +278,37 @@ namespace AODL.Import
 			}
 		}
 
+		/// <summary>
+		/// Inits the meta data.
+		/// </summary>
+		private void InitMetaData()
+		{
+			try
+			{
+				this._textdocument.DocumentMetadata.ImageCount		= 0;
+				this._textdocument.DocumentMetadata.ObjectCount		= 0;
+				this._textdocument.DocumentMetadata.ParagraphCount	= 0;
+				this._textdocument.DocumentMetadata.TableCount		= 0;
+				this._textdocument.DocumentMetadata.WordCount		= 0;
+				this._textdocument.DocumentMetadata.CharacterCount	= 0;
+				this._textdocument.DocumentMetadata.LastModified	= DateTime.Now.ToString("s");
+			}
+			catch(Exception ex)
+			{
+				//unhandled only meta data maybe not exact
+			}
+		}
 	}
 }
 
 /*
  * $Log: OpenDocumentTextImporter.cs,v $
+ * Revision 1.4  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.3  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

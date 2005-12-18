@@ -1,5 +1,5 @@
 /*
- * $Id: ListItem.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: ListItem.cs,v 1.4 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -20,6 +20,7 @@ namespace AODL.TextDocument.Content
 		/// <summary>
 		/// The ListItem has a Paragraph which represent his TextContent.
 		/// </summary>
+		/// <remarks>Depricated: Use the IContentCollection Content instead</remarks>
 		public Paragraph Paragraph
 		{
 			get { return this._paragraph; }
@@ -190,8 +191,16 @@ namespace AODL.TextDocument.Content
 		{
 			string html			= "<li>\n";
 
+			//Support for vers. < 1.1.1.0
 			if(this.Paragraph != null)
-					html		+= this.Paragraph.GetHtml()+"\n";
+			{
+				string pHtml	= this.Paragraph.GetHtml();
+				if(pHtml != "<p >\n&nbsp;</p>\n" 
+					&& !pHtml.StartsWith("<p >\n</p>")
+					&& pHtml != "<p >\n </p>\n"
+					&& pHtml != "<p >\n</p>\n")
+					html		+= pHtml+"\n";
+			}
 
 			foreach(IContent content in this.Content)
 				if(content is IHtml)
@@ -208,6 +217,12 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: ListItem.cs,v $
+ * Revision 1.4  2005/12/18 18:29:46  larsbm
+ * - AODC Gui redesign
+ * - AODC HTML exporter refecatored
+ * - Full Meta Data Support
+ * - Increase textprocessing performance
+ *
  * Revision 1.3  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

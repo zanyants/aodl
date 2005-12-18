@@ -343,107 +343,257 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Updater.cs,v 1.2 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Config.cs,v 1.1 2005/12/18 18:29:48 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
 using System;
 using System.IO;
-using System.Net;
-using System.Windows.Forms;
+using System.Xml;
+using System.Collections;
 
 namespace AODC
 {
 	/// <summary>
-	/// Zusammenfassung für Updater.
+	/// Config.
 	/// </summary>
-	public class Updater
+	public class Config
 	{
-		public Updater()
+		public static string ConfigFile		= Environment.CurrentDirectory+"\\config.xml";
+
+		public Config()
 		{
+			//
+			// TODO: Fügen Sie hier die Konstruktorlogik hinzu
+			//
 		}
 
-		/// <summary>
-		/// Updates the specified current version.
+		/// Gets the start applications.
 		/// </summary>
-		/// <param name="currentVersion">The current version.</param>
-		/// <returns></returns>
-		public static bool Update(string currentVersion)
+		/// <returns>List of start applications</returns>
+		public static ArrayList GetStartApplications()
 		{
 			try
 			{
-				double version				= Convert.ToDouble(currentVersion);
-				WebRequest webRequest		= WebRequest.Create("http://aodl.sourceforge.net/version.txt");
-				WebResponse webResponse		= webRequest.GetResponse();
-				
-				using (StreamReader sr = new StreamReader(webResponse.GetResponseStream())) 
+				ArrayList aApps			= new ArrayList();
+				if(!File.Exists(Config.ConfigFile))
+					return aApps;
+
+				XmlDocument doc			= new XmlDocument();
+				doc.Load(ConfigFile);
+
+				XmlNode root			= doc.SelectSingleNode("//apps");
+
+				foreach(XmlNode appNode in root.ChildNodes)
 				{
-					String line;
-					while ((line = sr.ReadLine()) != null) 
+					if(appNode.Name == "app")
+						aApps.Add(appNode.SelectSingleNode("@appname").InnerText);
+				}
+
+				return aApps;
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Adds the start application.
+		/// </summary>
+		/// <param name="filePath">The file path.</param>
+		public static void AddStartApplication(string filePath)
+		{
+			try
+			{
+				if(!File.Exists(filePath))
+					return;
+
+				FileInfo fInfo			= new FileInfo(filePath);
+
+				CreateConfig();
+
+				XmlDocument doc			= new XmlDocument();
+				doc.Load(ConfigFile);
+
+				XmlNode node			= doc.CreateElement("app");
+
+				XmlAttribute attr		= doc.CreateAttribute("appname");
+				attr.Value				= fInfo.Name;
+				node.Attributes.Append(attr);
+
+				attr					= doc.CreateAttribute("apppath");
+				attr.Value				= fInfo.FullName;
+				node.Attributes.Append(attr);
+
+				doc.DocumentElement.AppendChild(node);
+
+				doc.Save(ConfigFile);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Gets the value.
+		/// </summary>
+		/// <param name="elementName">Name of the element.</param>
+		/// <param name="attributeName">Name of the attribute.</param>
+		/// <returns></returns>
+		public static string GetAppPathValue(string appName)
+		{
+			try
+			{
+				XmlDocument doc			= new XmlDocument();
+				doc.Load(ConfigFile);
+
+				XmlNode node			= doc.SelectSingleNode("apps");
+				if(node != null)
+				{
+					foreach(XmlNode child in node.ChildNodes)
 					{
-						if(Convert.ToDouble(line) > version)
-							return true;
+						XmlNode node1		= child.SelectSingleNode("@appname");
+						XmlNode node2		= child.SelectSingleNode("@apppath");
+						if(node1 != null && node2 != null)
+							if(node1.InnerText == appName)
+								return node2.InnerText;
 					}
 				}
-				return false;
 			}
 			catch(Exception ex)
 			{
-				Console.WriteLine("Updater.Update() : {0}", ex.Message);
+				throw;
 			}
 
-			return false;
+			return null;
 		}
-		
+
 		/// <summary>
-		/// Updates the dialog.
+		/// Adds the key and value.
 		/// </summary>
-		/// <param name="currentVersion">The current version.</param>
-		public static void UpdateDialog(string currentVersion, bool showUpdateQuestion)
+		/// <param name="key">The key.</param>
+		/// <param name="aValue">A value.</param>
+		public static void AddKeyAndValue(string key, string aValue)
 		{
 			try
 			{
-				if(showUpdateQuestion)
-					if(!UpdateQuestion())
-						return;
-				if(Update(currentVersion))
-				{
-					if(MessageBox.Show("A new version of AODC is available.\nTo download the new version click \"OK\"\nand on the download page choose the\nlatest version of AODL.", 
-						"New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-						== DialogResult.Yes)
-						System.Diagnostics.Process.Start("http://sourceforge.net/project/showfiles.php?group_id=149912");
-				}
-				else
-				{
-					MessageBox.Show("Your version of AODC is up to date!", 
-						"No new version.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
+				CreateConfig();
 
-				Config.SetValueForKey("lastUpdateCheck", DateTime.Now.ToShortDateString());
+				XmlDocument doc			= new XmlDocument();
+				doc.Load(ConfigFile);
+
+				XmlNode node			= doc.CreateElement("setting");
+
+				XmlAttribute attr		= doc.CreateAttribute("key");
+				attr.Value				= key;
+				node.Attributes.Append(attr);
+
+				attr					= doc.CreateAttribute("value");
+				attr.Value				= aValue;
+				node.Attributes.Append(attr);
+
+				doc.DocumentElement.AppendChild(node);
+
+				doc.Save(ConfigFile);
 			}
 			catch(Exception ex)
 			{
+				throw;
 			}
 		}
 
 		/// <summary>
-		/// Updates the question.
+		/// Gets the value from key.
 		/// </summary>
+		/// <param name="key">The key.</param>
 		/// <returns></returns>
-		public static bool UpdateQuestion()
+		public static string GetValueFromKey(string key)
 		{
 			try
 			{
-				if(MessageBox.Show("Do you want to check for a new version of AODC?\nAn established internet connection have to be available!", 
-						"Upate now", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-						== DialogResult.Yes)
-					return true;
+				CreateConfig();
+
+				XmlDocument xmlDocument		= new XmlDocument();
+				xmlDocument.Load(ConfigFile);
+
+				XmlNode nodeSetting			= xmlDocument.SelectSingleNode("//setting[@key='"+key+"']");
+				if(nodeSetting != null)
+				{
+					XmlNode nodeValue		= nodeSetting.SelectSingleNode("@value");
+					if(nodeValue != null)
+						return nodeValue.InnerText;
+				}
 			}
 			catch(Exception ex)
 			{
+				throw;
 			}
 
-			return false;
+			return null;
+		}
+
+		/// <summary>
+		/// Sets the value for key.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <param name="aValue">A value.</param>
+		public static void SetValueForKey(string key, string aValue)
+		{
+			try
+			{
+				string existingValue		= GetValueFromKey(key);
+
+				if(existingValue == null)
+				{
+					AddKeyAndValue(key, aValue);
+					return;
+				}
+
+				XmlDocument xmlDocument		= new XmlDocument();
+				xmlDocument.Load(ConfigFile);
+
+				XmlNode nodeSetting			= xmlDocument.SelectSingleNode("//setting[@key='"+key+"']");
+				if(nodeSetting != null)
+				{
+					XmlNode nodeValue		= nodeSetting.SelectSingleNode("@value");
+					if(nodeValue != null)
+					{
+						nodeValue.InnerText	= aValue;
+						xmlDocument.Save(ConfigFile);
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// if not exist create the config file.
+		/// </summary>
+		public static void CreateConfig()
+		{
+			try
+			{
+				FileStream fstream		= null;
+				if(!File.Exists(ConfigFile))
+				{
+					fstream					= File.Create(ConfigFile);
+					StreamWriter swriter	= new StreamWriter(fstream);
+					swriter.WriteLine("<?xml version=\"1.0\" ?>");
+					swriter.WriteLine("<apps>");
+					swriter.WriteLine("</apps>");
+					swriter.Close();
+					fstream.Close();
+				}
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
 		}
 	}
 }

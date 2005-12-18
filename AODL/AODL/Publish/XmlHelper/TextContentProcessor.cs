@@ -1,5 +1,5 @@
 /*
- * $Id: TextContentProcessor.cs,v 1.3 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: TextContentProcessor.cs,v 1.4 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -24,7 +24,8 @@ namespace AODL.Import.XmlHelper
 
 		public static Paragraph SplitTextContent(AODL.TextDocument.TextDocument document, Paragraph paragraph)
 		{
-			ITextCollection itextcol		= new ITextCollection();
+			//ITextCollection itextcol		= new ITextCollection();
+			ArrayList itextcol				= new ArrayList();
 //			Console.WriteLine("-----------\nInner Xml : {0}", paragraph.Node.InnerXml);
 //			Console.WriteLine("Para cnt {0}", paragraph.Node.ChildNodes.Count);
 			try
@@ -64,6 +65,12 @@ namespace AODL.Import.XmlHelper
 						case "text:note":
 							itextcol.Add(CreateFootnote(child, paragraph));
 							break;
+						case "draw:frame":
+							XmlNodeProcessor nodeProcessor	= new XmlNodeProcessor(paragraph.Document);
+							Frame frame						= nodeProcessor.CreateFrame(child);
+							if(frame != null)
+								itextcol.Add(frame);
+							break;
 						default:
 							//Console.WriteLine("Unknown Text: {0}", child.OuterXml);
 							SimpleText sText	= CreateSimpleTextFromUnknown(child, paragraph);
@@ -75,8 +82,13 @@ namespace AODL.Import.XmlHelper
 				//Clear the child
 				paragraph.Node.InnerXml		= "";
 				//Attach content
-				foreach(IText itext in itextcol)
-					paragraph.TextContent.Add(itext);
+//				foreach(IText itext in itextcol)
+//					paragraph.TextContent.Add(itext);
+				foreach(object content in itextcol)
+					if(content is IText)
+						paragraph.TextContent.Add((IText)content);
+					else if(content is IContent)
+						paragraph.Content.Add((IContent)content);
 
 				//Console.WriteLine("Content has {0} childs\n-----------", nodelist.Count.ToString());
 				return paragraph;

@@ -1,5 +1,5 @@
 /*
- * $Id: Graphic.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Graphic.cs,v 1.5 2005/12/18 18:29:46 larsbm Exp $
  */
 
 using System;
@@ -34,6 +34,8 @@ namespace AODL.TextDocument.Content
 			this.Frame			= frame;
 			this.Document		= frame.Document;
 			this.NewXmlNode("Pictures/"+graphiclink);
+			this.Document.Graphics.Add(this);
+			this.Document.DocumentMetadata.ImageCount	+= 1;
 		}
 		/// <summary>
 		/// Create a new XmlNode.
@@ -167,7 +169,19 @@ namespace AODL.TextDocument.Content
 		/// <returns>The html string</returns>
 		public string GetHtml()
 		{
-			string html		= "<img src=\""+this.GetHtmlImgFolder()+"\" hspace=\"14\" vspace=\"14\">\n";
+			string align	= "<span align=\"#align#\">\n";
+			string html		= "<img src=\""+this.GetHtmlImgFolder()+"\" hspace=\"14\" vspace=\"14\""; //>\n";
+
+			Size size		= this.GetSizeInPix();
+			html			+= " width=\""+size.Width+"\" height=\""+size.Height+"\">\n";
+
+			if(((FrameStyle)this.Frame.Style).GraphicProperties != null)
+				if(((FrameStyle)this.Frame.Style).GraphicProperties.HorizontalPosition != null)
+				{
+					align	= align.Replace("#align#", 
+						((FrameStyle)this.Frame.Style).GraphicProperties.HorizontalPosition);
+					html	= align + html + "</span>\n";
+				}
 
 			return html;
 		}
@@ -189,6 +203,35 @@ namespace AODL.TextDocument.Content
 			{
 			}
 			return "";
+		}
+
+		/// <summary>
+		/// Gets the size in pix. As it is set in the frame.
+		/// This is needed, because the size of the graphic
+		/// could be another.
+		/// </summary>
+		/// <returns>The size in pixel</returns>
+		private Size GetSizeInPix()
+		{
+			try
+			{
+				double pxtocm		= 37.7928;
+				double height		= Convert.ToDouble(this.Frame.GraphicHeight.Replace("cm",""), 
+					System.Globalization.NumberFormatInfo.InvariantInfo);
+				double width		= Convert.ToDouble(this.Frame.GraphicWidth.Replace("cm",""),
+					System.Globalization.NumberFormatInfo.InvariantInfo);
+
+				height				*= pxtocm;
+				width				*= pxtocm;
+
+				Size size			= new Size((int)width, (int)height);
+
+				return size;
+			}
+			catch(Exception ex)
+			{
+				return this.Frame.Image.Size;
+			}
 		}
 
 		#endregion
