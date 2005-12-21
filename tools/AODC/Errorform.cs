@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Errorform.cs,v 1.1 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Errorform.cs,v 1.2 2005/12/21 17:17:12 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -438,7 +438,7 @@ namespace AODC
 			this.label2.Location = new System.Drawing.Point(16, 72);
 			this.label2.Name = "label2";
 			this.label2.TabIndex = 2;
-			this.label2.Text = "Error Message:";
+			this.label2.Text = "Error message:";
 			// 
 			// tbxError
 			// 
@@ -472,7 +472,7 @@ namespace AODC
 			this.btnClipboard.Name = "btnClipboard";
 			this.btnClipboard.Size = new System.Drawing.Size(88, 23);
 			this.btnClipboard.TabIndex = 5;
-			this.btnClipboard.Text = "To Clipboard";
+			this.btnClipboard.Text = "To clipboard";
 			this.btnClipboard.Click += new System.EventHandler(this.btnClipboard_Click);
 			// 
 			// btnCancel
@@ -533,7 +533,7 @@ namespace AODC
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "Errorform";
-			this.Text = "Conversation Error";
+			this.Text = "Conversation error";
 			this.ResumeLayout(false);
 
 		}

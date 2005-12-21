@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Mainform.cs,v 1.2 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Mainform.cs,v 1.3 2005/12/21 17:17:12 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -404,6 +404,7 @@ namespace AODC
 //			this.RegisterGlobalExceptions();
 			this._controler				= new Controler();
 			InitializeComponent();
+			this.HandleGuiSettings(true);
 			Controler.OnError			+=new AODC.Controler.Error(Controler_OnError);
 			Controler.OnCException		+=new AODC.Controler.CException(Controler_OnCException);
 			Controler.OnFinished		+=new AODC.Controler.Finished(Controler_OnFinished);
@@ -422,6 +423,8 @@ namespace AODC
 					components.Dispose();					
 				}
 			}
+
+			this.HandleGuiSettings(false);
 			
 			if(this._controler != null)
 				this._controler.Controler_OnReady();
@@ -476,7 +479,7 @@ namespace AODC
 			this.ckbxOverwrite.Name = "ckbxOverwrite";
 			this.ckbxOverwrite.Size = new System.Drawing.Size(120, 24);
 			this.ckbxOverwrite.TabIndex = 12;
-			this.ckbxOverwrite.Text = "Overwrite Target";
+			this.ckbxOverwrite.Text = "Overwrite target";
 			// 
 			// btnAddApp
 			// 
@@ -504,7 +507,7 @@ namespace AODC
 			this.label3.Location = new System.Drawing.Point(8, 40);
 			this.label3.Name = "label3";
 			this.label3.TabIndex = 9;
-			this.label3.Text = "Target File name:";
+			this.label3.Text = "Target file name:";
 			// 
 			// progressBar1
 			// 
@@ -569,7 +572,7 @@ namespace AODC
 			this.label1.Location = new System.Drawing.Point(8, 8);
 			this.label1.Name = "label1";
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Source File:";
+			this.label1.Text = "Source file:";
 			// 
 			// timer1
 			// 
@@ -632,7 +635,7 @@ namespace AODC
 			// 
 			this.menuItem6.Index = 0;
 			this.menuItem6.Shortcut = System.Windows.Forms.Shortcut.CtrlU;
-			this.menuItem6.Text = "Check for Update";
+			this.menuItem6.Text = "Check for update";
 			this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
 			// 
 			// menuItem4
@@ -644,7 +647,7 @@ namespace AODC
 			// menuItem9
 			// 
 			this.menuItem9.Index = 2;
-			this.menuItem9.Text = "Goto Homepage";
+			this.menuItem9.Text = "Goto homepage";
 			this.menuItem9.Click += new System.EventHandler(this.menuItem9_Click);
 			// 
 			// ckbxConvertOpen
@@ -653,7 +656,7 @@ namespace AODC
 			this.ckbxConvertOpen.Name = "ckbxConvertOpen";
 			this.ckbxConvertOpen.Size = new System.Drawing.Size(112, 24);
 			this.ckbxConvertOpen.TabIndex = 13;
-			this.ckbxConvertOpen.Text = "Convert && Open";
+			this.ckbxConvertOpen.Text = "Convert && open";
 			// 
 			// label4
 			// 
@@ -685,7 +688,7 @@ namespace AODC
 			// 
 			// columnHeader2
 			// 
-			this.columnHeader2.Text = "Autor";
+			this.columnHeader2.Text = "Author";
 			this.columnHeader2.Width = 99;
 			// 
 			// columnHeader3
@@ -695,7 +698,7 @@ namespace AODC
 			// 
 			// columnHeader4
 			// 
-			this.columnHeader4.Text = "Content Count";
+			this.columnHeader4.Text = "Content count";
 			this.columnHeader4.Width = 239;
 			// 
 			// label5
@@ -711,7 +714,7 @@ namespace AODC
 			// Mainform
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(640, 321);
+			this.ClientSize = new System.Drawing.Size(640, 322);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.listView1);
 			this.Controls.Add(this.label4);
@@ -747,7 +750,6 @@ namespace AODC
 		{
 			try
 			{
-				
 				Application.EnableVisualStyles();
 			}
 			catch(Exception ex)
@@ -1247,6 +1249,34 @@ namespace AODC
 
 			Errorform errorForm			= new Errorform(ex);
 			errorForm.ShowDialog();
+		}
+
+		private void HandleGuiSettings(bool load)
+		{
+			try
+			{
+				string guiSetting		= Config.GetValueFromKey("guiSetting");
+
+				if(guiSetting != "0,0" && guiSetting != null && !load)
+					Config.SetValueForKey("guiSetting", this.Width.ToString()+","
+						+this.Height.ToString());
+				else if(load && guiSetting != "0,0" && guiSetting != null)
+				{
+					string[] widthHeight	= guiSetting.Split(',');
+					int width				= Convert.ToInt32(widthHeight[0]);
+					int height				= Convert.ToInt32(widthHeight[1]);
+					if(width >= this.Width && height >= this.Height)
+					{
+						this.Width			= width;
+						this.Height			= height;
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("An error occour while trying to save the gui settings!",
+					"Gui setting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 	}
 }

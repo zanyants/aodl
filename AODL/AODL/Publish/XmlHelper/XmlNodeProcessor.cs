@@ -1,5 +1,5 @@
 /*
- * $Id: XmlNodeProcessor.cs,v 1.3 2005/12/18 18:29:46 larsbm Exp $
+ * $Id: XmlNodeProcessor.cs,v 1.4 2005/12/21 17:17:12 larsbm Exp $
  */
 
 using System;
@@ -369,11 +369,13 @@ namespace AODL.Import.XmlHelper
 			try
 			{
 				Frame frame					= null;
-				string stylename			= this.GetStyleName(framenode.OuterXml);
-				XmlNode stylenode			= this.GetAStyleNode("style:style", stylename);				
-				string realgraphicname		= this.GetAValueFromAnAttribute(framenode, "@draw:name");
 				XmlNode graphicnode			= null;
 				XmlNode graphicproperties	= null;
+				string realgraphicname		= "";
+				string stylename			= "";
+				stylename					= this.GetStyleName(framenode.OuterXml);
+				XmlNode stylenode			= this.GetAStyleNode("style:style", stylename);
+				realgraphicname				= this.GetAValueFromAnAttribute(framenode, "@draw:name");				
 
 				//Console.WriteLine("frame: {0}", framenode.OuterXml);
 
@@ -536,10 +538,11 @@ namespace AODL.Import.XmlHelper
 				table.Init(); //call internal method
 				table.Style.Node			= tablestylenode;
 
-				if(tablestylenode.ChildNodes.Count > 0)
-					if(tablestylenode.ChildNodes.Item(0).Name == "style:table-properties")
-						((TableStyle)table.Style).Properties.Node	=
-							tablestylenode.ChildNodes.Item(0).CloneNode(true);
+				if(tablestylenode != null)
+					if(tablestylenode.ChildNodes.Count > 0)
+						if(tablestylenode.ChildNodes.Item(0).Name == "style:table-properties")
+							((TableStyle)table.Style).Properties.Node	=
+								tablestylenode.ChildNodes.Item(0).CloneNode(true);
 
 				foreach(XmlNode node in tablenode.ChildNodes)
 				{
@@ -550,11 +553,12 @@ namespace AODL.Import.XmlHelper
 
 						Column col			= new Column(table, stylename);
 						col.Style.Node		= colstylenode;
-
-						if(colstylenode.ChildNodes.Count > 0)
-							if(colstylenode.ChildNodes.Item(0).Name == "style:table-column-properties")
-								((ColumnStyle)col.Style).Properties.Node	=
-									colstylenode.ChildNodes.Item(0).CloneNode(true);
+						
+						if(colstylenode != null)
+							if(colstylenode.ChildNodes.Count > 0)
+								if(colstylenode.ChildNodes.Item(0).Name == "style:table-column-properties")
+									((ColumnStyle)col.Style).Properties.Node	=
+										colstylenode.ChildNodes.Item(0).CloneNode(true);
 						
 						table.Columns.Add(col);
 					}
@@ -632,10 +636,11 @@ namespace AODL.Import.XmlHelper
 				Row row						= new Row(table, stylename);
 				row.Style.Node				= rowstylenode;
 
-				if(rowstylenode.ChildNodes.Count > 0)
-					if(rowstylenode.ChildNodes.Item(0).Name == "style:table-row-properties")
-						((RowStyle)row.Style).RowProperties.Node	=
-							rowstylenode.ChildNodes.Item(0).CloneNode(true);
+				if(rowstylenode != null)
+					if(rowstylenode.ChildNodes.Count > 0)
+						if(rowstylenode.ChildNodes.Item(0).Name == "style:table-row-properties")
+							((RowStyle)row.Style).RowProperties.Node	=
+								rowstylenode.ChildNodes.Item(0).CloneNode(true);
 												
 				foreach(XmlNode nodecell in node.ChildNodes)
 				{
@@ -654,10 +659,11 @@ namespace AODL.Import.XmlHelper
 							if(nodeColRepeating.InnerText.Length > 0)
 								cell.ColumnRepeating	= nodeColRepeating.InnerText;
 
-						if(cellstylenode.ChildNodes.Count > 0)
-							if(cellstylenode.ChildNodes.Item(0).Name == "style:table-cell-properties")
-								((CellStyle)cell.Style).CellProperties.Node	=
-									cellstylenode.ChildNodes.Item(0).CloneNode(true);
+						if(cellstylenode != null)
+							if(cellstylenode.ChildNodes.Count > 0)
+								if(cellstylenode.ChildNodes.Item(0).Name == "style:table-cell-properties")
+									((CellStyle)cell.Style).CellProperties.Node	=
+										cellstylenode.ChildNodes.Item(0).CloneNode(true);
 
 						foreach(XmlNode cellcontent in nodecell.ChildNodes)
 						{
@@ -771,7 +777,10 @@ namespace AODL.Import.XmlHelper
 					"/office:document-content/office:automatic-styles/"+style+"[@style:name='"+name+"']", 
 					this._textDocument.NamespaceManager);
 
-				return styleNode.CloneNode(true);
+				if(styleNode != null)
+					return styleNode.CloneNode(true);
+				
+				return null;
 			}
 			catch(Exception ex)
 			{
@@ -789,16 +798,18 @@ namespace AODL.Import.XmlHelper
 		{
 			try
 			{
-				//Console.WriteLine(attributname);
-				string avalue			= node.SelectSingleNode(attributname,
-					this._textDocument.NamespaceManager).Value;
+				Console.WriteLine(attributname);
+				XmlNode nodeValue			= node.SelectSingleNode(attributname,
+					this._textDocument.NamespaceManager);
 
-				return avalue;
+				if(nodeValue != null)
+					return nodeValue.InnerText;
 			}
 			catch(Exception ex)
 			{
 				throw;
 			}
+			return "";
 		}
 
 		/// <summary>
@@ -930,6 +941,10 @@ namespace AODL.Import.XmlHelper
 
 /*
  * $Log: XmlNodeProcessor.cs,v $
+ * Revision 1.4  2005/12/21 17:17:12  larsbm
+ * - AODL new feature save gui settings
+ * - Bugfixes, in XmlNodeProcessor
+ *
  * Revision 1.3  2005/12/18 18:29:46  larsbm
  * - AODC Gui redesign
  * - AODC HTML exporter refecatored

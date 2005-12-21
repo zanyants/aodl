@@ -114,6 +114,15 @@ namespace AODLTest
 		}
 
 		[Test]
+		public void Howto_special_charInch()
+		{
+			TextDocument document		= new TextDocument();
+			document.Load(@"F:\odtFiles\Howto_special_char.odt");
+			document.SaveTo(@"F:\odtFiles\Howto_special_char.html");
+			document.Dispose();
+		}
+
+		[Test]
 		public void MegaStressTest()
 		{
 //			TextDocument document		= new TextDocument();

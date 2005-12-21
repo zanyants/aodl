@@ -1,4 +1,13 @@
-$Id: ChangeLog.txt,v 1.12 2005/12/18 18:29:46 larsbm Exp $
+$Id: ChangeLog.txt,v 1.13 2005/12/21 17:17:12 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.1.1.1 beta
+
+Bugfixes
+- [ 1385395 ] inch resp. cm error
+- [ 1385462 ] Global Liststyle error
+- [ 1386394 ] Document drawing exception
+
 -------------------------------------------------------------
 AODL 1.1.1.0 beta
 

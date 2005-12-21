@@ -1,5 +1,5 @@
 /*
- * $Id: Graphic.cs,v 1.5 2005/12/18 18:29:46 larsbm Exp $
+ * $Id: Graphic.cs,v 1.6 2005/12/21 17:17:12 larsbm Exp $
  */
 
 using System;
@@ -216,13 +216,38 @@ namespace AODL.TextDocument.Content
 			try
 			{
 				double pxtocm		= 37.7928;
-				double height		= Convert.ToDouble(this.Frame.GraphicHeight.Replace("cm",""), 
-					System.Globalization.NumberFormatInfo.InvariantInfo);
-				double width		= Convert.ToDouble(this.Frame.GraphicWidth.Replace("cm",""),
-					System.Globalization.NumberFormatInfo.InvariantInfo);
+				double intocm		= 2.41;
+				double height		= 0.0;
+				double width		= 0.0;
 
-				height				*= pxtocm;
-				width				*= pxtocm;
+				if(this.Frame.GraphicHeight.IndexOf("cm") > 0)
+				{
+					height		= Convert.ToDouble(this.Frame.GraphicHeight.Replace("cm",""), 
+						System.Globalization.NumberFormatInfo.InvariantInfo);
+					width		= Convert.ToDouble(this.Frame.GraphicWidth.Replace("cm",""),
+						System.Globalization.NumberFormatInfo.InvariantInfo);
+
+					height				*= pxtocm;
+					width				*= pxtocm;
+				}
+				else if(this.Frame.GraphicHeight.IndexOf("in") > 0)
+				{
+					height		= Convert.ToDouble(this.Frame.GraphicHeight.Replace("in",""), 
+						System.Globalization.NumberFormatInfo.InvariantInfo);
+					width		= Convert.ToDouble(this.Frame.GraphicWidth.Replace("in",""),
+						System.Globalization.NumberFormatInfo.InvariantInfo);
+
+					height				*= intocm*pxtocm;
+					width				*= intocm*pxtocm;
+				}
+				else if(this.Frame.GraphicHeight.IndexOf("px") > 0)
+				{
+					height		= Convert.ToDouble(this.Frame.GraphicHeight.Replace("px",""), 
+						System.Globalization.NumberFormatInfo.InvariantInfo);
+					width		= Convert.ToDouble(this.Frame.GraphicWidth.Replace("px",""),
+						System.Globalization.NumberFormatInfo.InvariantInfo);
+				}
+
 
 				Size size			= new Size((int)width, (int)height);
 
@@ -230,7 +255,7 @@ namespace AODL.TextDocument.Content
 			}
 			catch(Exception ex)
 			{
-				return this.Frame.Image.Size;
+				throw;
 			}
 		}
 

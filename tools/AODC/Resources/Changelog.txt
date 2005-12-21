@@ -1,4 +1,15 @@
 -------------------------------
+20.12.2004 AODC 1.0.1.1 beta
+
+Changes and new features
+- Gui setting could be stored, now.
+
+Bugfixes
+- [ 1385395 ] inch resp. cm error
+- [ 1385462 ] Global Liststyle error
+- [ 1386394 ] Document drawing exception
+
+-------------------------------
 18.12.2004 AODC 1.0.1.0 beta
 
 Changes and new features

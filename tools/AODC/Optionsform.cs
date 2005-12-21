@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Optionsform.cs,v 1.1 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Optionsform.cs,v 1.2 2005/12/21 17:17:12 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -366,6 +366,7 @@ namespace AODC
 		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.Button Cancel;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.CheckBox cbkbxGuiSetting;
 		/// <summary>
 		/// Erforderliche Designervariable.
 		/// </summary>
@@ -373,14 +374,7 @@ namespace AODC
 
 		public Optionsform()
 		{
-			//
-			// Erforderlich für die Windows Form-Designerunterstützung
-			//
 			InitializeComponent();
-
-			//
-			// TODO: Fügen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
-			//
 		}
 
 		/// <summary>
@@ -406,33 +400,36 @@ namespace AODC
 		private void InitializeComponent()
 		{
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
 			this.cbxUpdateReminder = new System.Windows.Forms.ComboBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.Cancel = new System.Windows.Forms.Button();
-			this.label2 = new System.Windows.Forms.Label();
+			this.cbkbxGuiSetting = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.cbkbxGuiSetting);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.cbxUpdateReminder);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Location = new System.Drawing.Point(8, 8);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(336, 64);
+			this.groupBox1.Size = new System.Drawing.Size(336, 96);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Settings";
 			// 
-			// label1
+			// label2
 			// 
-			this.label1.Location = new System.Drawing.Point(16, 24);
-			this.label1.Name = "label1";
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Update Reminder:";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.label2.Location = new System.Drawing.Point(280, 24);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(48, 23);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Days";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// cbxUpdateReminder
 			// 
@@ -447,10 +444,18 @@ namespace AODC
 			this.cbxUpdateReminder.Size = new System.Drawing.Size(152, 21);
 			this.cbxUpdateReminder.TabIndex = 1;
 			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(16, 24);
+			this.label1.Name = "label1";
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Update reminder:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// btnSave
 			// 
 			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnSave.Location = new System.Drawing.Point(184, 80);
+			this.btnSave.Location = new System.Drawing.Point(184, 112);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.TabIndex = 1;
 			this.btnSave.Text = "Save";
@@ -459,24 +464,24 @@ namespace AODC
 			// Cancel
 			// 
 			this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.Cancel.Location = new System.Drawing.Point(264, 80);
+			this.Cancel.Location = new System.Drawing.Point(264, 112);
 			this.Cancel.Name = "Cancel";
 			this.Cancel.TabIndex = 2;
 			this.Cancel.Text = "Cancel";
 			// 
-			// label2
+			// cbkbxGuiSetting
 			// 
-			this.label2.Location = new System.Drawing.Point(280, 24);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(48, 23);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Days";
-			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.cbkbxGuiSetting.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.cbkbxGuiSetting.Location = new System.Drawing.Point(16, 56);
+			this.cbkbxGuiSetting.Name = "cbkbxGuiSetting";
+			this.cbkbxGuiSetting.Size = new System.Drawing.Size(120, 24);
+			this.cbkbxGuiSetting.TabIndex = 3;
+			this.cbkbxGuiSetting.Text = "Save Gui size:";
 			// 
 			// Optionsform
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(354, 112);
+			this.ClientSize = new System.Drawing.Size(354, 144);
 			this.Controls.Add(this.Cancel);
 			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.groupBox1);
@@ -499,11 +504,16 @@ namespace AODC
 					Config.SetValueForKey("updateReminder", 
 						this.cbxUpdateReminder.SelectedItem.ToString());
 
-					MessageBox.Show("Configuration file saved",
-						"Configuration saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 					this.WriteLastUpdateCheck();
 				}
+
+				if(cbkbxGuiSetting.Checked)
+					Config.SetValueForKey("guiSetting", "648,377");
+				else
+					Config.SetValueForKey("guiSetting", "0,0");
+
+				MessageBox.Show("Configuration file saved",
+					"Configuration saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			catch(Exception ex)
 			{
@@ -522,10 +532,14 @@ namespace AODC
 			try
 			{
 				string updateReminder	= Config.GetValueFromKey("updateReminder");
+				string guiSetting		= Config.GetValueFromKey("guiSetting");
 				if(updateReminder != null)
 				{
 					this.cbxUpdateReminder.SelectedItem = updateReminder;
 				}
+				if(guiSetting != null)
+					if(guiSetting != "0,0")
+						this.cbkbxGuiSetting.Checked	= true;
 			}
 			catch(Exception ex)
 			{
