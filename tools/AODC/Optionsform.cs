@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Optionsform.cs,v 1.2 2005/12/21 17:17:12 larsbm Exp $
+ * $Id: Optionsform.cs,v 1.3 2006/01/05 10:31:11 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -352,6 +352,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace AODC
 {
@@ -367,6 +368,8 @@ namespace AODC
 		private System.Windows.Forms.Button Cancel;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.CheckBox cbkbxGuiSetting;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.LinkLabel linkLabel1;
 		/// <summary>
 		/// Erforderliche Designervariable.
 		/// </summary>
@@ -400,31 +403,65 @@ namespace AODC
 		private void InitializeComponent()
 		{
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+			this.label3 = new System.Windows.Forms.Label();
+			this.cbkbxGuiSetting = new System.Windows.Forms.CheckBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.cbxUpdateReminder = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.Cancel = new System.Windows.Forms.Button();
-			this.cbkbxGuiSetting = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.linkLabel1);
+			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.cbkbxGuiSetting);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.cbxUpdateReminder);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Location = new System.Drawing.Point(8, 8);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(336, 96);
+			this.groupBox1.Size = new System.Drawing.Size(384, 120);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Settings";
 			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.Location = new System.Drawing.Point(152, 88);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(224, 23);
+			this.linkLabel1.TabIndex = 5;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "Associate OpenDocument files with AODC";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(16, 88);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(144, 23);
+			this.label3.TabIndex = 4;
+			this.label3.Text = "Create a Explorer shortcut:";
+			// 
+			// cbkbxGuiSetting
+			// 
+			this.cbkbxGuiSetting.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.cbkbxGuiSetting.Location = new System.Drawing.Point(16, 56);
+			this.cbkbxGuiSetting.Name = "cbkbxGuiSetting";
+			this.cbkbxGuiSetting.Size = new System.Drawing.Size(152, 24);
+			this.cbkbxGuiSetting.TabIndex = 3;
+			this.cbkbxGuiSetting.Text = "Save Gui size:";
+			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(280, 24);
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label2.Location = new System.Drawing.Point(320, 24);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(48, 23);
 			this.label2.TabIndex = 2;
@@ -433,15 +470,17 @@ namespace AODC
 			// 
 			// cbxUpdateReminder
 			// 
+			this.cbxUpdateReminder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.cbxUpdateReminder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbxUpdateReminder.Items.AddRange(new object[] {
 																   "5",
 																   "10",
 																   "20",
 																   "Never"});
-			this.cbxUpdateReminder.Location = new System.Drawing.Point(120, 24);
+			this.cbxUpdateReminder.Location = new System.Drawing.Point(152, 24);
 			this.cbxUpdateReminder.Name = "cbxUpdateReminder";
-			this.cbxUpdateReminder.Size = new System.Drawing.Size(152, 21);
+			this.cbxUpdateReminder.Size = new System.Drawing.Size(160, 21);
 			this.cbxUpdateReminder.TabIndex = 1;
 			// 
 			// label1
@@ -454,8 +493,9 @@ namespace AODC
 			// 
 			// btnSave
 			// 
+			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnSave.Location = new System.Drawing.Point(184, 112);
+			this.btnSave.Location = new System.Drawing.Point(232, 136);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.TabIndex = 1;
 			this.btnSave.Text = "Save";
@@ -463,25 +503,17 @@ namespace AODC
 			// 
 			// Cancel
 			// 
+			this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.Cancel.Location = new System.Drawing.Point(264, 112);
+			this.Cancel.Location = new System.Drawing.Point(312, 136);
 			this.Cancel.Name = "Cancel";
 			this.Cancel.TabIndex = 2;
 			this.Cancel.Text = "Cancel";
 			// 
-			// cbkbxGuiSetting
-			// 
-			this.cbkbxGuiSetting.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.cbkbxGuiSetting.Location = new System.Drawing.Point(16, 56);
-			this.cbkbxGuiSetting.Name = "cbkbxGuiSetting";
-			this.cbkbxGuiSetting.Size = new System.Drawing.Size(120, 24);
-			this.cbkbxGuiSetting.TabIndex = 3;
-			this.cbkbxGuiSetting.Text = "Save Gui size:";
-			// 
 			// Optionsform
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(354, 144);
+			this.ClientSize = new System.Drawing.Size(402, 168);
 			this.Controls.Add(this.Cancel);
 			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.groupBox1);
@@ -575,5 +607,190 @@ namespace AODC
 					"Configuration error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+		/// <summary>
+		/// Extensions the assiociation.
+		/// </summary>
+		private void ExtensionAssiociation()
+		{
+			string askForAssociation		= "Are you sure that you want associate OpenDocument files with AODC?\n\nIf you choose yes and no other applicaion is associated with OpenDocument\nfiles AODC will act as main programm.\n\nIf there's is already an application associated with OpenDocument files\nAODC will add a new menu entry \"Convert with AODC\"";
+
+			if(MessageBox.Show(askForAssociation, "Associate", MessageBoxButtons.YesNo, MessageBoxIcon.Question)==DialogResult.Yes)
+			{
+				string appFullPath				= Application.StartupPath+"\\AODC.exe";
+				//first check if odt files already assiociated with an app, if yes
+				//create a menu entry
+				if(!this.AddConvertWithEntry(".odt", "AODC", "Convert with &AODC", appFullPath))
+				{
+					//odt files are not assiociated lets make AODC the standard app
+					if(CreateMainKey(".odt", "AODC", appFullPath))
+					{
+						MessageBox.Show("OpenDocument text files are successfuly assiociated with AODC!\nThe icon for the files will be changed after a restart.",
+							"Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+				}
+				else
+				{
+					MessageBox.Show("AODC successfuly added a menu entry \"Convert with AODC\" for .odt files!",
+						"Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Add an menu entry for the given extension with given app and the given entry name.
+		/// </summary>
+		/// <param name="extensionName">Name of the extension. e.g aodc</param>
+		/// <param name="menuName">Name of the menu e.g. AODC</param>
+		/// <param name="menuDescriptionName">Name of the menu description. e.g. e.g Convert with &AODC</param>
+		/// <param name="appFullPath">The menu CMD. e.g. c:\programs\aodc\aodc.exe %1</param>
+		/// <returns>True if the menu is created, otherwise false.</returns>
+		private bool AddConvertWithEntry(string extensionName, string menuName, string menuDescriptionName, string appFullPath)
+		{
+			try
+			{
+				string cmdKey				= "shell\\"+menuName+"\\command";
+				string shellMenu			= "shell\\"+menuName;
+				appFullPath					+= " %1";
+				RegistryKey registryKey		= Registry.ClassesRoot.OpenSubKey(extensionName);
+
+				//If the file name exist, make an menu entry
+				if(registryKey != null)
+				{
+					string extensValue				= registryKey.GetValue("").ToString();
+					registryKey.Close();
+					if(extensValue != null)
+					{
+						if(extensValue.Length > 0)
+						{
+							registryKey = Registry.ClassesRoot.OpenSubKey(extensValue, true);
+							if(registryKey != null)
+							{
+								RegistryKey exKey		= registryKey.OpenSubKey(cmdKey);
+								if(exKey == null)
+								{
+									RegistryKey subKey	= registryKey.CreateSubKey(cmdKey);
+									if(subKey != null)
+									{
+										subKey.SetValue("", appFullPath);
+										subKey.Close();
+										subKey			= registryKey.OpenSubKey(shellMenu, true);
+										if(subKey != null)
+										{
+											subKey.SetValue("", menuDescriptionName);
+											subKey.Close();
+											registryKey.Close();
+											return true;
+										}
+										registryKey.Close();
+									}
+								}
+								else
+									MessageBox.Show("AODC is already added to the Exlporer context menu!",
+										"Already added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							}
+						}
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				this.CallErrorReporter(ex);
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Create a new fileextension assocition.
+		/// </summary>
+		/// <param name="extensionName">Name of the extension. e.g. aodc</param>
+		/// <param name="appName">Name of the app. e.g AODC.exe</param>
+		/// <param name="appFullPath">The app full path. e.g. C:\programms\AODC\AODC.exe</param>
+		/// <returns>True if successful, otherwise false</returns>
+		private bool CreateMainKey(string extensionName, string appName, string appFullPath)
+		{
+			try
+			{
+				string[] extension		= new string[] {extensionName, appName+"."+extensionName};
+				string[] openCmdKey		= new string[] {appName+"."+extensionName+"\\shell\\open\\command", 
+														   appFullPath+" %1"};
+				string[] iconKey		= new string[] {appName+"."+extensionName+"\\DefaultIcon", 
+														   appFullPath+",1"};
+				RegistryKey registryKey		= Registry.ClassesRoot.OpenSubKey(extension[0]);
+
+				if(registryKey == null)
+				{
+					registryKey		= Registry.ClassesRoot.CreateSubKey(extension[0]);
+					if(registryKey != null)
+					{
+						registryKey.SetValue("", extension[1]);
+						registryKey = Registry.ClassesRoot.OpenSubKey(openCmdKey[0]);
+						if(registryKey ==null)
+						{
+							registryKey		= Registry.ClassesRoot.CreateSubKey(openCmdKey[0]);
+							if(registryKey != null)
+							{
+								registryKey.SetValue("", openCmdKey[1]);
+								registryKey = Registry.ClassesRoot.OpenSubKey(iconKey[0]);
+								if(registryKey == null)
+								{
+									registryKey		= Registry.ClassesRoot.CreateSubKey(iconKey[0]);
+									if(registryKey != null)
+									{
+										registryKey.SetValue("", iconKey[1]);
+										registryKey.Close();
+										return true;
+									}
+								}
+							}							
+						}
+						registryKey.Close();
+					}		
+				}
+				else
+					MessageBox.Show("AODC is already referenced with .odt files!",
+						"Already referenced", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			catch(Exception ex)
+			{
+				this.CallErrorReporter(ex);
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Calls the error reporter.
+		/// </summary>
+		/// <param name="ex">The ex.</param>
+		private void CallErrorReporter(Exception ex)
+		{
+			try
+			{
+				Errorform errorForm			= new Errorform(ex);
+				errorForm.ShowDialog();
+			}
+			catch(Exception exex)
+			{
+				MessageBox.Show("Error while loading the error reporter!\nSorry for this error!\nIt will be nice if you could report this at the homepage!\nhttp://aodl.sourceforge.net",
+					"Error loading error reporter", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Handles the LinkClicked event of the linkLabel1 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Windows.Forms.LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
+		private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		{
+			this.ExtensionAssiociation();
+		}
 	}
+	
+	/*
+		HKEY_CLASSES_ROOT\.fiktiv = MyApp.FiktiveEndung
+		HKEY_CLASSES_ROOT\MyApp.FiktiveEndung\shell\open\command = MyApp.exe "%1"
+		HKEY_CLASSES_ROOT\MyApp.FiktiveEndung\DefaultIcon = Installationspfad\MyApp.exe,0
+		HKEY_CLASSES_ROOT\Applications\MyApp.exe\shell\open\command = "Installationspfad\MyApp.exe" 
+	*/
 }

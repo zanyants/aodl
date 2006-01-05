@@ -1,5 +1,5 @@
 /*
- * $Id: Header.cs,v 1.1 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Header.cs,v 1.2 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -270,7 +270,7 @@ namespace AODL.TextDocument.Content
 		{
 			try
 			{
-				string html		= "<p ";
+				string html		= this.GetAnchor()+"<p ";
 				string style	= this.GetHtmlStyle(this.Stylename);
 				
 				if(style.Length > 0)
@@ -358,6 +358,30 @@ namespace AODL.TextDocument.Content
 			}
 
 			return "";
+		}
+
+		/// <summary>
+		/// Gets the html anchor, if the document use a table of contents
+		/// </summary>
+		/// <returns></returns>
+		private string GetAnchor()
+		{
+			string anchor		= "";
+
+			try
+			{
+				if(this.Document.TableofContentsCount > 0)
+				{
+					anchor		+= "<a name=\"";
+					anchor		+= this.Node.InnerText;
+					anchor		+= "\"> </a>\n";
+				}
+			}
+			catch(Exception ex)
+			{
+			}
+
+			return anchor;
 		}
 
 		/// <summary>
@@ -486,6 +510,11 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Header.cs,v $
+ * Revision 1.2  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.1  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

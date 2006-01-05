@@ -1,4 +1,20 @@
-$Id: ChangeLog.txt,v 1.13 2005/12/21 17:17:12 larsbm Exp $
+$Id: ChangeLog.txt,v 1.14 2006/01/05 10:28:06 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.1.2.0 beta
+
+Changes and new features
+- Add support for coloumn repeating (merge cells)
+	- Create a new row with merged cells
+	- Call MergeCells method to merge an existing row cell
+- Full support for creating and reading of Table of contents
+- Footnote and Endnote html export
+- Internal text links - html export as named anchor
+  (often used by Table of contents)
+
+Bugfixes
+- [ 1396034 ] Save graphic exception
+- [ 1396032 ] Italic font style
 
 -------------------------------------------------------------
 AODL 1.1.1.1 beta

@@ -21,6 +21,8 @@ namespace AODL.TextDocument.Content
 			textToParse		= textToParse.Replace(">", "&gt;");
 
 			textToParse		= textToParse.Replace(@"\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+			textToParse		= textToParse.Replace("\n", "<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
+			textToParse		= textToParse.Replace("\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
 			textToParse		= textToParse.Replace(@"\t", "<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />");
 
 			textToParse			= WhiteSpace.GetWhiteSpaceXml(textToParse);

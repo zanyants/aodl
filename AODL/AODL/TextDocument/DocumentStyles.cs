@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentStyles.cs,v 1.4 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: DocumentStyles.cs,v 1.5 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -19,7 +19,11 @@ namespace AODL.TextDocument
 		/// <summary>
 		/// The file name.
 		/// </summary>
-		public static readonly string FileName	= "styles.xml";
+		public static readonly string FileName		= "styles.xml";
+		/// <summary>
+		/// XPath to the document office styles
+		/// </summary>
+		private static readonly string OfficeStyles	= "/office:document-style/office:styles";
 
 		private XmlDocument _styles;
 		/// <summary>
@@ -67,6 +71,64 @@ namespace AODL.TextDocument
 			{
 				this.Styles		= new XmlDocument();
 				this.Styles.Load(file);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Inserts the office styles node.
+		/// </summary>
+		/// <param name="aStyleNode">A style node.</param>
+		/// <param name="document">The text document.</param>
+		public void InsertOfficeStylesNode(XmlNode aStyleNode, TextDocument document)
+		{
+			this.Styles.SelectSingleNode("//office:styles",
+				document.NamespaceManager).AppendChild(aStyleNode);
+		}
+
+		/// <summary>
+		/// Sets the outline style.
+		/// </summary>
+		/// <param name="outlineLevel">The outline level.</param>
+		/// <param name="numFormat">The num format.</param>
+		/// <param name="document">The text document.</param>
+		public void SetOutlineStyle(int outlineLevel, string numFormat, TextDocument document)
+		{
+			try
+			{
+				XmlNode outlineStyleNode		= this.Styles.SelectSingleNode(
+					"//text:outline-style",
+					document.NamespaceManager);
+
+				XmlNode outlineLevelNode		= null;
+				if(outlineStyleNode != null)
+					outlineLevelNode			= outlineStyleNode.SelectSingleNode(
+						"text:outline-level-style[@text:level='"+outlineLevel.ToString()+"']",
+						document.NamespaceManager);
+
+				if(outlineLevelNode != null)
+				{
+					XmlNode numberFormatNode	= outlineLevelNode.SelectSingleNode(
+						"@style:num-format", document.NamespaceManager);
+					if(numberFormatNode != null)
+						numberFormatNode.InnerText	= numFormat;
+
+					XmlAttribute xa				= this.Styles.CreateAttribute(
+						"style", "num-suffix", document.GetNamespaceUri("style"));
+					xa.InnerText				= ".";
+					outlineLevelNode.Attributes.Append(xa);
+
+					if(outlineLevel > 1)
+					{
+						xa						= this.Styles.CreateAttribute(
+							"text", "display-levels", document.GetNamespaceUri("style"));
+						xa.InnerText				= outlineLevel.ToString();
+						outlineLevelNode.Attributes.Append(xa);
+					}
+				}
 			}
 			catch(Exception ex)
 			{
@@ -174,6 +236,54 @@ namespace AODL.TextDocument
 		}
 
 		/// <summary>
+		/// Gets the HTML header.
+		/// </summary>
+		/// <param name="document">The document.</param>
+		/// <returns>The html string which represent the document header.</returns>
+		internal string GetHtmlHeader(TextDocument document)
+		{
+			string html				= "";
+			try
+			{
+				XmlNode node		= this.Styles.SelectSingleNode(
+					"//office:master-styles/style:master-page/style:header", 
+					document.NamespaceManager);
+				
+				if(node != null)
+				{
+				}
+			}
+			catch(Exception ex)
+			{
+			}
+			return html;
+		}
+
+		/// <summary>
+		/// Gets the HTML footer.
+		/// </summary>
+		/// <param name="document">The document.</param>
+		/// <returns>The html string which represent the document footer.</returns>
+		internal string GetHtmlFooter(TextDocument document)
+		{
+			string html				= "";
+			try
+			{
+				XmlNode node		= this.Styles.SelectSingleNode(
+					"//office:master-styles/style:master-page/style:footer", 
+					document.NamespaceManager);
+				
+				if(node != null)
+				{
+				}
+			}
+			catch(Exception ex)
+			{
+			}
+			return html;
+		}
+
+		/// <summary>
 		/// Creates the node.
 		/// </summary>
 		/// <param name="name">The name.</param>
@@ -197,6 +307,11 @@ namespace AODL.TextDocument
 
 /*
  * $Log: DocumentStyles.cs,v $
+ * Revision 1.5  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.4  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

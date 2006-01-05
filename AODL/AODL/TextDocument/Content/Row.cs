@@ -1,5 +1,5 @@
 /*
- * $Id: Row.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Row.cs,v 1.3 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -35,6 +35,17 @@ namespace AODL.TextDocument.Content
 			set { this._cells = value; }
 		}
 
+		private CellSpanCollection _cellSpans;
+		/// <summary>
+		/// Gets or sets the cells.
+		/// </summary>
+		/// <value>The cells.</value>
+		public CellSpanCollection CellSpans
+		{
+			get { return this._cellSpans; }
+			set { this._cellSpans = value; }
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Row"/> class.
 		/// </summary>
@@ -50,12 +61,50 @@ namespace AODL.TextDocument.Content
 		}
 
 		/// <summary>
+		/// Merge cells
+		/// </summary>
+		/// <param name="cellStartIndex">Start index of the cell.</param>
+		/// <param name="mergeCells">The count of cells to merge incl. the starting cell.</param>
+		/// <param name="mergeContent">if set to <c>true</c> [merge content].</param>
+		public void MergeCells(int cellStartIndex, int mergeCells, bool mergeContent)
+		{
+			try
+			{
+				this.Cells[cellStartIndex].ColumnRepeating		= mergeCells.ToString();
+				
+				if(mergeContent)
+				{
+					for(int i=cellStartIndex+1; i<cellStartIndex+mergeCells; i++)
+					{
+						foreach(IContent content in this.Cells[i].Content)
+							this.Cells[cellStartIndex].Content.Add(content);
+					}
+				}
+
+				for(int i=cellStartIndex+mergeCells-1; i>cellStartIndex; i--)
+				{
+					this.Cells.RemoveAt(i);
+					this.CellSpans.Add(new CellSpan(this));
+				}
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
 		/// Inits the CellCollection instance.
 		/// </summary>
 		private void Init()
 		{
-			this.Cells			= new CellCollection();
-			this.Cells.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(Cells_Inserted);
+			this.Cells				= new CellCollection();
+			this.Cells.Inserted		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Cells_Inserted);
+			this.Cells.Removed		+=new AODL.Collections.CollectionWithEvents.CollectionChange(Cells_Removed);
+
+			this.CellSpans			= new CellSpanCollection();
+			this.CellSpans.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(CellSpans_Inserted);
+			this.CellSpans.Removed	+=new AODL.Collections.CollectionWithEvents.CollectionChange(CellSpans_Removed);
 		}
 
 		/// <summary>
@@ -160,6 +209,11 @@ namespace AODL.TextDocument.Content
 
 		#endregion
 
+		/// <summary>
+		/// Cells_s the inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
 		private void Cells_Inserted(int index, object value)
 		{
 			this.Node.AppendChild(((Cell)value).Node);
@@ -190,5 +244,35 @@ namespace AODL.TextDocument.Content
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Cells the spans_ inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void CellSpans_Inserted(int index, object value)
+		{
+			this.Node.AppendChild(((CellSpan)value).Node);
+		}
+
+		/// <summary>
+		/// Cells_s the removed.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void Cells_Removed(int index, object value)
+		{
+			this.Node.RemoveChild(((Cell)value).Node);
+		}
+
+		/// <summary>
+		/// Cells the spans_ removed.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void CellSpans_Removed(int index, object value)
+		{
+			this.Node.RemoveChild(((CellSpan)value).Node);
+		}
 	}
 }

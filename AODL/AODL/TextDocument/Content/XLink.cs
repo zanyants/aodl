@@ -1,5 +1,5 @@
 /*
- * $Id: XLink.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: XLink.cs,v 1.3 2006/01/05 10:31:10 larsbm Exp $
  */
 using System;
 using System.Xml;
@@ -300,7 +300,8 @@ namespace AODL.TextDocument.Content
 			string html		= "<a href=\"";
 
 			if(this.Href != null)
-				html	+= this.Href+"\"";
+				//html	+= this.Href+"\"";
+				html	+= this.GetLink()+"\"";
 
 			if(this.TargetFrameName != null)
 				html	+= " target=\""+this.TargetFrameName+"\"";
@@ -317,12 +318,43 @@ namespace AODL.TextDocument.Content
 			return html;
 		}
 
+		/// <summary>
+		/// Gets the link.
+		/// </summary>
+		/// <returns></returns>
+		private string GetLink()
+		{
+			string outline		= "|outline";
+			string link			= this.Href;
+			if(this.IContent.Document.TableofContentsCount > 0
+				&& link.StartsWith("#") && link.EndsWith(outline))
+			{
+				link			= link.Replace(outline, "");
+				int lastWS		= link.IndexOf(" ");
+				if(lastWS != -1)
+					link		= link.Substring(lastWS);
+				foreach(AODL.TextDocument.Content.IContent content in this.IContent.Document.Content)
+					if(content is Header)
+						foreach(IText text in ((Header)content).TextContent)
+							if(text.Text.EndsWith(link))
+							{
+								return "#"+text.Text;
+							}
+			}
+			return this.Href;
+		}
+
 		#endregion
 	}
 }
 
 /*
  * $Log: XLink.cs,v $
+ * Revision 1.3  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.2  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

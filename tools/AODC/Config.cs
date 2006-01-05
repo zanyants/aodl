@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Config.cs,v 1.1 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Config.cs,v 1.2 2006/01/05 10:31:11 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -359,12 +359,10 @@ namespace AODC
 	/// </summary>
 	public class Config
 	{
-		public static string ConfigFile		= Environment.CurrentDirectory+"\\config.xml";
+		public static string ConfigFile		= System.Windows.Forms.Application.StartupPath+"\\config.xml";
 
 		public Config()
 		{
-			//
-			// TODO: Fügen Sie hier die Konstruktorlogik hinzu
 			//
 		}
 

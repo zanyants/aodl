@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Mainform.cs,v 1.3 2005/12/21 17:17:12 larsbm Exp $
+ * $Id: Mainform.cs,v 1.4 2006/01/05 10:31:11 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -354,6 +354,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
+using AODC.Controls;
 
 namespace AODC
 {
@@ -362,6 +363,12 @@ namespace AODC
 	/// </summary>
 	public class Mainform : System.Windows.Forms.Form
 	{
+		private bool _convertAndDisplay		= false;		
+		private static string SourceFile	= null;
+		private bool _isSinglemode			= true;
+		private ArrayList _sourceFiles		= null;
+		private ArrayList _targetFiles		= null;
+
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox tbxFile;
 		private System.Windows.Forms.Label label2;
@@ -394,7 +401,8 @@ namespace AODC
 		private System.Windows.Forms.ColumnHeader columnHeader3;
 		private System.Windows.Forms.ColumnHeader columnHeader4;
 		private System.Windows.Forms.Label label5;
-		private bool _convertAndDisplay		= false;
+		private System.Windows.Forms.Panel plSinglemode;
+		private System.Windows.Forms.MenuItem menuItem10;		
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Mainform"/> class.
@@ -404,6 +412,11 @@ namespace AODC
 //			this.RegisterGlobalExceptions();
 			this._controler				= new Controler();
 			InitializeComponent();
+			if(SourceFile != null)
+			{
+				this.tbxFile.Text			= SourceFile;
+				this.tbxTargetFilename.Text	= SourceFile.ToLower().Replace(".odt",".html");
+			}
 			this.HandleGuiSettings(true);
 			Controler.OnError			+=new AODC.Controler.Error(Controler_OnError);
 			Controler.OnCException		+=new AODC.Controler.CException(Controler_OnCException);
@@ -458,6 +471,7 @@ namespace AODC
 			this.menuItem7 = new System.Windows.Forms.MenuItem();
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
 			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.menuItem10 = new System.Windows.Forms.MenuItem();
 			this.menuItem8 = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.menuItem6 = new System.Windows.Forms.MenuItem();
@@ -471,6 +485,8 @@ namespace AODC
 			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
 			this.label5 = new System.Windows.Forms.Label();
+			this.plSinglemode = new System.Windows.Forms.Panel();
+			this.plSinglemode.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// ckbxOverwrite
@@ -485,7 +501,7 @@ namespace AODC
 			// 
 			this.btnAddApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnAddApp.Location = new System.Drawing.Point(608, 104);
+			this.btnAddApp.Location = new System.Drawing.Point(600, 104);
 			this.btnAddApp.Name = "btnAddApp";
 			this.btnAddApp.Size = new System.Drawing.Size(24, 23);
 			this.btnAddApp.TabIndex = 11;
@@ -506,6 +522,7 @@ namespace AODC
 			// 
 			this.label3.Location = new System.Drawing.Point(8, 40);
 			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(96, 23);
 			this.label3.TabIndex = 9;
 			this.label3.Text = "Target file name:";
 			// 
@@ -513,7 +530,7 @@ namespace AODC
 			// 
 			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(8, 288);
+			this.progressBar1.Location = new System.Drawing.Point(8, 367);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(624, 23);
 			this.progressBar1.Step = 2;
@@ -543,6 +560,7 @@ namespace AODC
 			// 
 			this.label2.Location = new System.Drawing.Point(8, 104);
 			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(80, 23);
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Open with:";
 			// 
@@ -550,7 +568,7 @@ namespace AODC
 			// 
 			this.btnChooseFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnChooseFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnChooseFile.Location = new System.Drawing.Point(608, 8);
+			this.btnChooseFile.Location = new System.Drawing.Point(600, 8);
 			this.btnChooseFile.Name = "btnChooseFile";
 			this.btnChooseFile.Size = new System.Drawing.Size(24, 23);
 			this.btnChooseFile.TabIndex = 2;
@@ -571,6 +589,7 @@ namespace AODC
 			// 
 			this.label1.Location = new System.Drawing.Point(8, 8);
 			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(80, 23);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Source file:";
 			// 
@@ -612,12 +631,20 @@ namespace AODC
 			// 
 			this.menuItem5.Index = 1;
 			this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																					  this.menuItem10,
 																					  this.menuItem8});
 			this.menuItem5.Text = "&Options";
 			// 
+			// menuItem10
+			// 
+			this.menuItem10.Index = 0;
+			this.menuItem10.Shortcut = System.Windows.Forms.Shortcut.CtrlM;
+			this.menuItem10.Text = "Switch mode Single/Multi";
+			this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
+			// 
 			// menuItem8
 			// 
-			this.menuItem8.Index = 0;
+			this.menuItem8.Index = 1;
 			this.menuItem8.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
 			this.menuItem8.Text = "Preferences";
 			this.menuItem8.Click += new System.EventHandler(this.menuItem8_Click);
@@ -677,7 +704,7 @@ namespace AODC
 																						this.columnHeader4});
 			this.listView1.Location = new System.Drawing.Point(8, 200);
 			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(624, 72);
+			this.listView1.Size = new System.Drawing.Size(624, 152);
 			this.listView1.TabIndex = 15;
 			this.listView1.View = System.Windows.Forms.View.Details;
 			// 
@@ -706,29 +733,39 @@ namespace AODC
 			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.label5.BackColor = System.Drawing.Color.White;
-			this.label5.Location = new System.Drawing.Point(248, 294);
+			this.label5.Location = new System.Drawing.Point(248, 373);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(176, 16);
 			this.label5.TabIndex = 16;
 			// 
+			// plSinglemode
+			// 
+			this.plSinglemode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.plSinglemode.Controls.Add(this.label2);
+			this.plSinglemode.Controls.Add(this.ckbxConvertOpen);
+			this.plSinglemode.Controls.Add(this.label1);
+			this.plSinglemode.Controls.Add(this.tbxTargetFilename);
+			this.plSinglemode.Controls.Add(this.btnAddApp);
+			this.plSinglemode.Controls.Add(this.tbxFile);
+			this.plSinglemode.Controls.Add(this.label3);
+			this.plSinglemode.Controls.Add(this.btnConvertOnly);
+			this.plSinglemode.Controls.Add(this.btnChooseFile);
+			this.plSinglemode.Controls.Add(this.ckbxOverwrite);
+			this.plSinglemode.Controls.Add(this.cbxApps);
+			this.plSinglemode.Location = new System.Drawing.Point(0, 0);
+			this.plSinglemode.Name = "plSinglemode";
+			this.plSinglemode.Size = new System.Drawing.Size(640, 168);
+			this.plSinglemode.TabIndex = 17;
+			// 
 			// Mainform
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(640, 322);
+			this.ClientSize = new System.Drawing.Size(640, 401);
+			this.Controls.Add(this.plSinglemode);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.listView1);
 			this.Controls.Add(this.label4);
-			this.Controls.Add(this.ckbxConvertOpen);
-			this.Controls.Add(this.btnConvertOnly);
-			this.Controls.Add(this.cbxApps);
-			this.Controls.Add(this.label2);
-			this.Controls.Add(this.btnChooseFile);
-			this.Controls.Add(this.tbxFile);
-			this.Controls.Add(this.tbxTargetFilename);
-			this.Controls.Add(this.ckbxOverwrite);
-			this.Controls.Add(this.btnAddApp);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.label3);
 			this.Controls.Add(this.progressBar1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
@@ -737,6 +774,7 @@ namespace AODC
 			this.Name = "Mainform";
 			this.Text = "AODC - An OpenDocument Converter";
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.plSinglemode.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -746,11 +784,13 @@ namespace AODC
 		/// Der Haupteinstiegspunkt für die Anwendung.
 		/// </summary>
 		[STAThread]
-		static void Main() 
+		static void Main(params string[] args) 
 		{
 			try
 			{
 				Application.EnableVisualStyles();
+				ShowSplashScreen();				
+				ReadStartParams(args);
 			}
 			catch(Exception ex)
 			{}
@@ -914,13 +954,29 @@ namespace AODC
 		/// </summary>
 		private void Controler_OnFinished()
 		{
-			this.timer1.Stop();
-			this.progressBar1.Value		= 0;
-			MessageBox.Show("Conversion complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			bool finished					= false;
+			if(this._isSinglemode)
+			{
+				this.timer1.Stop();
+				this.progressBar1.Value		= 0;
+			}
+			if(this._isSinglemode)
+				MessageBox.Show("Conversion complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			else
+				if(this._sourceFiles != null && this._targetFiles != null)
+					if(this._sourceFiles.Count == 0 && this._targetFiles.Count == 0)
+					{
+						this.timer1.Stop();
+						this.progressBar1.Value		= 0;		
+						finished					= true;
+						MessageBox.Show("Batch conversion complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
 			this.DisplayDocumentInfo();
 			this.DisplayConversationTime();
 			this.Display();
 			this.ToogleButtons(true);
+			if(!this._isSinglemode && !finished)
+				this.PerformBatch();
 		}
 
 		/// <summary>
@@ -948,7 +1004,8 @@ namespace AODC
 		/// </summary>
 		private void DisplayDocumentInfo()
 		{
-			this.listView1.Items.Clear();
+			if(this._isSinglemode)
+				this.listView1.Items.Clear();
 			
 			try
 			{
@@ -1020,6 +1077,7 @@ namespace AODC
 		private void ToogleButtons(bool enable)
 		{
 			this.btnConvertOnly.Enabled	= enable;
+			this.label5.Visible			= enable;
 		}
 
 		/// <summary>
@@ -1053,7 +1111,7 @@ namespace AODC
 		private void menuItem4_Click(object sender, System.EventArgs e)
 		{
 			string version					= Application.ProductVersion;
-			MessageBox.Show("AODC "+version+"\nAutor: Lars Behrmann\nLicense: GPL\nUrl: http://aodl.sourceforge.net",
+			MessageBox.Show("AODC "+version+"\nAutor: Lars Behrmann\nLicense: GPL\nUrl: http://aodc.opendocument4all.com",
 				"AODL Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
@@ -1097,11 +1155,16 @@ namespace AODC
 		{
 			try
 			{
-				System.Diagnostics.Process.Start("IEXPLORE.EXE", "http://aodl.sourceforge.net");
+				System.Diagnostics.Process.Start("IEXPLORE.EXE", "http://aodc.opendocument4all.com");
 			}
 			catch(Exception ex)
 			{
 			}
+		}
+
+		private void menuItem10_Click(object sender, System.EventArgs e)
+		{
+			this.SwitchMode();
 		}
 		#endregion
 
@@ -1276,6 +1339,130 @@ namespace AODC
 			{
 				MessageBox.Show("An error occour while trying to save the gui settings!",
 					"Gui setting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Reads the start params.
+		/// </summary>
+		/// <param name="args">The args.</param>
+		private static void ReadStartParams(params string[] args)
+		{
+			try
+			{
+				if(args.Length > 0)
+				{
+					//First param has to be filepath
+					FileInfo fileInfo		= new FileInfo(args[0]);
+					if(fileInfo.Extension.ToLower() == ".odt")
+					{
+						if(File.Exists(fileInfo.FullName))
+						{
+							SourceFile	= fileInfo.FullName;
+						}
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("The commandline parameter aren't supported.",
+					"Wrong parameter", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		/// <summary>
+		/// Shows the splash screen.
+		/// </summary>
+		private static void ShowSplashScreen()
+		{
+			Splash splash					= new Splash();
+			splash.ShowDialog();
+		}
+
+		/// <summary>
+		/// Switches the mode.
+		/// </summary>
+		private void SwitchMode()
+		{
+			if(this._isSinglemode)
+			{
+				this._isSinglemode			= false;
+				this.plSinglemode.Visible	= false;
+				BatchControl batchCtl		= new BatchControl();
+				batchCtl.Location			= new Point(0, 0);
+				batchCtl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top) 
+					| System.Windows.Forms.AnchorStyles.Left) 
+					| System.Windows.Forms.AnchorStyles.Right)));
+				batchCtl.Size				= this.plSinglemode.Size;
+				batchCtl.OnStartBatch		+=new AODC.Controls.BatchControl.StartBatch(batchCtl_OnStartBatch);
+				this.Controls.Add(batchCtl);
+			}
+			else
+			{
+				this._isSinglemode			= true;
+				this.plSinglemode.Visible	= true;
+				foreach(Control ctl in this.Controls)
+					if(ctl is BatchControl)
+						this.Controls.Remove(ctl);
+			}
+		}
+
+		/// <summary>
+		/// Start the batch conversation. For each conversation
+		/// there will be a new thread started.
+		/// </summary>
+		/// <param name="sourcefiles">The sourcefiles.</param>
+		/// <param name="targetfiles">The targetfiles.</param>
+		private void batchCtl_OnStartBatch(ArrayList sourcefiles, ArrayList targetfiles)
+		{
+			try
+			{
+				this.listView1.Items.Clear();
+				this.ckbxOverwrite.Checked		= true;
+				this.ckbxConvertOpen.Checked	= false;
+
+				if(sourcefiles.Count > 0 && targetfiles.Count > 0)
+				{
+					this.tbxFile.Text			= sourcefiles[0].ToString();
+					this.tbxTargetFilename.Text	= targetfiles[0].ToString();
+					targetfiles.RemoveAt(0);
+					sourcefiles.RemoveAt(0);
+					this._sourceFiles			= sourcefiles;
+					this._targetFiles			= targetfiles;
+					this.btnConvertOnly_Click(null, null);
+				}
+			}
+			catch(Exception ex)
+			{
+				Errorform errForm			= new Errorform(ex);
+				errForm.ShowDialog();
+			}
+		}
+
+		/// <summary>
+		/// Performs the batch.
+		/// </summary>
+		private void PerformBatch()
+		{
+			try
+			{
+				if(!this._isSinglemode)
+					if(this._sourceFiles != null && this._targetFiles != null)
+						if(this._sourceFiles.Count != 0 && this._targetFiles.Count != 0)
+						{
+								this.tbxFile.Text			= this._sourceFiles[0].ToString();
+								this.tbxTargetFilename.Text	= this._targetFiles[0].ToString();
+								this._sourceFiles.RemoveAt(0);
+								this._targetFiles.RemoveAt(0);
+								//Wait for clean up resources
+								System.Threading.Thread.Sleep(750);
+								this.btnConvertOnly_Click(null, null);
+						}			
+			}
+			catch(Exception ex)
+			{
+				Errorform errForm			= new Errorform(ex);
+				errForm.ShowDialog();
 			}
 		}
 	}

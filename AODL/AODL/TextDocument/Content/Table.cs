@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.6 2005/12/18 18:29:46 larsbm Exp $
+ * $Id: Table.cs,v 1.7 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -17,6 +17,11 @@ namespace AODL.TextDocument.Content
 		/// The first row is a header row.
 		/// </summary>
 		private bool _firstRowIsHeader	= false;
+		/// <summary>
+		/// For rows that should be later added
+		/// to this table
+		/// </summary>
+		private int _nextRowInteger;
 
 		private ColumnCollection _columns;
 		/// <summary>
@@ -151,11 +156,13 @@ namespace AODL.TextDocument.Content
 		/// <param name="cells">The cell count.</param>
 		private void AddRows(int count, int cells)
 		{
+			this._nextRowInteger	= count+1;
+
 			for(int i=0; i<count; i++)
 			{
-				bool rowHeader	= false;
-				int irow		= i+1;
-				Row r			= new Row(this, this.Stylename+"."+irow.ToString());
+				bool rowHeader		= false;
+				int irow			= i+1;
+				Row r				= new Row(this, this.Stylename+"."+irow.ToString());
 				
 				//If first row is a header row
 				if(this._firstRowIsHeader && i==0)
@@ -396,6 +403,11 @@ namespace AODL.TextDocument.Content
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.7  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.6  2005/12/18 18:29:46  larsbm
  * - AODC Gui redesign
  * - AODC HTML exporter refecatored

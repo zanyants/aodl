@@ -1,5 +1,20 @@
 -------------------------------
-20.12.2004 AODC 1.0.1.1 beta
+04.01.2005 AODC 1.0.2.0 beta
+
+Changes and new features
+- Register odt files with AODC, or create
+  an menu entry "Convert with AODC"
+- Foot- and Endnotes will be converted
+- Full table of contents support, with
+  named anchors, if toc use hyperlinks
+- Batch mode, simply convert more than
+  one file at the same time
+
+Bugfixes
+- [ 1396032 ] Italic font style
+
+-------------------------------
+20.12.2005 AODC 1.0.1.1 beta
 
 Changes and new features
 - Gui setting could be stored, now.
@@ -10,7 +25,7 @@ Bugfixes
 - [ 1386394 ] Document drawing exception
 
 -------------------------------
-18.12.2004 AODC 1.0.1.0 beta
+18.12.2005 AODC 1.0.1.0 beta
 
 Changes and new features
 - Option form, now auto check for last update
@@ -24,6 +39,6 @@ Bugfixes
 - [ 1383623 ] Conversation Thread missed error event
 
 -------------------------------
-14.12.2004 AODC 1.0.0.1 alpha
+14.12.2005 AODC 1.0.0.1 alpha
 
 - fixed column span bug

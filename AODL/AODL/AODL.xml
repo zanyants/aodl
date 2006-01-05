@@ -166,6 +166,13 @@
             </summary>
             <param name="contentFile">The content file.</param>
         </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateTableOfContents(System.Xml.XmlNode)">
+            <summary>
+            Creates the table of contents.
+            </summary>
+            <param name="tocNode">The toc node.</param>
+            <returns></returns>
+        </member>
         <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateParagraph(System.Xml.XmlNode)">
             <summary>
             Creates the paragraph.
@@ -206,6 +213,14 @@
             Creates the table.
             </summary>
             <param name="tablenode">The tablenode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.CreateRow(System.Xml.XmlNode,AODL.TextDocument.Content.Table)">
+            <summary>
+            Creates the row.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="table">The table.</param>
             <returns></returns>
         </member>
         <member name="M:AODL.Import.XmlHelper.XmlNodeProcessor.GetTabStopStyles(System.Xml.XmlNode)">
@@ -897,6 +912,34 @@
             Gets the <see cref="T:AODL.TextDocument.Content.Cell"/> at the specified index.
             </summary>
             <value></value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.CellSpan">
+            <summary>
+            CellSpan used when cells are merged.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.CellSpan.#ctor(AODL.TextDocument.Content.Row)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.CellSpan"/> class.
+            </summary>
+            <param name="row">The row.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.CellSpan.NewXmlNode(AODL.TextDocument.TextDocument)">
+            <summary>
+            News the XML node.
+            </summary>
+            <param name="td">The td.</param>
+        </member>
+        <member name="F:AODL.TextDocument.Content.CellSpan._node">
+            <summary>
+            The Xml node
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.CellSpan.Node">
+            <summary>
+            Gets or sets the node.
+            </summary>
+            <value>The node.</value>
         </member>
         <member name="T:AODL.TextDocument.Content.Column">
             <summary>
@@ -1594,6 +1637,12 @@
             <param name="headingname">The headingname.</param>
             <returns>The css style element</returns>
         </member>
+        <member name="M:AODL.TextDocument.Content.Header.GetAnchor">
+            <summary>
+            Gets the html anchor, if the document use a table of contents
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AODL.TextDocument.Content.Header.GetHeadingNumber">
             <summary>
             Gets the heading number, if used via Outline-Level.
@@ -2158,6 +2207,14 @@
             <param name="table">The table.</param>
             <param name="stylename">The stylename.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Row.MergeCells(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Merge cells
+            </summary>
+            <param name="cellStartIndex">Start index of the cell.</param>
+            <param name="mergeCells">The count of cells to merge incl. the starting cell.</param>
+            <param name="mergeContent">if set to <c>true</c> [merge content].</param>
+        </member>
         <member name="M:AODL.TextDocument.Content.Row.Init">
             <summary>
             Inits the CellCollection instance.
@@ -2169,11 +2226,39 @@
             </summary>
             <param name="stylename">The stylename which should be referenced with this row.</param>
         </member>
+        <member name="M:AODL.TextDocument.Content.Row.Cells_Inserted(System.Int32,System.Object)">
+            <summary>
+            Cells_s the inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
         <member name="M:AODL.TextDocument.Content.Row.GetHtml">
             <summary>
             Return the content as Html string
             </summary>
             <returns>The html string</returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Row.CellSpans_Inserted(System.Int32,System.Object)">
+            <summary>
+            Cells the spans_ inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Row.Cells_Removed(System.Int32,System.Object)">
+            <summary>
+            Cells_s the removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.Row.CellSpans_Removed(System.Int32,System.Object)">
+            <summary>
+            Cells the spans_ removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
         </member>
         <member name="P:AODL.TextDocument.Content.Row.Table">
             <summary>
@@ -2182,6 +2267,12 @@
             <value>The table.</value>
         </member>
         <member name="P:AODL.TextDocument.Content.Row.Cells">
+            <summary>
+            Gets or sets the cells.
+            </summary>
+            <value>The cells.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.Row.CellSpans">
             <summary>
             Gets or sets the cells.
             </summary>
@@ -2411,6 +2502,12 @@
             The first row is a header row.
             </summary>
         </member>
+        <member name="F:AODL.TextDocument.Content.Table._nextRowInteger">
+            <summary>
+            For rows that should be later added
+            to this table
+            </summary>
+        </member>
         <member name="M:AODL.TextDocument.Content.Table.#ctor(AODL.TextDocument.TextDocument,System.String)">
             <summary>
             Constructor, create a new instance of table.
@@ -2547,6 +2644,321 @@
             The IContentCollection. Here find rows, columns and cells.
             </summary>
         </member>
+        <member name="T:AODL.TextDocument.Content.TableOfContents">
+            <summary>
+            Zusammenfassung für TableOfContent.
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.TableOfContents._indexBodyNode">
+            <summary>
+            This node will represent the visible entries
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.TableOfContents._contentStyleName">
+            <summary>
+            The style name for content entries
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.TableOfContents._contentStyleDisplayName">
+            <summary>
+            The display name for content entries
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.TableOfContents._isNew">
+            <summary>
+            Is created
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.#ctor(AODL.TextDocument.TextDocument,System.String,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.TableOfContents"/> class.
+            </summary>
+            <param name="textDocument">The text document.</param>
+            <param name="styleName">Name of the style.</param>
+            <param name="protectChanges">if set to <c>true</c> [protect changes].</param>
+            <param name="textName">Title for the Table of content e.g. Table of Content</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.#ctor(AODL.TextDocument.TextDocument,System.Xml.XmlNode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.TableOfContents"/> class.
+            </summary>
+            <param name="textDocument">The text document.</param>
+            <param name="tocNode">The toc node.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.RegisterEvents">
+            <summary>
+            Registers the events.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.NewXmlNode(System.String,System.Boolean,System.String)">
+            <summary>
+            News the XML node.
+            </summary>
+            <param name="stylename">The stylename.</param>
+            <param name="protectChanges">if set to <c>true</c> [protect changes].</param>
+            <param name="textName">Name of the text.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.CreateIndexBody">
+            <summary>
+            Creates the index body node.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.CreateTitlePargraph">
+            <summary>
+            Creates the title pargraph.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.InsertContentStyle">
+            <summary>
+            Insert the content style nodes. These are 10 styles for
+            each outline number one style.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.SetOutlineStyle">
+            <summary>
+            Set the outline style.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.Content_Inserted(System.Int32,System.Object)">
+            <summary>
+            Content was inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.Content_Removed(System.Int32,System.Object)">
+            <summary>
+            Content was removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.GetTabStopStyle(System.String,System.String,System.Double)">
+            <summary>
+            Gets the tab stop style.
+            </summary>
+            <param name="leaderStyle">The leader style.</param>
+            <param name="leadingChar">The leading char.</param>
+            <param name="position">The position.</param>
+            <returns>A for a table of contents optimized TabStopStyleCollection</returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.InsertEntry(System.String,System.Int32)">
+            <summary>
+            Insert the given text as an Table of contents entry.
+            e.g. You just insert a Headline 1. My headline to
+            the document and want this text also as an Table of
+            contents entry, so you can simply add the text using
+            this method.
+            </summary>
+            <param name="textEntry">The text entry.</param>
+            <param name="outLineLevel">The outline level possible 1-10.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContents.GetHtml">
+            <summary>
+            Return the content as Html string
+            </summary>
+            <returns>The html string</returns>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.UseHyperlinks">
+            <summary>
+            Gets or sets a value indicating whether [use hyperlinks].
+            If it's set to true, the text entries automaticaly will
+            extended with Hyperlinks.
+            </summary>
+            <value><c>true</c> if [use hyperlinks]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.Title">
+            <summary>
+            Gets the title which is displayed
+            for this table of content in english
+            this will always be Table of Content,
+            but this is free of choice.
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.TitleParagraph">
+            <summary>
+            Gets or sets the title paragraph.
+            </summary>
+            <value>The title paragraph.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.TableOfContentsSource">
+            <summary>
+            Gets or sets the table of content source.
+            </summary>
+            <value>The table of content source.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.Document">
+            <summary>
+            Every object (typeof(IContent)) have to know his TextDocument.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.Node">
+            <summary>
+            Represents the XmlNode within the content.xml from the odt file.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.Stylename">
+            <summary>
+            The style name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.Style">
+            <summary>
+            A Style class wich is referenced with the content object.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.TextContent">
+            <summary>
+            The TableOfContent object doesn't have a TextCollection!
+            </summary>
+            <value>Return null</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContents.Content">
+            <summary>
+            Represent all visible entries of this Table of contents.
+            Normally you should only insert paragraph objects as
+            entry which match the following structure
+            e.g. 3.1 My header text \t
+            </summary>
+            <value>The content.</value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.TableOfContentsIndexTemplate">
+            <summary>
+            TableOfContentsIndexTemplate represent the table of content
+            index template. It is used to set the index entries and their
+            order within a table of content.
+            A common order would be:
+            Chapter Text TabStop PageNumber
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsIndexTemplate.#ctor(AODL.TextDocument.Content.TableOfContents,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Content.TableOfContentsIndexTemplate"/> class.
+            </summary>
+            <param name="tableOfContents">Content of the table of.</param>
+            <param name="outlineLevel">For which outline level this template should be used.</param>
+            <param name="styleName">Style name.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsIndexTemplate.InitStandardTemplate">
+            <summary>
+            Inits the standard template.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsIndexTemplate.InsertIndexEntry(AODL.TextDocument.Content.IndexEntryTypes)">
+            <summary>
+            Insert a index entry to the template.
+            You can define the order through the order you insert
+            the index entry types.
+            </summary>
+            <param name="indexEntryType">Type of the index entry.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsIndexTemplate.NewXmlNode(System.Int32,System.String)">
+            <summary>
+            Create the XmlNode which represent this object.
+            </summary>
+            <param name="outlineLevel">For which outline level this template should
+            be used.</param>
+            <param name="styleName">The name of the style which is referenced with
+            this template</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsIndexTemplate.AddIndexEntryNode(System.String,AODL.TextDocument.Content.IndexEntryTypes)">
+            <summary>
+            Add the index entry node, with given type
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="indexEntryType">Type of the index entry.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContentsIndexTemplate.Node">
+            <summary>
+            Gets or sets the node.
+            </summary>
+            <value>The node.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContentsIndexTemplate.TableOfContents">
+            <summary>
+            Gets or sets the content of the table of.
+            </summary>
+            <value>The content of the table of.</value>
+        </member>
+        <member name="T:AODL.TextDocument.Content.IndexEntryTypes">
+            <summary>
+            The possible index entry types
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.IndexEntryTypes.Chapter">
+            <summary>
+            Index entry type Chapter
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.IndexEntryTypes.Text">
+            <summary>
+            Index entry type Text
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.IndexEntryTypes.TabStop">
+            <summary>
+            Index entry type TabStop
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.IndexEntryTypes.PageNumber">
+            <summary>
+            Index entry type PageNumber
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.IndexEntryTypes.HyperlinkStart">
+            <summary>
+            Index entry type Hyperlink start
+            </summary>
+        </member>
+        <member name="F:AODL.TextDocument.Content.IndexEntryTypes.HyperlinkEnd">
+            <summary>
+            Index entry type Hyperlink start
+            </summary>
+        </member>
+        <member name="T:AODL.TextDocument.Content.TableOfContentsSource">
+            <summary>
+            TableOfContentSource.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsSource.#ctor(AODL.TextDocument.Content.TableOfContents)">
+            <summary>
+            Initializes a new instance of the <see cref="!:TableOfContentSource"/> class.
+            </summary>
+            <param name="tableOfContents">Content of the table of.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsSource.InitStandardTableOfContentStyle">
+            <summary>
+            Init the standard style source template styles.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Content.TableOfContentsSource.NewXmlNode">
+            <summary>
+            Create the XmlNode which represent this object.
+            </summary>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContentsSource.Node">
+            <summary>
+            Gets or sets the node.
+            </summary>
+            <value>The node.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContentsSource.TableOfContents">
+            <summary>
+            Gets or sets the content of the table of.
+            </summary>
+            <value>The content of the table of.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Content.TableOfContentsSource.TableOfContentsIndexTemplateCollection">
+            <summary>
+            Gets or sets the table of content index template collection.
+            </summary>
+            <value>The table of content index template collection.</value>
+        </member>
         <member name="T:AODL.TextDocument.Content.TextContentSpecialCharacter">
             <summary>
             TextContentSpecialCharacter parser
@@ -2648,6 +3060,12 @@
             Return the content as Html string
             </summary>
             <returns>The html string</returns>
+        </member>
+        <member name="M:AODL.TextDocument.Content.XLink.GetLink">
+            <summary>
+            Gets the link.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:AODL.TextDocument.Content.XLink.IContent">
             <summary>
@@ -3318,6 +3736,57 @@
             The XmlNode which represent the property element.
             </summary>
             <value>The node</value>
+        </member>
+        <member name="T:AODL.TextDocument.Style.Properties.SectionProperties">
+            <summary>
+            Zusammenfassung für SectionProperties.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.SectionProperties.#ctor(AODL.TextDocument.Style.IStyle)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.Properties.SectionProperties"/> class.
+            </summary>
+            <param name="style">The style.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.SectionProperties.AddStandardColumnStyle">
+            <summary>
+            Adds the standard column style.
+            While creating new TableOfContent objects
+            AODL will only support a TableOfContent
+            which use the Header styles with outlining
+            without table columns
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.SectionProperties.NewXmlNode">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.Properties.SectionProperties.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.SectionProperties.Style">
+            <summary>
+            Gets or sets the style.
+            </summary>
+            <value>The style.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.SectionProperties.Editable">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:AODL.TextDocument.Style.Properties.SectionProperties"/> is editable.
+            </summary>
+            <value><c>true</c> if editable; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.Properties.SectionProperties.Node">
+            <summary>
+            The XmlNode which represent the property element.
+            </summary>
+            <value></value>
         </member>
         <member name="T:AODL.TextDocument.Style.Properties.TableProperties">
             <summary>
@@ -4600,6 +5069,55 @@
             </summary>
             <value></value>
         </member>
+        <member name="T:AODL.TextDocument.Style.SectionStyle">
+            <summary>
+            Zusammenfassung für SectionStyle.
+            </summary>
+        </member>
+        <member name="M:AODL.TextDocument.Style.SectionStyle.#ctor(AODL.TextDocument.Content.IContent,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.TextDocument.Style.SectionStyle"/> class.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="styleName">Name of the style.</param>
+        </member>
+        <member name="M:AODL.TextDocument.Style.SectionStyle.NewXmlNode(System.String)">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+            <param name="stylename">The stylename which should be referenced with this table of contents.</param>
+        </member>
+        <member name="P:AODL.TextDocument.Style.SectionStyle.Content">
+            <summary>
+            Gets or sets the content to this
+            section style belongs
+            </summary>
+            <value>The content.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.SectionStyle.SectionProperties">
+            <summary>
+            Gets or sets the section properties.
+            </summary>
+            <value>The section properties.</value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.SectionStyle.Node">
+            <summary>
+            The XmlNode.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.SectionStyle.Name">
+            <summary>
+            The style name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.TextDocument.Style.SectionStyle.Document">
+            <summary>
+            The TextDocument to this object belongs.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:AODL.TextDocument.Style.TableStyle">
             <summary>
             The class TableStyle represent the style for a Table.
@@ -5271,6 +5789,11 @@
             The file name.
             </summary>
         </member>
+        <member name="F:AODL.TextDocument.DocumentStyles.OfficeStyles">
+            <summary>
+            XPath to the document office styles
+            </summary>
+        </member>
         <member name="M:AODL.TextDocument.DocumentStyles.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:AODL.TextDocument.DocumentStyles"/> class.
@@ -5286,6 +5809,21 @@
             Loads from file.
             </summary>
             <param name="file">The file.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.InsertOfficeStylesNode(System.Xml.XmlNode,AODL.TextDocument.TextDocument)">
+            <summary>
+            Inserts the office styles node.
+            </summary>
+            <param name="aStyleNode">A style node.</param>
+            <param name="document">The text document.</param>
+        </member>
+        <member name="M:AODL.TextDocument.DocumentStyles.SetOutlineStyle(System.Int32,System.String,AODL.TextDocument.TextDocument)">
+            <summary>
+            Sets the outline style.
+            </summary>
+            <param name="outlineLevel">The outline level.</param>
+            <param name="numFormat">The num format.</param>
+            <param name="document">The text document.</param>
         </member>
         <member name="M:AODL.TextDocument.DocumentStyles.InsertFooter(AODL.TextDocument.Content.Paragraph,AODL.TextDocument.TextDocument)">
             <summary>
@@ -5440,6 +5978,12 @@
             <param name="index">The index of the inserted IContent object.</param>
             <param name="value">The inserted IContent object.</param>
         </member>
+        <member name="M:AODL.TextDocument.TextDocument.CreateDocument(AODL.TextDocument.Content.IContent)">
+            <summary>
+            Creates the document.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
         <member name="M:AODL.TextDocument.TextDocument.InsertTable(AODL.TextDocument.Content.Table)">
             <summary>
             Inserts the table.
@@ -5468,6 +6012,18 @@
             Disposes the specified disposing.
             </summary>
             <param name="disposing">if set to <c>true</c> [disposing].</param>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.TableofContentsCount">
+            <summary>
+            Gets the tableof contents count.
+            </summary>
+            <value>The tableof contents count.</value>
+        </member>
+        <member name="P:AODL.TextDocument.TextDocument.TableCount">
+            <summary>
+            Gets the tableof contents count.
+            </summary>
+            <value>The tableof contents count.</value>
         </member>
         <member name="P:AODL.TextDocument.TextDocument.XmlDoc">
             <summary>

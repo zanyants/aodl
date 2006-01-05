@@ -1,5 +1,5 @@
 /*
- * $Id: Footnote.cs,v 1.2 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Footnote.cs,v 1.3 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -11,7 +11,7 @@ namespace AODL.TextDocument.Content
 	/// Represent a Footnote which could be 
 	/// a Foot- or a Endnote
 	/// </summary>
-	public class Footnote : IText
+	public class Footnote : IText, IHtml
 	{
 		/// <summary>
 		/// Gets or sets the id.
@@ -192,6 +192,24 @@ namespace AODL.TextDocument.Content
 			{
 				return this._node.OuterXml;
 			}
+		}
+
+		#endregion
+
+		#region IHtml Member
+
+		/// <summary>
+		/// Return the content as Html string
+		/// </summary>
+		/// <returns>The html string</returns>
+		public string GetHtml()
+		{
+			string html			= "<sup>(";
+			html				+= this.Id;
+			html				+= ". "+this.Text;
+			html				+= ")</sup>";
+
+			return html;
 		}
 
 		#endregion

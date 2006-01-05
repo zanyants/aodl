@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Errorform.cs,v 1.2 2005/12/21 17:17:12 larsbm Exp $
+ * $Id: Errorform.cs,v 1.3 2006/01/05 10:31:11 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -587,7 +587,8 @@ namespace AODC
 		{
 			try
 			{
-				System.Diagnostics.Process.Start("IEXPLORE.EXE","http://aodl.sourceforge.net/bugs.html");
+				System.Diagnostics.Process.Start("IEXPLORE.EXE",
+					"http://sourceforge.net/tracker/?atid=776150&group_id=149912&func=browse");
 			}
 			catch(Exception ex)
 			{

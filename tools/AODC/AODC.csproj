@@ -158,9 +158,29 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Splash.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Splash.resx"
+                    DependentUpon = "Splash.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Updater.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\BatchControl.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\BatchControl.resx"
+                    DependentUpon = "BatchControl.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Resources\AODL.dll"

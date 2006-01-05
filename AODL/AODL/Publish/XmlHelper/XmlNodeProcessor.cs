@@ -1,5 +1,5 @@
 /*
- * $Id: XmlNodeProcessor.cs,v 1.4 2005/12/21 17:17:12 larsbm Exp $
+ * $Id: XmlNodeProcessor.cs,v 1.5 2006/01/05 10:28:06 larsbm Exp $
  */
 
 using System;
@@ -109,11 +109,74 @@ namespace AODL.Import.XmlHelper
 							if(header != null)
 								this._textDocument.Content.Add(header);
 							break;
+						case "text:table-of-content":
+							TableOfContents toc	= this.CreateTableOfContents(nodeChild.CloneNode(true));
+							if(toc != null)
+								this._textDocument.Content.Add(toc);
+							break;
 						default:
 							this.CreateUnknownContent(nodeChild.CloneNode(true));
 							break;
 					}
 				}
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Creates the table of contents.
+		/// </summary>
+		/// <param name="tocNode">The toc node.</param>
+		/// <returns></returns>
+		private TableOfContents CreateTableOfContents(XmlNode tocNode)
+		{
+			try
+			{
+				//return null;
+				string styleName					= "Table_Of_Contents";
+				TableOfContents tableOfContents		= new TableOfContents(
+					this._textDocument, tocNode);
+				SectionStyle sectionStyle			= new SectionStyle(
+					tableOfContents, styleName);
+				tableOfContents.Style				= sectionStyle;
+				
+				XmlNode styleNode					= null;
+
+				XmlNode styleNameNode				= tocNode.SelectSingleNode(
+					"@text:style-name", this._textDocument.NamespaceManager);
+				
+				if(styleNameNode != null)
+					styleName						= styleNameNode.InnerText;
+				
+				if(styleName.Length > 0)
+					styleNode					= this.GetAStyleNode("style:style", styleName);
+
+				if(styleNode != null)
+					tableOfContents.Style.Node	= styleNode;
+				
+				//Create the text entries
+				XmlNodeList paragraphNodeList	= tocNode.SelectNodes(
+					"text:index-body/text:p", this._textDocument.NamespaceManager);
+				XmlNode indexBodyNode			= tocNode.SelectSingleNode("text:index-body",
+					this._textDocument.NamespaceManager);
+				tableOfContents._indexBodyNode	= indexBodyNode;
+				IContentCollection pCollection	= new IContentCollection();
+
+				foreach(XmlNode paragraphnode in paragraphNodeList)
+				{
+					Paragraph paragraph			= this.CreateParagraph(paragraphnode);					
+					if(indexBodyNode != null)
+						indexBodyNode.RemoveChild(paragraphnode);
+					pCollection.Add(paragraph);
+				}
+
+				foreach(IContent content in pCollection)
+					tableOfContents.Content.Add(content);
+
+				return tableOfContents;
 			}
 			catch(Exception ex)
 			{
@@ -626,6 +689,12 @@ namespace AODL.Import.XmlHelper
 			}
 		}
 
+		/// <summary>
+		/// Creates the row.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <param name="table">The table.</param>
+		/// <returns></returns>
 		private Row CreateRow(XmlNode node, Table table)
 		{
 			try
@@ -674,12 +743,10 @@ namespace AODL.Import.XmlHelper
 
 						row.Cells.Add(cell);
 					}
-//					else if(nodecell.Name == "table:covered-table-cell")
-//					{
-//						Console.WriteLine("covered cell");
-//						CellSpan cellSpan			= new CellSpan(row);
-//						row.Cells.Add(cellSpan);
-//					}
+					else if(nodecell.Name == "table:covered-table-cell")
+					{
+						row.CellSpans.Add(new CellSpan(row));
+					}
 				}
 				return row;
 			}
@@ -941,6 +1008,11 @@ namespace AODL.Import.XmlHelper
 
 /*
  * $Log: XmlNodeProcessor.cs,v $
+ * Revision 1.5  2006/01/05 10:28:06  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.4  2005/12/21 17:17:12  larsbm
  * - AODL new feature save gui settings
  * - Bugfixes, in XmlNodeProcessor

@@ -180,5 +180,66 @@ namespace AODLTest
 
 			doc.SaveTo("tableheader.odt");
 		}
+
+		[Test]
+		public void CellSpanTest()
+		{
+			TextDocument doc		= new TextDocument();
+			doc.New();
+
+			Table table				= new Table(doc, "table1");
+			table.Init(5, 2, 16.99);
+
+			//Create a new row within this table and
+			//set the cellspan to 2
+			Row row					= new Row(table, "");
+			//Create a real cell
+			Cell cell				= new Cell(row, "table1.ZZ1");
+			//Set cell span
+			cell.ColumnRepeating	= "2";
+			//Set the border
+			((CellStyle)cell.Style).CellProperties.Border	= Border.NormalSolid;
+			//add some content to this cell
+			cell.Content.Add(new Paragraph(doc, 
+				ParentStyles.Standard, 
+				"Hello I'm merged over two cells!"));
+			//add cell to the row
+			row.Cells.Add(cell);
+			//we have to add one CellSpan object, because the
+			//table has original 2 columns
+			row.CellSpans.Add(new CellSpan(row));
+			//at least at this row the table
+			table.Rows.Add(row);
+			//add the table to the document
+			doc.Content.Add(table);
+			//save it to the disk
+			doc.SaveTo("tablecellspan.odt");
+		}
+
+		[Test]
+		public void MergeCellsTest()
+		{
+		TextDocument doc		= new TextDocument();
+		doc.New();
+
+		Table table				= new Table(doc, "table1");
+		table.Init(4, 5, 16.99);
+
+		foreach(Row r in table.Rows)
+			foreach(Cell c in r.Cells)
+				c.InsertText("Hello");
+		//Merge the first cell of the first row and set mergeContent, so
+		//all content from the merged cells will move
+		//to the first unmerged cell
+		table.Rows[0].MergeCells(0, 3, true);
+		//Merge the first cell of the third row
+		//set mergeContent and merge all cells
+		//The result will be that row 3 only have one cell!
+		table.Rows[2].MergeCells(0, 5, true);
+
+		doc.Content.Add(table);
+
+		doc.SaveTo("tablemergedcell.odt");
+		}
 	}
 }

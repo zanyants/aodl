@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Controler.cs,v 1.2 2005/12/18 18:29:48 larsbm Exp $
+ * $Id: Controler.cs,v 1.3 2006/01/05 10:31:11 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -471,9 +471,8 @@ namespace AODC
 				_textDocument.Dispose();
 				_elapsedTime	= DateTime.Now - _start;
 				
-				Thread.Sleep(1000);
-				OnFinished();
-				OnReady();				
+				Thread.Sleep(1000);				
+				OnFinished();								
 			}
 			catch(Exception ex)
 			{

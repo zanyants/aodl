@@ -1,7 +1,7 @@
 /*
- * $Id: CellSpan.cs,v 1.1 2005/12/18 18:29:46 larsbm Exp $
+ * $Id: CellSpan.cs,v 1.2 2006/01/05 10:31:10 larsbm Exp $
  */
-/*
+
 using System;
 using System.Xml;
 
@@ -10,7 +10,7 @@ namespace AODL.TextDocument.Content
 	/// <summary>
 	/// CellSpan used when cells are merged.
 	/// </summary>
-	public class CellSpan : IContent
+	public class CellSpan
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CellSpan"/> class.
@@ -27,25 +27,17 @@ namespace AODL.TextDocument.Content
 		/// <param name="td">The td.</param>
 		private void NewXmlNode(TextDocument td)
 		{			
-			this.Node		= td.CreateNode("table", "covered-table-cell");
+			this.Node		= td.CreateNode("covered-table-cell", "table");
 		}
 
-		#region IContent Member
-
-		private TextDocument _document;
-		public TextDocument Document
-		{
-			get
-			{
-				return _document;
-			}
-			set
-			{
-				this._document = value;
-			}
-		}
-
+		/// <summary>
+		/// The Xml node
+		/// </summary>
 		private XmlNode _node;
+		/// <summary>
+		/// Gets or sets the node.
+		/// </summary>
+		/// <value>The node.</value>
 		public XmlNode Node
 		{
 			get
@@ -57,64 +49,16 @@ namespace AODL.TextDocument.Content
 				this._node = value;
 			}
 		}
-
-		/// <summary>
-		/// The stylename not available
-		/// </summary>
-		/// <value></value>
-		public string Stylename
-		{
-			get
-			{
-				// TODO:  Getter-Implementierung für CellSpan.Stylename hinzufügen
-				return null;
-			}
-			set
-			{
-				// TODO:  Getter-Implementierung für CellSpan.Stylename hinzufügen
-			}
-		}
-
-		/// <summary>
-		/// A Style not available
-		/// </summary>
-		/// <value></value>
-		public AODL.TextDocument.Style.IStyle Style
-		{
-			get
-			{
-				// TODO:  Getter-Implementierung für CellSpan.Style hinzufügen
-				return null;
-			}
-			set
-			{
-				// TODO:  Getter-Implementierung für CellSpan.Style hinzufügen
-			}
-		}
-
-		/// <summary>
-		/// CellSpan have no content
-		/// </summary>
-		/// <value></value>
-		public ITextCollection TextContent
-		{
-			get
-			{
-				// TODO:  Getter-Implementierung für CellSpan.TextContent hinzufügen
-				return null;
-			}
-			set
-			{
-				// TODO:  Getter-Implementierung für CellSpan.TextContent hinzufügen
-			}
-		}
-
-		#endregion
 	}
 }
-*/
+
 /*
  * $Log: CellSpan.cs,v $
+ * Revision 1.2  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.1  2005/12/18 18:29:46  larsbm
  * - AODC Gui redesign
  * - AODC HTML exporter refecatored

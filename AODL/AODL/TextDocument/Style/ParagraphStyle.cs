@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphStyle.cs,v 1.5 2005/11/20 17:31:20 larsbm Exp $
+ * $Id: ParagraphStyle.cs,v 1.6 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -45,7 +45,6 @@ namespace AODL.TextDocument.Style
 			set { this._properties = value; }
 		}
 
-//		private string _parentStyle;
 		/// <summary>
 		/// The parent style of this object.
 		/// </summary>
@@ -53,13 +52,20 @@ namespace AODL.TextDocument.Style
 		{
 			get
 			{	
-				return this._node.SelectSingleNode("@style:parent-style-name", 
-					this.Content.Document.NamespaceManager).InnerText;
+				XmlNode xn	= this._node.SelectSingleNode("@style:parent-style-name", 
+					this.Content.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
 			}
 			set
 			{
+				XmlNode xn = this._node.SelectSingleNode("@style:parent-style-name", 
+					this.Content.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("parent-style-name", value, "style");
 				this._node.SelectSingleNode("@style:parent-style-name", 
-					this.Content.Document.NamespaceManager).InnerText = value.ToString();
+					this.Content.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -239,6 +245,11 @@ namespace AODL.TextDocument.Style
 
 /*
  * $Log: ParagraphStyle.cs,v $
+ * Revision 1.6  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.5  2005/11/20 17:31:20  larsbm
  * - added suport for XLinks, TabStopStyles
  * - First experimental of loading dcuments

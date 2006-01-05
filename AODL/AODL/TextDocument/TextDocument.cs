@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.17 2005/12/18 18:29:46 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.18 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -38,6 +38,26 @@ namespace AODL.TextDocument
 	/// </example>
 	public class TextDocument : IContentContainer, IDisposable
 	{
+		private int _tableOfContentsCount			= 0;
+		/// <summary>
+		/// Gets the tableof contents count.
+		/// </summary>
+		/// <value>The tableof contents count.</value>
+		public int TableofContentsCount
+		{
+			get { return this._tableOfContentsCount; }
+		}
+
+		private int _tableCount						= 0;
+		/// <summary>
+		/// Gets the tableof contents count.
+		/// </summary>
+		/// <value>The tableof contents count.</value>
+		public int TableCount
+		{
+			get { return this._tableCount; }
+		}
+
 		private XmlDocument _xmldoc;
 		/// <summary>
 		/// The xmldocument the textdocument based on.
@@ -185,7 +205,7 @@ namespace AODL.TextDocument
 			this.Content			= new IContentCollection();
 			this.FontList			= new ArrayList();
 			this._graphics			= new ArrayList();
-			//this.Content.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
+			this.Content.Inserted	+=new AODL.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
 		}
 
 		/// <summary>
@@ -398,7 +418,7 @@ namespace AODL.TextDocument
 			foreach(string fontname in this.FontList)
 				this.AddFont(fontname);
 			for(int i=0; i < this.Content.Count; i++)
-				this.Content_Inserted(i, this.Content[i]);
+				this.CreateDocument(this.Content[i]);
 		}
 
 		/// <summary>
@@ -476,7 +496,20 @@ namespace AODL.TextDocument
 		/// <param name="value">The inserted IContent object.</param>
 		private void Content_Inserted(int index, object value)
 		{
-			if(value.GetType().Name == "Table")
+			if(value is TableOfContents)
+				this._tableOfContentsCount++;
+			else if(value is Table)
+				this._tableCount++;
+		}
+
+		
+		/// <summary>
+		/// Creates the document.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		private void CreateDocument(IContent value)
+		{
+			if(value is Table)
 			{
 				this.InsertTable((Table)value);
 				return;
@@ -657,6 +690,11 @@ namespace AODL.TextDocument
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.18  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.17  2005/12/18 18:29:46  larsbm
  * - AODC Gui redesign
  * - AODC HTML exporter refecatored

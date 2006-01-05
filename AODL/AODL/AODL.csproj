@@ -253,6 +253,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\CellSpanCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\Column.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -373,6 +378,26 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Content\TableOfContents.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\TableOfContentsIndexTemplate.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\TableOfContentsIndexTemplateCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Content\TableOfContentsSource.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Content\TextContentSpecialCharacter.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -458,6 +483,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "TextDocument\Style\SectionStyle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "TextDocument\Style\TableStyle.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -539,6 +569,11 @@
                 />
                 <File
                     RelPath = "TextDocument\Style\Properties\RowProperties.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocument\Style\Properties\SectionProperties.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -74,6 +74,23 @@ namespace AODLTest
 			doc.Dispose();
 		}
 
+		[Test]
+		public void ReloadTableOfContents()
+		{
+			TextDocument doc	= new TextDocument();
+			doc.Load("OpenOffice.net.odt");
+			doc.SaveTo("OpenOffice.net.Reloaded.odt");
+			doc.Dispose();
+		}
+
+		[Test]
+		public void TableOfContentsHtmlExport()
+		{
+			TextDocument doc	= new TextDocument();
+			doc.Load("OpenOffice.net.odt");
+			doc.SaveTo("OpenOffice.net.html");
+			doc.Dispose();
+		}
 
 		[Test]
 		public void SaveAsHtml()
@@ -120,6 +137,18 @@ namespace AODLTest
 			document.Load(@"F:\odtFiles\Howto_special_char.odt");
 			document.SaveTo(@"F:\odtFiles\Howto_special_char.html");
 			document.Dispose();
+		}
+
+		[Test]
+		public void ComplexTable()
+		{
+			TableTest tableTest	= new TableTest();
+			tableTest.MergeCellsTest();
+
+			TextDocument doc	= new TextDocument();
+			doc.Load("tablemergedcell.odt");
+			doc.SaveTo("tablemergedcellReloaded.odt");
+			doc.Dispose();
 		}
 
 		[Test]

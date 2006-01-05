@@ -1,6 +1,6 @@
 
 /*
- * $Id: TextProperties.cs,v 1.8 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: TextProperties.cs,v 1.9 2006/01/05 10:31:10 larsbm Exp $
  */
 
 using System;
@@ -421,7 +421,8 @@ namespace AODL.TextDocument.Style.Properties
 			string style		= "style=\"";
 
 			if(this.Italic != null)
-				style	+= "font-style: italic; ";
+				if(this.Italic != "normal")
+					style	+= "font-style: italic; ";
 			if(this.Bold != null)
 				style	+= "font-weight: "+this.Bold+"; ";
 			if(this.Underline != null)
@@ -478,6 +479,11 @@ namespace AODL.TextDocument.Style.Properties
 
 /*
  * $Log: TextProperties.cs,v $
+ * Revision 1.9  2006/01/05 10:31:10  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.8  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header

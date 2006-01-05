@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.4 2005/12/18 18:29:46 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.5 2006/01/05 10:28:06 larsbm Exp $
  */
 
 using System;
@@ -62,8 +62,8 @@ namespace AODL.Export
 				this.WriteSingleFiles(document.DocumentStyles.Styles, dir+DocumentStyles.FileName);
 				this.WriteSingleFiles(document.XmlDoc, dir+"content.xml");
 				//Write Pictures and Thumbnails
-				this.SaveExistingGraphics(document.DocumentPictures, dir+"Pictures\\");
-				this.SaveExistingGraphics(document.DocumentThumbnails, dir+"Thumbnails\\");
+//				this.SaveExistingGraphics(document.DocumentPictures, dir+"Pictures\\");
+//				this.SaveExistingGraphics(document.DocumentThumbnails, dir+"Thumbnails\\");
 				//Don't know why VS couldn't read a textfile resource without file prefix
 				WriteMimetypeFile(dir+@"\mimetyp");
 				//Save graphics, which were build during creating a new document
@@ -291,6 +291,11 @@ namespace AODL.Export
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.5  2006/01/05 10:28:06  larsbm
+ * - AODL merged cells
+ * - AODL toc
+ * - AODC batch mode, splash screen
+ *
  * Revision 1.4  2005/12/18 18:29:46  larsbm
  * - AODC Gui redesign
  * - AODC HTML exporter refecatored
