@@ -1,5 +1,5 @@
 /*
- * $Id: AARunMeFirstAndOnce.cs,v 1.1 2006/01/29 11:26:02 larsbm Exp $
+ * $Id: AARunMeFirstAndOnce.cs,v 1.2 2006/01/29 19:30:24 larsbm Exp $
  */
 
 /*
@@ -24,7 +24,10 @@ namespace AODLTest
 	[TestFixture]
 	public class AARunMeFirstAndOnce
 	{
-		public static string outPutFolder		= Environment.CurrentDirectory+"\\GeneratedFiles\\";
+		private static string generatedFolder	= System.Configuration.ConfigurationSettings.AppSettings["writefiles"];
+		private static string readFromFolder	= System.Configuration.ConfigurationSettings.AppSettings["readfiles"];
+		public static string outPutFolder		= Environment.CurrentDirectory+generatedFolder;
+		public static string inPutFolder		= Environment.CurrentDirectory+readFromFolder;
 
 		[Test]
 		public void AARunMeFirstAndOnceDir()
@@ -39,6 +42,9 @@ namespace AODLTest
 
 /*
  * $Log: AARunMeFirstAndOnce.cs,v $
+ * Revision 1.2  2006/01/29 19:30:24  larsbm
+ * - Added app config support for NUnit tests
+ *
  * Revision 1.1  2006/01/29 11:26:02  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

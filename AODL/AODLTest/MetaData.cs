@@ -1,5 +1,5 @@
 /*
- * $Id: MetaData.cs,v 1.2 2006/01/29 11:26:02 larsbm Exp $
+ * $Id: MetaData.cs,v 1.3 2006/01/29 19:30:24 larsbm Exp $
  */
 
 /*
@@ -19,6 +19,7 @@ using System;
 using NUnit.Framework;
 using AODL.Document.Import;
 using AODL.Document.TextDocuments;
+using AODL.Document.Exceptions;
 using AODL.Document.Content;
 using AODL.Document.Styles;
 
@@ -30,8 +31,24 @@ namespace AODLTest
 		[Test]
 		public void MetaDataDisplay()
 		{
-			TextDocument document		= new TextDocument();
-			document.Load("ProgrammaticControlOfMenuAndToolbarItems.odt");
+			TextDocument document		= null;
+			try
+			{
+				document				= new TextDocument();
+				document.Load(AARunMeFirstAndOnce.inPutFolder+"ProgrammaticControlOfMenuAndToolbarItems.odt");
+			}
+			catch(Exception ex)
+			{
+				if(ex is AODLException)
+				{
+					if(((AODLException)ex).OriginalException != null)
+						Console.WriteLine("Org ex: {0}", ((AODLException)ex).OriginalException.Message+"\r\n"
+							+((AODLException)ex).OriginalException.StackTrace);
+					if(((AODLException)ex).Node != null)
+						Console.WriteLine("Node: {0}", ((AODLException)ex).Node.OuterXml);
+				}
+				else throw ex;
+			}
 
 			Console.WriteLine(document.DocumentMetadata.InitialCreator);
 			Console.WriteLine(document.DocumentMetadata.LastModified);
@@ -74,6 +91,9 @@ namespace AODLTest
 
 /*
  * $Log: MetaData.cs,v $
+ * Revision 1.3  2006/01/29 19:30:24  larsbm
+ * - Added app config support for NUnit tests
+ *
  * Revision 1.2  2006/01/29 11:26:02  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

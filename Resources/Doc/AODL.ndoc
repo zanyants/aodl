@@ -29,12 +29,13 @@
             <property name="HtmlHelpName" value="AODL_MSDN_2003" />
             <property name="Title" value="An NDoc Documented Class Library" />
             <property name="OutputTarget" value="HtmlHelp" />
-            <property name="RootPageFileName" value="D:\OpenDocument\Resources\Doc\AODL Startpage.html" />
+            <property name="RootPageContainsNamespaces" value="True" />
             <property name="AdditionalContentResourceDirectory" value=".\includes\" />
             <property name="DocumentInternals" value="True" />
             <property name="DocumentPrivates" value="True" />
             <property name="AssemblyVersionInfo" value="AssemblyVersion" />
-            <property name="CopyrightText" value="Copyright 2005, Lars Behrmann" />
+            <property name="CopyrightText" value="Copyright 2005, 2006, Lars Behrmann lb@OpenDocument4all.com" />
+            <property name="FeedbackEmailAddress" value="lb@OpenDocument4all.com" />
         </documenter>
         <documenter name="VS.NET 2003">
             <property name="OutputDirectory" value=".\doc\" />

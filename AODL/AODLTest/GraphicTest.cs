@@ -1,5 +1,5 @@
 /*
- * $Id: GraphicTest.cs,v 1.6 2006/01/29 11:26:02 larsbm Exp $
+ * $Id: GraphicTest.cs,v 1.7 2006/01/29 19:30:24 larsbm Exp $
  */
 
 /*
@@ -30,8 +30,7 @@ namespace AODLTest
 	[TestFixture]
 	public class GraphicTest
 	{
-		//Must change this !!
-		private string _imagefile		= @"D:\lb.png";
+		private string _imagefile		= AARunMeFirstAndOnce.inPutFolder+@"Eclipse_add_new_Class.jpg";
 
 		[Test]
 		public void GraphicsTest()

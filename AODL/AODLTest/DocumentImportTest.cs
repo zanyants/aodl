@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentImportTest.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: DocumentImportTest.cs,v 1.3 2006/01/29 19:30:24 larsbm Exp $
  */
 
 /*
@@ -33,7 +33,7 @@ namespace AODLTest
 		[Test]
 		public void SimpleLoadTest()
 		{	
-			string file							= @"D:\OpenDocument\AODL\AODLTest\bin\Debug\Files\hallo.odt";
+			string file							= AARunMeFirstAndOnce.inPutFolder+@"hallo.odt";
 			FileInfo fInfo						= new FileInfo(file);
 			//Load a text document 
 			TextDocument textDocument			= new TextDocument();
@@ -47,7 +47,7 @@ namespace AODLTest
 		[Test]
 		public void SimpleLoad1Test()
 		{	
-			string file							= @"D:\OpenDocument\AODL\AODLTest\bin\Debug\Files\OpenOffice.net.odt";
+			string file							= AARunMeFirstAndOnce.inPutFolder+@"OpenOffice.net.odt";
 			FileInfo fInfo						= new FileInfo(file);
 			//Load a text document 
 			TextDocument textDocument			= new TextDocument();
@@ -61,7 +61,7 @@ namespace AODLTest
 		[Test]
 		public void SimpleCalcLoadTest()
 		{	
-			string file							= @"D:\OpenDocument\AODL\AODLTest\bin\Debug\Files\simpleCalc.ods";
+			string file							= AARunMeFirstAndOnce.inPutFolder+@"simpleCalc.ods";
 			FileInfo fInfo						= new FileInfo(file);
 			//Load a spreadsheet document 
 			SpreadsheetDocument document		= new SpreadsheetDocument();
@@ -75,7 +75,7 @@ namespace AODLTest
 		[Test]
 		public void TextDocumentWithImgMapReload()
 		{
-			string file							= @"D:\OpenDocument\AODL\AODLTest\bin\Debug\Files\imgmap.odt";
+			string file							= AARunMeFirstAndOnce.inPutFolder+@"imgmap.odt";
 			FileInfo fInfo						= new FileInfo(file);
 			//Load the text document 
 			TextDocument document				= new TextDocument();
@@ -216,6 +216,9 @@ namespace AODLTest
 
 /*
  * $Log: DocumentImportTest.cs,v $
+ * Revision 1.3  2006/01/29 19:30:24  larsbm
+ * - Added app config support for NUnit tests
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export
