@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = ""
+                PostBuildEvent = 'copy /Y "$(ProjectDir)app.config" "$(TargetPath).config"&#xd;&#xa;xcopy /YF "$(ProjectDir)\Files" "$(TargetDir)\Files\"'
                 RootNamespace = "AODLTest"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -100,11 +100,25 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "AARunMeFirstAndOnce.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AODLTest.nunit"
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "App.config"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DocumentImportTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -114,7 +128,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ImportTest.cs"
+                    RelPath = "HTMLExportTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -124,22 +138,22 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ListTests.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "MetaData.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "TableTest.cs"
+                    RelPath = "SpreadsheetBaseTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "TestClass.cs"
+                    RelPath = "TextDocumentBaseTests.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextDocumentTableTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

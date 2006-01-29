@@ -1,0 +1,676 @@
+Jumli
+{
+  *** Applikation ***;
+  Version=1.45;
+  Elements=56;
+  {
+    *** Model ***;
+    Typ=3;
+    MainFile=,-1,-1,-1,-1;
+    ActiveDiagramm=6;
+    {
+      *** GenSettings ***;
+      GetPrefix="get";
+      SetPrefix="set";
+      DBBaseClass="DbBasisObject";
+      DBRecordSet="DbSet";
+      GenerateWrite=true;
+      GenerateRead=true;
+    };
+    {
+      *** CompileDebugSettings ***;
+      AufrufCompiler="csc";
+      AufrufDebugger="cordbg";
+      DebugOptionen="/debug";
+    };
+    {
+      *** Package ***;
+      Name="UseCases";
+      ID=3;
+      Zugriff=2;
+      Type=2;
+      {
+        *** Diagramm ***;
+        Name="UseCases";
+        ID=4;
+        DiagrammTyp=2;
+      };
+    };
+    {
+      *** Package ***;
+      Name="AODL_Classes";
+      ID=5;
+      Zugriff=2;
+      {
+        *** Diagramm ***;
+        Name="AODL_Classes";
+        ID=6;
+        {
+          *** CJumliTracker ***;
+          Rechteck=71,104,176,163;
+          Order=-1;
+          UMLElementID=7;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=519,95,624,154;
+          Order=-1;
+          UMLElementID=8;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=301,200,431,259;
+          Order=-1;
+          UMLElementID=9;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=706,95,811,154;
+          Order=-1;
+          UMLElementID=10;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=312,298,426,357;
+          Order=-1;
+          UMLElementID=11;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=856,423,961,482;
+          Order=-1;
+          UMLElementID=12;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=699,305,810,364;
+          Order=-1;
+          UMLElementID=13;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=66,200,174,259;
+          Order=-1;
+          UMLElementID=14;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=64,299,218,358;
+          Order=-1;
+          UMLElementID=15;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=22,176,79,190;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=16;
+          Knick=19,149;
+          TextOffset=32,28;
+          {
+            *** Linie ***;
+            Punkt=19,149;
+          };
+          {
+            *** Linie ***;
+            Punkt=19,230;
+          };
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=16,274,73,288;
+          Order=-1;
+          UMLElementID=17;
+          Knick=12,319;
+          TextOffset=33,-44;
+          {
+            *** Linie ***;
+            Punkt=12,147;
+          };
+          {
+            *** Linie ***;
+            Punkt=12,319;
+          };
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=195,213,281,227;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=18;
+          TextOffset=0,5;
+          OffsetRollenName=-28,-15;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=198,238,284,252;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=21;
+          Knick=199,251;
+          TextOffset=0,5;
+          OffsetRollenName=-25,-11;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=199,251;
+          };
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=238,276,309,290;
+          Order=-1;
+          UMLElementID=24;
+          Knick=274,258;
+          TextOffset=0,5;
+          OffsetRollenName=-1,-43;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=274,321;
+          };
+          {
+            *** Linie ***;
+            Punkt=274,258;
+          };
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=218,310,289,324;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=27;
+          TextOffset=0,5;
+          OffsetRollenName=25,-12;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=515,208,620,267;
+          Order=-1;
+          UMLElementID=30;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          Order=-1;
+          UMLElementID=31;
+          TextOffset=0,5;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=703,207,815,266;
+          Order=-1;
+          UMLElementID=32;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=33;
+          TextOffset=0,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=612,226,684,240;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=34;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=645,343,652,350;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=37;
+          Knick=649,256;
+          TextOffset=0,5;
+          OffsetRollenName=-21,-101;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=649,347;
+          };
+          {
+            *** Linie ***;
+            Punkt=649,256;
+          };
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=498,211,507,225;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=40;
+          TextOffset=0,5;
+          OffsetRollenName=-3,-23;
+          OffsetA=23,-17;
+          OffsetB=-5,-18;
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=854,210,959,269;
+          Order=-1;
+          UMLElementID=45;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=875,184,932,198;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=46;
+          Knick=901,132;
+          TextOffset=3,53;
+          {
+            *** Linie ***;
+            Punkt=901,132;
+          };
+        };
+        {
+          *** CJumliTracker ***;
+          Rechteck=856,307,961,366;
+          Order=-1;
+          UMLElementID=47;
+          IsWithAttributs=true;
+          IsWithMethods=true;
+        };
+        {
+          *** VererbungZeichner ***;
+          Rechteck=882,384,939,398;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=48;
+          TextOffset=2,-10;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=624,273,696,287;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=49;
+          Knick=591,340;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=591,340;
+          };
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=780,262,821,276;
+          ShowConstraints=true;
+          ShowTaggedValues=true;
+          Order=-1;
+          UMLElementID=52;
+          Knick=587,325;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+          {
+            *** Linie ***;
+            Punkt=775,292;
+          };
+          {
+            *** Linie ***;
+            Punkt=689,292;
+          };
+          {
+            *** Linie ***;
+            Punkt=587,325;
+          };
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=770,323,831,337;
+          ShowConstraints=true;
+          Order=-1;
+          UMLElementID=55;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+        {
+          *** AssoziationZeichner ***;
+          Rechteck=867,293,908,307;
+          Order=-1;
+          UMLElementID=58;
+          TextOffset=0,5;
+          OffsetRollenName=-20,-10;
+          OffsetA=5,5;
+          OffsetB=5,5;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="FormatedText";
+        ID=47;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=FormatedText.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=58;
+          Datentyp="TextStyle";
+          Zugriff=2;
+          A=47;
+          B=45;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          Stereotype="realize";
+          ID=48;
+          A=47;
+          B=12;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="IContent";
+        Stereotype="Interface";
+        ID=8;
+        Image="Interface";
+        Datentyp="interface";
+        KomponentenId=-1;
+        File=IContent.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        IsInterface=true;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="IContentCollection";
+        ID=9;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=IContentCollection.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=40;
+          Datentyp="Paragraph";
+          Zugriff=2;
+          A=9;
+          B=30;
+          KardinalitaetAnfangsKlasse="1";
+          KardinalitaetEndeKlasse="1";
+          Type=1;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="IDocument";
+        Stereotype="Interface";
+        ID=7;
+        Image="Interface";
+        Datentyp="interface";
+        KomponentenId=-1;
+        File=IDocument.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        IsInterface=true;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="IStyle";
+        Stereotype="Interface";
+        ID=10;
+        Image="Interface";
+        Datentyp="class";
+        KomponentenId=-1;
+        File=IStyle.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="IStyleCollection";
+        ID=11;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=IStyleCollection.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=49;
+          Datentyp="ParagraphStyle";
+          Zugriff=2;
+          A=11;
+          B=32;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=52;
+          Datentyp="TextStyle";
+          Zugriff=2;
+          A=11;
+          B=45;
+          Type=1;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="IText";
+        Stereotype="Interface";
+        ID=12;
+        Image="Interface";
+        Datentyp="class";
+        KomponentenId=-1;
+        File=IText.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+      };
+      {
+        *** Klasse ***;
+        Name="ITextCollection";
+        ID=13;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=ITextCollection.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=55;
+          Datentyp="FormatedText";
+          Zugriff=2;
+          A=13;
+          B=47;
+          Type=1;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="Paragraph";
+        ID=30;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=Paragraph.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=34;
+          Datentyp="ParagraphStyle";
+          Zugriff=2;
+          A=30;
+          B=32;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=37;
+          Datentyp="ITextCollection";
+          Zugriff=2;
+          A=30;
+          B=13;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          Stereotype="realize";
+          ID=31;
+          A=30;
+          B=8;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="ParagraphStyle";
+        ID=32;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=ParagraphStyle.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          Stereotype="realize";
+          ID=33;
+          A=32;
+          B=10;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="SpreadsheetDocument";
+        ID=15;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=SpreadsheetDocument.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=21;
+          Datentyp="IContentCollection";
+          Zugriff=2;
+          A=15;
+          B=9;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=27;
+          Datentyp="IStyleCollection";
+          Zugriff=2;
+          A=15;
+          B=11;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          Stereotype="realize";
+          ID=17;
+          A=15;
+          B=7;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="TextDocument";
+        ID=14;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=TextDocument.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Assoziation ***;
+          ID=18;
+          Datentyp="IContentCollection";
+          Zugriff=2;
+          A=14;
+          B=9;
+          Type=1;
+        };
+        {
+          *** Assoziation ***;
+          ID=24;
+          Datentyp="IStyleCollection";
+          Zugriff=2;
+          A=14;
+          B=11;
+          Type=1;
+        };
+        {
+          *** Vererbung ***;
+          Stereotype="realize";
+          ID=16;
+          A=14;
+          B=7;
+        };
+      };
+      {
+        *** Klasse ***;
+        Name="TextStyle";
+        ID=45;
+        Datentyp="class";
+        KomponentenId=-1;
+        File=TextStyle.cs,-1,-1;
+        HeaderFile=,-1,-1;
+        Parent=-1;
+        {
+          *** Vererbung ***;
+          Stereotype="realize";
+          ID=46;
+          A=45;
+          B=10;
+        };
+      };
+    };
+  };
+};

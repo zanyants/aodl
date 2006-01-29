@@ -1,9 +1,26 @@
+/*
+ * $Id: MetaData.cs,v 1.2 2006/01/29 11:26:02 larsbm Exp $
+ */
+
+/*
+ * License: 
+ * GNU Lesser General Public License. You should recieve a
+ * copy of this within the library. If not you will find
+ * a whole copy at http://www.gnu.org/licenses/lgpl.html .
+ * 
+ * Author:
+ * Copyright 2006, Lars Behrmann, lb@OpenDocument4all.com
+ * 
+ * Last changes:
+ * 
+ */
+
 using System;
 using NUnit.Framework;
-using AODL.Import;
-using AODL.TextDocument;
-using AODL.TextDocument.Content;
-using AODL.TextDocument.Style;
+using AODL.Document.Import;
+using AODL.Document.TextDocuments;
+using AODL.Document.Content;
+using AODL.Document.Styles;
 
 namespace AODLTest
 {
@@ -54,3 +71,10 @@ namespace AODLTest
 		}
 	}
 }
+
+/*
+ * $Log: MetaData.cs,v $
+ * Revision 1.2  2006/01/29 11:26:02  larsbm
+ * - Changes for the new version. 1.2. see next changelog for details
+ *
+ */

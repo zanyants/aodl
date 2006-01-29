@@ -1,5 +1,5 @@
 /*
- * $Id: Publisher.cs,v 1.6 2005/12/12 19:39:17 larsbm Exp $
+ * $Id: Publisher.cs,v 1.7 2006/01/29 11:28:22 larsbm Exp $
  */
 
 using System;
@@ -9,8 +9,10 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.GZip;
-using AODL.TextDocument;
-using AODL.TextDocument.Content;
+using AODL.Document.TextDocuments;
+using AODL.Document.Content;
+using AODL.Document.Content.Draw;
+using AODL.Document.Styles;
 
 namespace AODL.Publish
 {
@@ -24,7 +26,7 @@ namespace AODL.Publish
 		/// </summary>
 		/// <param name="td">The textdocument object.</param>
 		/// <param name="filename">The filename. Ending with .odt</param>
-		public static void PublishTo(AODL.TextDocument.TextDocument td, string filename)
+		public static void PublishTo(TextDocument td, string filename)
 		{
 			string dir		= Environment.CurrentDirectory+@"\tmp";
 
@@ -132,34 +134,37 @@ namespace AODL.Publish
 		/// </summary>
 		/// <param name="document">The document.</param>
 		/// <param name="directory">The directory.</param>
-		private static void SaveGraphic(AODL.TextDocument.TextDocument document, string directory)
+		private static void SaveGraphic(AODL.Document.IDocument document, string directory)
 		{
-			foreach(IContent content in document.Content)
-				if(content.GetType().GetInterface("IContentContainer") != null)
-					foreach(IContent continner in ((IContentContainer)content).Content)
-						if(continner.GetType().Name == "Frame")
-							if(((Frame)continner).Graphic != null)
-							{
-								try
-								{
-									//TODO: check supported image types
-									string picturedir		= directory+@"\Pictures\";
-									if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
-									return;
-									string name				= picturedir+((Frame)continner).RealGraphicName;
-									((Frame)continner).Image.Save(name);
-								}
-								catch(Exception ex)
-								{
-									throw;
-								}
-							}
+//			foreach(IContent content in document.Content)
+//				if(content.GetType().GetInterface("IContentContainer") != null)
+//					foreach(IContent continner in ((IContentContainer)content).Content)
+//						if(continner.GetType().Name == "Frame")
+//							if(((Frame)continner).Graphic != null)
+//							{
+//								try
+//								{
+//									//TODO: check supported image types
+//									string picturedir		= directory+@"\Pictures\";
+//									if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
+//									return;
+//									string name				= picturedir+((Frame)continner).RealGraphicName;
+//									((Frame)continner).Image.Save(name);
+//								}
+//								catch(Exception ex)
+//								{
+//									throw;
+//								}
+//							}
 		}
 	}
 }
 
 /*
  * $Log: Publisher.cs,v $
+ * Revision 1.7  2006/01/29 11:28:22  larsbm
+ * - Changes for the new version. 1.2. see next changelog for details
+ *
  * Revision 1.6  2005/12/12 19:39:17  larsbm
  * - Added Paragraph Header
  * - Added Table Row Header
