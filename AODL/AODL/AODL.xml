@@ -4077,6 +4077,13 @@
             <param name="frame">The frame.</param>
             <returns></returns>
         </member>
+        <member name="M:AODL.Document.Export.Html.HTMLContentBuilder.GetDrawTextBoxAsHtml(AODL.Document.Content.Draw.DrawTextBox)">
+            <summary>
+            Gets the draw text box as HTML.
+            </summary>
+            <param name="drawTextBox">The draw text box.</param>
+            <returns></returns>
+        </member>
         <member name="M:AODL.Document.Export.Html.HTMLContentBuilder.GetImageMapAsHtml(AODL.Document.Content.Draw.ImageMap)">
             <summary>
             Gets the image map as HTML.
@@ -4690,11 +4697,22 @@
             The document
             </summary>
         </member>
-        <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor.#ctor(AODL.Document.IDocument)">
+        <member name="F:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor._common">
+            <summary>
+            Is true if the common styles are read.
+            </summary>
+        </member>
+        <member name="F:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor._xmlPathCommonStyle">
+            <summary>
+            XPath for the common styles.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor.#ctor(AODL.Document.IDocument,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor"/> class.
             </summary>
             <param name="document">The document.</param>
+            <param name="readCommonStyles">if set to <c>true</c> [read common styles].</param>
         </member>
         <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor.ReadStyles">
             <summary>
@@ -4848,10 +4866,22 @@
             <param name="propertyNode">The property node.</param>
             <returns></returns>
         </member>
+        <member name="P:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor.CurrentXmlDocument">
+            <summary>
+            Gets or sets the current XML document.
+            </summary>
+            <value>The current XML document.</value>
+        </member>
         <member name="T:AODL.Document.Import.OpenDocument.NodeProcessors.MainContentProcessor">
             <summary>
             Internal class MainContentProcessor. This class is for
             internal usage only!
+            </summary>
+        </member>
+        <member name="F:AODL.Document.Import.OpenDocument.NodeProcessors.MainContentProcessor._debugMode">
+            <summary>
+            If set to true all node content would be directed
+            to Console.Out
             </summary>
         </member>
         <member name="F:AODL.Document.Import.OpenDocument.NodeProcessors.MainContentProcessor._document">
@@ -4916,6 +4946,13 @@
             </summary>
             <param name="graphicnode">The graphicnode.</param>
             <returns>The Graphic object</returns>
+        </member>
+        <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.MainContentProcessor.CreateDrawTextBox(System.Xml.XmlNode)">
+            <summary>
+            Creates the draw text box.
+            </summary>
+            <param name="drawTextBoxNode">The draw text box node.</param>
+            <returns></returns>
         </member>
         <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.MainContentProcessor.CreateDrawAreaRectangle(System.Xml.XmlNode)">
             <summary>
@@ -5184,6 +5221,12 @@
         <member name="M:AODL.Document.Import.OpenDocument.OpenDocumentImporter.ReadContent">
             <summary>
             Reads the content.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Import.OpenDocument.OpenDocumentImporter.ImportCommonStyles">
+            <summary>
+            If the common styles are placed in the DocumentStyles,
+            they will be imported into the content file.
             </summary>
         </member>
         <member name="M:AODL.Document.Import.OpenDocument.OpenDocumentImporter.InitMetaData">
@@ -5550,6 +5593,11 @@
             Collection of local styles used with this document.
             </summary>
         </member>
+        <member name="P:AODL.Document.IDocument.CommonStyles">
+            <summary>
+            Collection of common styles used with this document.
+            </summary>
+        </member>
         <member name="P:AODL.Document.IDocument.Content">
             <summary>
             Collection of contents used by this document.
@@ -5568,6 +5616,11 @@
         <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.New">
             <summary>
             Create a new blank spreadsheet document.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.ReadCommonStyles">
+            <summary>
+            Reads the common styles.
             </summary>
         </member>
         <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.SaveTo(System.String)">
@@ -5641,6 +5694,11 @@
             Creates the content of the local style.
             </summary>
         </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.CreateCommonStyleContent">
+            <summary>
+            Creates the content of the common style.
+            </summary>
+        </member>
         <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.StyleNodeExists(System.String)">
             <summary>
             Styles the node exists.
@@ -5674,6 +5732,12 @@
         <member name="P:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.Styles">
             <summary>
             Collection of local styles used with this document.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.CommonStyles">
+            <summary>
+            Collection of common styles used with this document.
             </summary>
             <value></value>
         </member>
@@ -8931,6 +8995,11 @@
             Create a blank new document.
             </summary>
         </member>
+        <member name="M:AODL.Document.TextDocuments.TextDocument.ReadCommonStyles">
+            <summary>
+            Reads the common styles.
+            </summary>
+        </member>
         <member name="M:AODL.Document.TextDocuments.TextDocument.Load(System.String)">
             <summary>
             Loads the document by using the specified importer.
@@ -8982,6 +9051,11 @@
         <member name="M:AODL.Document.TextDocuments.TextDocument.CreateLocalStyleContent">
             <summary>
             Creates the content of the local style.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.TextDocuments.TextDocument.CreateCommonStyleContent">
+            <summary>
+            Creates the content of the common style.
             </summary>
         </member>
         <member name="M:AODL.Document.TextDocuments.TextDocument.Dispose">
@@ -9092,6 +9166,12 @@
         <member name="P:AODL.Document.TextDocuments.TextDocument.Styles">
             <summary>
             Collection of local styles used with this document.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.TextDocuments.TextDocument.CommonStyles">
+            <summary>
+            Collection of common styles used with this document.
             </summary>
             <value></value>
         </member>

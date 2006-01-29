@@ -1,5 +1,5 @@
 /*
- * $Id: Column.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: Column.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -99,7 +99,8 @@ namespace AODL.Document.Content.Tables
 			this.Table				= table;
 			this.Document			= table.Document;
 			this.NewXmlNode(styleName);
-			this.ColumnStyle		= new ColumnStyle(this.Document, styleName);			
+			this.ColumnStyle		= new ColumnStyle(this.Document, styleName);	
+			this.Document.Styles.Add(this.ColumnStyle);
 		}
 
 		/// <summary>
@@ -211,6 +212,11 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Column.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

@@ -1,5 +1,5 @@
 /*
- * $Id: SpreadsheetDocument.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: SpreadsheetDocument.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -25,6 +25,8 @@ using AODL.Document.Content.Tables;
 using AODL.Document;
 using AODL.Document.Export;
 using AODL.Document.Import;
+using AODL.Document.Import.OpenDocument;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 using AODL.Document.Styles;
 using AODL.Document.Content;
 using AODL.Document.Exceptions;
@@ -87,6 +89,17 @@ namespace AODL.Document.SpreadsheetDocuments
 		{
 			get { return this._styles; }
 			set { this._styles = value; }
+		}
+
+		private IStyleCollection _commonStyles;
+		/// <summary>
+		/// Collection of common styles used with this document.
+		/// </summary>
+		/// <value></value>
+		public IStyleCollection CommonStyles
+		{
+			get { return this._commonStyles; }
+			set { this._commonStyles = value; }
 		}
 
 		private IContentCollection _contents;
@@ -225,6 +238,7 @@ namespace AODL.Document.SpreadsheetDocuments
 		{
 			this.TableCollection			= new TableCollection();
 			this.Styles						= new IStyleCollection();
+			this.CommonStyles				= new IStyleCollection();
 			this.Content					= new IContentCollection();
 			this._graphics					= new ArrayList();
 			this.FontList					= new ArrayList();
@@ -256,9 +270,23 @@ namespace AODL.Document.SpreadsheetDocuments
 
 			this.DocumentStyles				= new DocumentStyles();
 			this.DocumentStyles.New();
+			this.ReadCommonStyles();
 
 			this.DocumentThumbnails			= new DocumentPictureCollection();
 			
+		}
+
+		/// <summary>
+		/// Reads the common styles.
+		/// </summary>
+		private void ReadCommonStyles()
+		{
+			OpenDocumentImporter odImporter	= new OpenDocumentImporter();
+			odImporter._document			= this;
+			odImporter.ImportCommonStyles();
+
+			LocalStyleProcessor lsp			= new LocalStyleProcessor(this, true);
+			lsp.ReadStyles();
 		}
 
 		/// <summary>
@@ -432,6 +460,7 @@ namespace AODL.Document.SpreadsheetDocuments
 			}
 
 			this.CreateLocalStyleContent();
+			this.CreateCommonStyleContent();
 		}
 
 		/// <summary>
@@ -444,6 +473,22 @@ namespace AODL.Document.SpreadsheetDocuments
 
 			foreach(IStyle style in this.Styles)
 				nodeAutomaticStyles.AppendChild(style.Node);
+		}
+
+		/// <summary>
+		/// Creates the content of the common style.
+		/// </summary>
+		private void CreateCommonStyleContent()
+		{
+			XmlNode nodeCommonStyles		= this.DocumentStyles.Styles.SelectSingleNode(
+				"office:document-styles/office:styles", this.NamespaceManager);
+			nodeCommonStyles.InnerXml	= "";
+
+			foreach(IStyle style in this.CommonStyles)
+			{
+				XmlNode nodeStyle			= this.DocumentStyles.Styles.ImportNode(style.Node, true);
+				nodeCommonStyles.AppendChild(nodeStyle);
+			}
 		}
 
 		/// <summary>
@@ -466,6 +511,11 @@ namespace AODL.Document.SpreadsheetDocuments
 
 /*
  * $Log: SpreadsheetDocument.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.1 2006/01/29 11:28:30 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.2 2006/01/29 18:52:51 larsbm Exp $
  */
 
 /*
@@ -23,6 +23,7 @@ using System.Xml;
 using AODL.Document.Export;
 using AODL.Document.Import;
 using AODL.Document.Import.OpenDocument;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 using AODL.Document.Exceptions;
 using AODL.Document;
 using AODL.Document.Styles;
@@ -234,6 +235,17 @@ namespace AODL.Document.TextDocuments
 			set { this._styles = value; }
 		}
 
+		private IStyleCollection _commonStyles;
+		/// <summary>
+		/// Collection of common styles used with this document.
+		/// </summary>
+		/// <value></value>
+		public IStyleCollection CommonStyles
+		{
+			get { return this._commonStyles; }
+			set { this._commonStyles = value; }
+		}
+
 		private ArrayList _fontList;
 		/// <summary>
 		/// Gets or sets the font list.
@@ -252,6 +264,7 @@ namespace AODL.Document.TextDocuments
 		{
 			this.Content			= new IContentCollection();
 			this.Styles				= new IStyleCollection();
+			this.CommonStyles		= new IStyleCollection();
 			this.FontList			= new ArrayList();
 			this._graphics			= new ArrayList();
 		}
@@ -280,8 +293,22 @@ namespace AODL.Document.TextDocuments
 
 			this.DocumentStyles				= new DocumentStyles();
 			this.DocumentStyles.New();
+			this.ReadCommonStyles();
 
 			this.DocumentThumbnails			= new DocumentPictureCollection();
+		}
+
+		/// <summary>
+		/// Reads the common styles.
+		/// </summary>
+		private void ReadCommonStyles()
+		{
+			OpenDocumentImporter odImporter	= new OpenDocumentImporter();
+			odImporter._document			= this;
+			odImporter.ImportCommonStyles();
+
+			LocalStyleProcessor lsp			= new LocalStyleProcessor(this, true);
+			lsp.ReadStyles();
 		}
 
 		/// <summary>
@@ -728,6 +755,7 @@ namespace AODL.Document.TextDocuments
 			}
 
 			this.CreateLocalStyleContent();
+			this.CreateCommonStyleContent();
 		}
 
 		/// <summary>
@@ -752,6 +780,23 @@ namespace AODL.Document.TextDocuments
 					nodeAutomaticStyles.AppendChild(style.Node);
 			}
 		}
+
+		/// <summary>
+		/// Creates the content of the common style.
+		/// </summary>
+		private void CreateCommonStyleContent()
+		{
+			XmlNode nodeCommonStyles		= this.DocumentStyles.Styles.SelectSingleNode(
+				"office:document-styles/office:styles", this.NamespaceManager);
+			nodeCommonStyles.InnerXml	= "";
+
+			foreach(IStyle style in this.CommonStyles)
+			{
+				XmlNode nodeStyle			= this.DocumentStyles.Styles.ImportNode(style.Node, true);
+				nodeCommonStyles.AppendChild(nodeStyle);
+			}
+		}
+
 
 		#region IDisposable Member
 
@@ -810,6 +855,11 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.2  2006/01/29 18:52:51  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:30  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

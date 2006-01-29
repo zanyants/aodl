@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -364,23 +364,6 @@ namespace AODL.Document.Export.OpenDocument
 //												SaveGraphic((Frame)content2, directory);
 			#endregion
 		}
-
-//		private static void SaveGraphic(Frame continner, string directory)
-//		{
-//			try
-//			{
-//				//TODO: check supported image types
-//				string picturedir		= directory+@"\Pictures\";
-//				if(File.Exists(picturedir+((Frame)continner).RealGraphicName))
-//					return;
-//				string name				= picturedir+((Frame)continner).RealGraphicName;
-//				((Frame)continner).Image.Save(name);
-//			}
-//			catch(Exception ex)
-//			{
-//				throw;
-//			}
-//		}
 		
 		/// <summary>
 		/// Copies the graphics.
@@ -451,6 +434,11 @@ namespace AODL.Document.Export.OpenDocument
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

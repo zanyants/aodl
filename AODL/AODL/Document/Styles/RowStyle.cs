@@ -1,5 +1,5 @@
 /*
- * $Id: RowStyle.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: RowStyle.cs,v 1.2 2006/01/29 18:52:51 larsbm Exp $
  */
 
 /*
@@ -108,7 +108,7 @@ namespace AODL.Document.Styles
 			this.PropertyCollection				= new IPropertyCollection();
 			this.PropertyCollection.Inserted	+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(PropertyCollection_Inserted);
 			this.PropertyCollection.Removed		+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(PropertyCollection_Removed);
-			this.Document.Styles.Add(this);
+//			this.Document.Styles.Add(this);
 		}
 
 		/// <summary>
@@ -232,6 +232,11 @@ namespace AODL.Document.Styles
 
 /*
  * $Log: RowStyle.cs,v $
+ * Revision 1.2  2006/01/29 18:52:51  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

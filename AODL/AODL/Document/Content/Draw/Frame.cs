@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.1 2006/01/29 11:29:46 larsbm Exp $
+ * $Id: Frame.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -204,6 +204,7 @@ namespace AODL.Document.Content.Draw
 			{
 				this.Style				= (IStyle)new FrameStyle(this.Document, stylename);
 				this.StyleName			= stylename;
+				this.Document.Styles.Add(this.Style);
 			}
 		}
 
@@ -228,7 +229,8 @@ namespace AODL.Document.Content.Draw
 
 			this._realgraphicname	= this.LoadImageFromFile(graphicfile);
 			this.Content.Add(new Graphic(this.Document, this, this._realgraphicname));
-			this.Style				= (IStyle)new FrameStyle(this.Document, stylename);			
+			this.Style				= (IStyle)new FrameStyle(this.Document, stylename);	
+			this.Document.Styles.Add(this.Style);
 		}
 
 		/// <summary>
@@ -321,7 +323,7 @@ namespace AODL.Document.Content.Draw
 		{
 			get 
 			{ 
-				XmlNode xn = this._node.SelectSingleNode("@text:style-name",
+				XmlNode xn = this._node.SelectSingleNode("@draw:style-name",
 					this.Document.NamespaceManager);
 				if(xn != null)
 					return xn.InnerText;
@@ -329,11 +331,11 @@ namespace AODL.Document.Content.Draw
 			}
 			set
 			{
-				XmlNode xn = this._node.SelectSingleNode("@text:style-name",
+				XmlNode xn = this._node.SelectSingleNode("@draw:style-name",
 					this.Document.NamespaceManager);
 				if(xn == null)
-					this.CreateAttribute("style-name", value, "text");
-				this._node.SelectSingleNode("@text:style-name",
+					this.CreateAttribute("style-name", value, "draw");
+				this._node.SelectSingleNode("@draw:style-name",
 					this.Document.NamespaceManager).InnerText = value;
 			}
 		}
@@ -435,6 +437,11 @@ namespace AODL.Document.Content.Draw
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:29:46  larsbm
  * *** empty log message ***
  *

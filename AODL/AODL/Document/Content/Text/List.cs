@@ -1,5 +1,5 @@
 /*
- * $Id: List.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: List.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -98,6 +98,8 @@ namespace AODL.Document.Content.Text
 
 			this.Style							= (IStyle)new ListStyle(this.Document, styleName);
 			this.ParagraphStyle					= new ParagraphStyle(this.Document, paragraphStyleName);
+			this.Document.Styles.Add(this.Style);
+			this.Document.Styles.Add(this.ParagraphStyle);
 			
 			this.ParagraphStyle.ListStyleName	= styleName;
 			this._type							= typ;

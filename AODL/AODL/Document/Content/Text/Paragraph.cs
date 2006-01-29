@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -137,7 +137,10 @@ namespace AODL.Document.Content.Text
 			if(styleName != "Standard" 
 				&& styleName != "Table_20_Contents"
 				&&  styleName != "Text_20_body")
+			{
 				this.Style				= (IStyle)new ParagraphStyle(this.Document, styleName);
+				this.Document.Styles.Add(this.Style);
+			}
 			this.InitStandards();
 			this.StyleName				= styleName;
 		}
@@ -724,6 +727,11 @@ namespace AODL.Document.Content.Text
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

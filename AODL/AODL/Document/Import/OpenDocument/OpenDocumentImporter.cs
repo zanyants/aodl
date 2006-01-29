@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentImporter.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: OpenDocumentImporter.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -44,7 +44,7 @@ namespace AODL.Document.Import.OpenDocument
 		internal static readonly string dir		= Environment.CurrentDirectory+@"\aodlread\";
 		internal static readonly string dirpics	= Environment.CurrentDirectory+@"\PicturesRead\";
 
-		private IDocument _document;
+		internal IDocument _document;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OpenDocumentImporter"/> class.
@@ -349,13 +349,54 @@ namespace AODL.Document.Import.OpenDocument
 			{
 				this._document.XmlDoc			= new XmlDocument();
 				this._document.XmlDoc.Load(dir+"\\content.xml");
-				LocalStyleProcessor lsp			= new LocalStyleProcessor(this._document);
+				//Read local styles
+				LocalStyleProcessor lsp			= new LocalStyleProcessor(this._document, false);
+				lsp.ReadStyles();
+				//Import common styles and read common styles
+				this.ImportCommonStyles();
+				lsp								= new LocalStyleProcessor(this._document, true);
 				lsp.ReadStyles();
 				
 				MainContentProcessor mcp		= new MainContentProcessor(this._document);
 				mcp.OnWarning					+=new AODL.Document.Import.OpenDocument.NodeProcessors.MainContentProcessor.Warning(mcp_OnWarning);
 				TextContentProcessor.OnWarning	+=new AODL.Document.Import.OpenDocument.NodeProcessors.TextContentProcessor.Warning(TextContentProcessor_OnWarning);
 				mcp.ReadContentNodes();
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// If the common styles are placed in the DocumentStyles,
+		/// they will be imported into the content file.
+		/// </summary>
+		public void ImportCommonStyles()
+		{
+			string xPathToStyles				= "office:document-styles/office:styles";
+			string xPathOfficeDocument			= "office:document-content";
+
+			try
+			{
+				XmlNode nodeStyles				= null;
+				XmlNode nodeOfficeDocument		= null;
+
+				if(this._document is TextDocument)
+					nodeStyles					= ((TextDocument)this._document).DocumentStyles.Styles.SelectSingleNode(
+						xPathToStyles, this._document.NamespaceManager);
+				else if(this._document is SpreadsheetDocument)
+					nodeStyles					= ((SpreadsheetDocument)this._document).DocumentStyles.Styles.SelectSingleNode(
+						xPathToStyles, this._document.NamespaceManager);
+
+				nodeOfficeDocument				= this._document.XmlDoc.SelectSingleNode(
+					xPathOfficeDocument, this._document.NamespaceManager);
+
+				if(nodeOfficeDocument != null && nodeStyles != null)
+				{
+					nodeStyles					= this._document.XmlDoc.ImportNode(nodeStyles, true);
+					nodeOfficeDocument.AppendChild(nodeStyles);
+				}
 			}
 			catch(Exception ex)
 			{
@@ -402,6 +443,11 @@ namespace AODL.Document.Import.OpenDocument
 
 /*
  * $Log: OpenDocumentImporter.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

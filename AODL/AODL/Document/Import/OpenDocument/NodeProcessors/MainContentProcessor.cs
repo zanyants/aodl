@@ -1,5 +1,5 @@
 /*
- * $Id: MainContentProcessor.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: MainContentProcessor.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -42,7 +42,11 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 	/// </summary>
 	internal class MainContentProcessor
 	{
-		private bool _debugMode			= true;
+		/// <summary>
+		/// If set to true all node content would be directed
+		/// to Console.Out
+		/// </summary>
+		private bool _debugMode			= false;
 		/// <summary>
 		/// The textdocument
 		/// </summary>
@@ -155,41 +159,31 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 				{
 					case "text:p":
 						return CreateParagraph(node.CloneNode(true));
-						break;
 					case "text:list":
 						return CreateList(node.CloneNode(true));
-						break;
 					case "text:list-item":
 						return CreateListItem(node.CloneNode(true));
-						break;
 					case "table:table":
 						return CreateTable(node.CloneNode(true));
-						break;
 					case "table:table-column":
 						return CreateTableColumn(node.CloneNode(true));
-						break;
 					case "table:table-row":
 						return CreateTableRow(node.CloneNode(true));
-						break;
 					case "table:table-header-row":
 						return CreateTableHeaderRow(node.CloneNode(true));
-						break;
 					case "table:table-cell":
 						return CreateTableCell(node.CloneNode(true));
-						break;
 					case "table:covered-table-cell":
 						return CreateTableCellSpan(node.CloneNode(true));
-						break;
 					case "text:h":
 						return CreateHeader(node.CloneNode(true));
-						break;
 					case "text:table-of-content":
 						//Possible?
 						return CreateTableOfContents(node.CloneNode(true));
-						break;
 					case "draw:frame":
 						return CreateFrame(node.CloneNode(true));
-						break;
+					case "draw:text-box":
+						return CreateDrawTextBox(node.CloneNode(true));
 					case "draw:image":
 						return CreateGraphic(node.CloneNode(true));
 					case "draw:area-rectangle":
@@ -204,7 +198,6 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 						return CreateEventListeners(node.CloneNode(true));
 					default:
 						return new UnknownContent(this._document, node.CloneNode(true));
-						break;
 				}
 			}
 			catch(Exception ex)
@@ -561,6 +554,53 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		}
 
 		/// <summary>
+		/// Creates the draw text box.
+		/// </summary>
+		/// <param name="drawTextBoxNode">The draw text box node.</param>
+		/// <returns></returns>
+		private DrawTextBox CreateDrawTextBox(XmlNode drawTextBoxNode)
+		{
+			try
+			{
+				DrawTextBox drawTextBox		= new DrawTextBox(this._document, drawTextBoxNode);
+				IContentCollection iColl	= new IContentCollection();
+
+				foreach(XmlNode nodeChild in drawTextBox.Node.ChildNodes)
+				{
+					IContent iContent				= this.CreateContent(nodeChild);
+					if(iContent != null)
+						iColl.Add(iContent);
+					else
+					{
+						if(this.OnWarning != null)
+						{
+							AODLWarning warning			= new AODLWarning("Couldn't create a IContent object for a DrawTextBox.");
+							warning.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
+							warning.Node				= nodeChild;
+							this.OnWarning(warning);
+						}
+					}
+				}
+
+				drawTextBox.Node.InnerXml					= "";
+
+				foreach(IContent iContent in iColl)
+					drawTextBox.Content.Add(iContent);
+
+				return drawTextBox;
+			}
+			catch(Exception ex)
+			{
+				AODLException exception		= new AODLException("Exception while trying to create a Graphic.");
+				exception.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
+				exception.Node				= drawTextBoxNode;
+				exception.OriginalException	= ex;
+
+				throw exception;
+			}
+		}
+
+		/// <summary>
 		/// Creates the draw area rectangle.
 		/// </summary>
 		/// <param name="drawAreaRectangleNode">The draw area rectangle node.</param>
@@ -813,7 +853,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 				frame.Node					= frameNode;
 				IContentCollection iColl	= new IContentCollection();
 				//Revieve the FrameStyle
-				IStyle frameStyle		= this._document.Styles.GetStyleByName(frame.StyleName);
+				IStyle frameStyle			= this._document.Styles.GetStyleByName(frame.StyleName);
 
 				if(frameStyle != null)
 					frame.Style					= frameStyle;
@@ -1419,6 +1459,11 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 //AODLTest.DocumentImportTest.SimpleLoadTest : System.IO.DirectoryNotFoundException : Could not find a part of the path "D:\OpenDocument\AODL\AODLTest\bin\Debug\GeneratedFiles\OpenOffice.net.odt.rel.odt".
 /*
  * $Log: MainContentProcessor.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

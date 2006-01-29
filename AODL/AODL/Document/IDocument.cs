@@ -1,5 +1,5 @@
 /*
- * $Id: IDocument.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: IDocument.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -67,6 +67,10 @@ namespace AODL.Document
 		/// </summary>
 		IStyleCollection Styles {get; set;}
 		/// <summary>
+		/// Collection of common styles used with this document.
+		/// </summary>
+		IStyleCollection CommonStyles {get; set;}
+		/// <summary>
 		/// Collection of contents used by this document.
 		/// </summary>
 		IContentCollection Content {get; set;}
@@ -115,6 +119,11 @@ namespace AODL.Document
 
 /*
  * $Log: IDocument.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

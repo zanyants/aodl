@@ -1,5 +1,5 @@
 /*
- * $Id: FormatedText.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: FormatedText.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -65,6 +65,7 @@ namespace AODL.Document.Content.Text
 
 			this.Text					= text;
 			this.Style					= (IStyle)new TextStyle(this.Document, name);
+			this.Document.Styles.Add(this.Style);
 		}
 
 		/// <summary>
@@ -342,6 +343,11 @@ namespace AODL.Document.Content.Text
 
 /*
  * $Log: FormatedText.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocumentBaseTests.cs,v 1.1 2006/01/29 11:26:02 larsbm Exp $
+ * $Id: TextDocumentBaseTests.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -226,11 +226,40 @@ namespace AODLTest
 			//save
 			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"Letter.odt");
 		}
+
+		/// <summary>
+		/// Manipulate a common style.
+		/// </summary>
+		[Test]
+		public void ManipulateACommonStyle()
+		{
+			TextDocument document				= new TextDocument();
+			document.New();
+			Assert.IsTrue(document.CommonStyles.Count > 0, "Common style resp. style templates must be loaded");
+			//Find a Header template
+			IStyle style						= document.CommonStyles.GetStyleByName("Heading_20_1");
+			Assert.IsNotNull(style, "Style with name Heading_20_1 must exist");
+			Assert.IsTrue(style is ParagraphStyle, "style must be a ParagraphStyle");
+			((ParagraphStyle)style).TextProperties.FontName	= FontFamilies.BroadwayBT;
+			//Create a header that use the standard style Heading_20_1
+			Header header						= new Header(document, Headings.Heading_20_1);
+			//Add some text
+			header.TextContent.Add(new SimpleText(document, "I am the header text and my style template is modified :)"));
+			//Add header to the document
+			document.Content.Add(header);
+			//save the document
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"modifiedCommonStyle.odt");
+		}
 	}
 }
 
 /*
  * $Log: TextDocumentBaseTests.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:26:02  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

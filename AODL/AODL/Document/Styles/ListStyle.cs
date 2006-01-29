@@ -1,5 +1,5 @@
 /*
- * $Id: ListStyle.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: ListStyle.cs,v 1.2 2006/01/29 18:52:51 larsbm Exp $
  */
 
 /*
@@ -60,7 +60,7 @@ namespace AODL.Document.Styles
 			this.NewXmlNode();
 			this.InitStandards();
 			this.ListlevelStyles		= new ListLevelStyleCollection();
-			this.StyleName				= styleName;
+			this.StyleName				= styleName;			
 		}
 
 		/// <summary>
@@ -87,7 +87,11 @@ namespace AODL.Document.Styles
 			this.ListlevelStyles.Clear();
 
 			for(int i = 1; i <= 10; i++)
-				this.ListlevelStyles.Add(new ListLevelStyle(this.Document, this, typ, i));
+			{
+				ListLevelStyle style		= new ListLevelStyle(this.Document, this, typ, i);
+				this.ListlevelStyles.Add(style);
+				this.Document.Styles.Add(style);
+			}
 
 			foreach(ListLevelStyle lls in this.ListlevelStyles)
 				this.Node.AppendChild(lls.Node);
@@ -101,7 +105,7 @@ namespace AODL.Document.Styles
 			this.PropertyCollection				= new IPropertyCollection();
 			this.PropertyCollection.Inserted	+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(PropertyCollection_Inserted);
 			this.PropertyCollection.Removed		+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(PropertyCollection_Removed);
-			this.Document.Styles.Add(this);
+//			this.Document.Styles.Add(this);
 		}
 
 		/// <summary>
@@ -239,6 +243,11 @@ namespace AODL.Document.Styles
 
 /*
  * $Log: ListStyle.cs,v $
+ * Revision 1.2  2006/01/29 18:52:51  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

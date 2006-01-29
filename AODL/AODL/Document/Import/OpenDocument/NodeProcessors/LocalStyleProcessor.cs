@@ -1,5 +1,5 @@
 /*
- * $Id: LocalStyleProcessor.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: LocalStyleProcessor.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -34,14 +34,36 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// The document
 		/// </summary>
 		private IDocument _document;
+		/// <summary>
+		/// Is true if the common styles are read.
+		/// </summary>
+		private bool _common;
+		/// <summary>
+		/// XPath for the common styles.
+		/// </summary>
+		private string _xmlPathCommonStyle = "/office:document-content/office:styles";
+
+		private XmlDocument _currentXmlDocument;
+		/// <summary>
+		/// Gets or sets the current XML document.
+		/// </summary>
+		/// <value>The current XML document.</value>
+		public XmlDocument CurrentXmlDocument
+		{
+			get { return this._currentXmlDocument; }
+			set { this._currentXmlDocument = value; }
+		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LocalStyleProcessor"/> class.
 		/// </summary>
 		/// <param name="document">The document.</param>
-		public LocalStyleProcessor(IDocument document)
+		/// <param name="readCommonStyles">if set to <c>true</c> [read common styles].</param>
+		public LocalStyleProcessor(IDocument document, bool readCommonStyles)
 		{
 			this._document				= document;
+			this._currentXmlDocument	= this._document.XmlDoc;
+			this._common				= readCommonStyles;
 		}
 
 		/// <summary>
@@ -49,8 +71,14 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// </summary>
 		internal void ReadStyles()
 		{
-			XmlNode automaticStyleNode	= this._document.XmlDoc.SelectSingleNode(
-				TextDocumentHelper.AutomaticStylePath, this._document.NamespaceManager);
+			XmlNode automaticStyleNode	= null;
+			
+			if(!this._common)
+				automaticStyleNode	= this._document.XmlDoc.SelectSingleNode(
+					TextDocumentHelper.AutomaticStylePath, this._document.NamespaceManager);
+			else
+				automaticStyleNode	= this._document.XmlDoc.SelectSingleNode(
+					this._xmlPathCommonStyle, this._document.NamespaceManager);
 			
 			if(automaticStyleNode != null)
 			{
@@ -146,7 +174,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// <param name="styleNode">The style node.</param>
 		private void CreateUnknownStyle(XmlNode styleNode)
 		{
-			this._document.Styles.Add(new UnknownStyle(this._document, styleNode.CloneNode(true)));
+			if(!this._common)
+				this._document.Styles.Add(new UnknownStyle(this._document, styleNode.CloneNode(true)));
+			else
+				this._document.CommonStyles.Add(new UnknownStyle(this._document, styleNode.CloneNode(true)));			
 		}
 
 		/// <summary>
@@ -174,7 +205,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				tableStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(tableStyle);
+			if(!this._common)
+				this._document.Styles.Add(tableStyle);
+			else
+				this._document.CommonStyles.Add(tableStyle);
 		}
 
 		/// <summary>
@@ -202,7 +236,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				columnStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(columnStyle);
+			if(!this._common)
+				this._document.Styles.Add(columnStyle);
+			else
+				this._document.CommonStyles.Add(columnStyle);
 		}
 
 		/// <summary>
@@ -230,7 +267,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				rowStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(rowStyle);
+			if(!this._common)
+				this._document.Styles.Add(rowStyle);
+			else
+				this._document.CommonStyles.Add(rowStyle);
 		}
 
 		/// <summary>
@@ -258,7 +298,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				cellStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(cellStyle);
+			if(!this._common)
+				this._document.Styles.Add(cellStyle);
+			else
+				this._document.CommonStyles.Add(cellStyle);
 		}
 
 		/// <summary>
@@ -269,7 +312,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		{
 			ListStyle listStyle					= new ListStyle(this._document, styleNode);
 			
-			this._document.Styles.Add(listStyle);
+			if(!this._common)
+				this._document.Styles.Add(listStyle);
+			else
+				this._document.CommonStyles.Add(listStyle);
 		}
 
 		/// <summary>
@@ -297,7 +343,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				paragraphStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(paragraphStyle);
+			if(!this._common)
+				this._document.Styles.Add(paragraphStyle);
+			else
+				this._document.CommonStyles.Add(paragraphStyle);
 		}
 
 		/// <summary>
@@ -324,7 +373,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				textStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(textStyle);
+			if(!this._common)
+				this._document.Styles.Add(textStyle);
+			else
+				this._document.CommonStyles.Add(textStyle);
 		}
 
 		/// <summary>
@@ -351,7 +403,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				frameStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(frameStyle);
+			if(!this._common)
+				this._document.Styles.Add(frameStyle);
+			else
+				this._document.CommonStyles.Add(frameStyle);
 		}
 
 		/// <summary>
@@ -378,7 +433,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			foreach(IProperty property in pCollection)
 				sectionStyle.PropertyCollection.Add(property);
 
-			this._document.Styles.Add(sectionStyle);
+			if(!this._common)
+				this._document.Styles.Add(sectionStyle);
+			else
+				this._document.CommonStyles.Add(sectionStyle);
 		}
 
 		/// <summary>

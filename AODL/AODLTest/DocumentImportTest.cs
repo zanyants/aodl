@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentImportTest.cs,v 1.1 2006/01/29 11:26:02 larsbm Exp $
+ * $Id: DocumentImportTest.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -38,6 +38,8 @@ namespace AODLTest
 			//Load a text document 
 			TextDocument textDocument			= new TextDocument();
 			textDocument.Load(file);
+			Assert.IsTrue(textDocument.CommonStyles.Count > 0, "Common Styles must be read!");
+			Console.WriteLine("Common styles: {0}", textDocument.CommonStyles.Count);
 			//Save it back again
 			textDocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".rel.odt");
 		}
@@ -50,6 +52,8 @@ namespace AODLTest
 			//Load a text document 
 			TextDocument textDocument			= new TextDocument();
 			textDocument.Load(file);
+			Assert.IsTrue(textDocument.CommonStyles.Count > 0, "Common Styles must be read!");
+			Console.WriteLine("Common styles: {0}", textDocument.CommonStyles.Count);
 			//Save it back again
 			textDocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".rel.odt");
 		}
@@ -62,6 +66,8 @@ namespace AODLTest
 			//Load a spreadsheet document 
 			SpreadsheetDocument document		= new SpreadsheetDocument();
 			document.Load(file);
+			Assert.IsTrue(document.CommonStyles.Count > 0, "Common Styles must be read!");
+			Console.WriteLine("Common styles: {0}", document.CommonStyles.Count);
 			//Save it back again
 			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".rel.ods");
 		}
@@ -210,6 +216,11 @@ namespace AODLTest
 
 /*
  * $Log: DocumentImportTest.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:26:02  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

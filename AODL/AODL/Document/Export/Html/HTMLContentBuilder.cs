@@ -1,5 +1,5 @@
 /*
- * $Id: HTMLContentBuilder.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: HTMLContentBuilder.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -121,6 +121,8 @@ namespace AODL.Document.Export.Html
 							html			+= this.GetListAsHtml(iContent as List);
 						else if(iContent is Frame)
 							html			+= this.GetDrawFrameAsHtml(iContent as Frame);
+						else if(iContent is DrawTextBox)
+							html			+= this.GetDrawTextBoxAsHtml(iContent as DrawTextBox);
 						else if(iContent is Graphic)
 							html			+= this.GetGraphicAsHtml(iContent as Graphic);
 						else if(iContent is ListItem)
@@ -498,7 +500,7 @@ namespace AODL.Document.Export.Html
 							string style	= this.HTMLStyleBuilder.GetParagraphStyleAsHtml(paragraph.ParagraphStyle);							
 
 							if(style.Length > 0)
-								html		+= style+">\n";
+								html		+= style;//+">\n";
 							else
 								html		= html.Replace(" ", "");
 						}
@@ -506,7 +508,7 @@ namespace AODL.Document.Export.Html
 						{
 							html			= html.Replace(" ", "");
 						}
-					
+
 					html					+= ">\n";
 
 					string txtstyle	= "<span ";
@@ -809,6 +811,39 @@ namespace AODL.Document.Export.Html
 				html				+= "</p>\n";
 			else
 				html				= "";
+
+			return html;
+		}
+
+		/// <summary>
+		/// Gets the draw text box as HTML.
+		/// </summary>
+		/// <param name="drawTextBox">The draw text box.</param>
+		/// <returns></returns>
+		public string GetDrawTextBoxAsHtml(DrawTextBox drawTextBox)
+		{
+			string html					= "";
+
+			try
+			{
+				if(drawTextBox != null)
+				{
+					if(drawTextBox.Content != null)
+					{
+						html			+= this.GetIContentCollectionAsHtml(drawTextBox.Content);
+					}
+				}
+
+				html					+= "\n";
+			}
+			catch(Exception ex)
+			{
+				AODLException exception		= new AODLException("Exception while trying to build a HTML string from a ImageMap object.");
+				exception.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
+				exception.OriginalException	= ex;
+
+				throw exception;
+			}
 
 			return html;
 		}
@@ -1281,6 +1316,11 @@ namespace AODL.Document.Export.Html
 
 /*
  * $Log: HTMLContentBuilder.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

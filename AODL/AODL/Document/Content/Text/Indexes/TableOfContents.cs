@@ -1,5 +1,5 @@
 /*
- * $Id: TableOfContents.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: TableOfContents.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
  */
 
 /*
@@ -116,7 +116,8 @@ namespace AODL.Document.Content.Text.Indexes
 			this.UseHyperlinks			= useHyperlinks;
 			this._isNew					= true;
 			this.NewXmlNode(styleName, protectChanges, textName);
-			this.Style					= new SectionStyle(this, styleName);			
+			this.Style					= new SectionStyle(this, styleName);	
+			this.Document.Styles.Add(this.Style);
 			
 			this.TableOfContentsSource	= new TableOfContentsSource(this);
 			this.TableOfContentsSource.InitStandardTableOfContentStyle();
@@ -549,6 +550,11 @@ namespace AODL.Document.Content.Text.Indexes
 
 /*
  * $Log: TableOfContents.cs,v $
+ * Revision 1.2  2006/01/29 18:52:14  larsbm
+ * - Added support for common styles (style templates in OpenOffice)
+ * - Draw TextBox import and export
+ * - DrawTextBox html export
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *
