@@ -1,5 +1,5 @@
 /*
- * $Id: EventListeners.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: EventListeners.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -12,7 +12,8 @@
  * Copyright 2006, Kristy Saunders, ksaunders@eduworks.com
  * 
  * Last changes:
- * 01/29/2006 Merged into the new library version. (Lars Behrman)
+ * 2006-29-01 Merged into the new library version. (Lars Behrman)
+ * 2006-01-02 Implementation of IClonable. (Lars Behrman)
  */
 
 using System;
@@ -20,6 +21,7 @@ using System;
 using System.Xml;
 using AODL.Document.Styles;
 using AODL.Document.Content.Text;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 using AODL.Document.Content;
 using AODL.Document;
 
@@ -44,7 +46,7 @@ namespace AODL.Document.Content.OfficeEvents
 	///                xlink:href=”setCursor(‘arrow’)”/>
 	///        </office:event-listeners>
 	/// </example>
-	public class EventListeners : IContent, IContentContainer
+	public class EventListeners : IContent, IContentContainer, ICloneable
 	{
 		
 		/// <summary>
@@ -194,110 +196,28 @@ namespace AODL.Document.Content.OfficeEvents
 
 		#endregion
 
-//		/// <summary>
-//		/// Contents the collection_ inserted.
-//		/// </summary>
-//		/// <param name="index">The index.</param>
-//		/// <param name="value">The value.</param>
-//		private void ContentCollection_Inserted(int index, object value)
-//		{
-//			if (this.Node != null)
-//				this.Node.AppendChild(((EventListener)value).Node);
-//		}
-//
-//		#region IContentCollection Member
-//
-//		private IContentCollection _content;
-//		/// <summary>
-//		/// Gets or sets the content collection.
-//		/// </summary>
-//		/// <value>The content collection.</value>
-//		public IContentCollection Content
-//		{
-//			get { return this._content; }
-//			set { this._content = value; }
-//		}
-//
-//		#endregion 
-//
-//		#region IContent Member old
-//
-//		private IDocument _document;
-//		/// <summary>
-//		/// The document to which this image-map is associated.
-//		/// </summary>
-//		public IDocument Document
-//		{
-//			get
-//			{
-//				return this._document;
-//			}
-//			set
-//			{
-//				this._document = value;
-//			}
-//		}
-//
-//		private XmlNode _node;
-//		/// <summary>
-//		/// The XmlNode.
-//		/// </summary>
-//		public XmlNode Node
-//		{
-//			get
-//			{
-//				return this._node;
-//			}
-//			set
-//			{
-//				this._node = value;
-//			}
-//		}
-//
-//		/// <summary>
-//		/// An image-map doesn't have a style.
-//		/// </summary>
-//		/// <value>The name</value>
-//		public string Stylename
-//		{
-//			get
-//			{
-//				return null;
-//			}
-//			set
-//			{
-//			}
-//		}
-//
-//		/// <summary>
-//		/// An image-mapp doesn't have a style-name.
-//		/// </summary>
-//		public IStyle Style
-//		{
-//			get
-//			{
-//				return null;
-//			}
-//			set
-//			{
-//			}
-//		}
-//
-//		/// <summary>
-//		/// An image-map doesn't have text. 
-//		/// </summary>
-//		public ITextCollection TextContent
-//		{
-//			get
-//			{
-//				return null;
-//			}
-//			set
-//			{
-//			}
-//		}
-//
-//		#endregion
-	
+		#region ICloneable Member
+
+		/// <summary>
+		/// Create a deep clone of this EventListeners object.
+		/// </summary>
+		/// <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+		/// <returns>
+		/// A clone of this object.
+		/// </returns>
+		public object Clone()
+		{
+			EventListeners eventListenersClone	= null;
+
+			if(this.Document != null && this.Node != null)
+			{
+				MainContentProcessor mcp		= new MainContentProcessor(this.Document);
+				eventListenersClone				= mcp.CreateEventListeners(this.Node.CloneNode(true));
+			}
+
+			return eventListenersClone;
+		}
+
+		#endregion
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * $Id: SimpleText.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: SimpleText.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -19,6 +19,7 @@ using System;
 using System.Xml;
 using AODL.Document;
 using AODL.Document.Styles;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 
 namespace AODL.Document.Content.Text
 {
@@ -26,7 +27,7 @@ namespace AODL.Document.Content.Text
 	/// The class SimpleText represent simple unformatted text
 	/// that could be used within the spreadsheet cell content.
 	/// </summary>
-	public class SimpleText : IText
+	public class SimpleText : IText, ICloneable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SimpleText"/> class.
@@ -126,11 +127,40 @@ namespace AODL.Document.Content.Text
 		}
 
 		#endregion
+
+		#region ICloneable Member
+		/// <summary>
+		/// Create a deep clone of this SimpleText object.
+		/// </summary>
+		/// <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+		/// <returns>
+		/// A clone of this object.
+		/// </returns>
+		public object Clone()
+		{
+			SimpleText simpleTextClone		= null;
+
+			if(this.Document != null && this.Node != null)
+			{
+				TextContentProcessor tcp	= new TextContentProcessor();
+				simpleTextClone				= (SimpleText)tcp.CreateTextObject(
+					this.Document, this.Node.CloneNode(true));
+			}
+
+			return simpleTextClone;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: SimpleText.cs,v $
+ * Revision 1.2  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

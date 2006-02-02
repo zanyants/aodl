@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentImporter.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: OpenDocumentImporter.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -44,6 +44,9 @@ namespace AODL.Document.Import.OpenDocument
 		internal static readonly string dir		= Environment.CurrentDirectory+@"\aodlread\";
 		internal static readonly string dirpics	= Environment.CurrentDirectory+@"\PicturesRead\";
 
+		/// <summary>
+		/// The document to fill with content.
+		/// </summary>
 		internal IDocument _document;
 
 		/// <summary>
@@ -105,6 +108,17 @@ namespace AODL.Document.Import.OpenDocument
 			{
 				return this._importError;
 			}
+		}
+
+		/// <summary>
+		/// If the import file format isn't any OpenDocument
+		/// format you have to return true and AODL will
+		/// create a new one.
+		/// </summary>
+		/// <value></value>
+		public bool NeedNewOpenDocument
+		{
+			get { return false; }
 		}
 
 		#endregion
@@ -443,6 +457,11 @@ namespace AODL.Document.Import.OpenDocument
 
 /*
  * $Log: OpenDocumentImporter.cs,v $
+ * Revision 1.3  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

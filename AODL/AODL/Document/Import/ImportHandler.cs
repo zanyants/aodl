@@ -1,5 +1,5 @@
 /*
- * $Id: ImportHandler.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: ImportHandler.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -23,6 +23,7 @@ using AODL.Document;
 using AODL.Document.Exceptions;
 using AODL.Document.Export;
 using AODL.Document.Import.OpenDocument;
+using AODL.Document.Import.PlainText;
 
 namespace AODL.Document.Import
 {
@@ -57,13 +58,6 @@ namespace AODL.Document.Import
 						if(documentSupportInfo.DocumentType == documentType)
 							return iImporter;
 			}
-//			foreach(IImporter iImporter in this.LoadImporter())
-//			{
-//				foreach(string extension in iImporter.SupportedExtensions.Keys)
-//					if(extension.ToLower().Equals(targetExtension.ToLower()))
-//						if(documentType.ToString() == iImporter.SupportedExtensions[extension].ToString())
-//							return iImporter;
-//			}
 
 			AODLException exception		= new AODLException("No importer available for type "+documentType.ToString()+" and extension "+targetExtension);
 			exception.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
@@ -80,6 +74,8 @@ namespace AODL.Document.Import
 			{
 				ArrayList alImporter			= new ArrayList();				
 				alImporter.Add(new OpenDocumentImporter());
+				alImporter.Add(new PlainTextImporter());
+				alImporter.Add(new CsvImporter());
 
 				return alImporter;
 			}
@@ -96,6 +92,11 @@ namespace AODL.Document.Import
 
 /*
  * $Log: ImportHandler.cs,v $
+ * Revision 1.2  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

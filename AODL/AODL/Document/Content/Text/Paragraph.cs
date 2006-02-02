@@ -1,5 +1,5 @@
 /*
- * $Id: Paragraph.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: Paragraph.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -17,17 +17,21 @@
 
 using System;
 using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
 using System.Xml;
 using AODL.Document.Styles;
 using AODL.Document;
 using AODL.Document.Content;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 
 namespace AODL.Document.Content.Text
 {
 	/// <summary>
 	/// Represent a paragraph within a opendocument document.
 	/// </summary>
-	public class Paragraph : IContent, IContentContainer, IHtml, ITextContainer
+	public class Paragraph : IContent, IContentContainer, IHtml, ITextContainer, ICloneable
 	{
 		private ArrayList _mixedContent;
 		/// <summary>
@@ -722,11 +726,40 @@ namespace AODL.Document.Content.Text
 		}
 
 		#endregion
+
+		#region ICloneable Member
+
+		/// <summary>
+		/// Create a deep clone of this paragraph object.
+		/// </summary>
+		/// <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+		/// <returns>
+		/// A clone of this object.
+		/// </returns>
+		public object Clone()
+		{
+			Paragraph pargaphClone		= null;
+
+			if(this.Document != null && this.Node != null)
+			{			
+				MainContentProcessor mcp	= new MainContentProcessor(this.Document);
+				pargaphClone				= mcp.CreateParagraph(this.Node.CloneNode(true));
+			}
+
+			return pargaphClone;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: Paragraph.cs,v $
+ * Revision 1.3  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

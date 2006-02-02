@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphBuilder.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: ParagraphBuilder.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -33,6 +33,11 @@ namespace AODL.Document.Content.Text
 		/// with the ParagraphBuilder.
 		/// </summary>
 		public static readonly string  ParagraphSeperator	= "\n\n";
+		/// <summary>
+		/// Use \r\n\r\n as pargraph seperator for building a pargraph collection
+		/// with the ParagraphBuilder.
+		/// </summary>
+		public static readonly string  ParagraphSeperator2	= "\r\n\r\n";
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ParagraphBuilder"/> class.
@@ -164,6 +169,11 @@ namespace AODL.Document.Content.Text
 
 /*
  * $Log: ParagraphBuilder.cs,v $
+ * Revision 1.2  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

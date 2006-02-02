@@ -1,5 +1,5 @@
 /*
- * $Id: XLink.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: XLink.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -19,6 +19,7 @@ using System;
 using System.Xml;
 using AODL.Document;
 using AODL.Document.Styles;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 
 namespace AODL.Document.Content.Text
 {
@@ -26,7 +27,7 @@ namespace AODL.Document.Content.Text
 	/// Represent a hyperlink, which could be 
 	/// a web-, ftp- or telnet link
 	/// </summary>
-	public class XLink : IText, IHtml, ITextContainer
+	public class XLink : IText, IHtml, ITextContainer, ICloneable
 	{	
 		/// <summary>
 		/// Gets or sets the href. e.g http://www.sourceforge.net
@@ -427,11 +428,39 @@ namespace AODL.Document.Content.Text
 		}
 
 		#endregion
+
+		#region ICloneable Member
+		/// <summary>
+		/// Create a deep clone of this XLink object.
+		/// </summary>
+		/// <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+		/// <returns>
+		/// A clone of this object.
+		/// </returns>
+		public object Clone()
+		{
+			XLink xLinkClone			= null;
+
+			if(this.Document != null && this.Node != null)
+			{
+				TextContentProcessor tcp	= new TextContentProcessor();
+				xLinkClone					= tcp.CreateXLink(this.Document, this.Node.CloneNode(true));
+			}
+
+			return xLinkClone;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: XLink.cs,v $
+ * Revision 1.2  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

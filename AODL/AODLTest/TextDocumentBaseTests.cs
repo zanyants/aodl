@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocumentBaseTests.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: TextDocumentBaseTests.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -207,7 +207,7 @@ namespace AODLTest
 									+"Heinz Willi\nDorfstr. 1\n22225 Hamburg\n\n\n\n"
 									+"Offer for 200 Intel Pentium 4 CPU's\n\n\n\n"
 									+"Dear Mr. Willi,\n\n\n\n"
-									+"thank you for your request. We can offer you the 200 Intel Pentium IV 3 Ghz CPU's for a price of 79,80 € per unit."
+									+"thank you for your request. \tWe can     offer you the 200 Intel Pentium IV 3 Ghz CPU's for a price of 79,80 € per unit."
 									+"This special offer is valid to 31.10.2005. If you accept, we can deliver within 24 hours.\n\n\n\n"
 									+"Best regards \nMax Mustermann";
 
@@ -250,11 +250,63 @@ namespace AODLTest
 			//save the document
 			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"modifiedCommonStyle.odt");
 		}
+
+		[Test]
+		public void InsertAndRemoveTest()
+		{
+			//Create a new document
+			TextDocument document				= new TextDocument();
+			document.New();
+			//Create a standard paragraph
+			Paragraph paragraph					= ParagraphBuilder.CreateStandardTextParagraph(document);
+			//Create some simple text
+			SimpleText simpleText				= new SimpleText(document, "Some simple text");
+			//Add the text
+			paragraph.TextContent.Add(simpleText);
+			Assert.IsNotEmpty(paragraph.TextContent, "Must be contain one element.");
+			//Remove the simple text
+			paragraph.TextContent.Remove(simpleText);
+			Assert.IsEmpty(paragraph.TextContent, "Must be empty");
+			Assert.IsTrue(paragraph.Node.InnerXml.Length == 0, "Node from simple text must be removed.");
+		}
+
+		[Test]
+		public void TestCloning()
+		{
+			TextDocument document				= new TextDocument();
+			document.New();
+			Paragraph paragraph					= ParagraphBuilder.CreateStandardTextParagraph(document);
+			paragraph.TextContent.Add(new SimpleText(document, "Some text"));
+			Paragraph paragraphClone			= (Paragraph)paragraph.Clone();
+			Assert.AreNotSame(paragraph.Node, paragraphClone.Node, "Should be cloned and not equal.");
+			Assert.AreEqual(paragraph.TextContent[0].GetType(), paragraphClone.TextContent[0].GetType(), "Should be cloned and equal.");
+			ParagraphStyle paragraphStyle		= new ParagraphStyle(document, "P1");
+			paragraphStyle.TextProperties.Bold	= "bold";
+			//Add paragraph style to the document, 
+			//only automaticaly created styles will be added also automaticaly
+			document.Styles.Add(paragraphStyle);
+			paragraphClone.ParagraphStyle		= paragraphStyle;
+			//Clone the clone
+			Paragraph paragraphClone2			= (Paragraph)paragraphClone.Clone();
+			Assert.AreNotSame(paragraphClone2.Node, paragraphClone.Node, "Should be cloned and not equal.");
+			Assert.AreEqual(paragraphClone2.TextContent[0].GetType(), paragraphClone.TextContent[0].GetType(), "Should be cloned and equal.");
+			//Cloning of styles isn't supported!
+			Assert.AreSame(paragraphClone2.ParagraphStyle, paragraphClone.ParagraphStyle, "Must be same style object. Styles have to be cloned explicitly.");
+			document.Content.Add(paragraph);
+			document.Content.Add(paragraphClone);
+			document.Content.Add(paragraphClone2);
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"clonedParagraphs.odt");
+		}
 	}
 }
 
 /*
  * $Log: TextDocumentBaseTests.cs,v $
+ * Revision 1.3  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

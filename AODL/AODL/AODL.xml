@@ -809,6 +809,15 @@
             News the XML node.
             </summary>
         </member>
+        <member name="M:AODL.Document.Content.OfficeEvents.EventListener.Clone">
+            <summary>
+            Create a deep clone of this EventListener object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
+        </member>
         <member name="P:AODL.Document.Content.OfficeEvents.EventListener.Href">
             <summary>
             Gets or sets the href. e.g http://www.sourceforge.net
@@ -894,6 +903,15 @@
             </summary>
             <param name="index">The index.</param>
             <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.Document.Content.OfficeEvents.EventListeners.Clone">
+            <summary>
+            Create a deep clone of this EventListeners object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
         </member>
         <member name="P:AODL.Document.Content.OfficeEvents.EventListeners.Content">
             <summary>
@@ -1961,11 +1979,26 @@
             <param name="text">The attribute value.</param>
             <param name="prefix">The namespace prefix.</param>
         </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.Bookmark.Clone">
+            <summary>
+            Create a deep clone of this Bookmark object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
+        </member>
         <member name="P:AODL.Document.Content.Text.Indexes.Bookmark.BookmarkName">
             <summary>
             Gets or sets the name of the bookmark.
             </summary>
             <value>The name of the bookmark.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.Bookmark.BookmarkType">
+            <summary>
+            Gets the type of the bookmark.
+            </summary>
+            <value>The type of the bookmark.</value>
         </member>
         <member name="P:AODL.Document.Content.Text.Indexes.Bookmark.Node">
             <summary>
@@ -2776,6 +2809,15 @@
             <param name="index">The index.</param>
             <param name="value">The value.</param>
         </member>
+        <member name="M:AODL.Document.Content.Text.FormatedText.Clone">
+            <summary>
+            Create a deep clone of this FormatedText object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
+        </member>
         <member name="P:AODL.Document.Content.Text.FormatedText.TextStyle">
             <summary>
             Gets or sets the text style.
@@ -2905,6 +2947,15 @@
             Support for outline numbering up to deepth of 6, yet.
             </summary>
             <returns>The number string.</returns>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Header.Clone">
+            <summary>
+            Create a deep clone of this Header object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
         </member>
         <member name="P:AODL.Document.Content.Text.Header.OutLineLevel">
             <summary>
@@ -3402,6 +3453,15 @@
             <param name="style">The style.</param>
             <returns>The element style value</returns>
         </member>
+        <member name="M:AODL.Document.Content.Text.Paragraph.Clone">
+            <summary>
+            Create a deep clone of this paragraph object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
+        </member>
         <member name="P:AODL.Document.Content.Text.Paragraph.MixedContent">
             <summary>
             Gets the content of the mixed.
@@ -3467,6 +3527,12 @@
         <member name="F:AODL.Document.Content.Text.ParagraphBuilder.ParagraphSeperator">
             <summary>
             Use \n\n as pargraph seperator for building a pargraph collection
+            with the ParagraphBuilder.
+            </summary>
+        </member>
+        <member name="F:AODL.Document.Content.Text.ParagraphBuilder.ParagraphSeperator2">
+            <summary>
+            Use \r\n\r\n as pargraph seperator for building a pargraph collection
             with the ParagraphBuilder.
             </summary>
         </member>
@@ -3580,6 +3646,15 @@
             News the node.
             </summary>
             <param name="simpleText">The simple text.</param>
+        </member>
+        <member name="M:AODL.Document.Content.Text.SimpleText.Clone">
+            <summary>
+            Create a deep clone of this SimpleText object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
         </member>
         <member name="P:AODL.Document.Content.Text.SimpleText.Node">
             <summary>
@@ -3732,6 +3807,15 @@
             Gets the link.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AODL.Document.Content.Text.XLink.Clone">
+            <summary>
+            Create a deep clone of this XLink object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
         </member>
         <member name="P:AODL.Document.Content.Text.XLink.Href">
             <summary>
@@ -5177,6 +5261,18 @@
             </summary>
             <value>ArrayList of DocumentSupportInfo objects.</value>
         </member>
+        <member name="P:AODL.Document.Import.IImporter.NeedNewOpenDocument">
+            <summary>
+            If the import file format isn't any OpenDocument
+            format you have to return true and AODL will
+            create a new one.
+            </summary>
+        </member>
+        <member name="F:AODL.Document.Import.OpenDocument.OpenDocumentImporter._document">
+            <summary>
+            The document to fill with content.
+            </summary>
+        </member>
         <member name="M:AODL.Document.Import.OpenDocument.OpenDocumentImporter.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:AODL.Document.Import.OpenDocument.OpenDocumentImporter"/> class.
@@ -5252,6 +5348,14 @@
             </summary>
             <value>The import errors.</value>
         </member>
+        <member name="P:AODL.Document.Import.OpenDocument.OpenDocumentImporter.NeedNewOpenDocument">
+            <summary>
+            If the import file format isn't any OpenDocument
+            format you have to return true and AODL will
+            create a new one.
+            </summary>
+            <value></value>
+        </member>
         <member name="P:AODL.Document.Import.OpenDocument.OpenDocumentImporter.Author">
             <summary>
             The name the Author
@@ -5265,6 +5369,162 @@
             <value></value>
         </member>
         <member name="P:AODL.Document.Import.OpenDocument.OpenDocumentImporter.Description">
+            <summary>
+            Description about the exporter resp. importer
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.Document.Import.PlainText.CsvImporter">
+            <summary>
+            CsvImporter, a class for importing csv files into
+            OpenDocument spreadsheet documents.
+            </summary>
+        </member>
+        <member name="F:AODL.Document.Import.PlainText.CsvImporter._document">
+            <summary>
+            The document to fill with content.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.CsvImporter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Import.PlainText.CsvImporter"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.CsvImporter.Import(AODL.Document.IDocument,System.String)">
+            <summary>
+            Imports the specified filename.
+            </summary>
+            <param name="document">The TextDocument to fill.</param>
+            <param name="filename">The filename.</param>		
+            <returns>The created TextDocument</returns>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.CsvImporter.CreateTables(System.Collections.ArrayList)">
+            <summary>
+            Creates the tables.
+            </summary>
+            <param name="lines">The lines.</param>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.CsvImporter.GetFileContent(System.String)">
+            <summary>
+            Gets the content of the file.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <returns>All text lines as an ArrayList of strings.</returns>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.CsvImporter.DocumentSupportInfos">
+            <summary>
+            Gets the document support infos.
+            </summary>
+            <value>The document support infos.</value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.CsvImporter.ImportError">
+            <summary>
+            Gets the import errors as ArrayList of strings.
+            </summary>
+            <value>The import errors.</value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.CsvImporter.NeedNewOpenDocument">
+            <summary>
+            If the import file format isn't any OpenDocument
+            format you have to return true and AODL will
+            create a new one.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.CsvImporter.Author">
+            <summary>
+            The name the Author
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.CsvImporter.InfoUrl">
+            <summary>
+            Url to a info site
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.CsvImporter.Description">
+            <summary>
+            Description about the exporter resp. importer
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.Document.Import.PlainText.PlainTextImporter">
+            <summary>
+            Plain Text Importer.
+            </summary>
+        </member>
+        <member name="F:AODL.Document.Import.PlainText.PlainTextImporter._document">
+            <summary>
+            The document to fill with content.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.PlainTextImporter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Import.PlainText.PlainTextImporter"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.PlainTextImporter.Import(AODL.Document.IDocument,System.String)">
+            <summary>
+            Imports the specified filename.
+            </summary>
+            <param name="document">The TextDocument to fill.</param>
+            <param name="filename">The filename.</param>		
+            <returns>The created TextDocument</returns>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.PlainTextImporter.ReadTextToDocument(System.String)">
+            <summary>
+            Reads the text to document.
+            </summary>
+            <param name="text">The text.</param>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.PlainTextImporter.ReadContentFromFile(System.String)">
+            <summary>
+            Reads the content from file.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Document.Import.PlainText.PlainTextImporter.SetConformLineBreaks(System.String)">
+            <summary>
+            Sets the conform line breaks.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.PlainTextImporter.DocumentSupportInfos">
+            <summary>
+            Gets the document support infos.
+            </summary>
+            <value>The document support infos.</value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.PlainTextImporter.ImportError">
+            <summary>
+            Gets the import errors as ArrayList of strings.
+            </summary>
+            <value>The import errors.</value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.PlainTextImporter.NeedNewOpenDocument">
+            <summary>
+            If the import file format isn't any OpenDocument
+            format you have to return true and AODL will
+            create a new one.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.PlainTextImporter.Author">
+            <summary>
+            The name the Author
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.PlainTextImporter.InfoUrl">
+            <summary>
+            Url to a info site
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Import.PlainText.PlainTextImporter.Description">
             <summary>
             Description about the exporter resp. importer
             </summary>

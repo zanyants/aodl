@@ -1,5 +1,5 @@
 /*
- * $Id: IImporter.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: IImporter.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -46,11 +46,22 @@ namespace AODL.Document.Import
 		/// </summary>
 		/// <value>ArrayList of DocumentSupportInfo objects.</value>
 		ArrayList DocumentSupportInfos {get; }
+		/// <summary>
+		/// If the import file format isn't any OpenDocument
+		/// format you have to return true and AODL will
+		/// create a new one.
+		/// </summary>
+		bool NeedNewOpenDocument {get;}
 	}
 }
 
 /*
  * $Log: IImporter.cs,v $
+ * Revision 1.2  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

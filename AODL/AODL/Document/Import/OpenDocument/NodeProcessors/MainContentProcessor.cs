@@ -1,5 +1,5 @@
 /*
- * $Id: MainContentProcessor.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: MainContentProcessor.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -151,7 +151,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <returns></returns>
-		private IContent CreateContent(XmlNode node)
+		public IContent CreateContent(XmlNode node)
 		{
 			try
 			{
@@ -226,7 +226,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 					TableOfContents tableOfContents		= new TableOfContents(
 						((TextDocument)this._document), tocNode);
 					//Recieve the Section style
-					IStyle sectionStyle			= this._document.Styles.GetStyleByName(tableOfContents.StyleName);
+					IStyle sectionStyle					= this._document.Styles.GetStyleByName(tableOfContents.StyleName);
 
 					if(sectionStyle != null)
 						tableOfContents.Style				= sectionStyle;
@@ -280,7 +280,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// Creates the paragraph.
 		/// </summary>
 		/// <param name="paragraphNode">The paragraph node.</param>
-		private Paragraph CreateParagraph(XmlNode paragraphNode)
+		public Paragraph CreateParagraph(XmlNode paragraphNode)
 		{
 			try
 			{
@@ -446,7 +446,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// </summary>
 		/// <param name="headernode">The headernode.</param>
 		/// <returns></returns>
-		private Header CreateHeader(XmlNode headernode)
+		public Header CreateHeader(XmlNode headernode)
 		{
 			try
 			{
@@ -719,7 +719,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// </summary>
 		/// <param name="eventListenerNode">The event listener node.</param>
 		/// <returns></returns>
-		private EventListener CreateEventListener(XmlNode eventListenerNode)
+		public EventListener CreateEventListener(XmlNode eventListenerNode)
 		{
 			try
 			{
@@ -743,7 +743,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// </summary>
 		/// <param name="eventListenersNode">The event listeners node.</param>
 		/// <returns></returns>
-		private EventListeners CreateEventListeners(XmlNode eventListenersNode)
+		public EventListeners CreateEventListeners(XmlNode eventListenersNode)
 		{
 			try
 			{
@@ -1459,6 +1459,11 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 //AODLTest.DocumentImportTest.SimpleLoadTest : System.IO.DirectoryNotFoundException : Could not find a part of the path "D:\OpenDocument\AODL\AODLTest\bin\Debug\GeneratedFiles\OpenOffice.net.odt.rel.odt".
 /*
  * $Log: MainContentProcessor.cs,v $
+ * Revision 1.3  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

@@ -1,5 +1,5 @@
 /*
- * $Id: EventListener.cs,v 1.1 2006/01/29 11:29:46 larsbm Exp $
+ * $Id: EventListener.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -12,7 +12,8 @@
  * Copyright 2006, Kristy Saunders, ksaunders@eduworks.com
  * 
  * Last changes:
- * 01/29/2006 Merged into the new library version. (Lars Behrman)
+ * 2006-01-29 Merged into the new library version. (Lars Behrman)
+ * 2006-02-01 Implementation of IClonable. (Lars Behrman)
  */
 
 using System;
@@ -20,6 +21,7 @@ using System;
 using System.Xml;
 using AODL.Document.Styles;
 using AODL.Document.Content.Text;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 using AODL.Document.Content;
 using AODL.Document;
 
@@ -28,7 +30,7 @@ namespace AODL.Document.Content.OfficeEvents
 	/// <summary>
 	/// Summary for EventListener.
 	/// </summary>
-	public class EventListener: IContent
+	public class EventListener: IContent, ICloneable
 	{
 		/// <summary>
 		/// Gets or sets the href. e.g http://www.sourceforge.net
@@ -331,5 +333,28 @@ namespace AODL.Document.Content.OfficeEvents
 //		}
 
 		#endregion	
+
+		#region ICloneable Member
+		/// <summary>
+		/// Create a deep clone of this EventListener object.
+		/// </summary>
+		/// <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+		/// <returns>
+		/// A clone of this object.
+		/// </returns>
+		public object Clone()
+		{
+			EventListener eventListenerClone	= null;
+
+			if(this.Document != null && this.Node != null)
+			{
+				MainContentProcessor mcp		= new MainContentProcessor(this.Document);
+				eventListenerClone				= mcp.CreateEventListener(this.Node.CloneNode(true));
+			}
+
+			return eventListenerClone;
+		}
+
+		#endregion
 	}
 }

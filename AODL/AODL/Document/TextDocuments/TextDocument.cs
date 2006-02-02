@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.2 2006/01/29 18:52:51 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -327,22 +327,27 @@ namespace AODL.Document.TextDocuments
 
 				ImportHandler importHandler		= new ImportHandler();
 				IImporter importer				= importHandler.GetFirstImporter(DocumentTypes.TextDocument, file);
-				importer.Import(this,file);
+				if(importer != null)
+				{
+					if(importer.NeedNewOpenDocument)
+						this.New();
+					importer.Import(this,file);
 
-				if(importer.ImportError != null)
-					if(importer.ImportError.Count > 0)
-						foreach(object ob in importer.ImportError)
-							if(ob is AODLWarning)
-							{
-								if(((AODLWarning)ob).Message != null)
-									Console.WriteLine("Err: {0}", ((AODLWarning)ob).Message);
-								if(((AODLWarning)ob).Node != null)
+					if(importer.ImportError != null)
+						if(importer.ImportError.Count > 0)
+							foreach(object ob in importer.ImportError)
+								if(ob is AODLWarning)
 								{
-									XmlTextWriter writer	= new XmlTextWriter(Console.Out);
-									writer.Formatting		= Formatting.Indented;
-									((AODLWarning)ob).Node.WriteContentTo(writer);
+									if(((AODLWarning)ob).Message != null)
+										Console.WriteLine("Err: {0}", ((AODLWarning)ob).Message);
+									if(((AODLWarning)ob).Node != null)
+									{
+										XmlTextWriter writer	= new XmlTextWriter(Console.Out);
+										writer.Formatting		= Formatting.Indented;
+										((AODLWarning)ob).Node.WriteContentTo(writer);
+									}
 								}
-							}
+				}
 
 			}
 			catch(Exception ex)
@@ -855,6 +860,11 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.3  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.2  2006/01/29 18:52:51  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

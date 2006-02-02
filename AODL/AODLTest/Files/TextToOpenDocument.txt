@@ -1,0 +1,5 @@
+ AODC 1.0.2.0 and AODL 1.1.2.0 released
+
+This morning I have published the new releases of AODC and AODL. Now, AODC offer some new features e.g. "Batch" mode which let you convert more then one file at the same time, reference OpenDocument files with AODC or create a menu item "Convert with AODC" with the Explorer menu, ....
+
+AODL offer full reading and writing support for Table of contents, now. .

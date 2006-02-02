@@ -424,6 +424,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Document\Import\PlainText\CsvImporter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Import\PlainText\PlainTextImporter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Document\SpreadsheetDocuments\DocumentManifest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

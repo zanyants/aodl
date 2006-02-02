@@ -1,5 +1,5 @@
 /*
- * $Id: Bookmark.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: Bookmark.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -19,6 +19,7 @@ using System;
 using System.Xml;
 using AODL.Document;
 using AODL.Document.Content.Text;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 using AODL.Document.Styles;
 
 namespace AODL.Document.Content.Text.Indexes
@@ -26,7 +27,7 @@ namespace AODL.Document.Content.Text.Indexes
 	/// <summary>
 	/// Represent a Bookmark.
 	/// </summary>
-	public class Bookmark : IText
+	public class Bookmark : IText, ICloneable
 	{
 		
 		/// <summary>
@@ -51,6 +52,23 @@ namespace AODL.Document.Content.Text.Indexes
 					this.CreateAttribute("name", value, "text");
 				this._node.SelectSingleNode("@text:name",
 					this.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets the type of the bookmark.
+		/// </summary>
+		/// <value>The type of the bookmark.</value>
+		public BookmarkType BookmarkType
+		{
+			get 
+			{
+				if(this.Node.Name == "text:bookmark-start")
+					return BookmarkType.Start;
+				else if(this.Node.Name == "text:bookmark-end")
+					return BookmarkType.End;
+				else
+					return BookmarkType.Standard;
 			}
 		}
 
@@ -177,6 +195,30 @@ namespace AODL.Document.Content.Text.Indexes
 		}
 
 		#endregion
+
+		#region ICloneable Member
+		/// <summary>
+		/// Create a deep clone of this Bookmark object.
+		/// </summary>
+		/// <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+		/// <returns>
+		/// A clone of this object.
+		/// </returns>
+		public object Clone()
+		{
+			Bookmark bookmarkClone			= null;
+
+			if(this.Document != null && this.Node != null)
+			{
+				TextContentProcessor tcp	= new TextContentProcessor();
+				bookmarkClone				= tcp.CreateBookmark(
+					this.Document, this.Node.CloneNode(true), this.BookmarkType);
+			}
+
+			return bookmarkClone;
+		}
+
+		#endregion
 	}
 
 	/// <summary>
@@ -201,6 +243,11 @@ namespace AODL.Document.Content.Text.Indexes
 
 /*
  * $Log: Bookmark.cs,v $
+ * Revision 1.2  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

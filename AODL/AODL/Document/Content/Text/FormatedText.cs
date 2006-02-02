@@ -1,5 +1,5 @@
 /*
- * $Id: FormatedText.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: FormatedText.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -19,6 +19,7 @@ using System;
 using System.Xml;
 using AODL.Document.Styles;
 using AODL.Document.Styles.Properties;
+using AODL.Document.Import.OpenDocument.NodeProcessors;
 using AODL.Document.Content;
 using AODL.Document;
 
@@ -27,7 +28,7 @@ namespace AODL.Document.Content.Text
 	/// <summary>
 	/// Represent a formated Text e.g bold, italic, underline etc.
 	/// </summary>
-	public class FormatedText : IHtml, IText, ITextContainer
+	public class FormatedText : IHtml, IText, ITextContainer, ICloneable
 	{
 		/// <summary>
 		/// Gets or sets the text style.
@@ -338,11 +339,40 @@ namespace AODL.Document.Content.Text
 		{
 			this.Node.RemoveChild(((IText)value).Node);
 		}
+
+		#region ICloneable Member
+		/// <summary>
+		/// Create a deep clone of this FormatedText object.
+		/// </summary>
+		/// <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+		/// <returns>
+		/// A clone of this object.
+		/// </returns>
+		public object Clone()
+		{
+			FormatedText formatedTextClone		= null;
+
+			if(this.Document != null && this.Node != null)
+			{
+				TextContentProcessor tcp		= new TextContentProcessor();
+				formatedTextClone				= tcp.CreateFormatedText(
+					this.Document, this.Node.CloneNode(true));
+			}
+
+			return formatedTextClone;
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: FormatedText.cs,v $
+ * Revision 1.3  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

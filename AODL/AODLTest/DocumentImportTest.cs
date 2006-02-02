@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentImportTest.cs,v 1.3 2006/01/29 19:30:24 larsbm Exp $
+ * $Id: DocumentImportTest.cs,v 1.4 2006/02/02 21:55:59 larsbm Exp $
  */
 
 /*
@@ -92,7 +92,26 @@ namespace AODLTest
 			//Save it back again
 			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".rel.odt");
 		}
-//
+
+		[Test (Description="Convert a plain text file into an OpenDocument text document.")]
+		public void TextToOpenDocumentText()
+		{
+			TextDocument document				= new TextDocument();
+			document.Load(AARunMeFirstAndOnce.inPutFolder+"TextToOpenDocument.txt");
+			Assert.IsNotEmpty(document.Content, "Must contain objects.");
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"TextToOpenDocument.odt");
+		}
+
+		[Test (Description="Convert a csv text file into an OpenDocument spreadsheet document.")]
+		public void CsvToOpenDocumentSpreadsheet()
+		{
+			SpreadsheetDocument document		= new SpreadsheetDocument();
+			document.Load(AARunMeFirstAndOnce.inPutFolder+"CsvToOpenDocument.csv");
+			Assert.IsTrue(document.Content.Count == 1, "Must contain objects.");
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"CsvToOpenDocument.ods");
+		}
+		
+		#region old code delete
 //		[Test]
 //		public void RealContentLoadTest()
 //		{
@@ -211,11 +230,17 @@ namespace AODLTest
 ////			document.Load("AndrewMacro.odt");
 ////			document.SaveTo("AndrewMacroFull.html");
 //		}
+		#endregion
 	}
 }
 
 /*
  * $Log: DocumentImportTest.cs,v $
+ * Revision 1.4  2006/02/02 21:55:59  larsbm
+ * - Added Clone object support for many AODL object types
+ * - New Importer implementation PlainTextImporter and CsvImporter
+ * - New tests
+ *
  * Revision 1.3  2006/01/29 19:30:24  larsbm
  * - Added app config support for NUnit tests
  *
