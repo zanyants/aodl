@@ -1,5 +1,5 @@
 /*
- * $Id: ColumnStyle.cs,v 1.2 2006/01/29 18:52:51 larsbm Exp $
+ * $Id: ColumnStyle.cs,v 1.3 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -25,7 +25,7 @@ using AODL.Document.SpreadsheetDocuments;
 namespace AODL.Document.Styles
 {
 	/// <summary>
-	/// Zusammenfassung für ColumnStyle.
+	/// ColumnStyle represent a table column style.
 	/// </summary>
 	public class ColumnStyle : IStyle
 	{
@@ -259,6 +259,10 @@ namespace AODL.Document.Styles
 
 /*
  * $Log: ColumnStyle.cs,v $
+ * Revision 1.3  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 18:52:51  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

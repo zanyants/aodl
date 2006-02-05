@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: Frame.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -27,7 +27,7 @@ using AODL.Document;
 namespace AODL.Document.Content.Draw
 {
 	/// <summary>
-	/// Zusammenfassung für Frame.
+	/// Frame represent graphic resp. a draw container.
 	/// </summary>
 	public class Frame : IContent, IContentContainer
 	{
@@ -437,6 +437,10 @@ namespace AODL.Document.Content.Draw
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.3  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

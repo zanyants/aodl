@@ -1,5 +1,5 @@
 /*
- * $Id: Column.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: Column.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -24,7 +24,7 @@ using AODL.Document.SpreadsheetDocuments;
 namespace AODL.Document.Content.Tables
 {
 	/// <summary>
-	/// Zusammenfassung für Column.
+	/// Column represent a table column.
 	/// </summary>
 	public class Column : IContent
 	{
@@ -212,6 +212,10 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Column.cs,v $
+ * Revision 1.3  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

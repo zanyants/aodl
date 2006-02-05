@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.3 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -19,22 +19,24 @@ using System;
 using System.Xml;
 using System.Drawing.Imaging;
 using System.Collections;
+using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.GZip;
 using AODL.Document.TextDocuments;
-//using AODL.Document.TextDocuments.Content;
 using AODL.Document;
 using AODL.Document.Content;
 using AODL.Document.Content.Draw;
-using AODL.Document.Import;
+using AODL.Document.Import.OpenDocument;
+using AODL.Document.Exceptions;
 
 namespace AODL.Document.Export.OpenDocument
 {
 	/// <summary>
-	/// Zusammenfassung für OpenDocumentTextExporter.
+	/// OpenDocumentTextExporter is the standard exporter of AODL for the export
+	/// of documents in the OpenDocument format.
 	/// </summary>
 	public class OpenDocumentTextExporter : IExporter, IPublisherInfo
 	{
@@ -124,7 +126,6 @@ namespace AODL.Document.Export.OpenDocument
 				CreateOpenDocument(filename, dir);
 				//Clean up resources
 				//this.CleanUpDirectory(dir);
-//AODLTest.DocumentImportTest.SimpleLoadTest : System.UnauthorizedAccessException : Access to the path "D:\OpenDocument\AODL\AODLTest\bin\Debug\tmp\\Configurations2" is denied.
 			}
 			catch(Exception ex)
 			{
@@ -255,12 +256,7 @@ namespace AODL.Document.Export.OpenDocument
 			catch(Exception ex)
 			{
 				throw;
-			}
-
-//			Directory.CreateDirectory(directory+@"\META-INF");			
-//			Directory.CreateDirectory(directory+@"\Configurations2");
-//			Directory.CreateDirectory(directory+@"\Pictures");
-//			Directory.CreateDirectory(directory+@"\Thumbnails");	
+			}	
 		}
 
 		/// <summary>
@@ -293,32 +289,58 @@ namespace AODL.Document.Export.OpenDocument
 			}
 		}
 
-		/// <summary>
-		/// Cleans the up directory.
-		/// </summary>
-		/// <param name="directory">The directory.</param>
-		private void CleanUpDirectory(string directory)
-		{
-			string dirpics	= Environment.CurrentDirectory+@"\PicturesRead\";
+		#region old code Todo: Delete
+//		/// <summary>
+//		/// Cleans the up directory.
+//		/// </summary>
+//		/// <param name="directory">The directory.</param>
+//		private void CleanUpDirectory(string directory)
+//		{
+//			string dirpics	= Environment.CurrentDirectory+@"\PicturesRead\";
+//
+//			try
+//			{
+//				foreach(string d in this._directories)
+//					Directory.Delete(directory+@"\"+d, true);
+//
+////				if(Directory.Exists(OpenDocumentTextImporter.dirpics))
+////					Directory.Delete(OpenDocumentTextImporter.dirpics, true);
+//				if(Directory.Exists(dirpics))
+//					Directory.Delete(dirpics, true);
+//
+//				File.Delete(directory+DocumentMetadata.FileName);
+//				File.Delete(directory+DocumentSetting.FileName);
+//				File.Delete(directory+DocumentStyles.FileName);
+//				File.Delete(directory+"content.xml");
+//			}
+//			catch(Exception ex)
+//			{
+//				throw;
+//			}
+//		}
+		#endregion
 
+		/// <summary>
+		/// Cleans the up read and write directories.
+		/// </summary>
+		internal static void CleanUpReadAndWriteDirectories()
+		{
 			try
 			{
-				foreach(string d in this._directories)
-					Directory.Delete(directory+@"\"+d, true);
-
-//				if(Directory.Exists(OpenDocumentTextImporter.dirpics))
-//					Directory.Delete(OpenDocumentTextImporter.dirpics, true);
-				if(Directory.Exists(dirpics))
-					Directory.Delete(dirpics, true);
-
-				File.Delete(directory+DocumentMetadata.FileName);
-				File.Delete(directory+DocumentSetting.FileName);
-				File.Delete(directory+DocumentStyles.FileName);
-				File.Delete(directory+"content.xml");
+				if(Directory.Exists(OpenDocumentImporter.dir))
+					Directory.Delete(OpenDocumentImporter.dir, true);
+				if(Directory.Exists(OpenDocumentImporter.dir))
+					Directory.Delete(OpenDocumentImporter.dir, true);
+				if(Directory.Exists(OpenDocumentTextExporter.dir))
+					Directory.Delete(OpenDocumentTextExporter.dir, true);
 			}
 			catch(Exception ex)
 			{
-				throw;
+				AODLWarning aodlWarning				= new AODLWarning("An exception ouccours while trying to remove the temp read directories.");
+				aodlWarning.InMethod				= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
+				aodlWarning.OriginalException		= ex;
+
+				throw ex;
 			}
 		}
 
@@ -414,19 +436,6 @@ namespace AODL.Document.Export.OpenDocument
 					
 				}
 			}
-
-//			if(document.IsLoadedFile)
-//			{
-//				string dir					= AODL.Document.Import.OpenDocument.OpenDocumentImporter.dir;
-//				dir							+= @"\Pictures";
-//				if(Directory.Exists(dir))
-//				{
-//					DirectoryInfo dInfo		= new DirectoryInfo(dir);
-//					foreach(FileInfo fInfo in dInfo.GetFiles())
-//						if(!File.Exists(targetDir+fInfo.Name))
-//							File.Copy(fInfo.FullName, targetDir+fInfo.Name);
-//				}
-//			}
 		}
 		
 	}
@@ -434,6 +443,10 @@ namespace AODL.Document.Export.OpenDocument
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.3  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

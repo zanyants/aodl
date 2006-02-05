@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentHtmlExporter.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: OpenDocumentHtmlExporter.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -236,29 +236,6 @@ namespace AODL.Document.Export.Html
 		}
 
 		/// <summary>
-		/// Replaces the control nodes.
-		/// </summary>
-		/// <param name="text">The text.</param>
-		/// <returns>The cleaned text</returns>
-		private string ReplaceControlNodes(string text)
-		{
-			try
-			{
-				text		= text.Replace("<text:line-break xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />", @"<br>");
-				text		= text.Replace("<text:tab xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" />", "&nbsp;&nbsp;&nbsp;");
-				text		= text.Replace("<text:line-break />", @"<br>");
-				text		= text.Replace("<text:tab />", "&nbsp;&nbsp;&nbsp;");
-				text		= text.Replace("<text:line-break/>", @"<br>");
-				text		= text.Replace("<text:tab/>", "&nbsp;&nbsp;&nbsp;");				
-			}
-			catch(Exception ex)
-			{
-				//unhandled, only some textnodes will be left
-			}
-			return text;
-		}
-
-		/// <summary>
 		/// Sets the content of the meta.
 		/// </summary>
 		/// <param name="text">The text.</param>
@@ -285,6 +262,10 @@ namespace AODL.Document.Export.Html
 
 /*
  * $Log: OpenDocumentHtmlExporter.cs,v $
+ * Revision 1.2  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

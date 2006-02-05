@@ -90,14 +90,14 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "AODL"
-                    AssemblyName = "AODL"
-                    HintPath = "Resources\AODL.dll"
-                />
-                <Reference
                     Name = "ICSharpCode.SharpZipLib"
                     AssemblyName = "ICSharpCode.SharpZipLib"
                     HintPath = "Resources\ICSharpCode.SharpZipLib.dll"
+                />
+                <Reference
+                    Name = "AODL"
+                    AssemblyName = "AODL"
+                    HintPath = "Resources\AODL.dll"
                 />
             </References>
         </Build>

@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentStyles.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: DocumentStyles.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -23,7 +23,8 @@ using System.IO;
 namespace AODL.Document.SpreadsheetDocuments
 {
 	/// <summary>
-	/// Zusammenfassung für DocumentStyles.
+	/// DocumentStyles represent the styles.xml file of a file in the
+	/// OpenDocument format.
 	/// </summary>
 	public class DocumentStyles : AODL.Document.TextDocuments.DocumentStyles
 	{
@@ -56,6 +57,10 @@ namespace AODL.Document.SpreadsheetDocuments
 
 /*
  * $Log: DocumentStyles.cs,v $
+ * Revision 1.2  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

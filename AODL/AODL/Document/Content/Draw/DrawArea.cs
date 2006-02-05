@@ -1,5 +1,5 @@
 /*
- * $Id: DrawArea.cs,v 1.1 2006/01/29 11:29:46 larsbm Exp $
+ * $Id: DrawArea.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -33,7 +33,8 @@ namespace AODL.Document.Content.Draw
 	// 
 
 	/// <summary>
-	/// Zusammenfassung für DrawAreaRectangle.
+	/// DrawAreaRectangle represent draw area rectangle which
+	/// could be used within a ImageMap.
 	/// </summary>
 	public class DrawAreaRectangle : DrawArea
 	{

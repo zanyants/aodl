@@ -1,5 +1,5 @@
 /*
- * $Id: UnknownTextContent.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: UnknownTextContent.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -24,7 +24,7 @@ namespace AODL.Document.Content.Text
 	/// <summary>
 	/// UnknownTextContent represent an unknown text element.
 	/// </summary>
-	public class UnknownTextContent : IContent
+	public class UnknownTextContent : IText
 	{
 		/// <summary>
 		/// Gets the name of the get element.
@@ -65,6 +65,22 @@ namespace AODL.Document.Content.Text
 			set
 			{
 			
+			}
+		}
+
+		/// <summary>
+		/// The text.
+		/// </summary>
+		/// <value></value>
+		public string Text
+		{
+			get
+			{
+				return this.Node.InnerText;
+			}
+			set
+			{
+				this.Node.InnerText	= value;
 			}
 		}
 
@@ -121,6 +137,10 @@ namespace AODL.Document.Content.Text
 
 /*
  * $Log: UnknownTextContent.cs,v $
+ * Revision 1.2  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

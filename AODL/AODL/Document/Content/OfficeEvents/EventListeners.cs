@@ -1,5 +1,5 @@
 /*
- * $Id: EventListeners.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: EventListeners.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -31,20 +31,24 @@ namespace AODL.Document.Content.OfficeEvents
 	/// Summary for EventListeners
 	/// </summary>
 	/// <example>
-	///        <office:event-listeners>
-	///            <script:event-listener
-	///                script:language=”JavaScript”
-	///               script:event-name=”dom:onclick”
-	///                xlink:href=”changeImage(‘dim’)”/>
-	///            <script:event-listener
-	///                script:language=”JavaScript”
-	///                script:event-name=”dom:onmouseover”
-	///                xlink:href=”setCursor(‘hand’)”/>
-	///            <script:event-listener
-	///                script:language=”JavaScript”
-	///                script:event-name=”dom:onmouseout”
-	///                xlink:href=”setCursor(‘arrow’)”/>
-	///        </office:event-listeners>
+	///		<code>
+	///		<pre>
+	///        &lt;office:event-listeners&gt;
+	///            &lt;script:event-listener
+	///                script:language="JavaScript"
+	///               script:event-name="dom:onclick"
+	///                xlink:href="changeImage(‘dim’)"/&gt;
+	///            &lt;script:event-listener
+	///                script:language="JavaScript"
+	///                script:event-name="dom:onmouseover"
+	///                xlink:href="setCursor('hand')"/&gt;
+	///            &lt;script:event-listener
+	///                script:language="JavaScript"
+	///                script:event-name="dom:onmouseout"
+	///                xlink:href="setCursor('arrow')"/&gt;
+	///        &lt;/office:event-listeners&gt;
+	///      </pre>
+	///      </code>
 	/// </example>
 	public class EventListeners : IContent, IContentContainer, ICloneable
 	{

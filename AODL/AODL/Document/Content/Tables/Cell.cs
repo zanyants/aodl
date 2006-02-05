@@ -1,5 +1,5 @@
 /*
- * $Id: Cell.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: Cell.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -23,7 +23,7 @@ using AODL.Document.Content;
 namespace AODL.Document.Content.Tables
 {
 	/// <summary>
-	/// Zusammenfassung für Cell.
+	/// Cell represent a table cell.
 	/// </summary>
 	public class Cell : IContent, IContentContainer, IHtml
 	{
@@ -463,6 +463,10 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Cell.cs,v $
+ * Revision 1.3  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

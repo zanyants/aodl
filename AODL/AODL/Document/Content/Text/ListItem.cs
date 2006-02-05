@@ -1,5 +1,5 @@
 /*
- * $Id: ListItem.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: ListItem.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -24,7 +24,7 @@ using AODL.Document.Content;
 namespace AODL.Document.Content.Text
 {
 	/// <summary>
-	/// Zusammenfassung für ListItem.
+	/// ListItem represent a list item which is used within a list.
 	/// </summary>
 	public class ListItem : IContent, IContentContainer, IHtml
 	{
@@ -250,6 +250,10 @@ namespace AODL.Document.Content.Text
 
 /*
  * $Log: ListItem.cs,v $
+ * Revision 1.2  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

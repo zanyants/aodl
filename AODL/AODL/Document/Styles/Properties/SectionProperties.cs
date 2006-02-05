@@ -1,5 +1,5 @@
 /*
- * $Id: SectionProperties.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: SectionProperties.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -22,7 +22,8 @@ using AODL.Document.Styles;
 namespace AODL.Document.Styles.Properties
 {
 	/// <summary>
-	/// Zusammenfassung für SectionProperties.
+	/// SectionProperties represent the section properties which is e.g used
+	/// within a table of contents.
 	/// </summary>
 	public class SectionProperties : IProperty
 	{
@@ -142,6 +143,10 @@ namespace AODL.Document.Styles.Properties
 
 /*
  * $Log: SectionProperties.cs,v $
+ * Revision 1.2  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

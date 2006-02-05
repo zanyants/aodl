@@ -1,4 +1,23 @@
-$Id: ChangeLog.txt,v 1.14 2006/01/05 10:28:06 larsbm Exp $
+$Id: ChangeLog.txt,v 1.15 2006/02/05 20:03:32 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.2.0.0 beta
+
+Changes and new features
+- Support for Spreadsheet documents incl. loading, creating
+  editing, saving and export as Html file.
+- New importer implementations TextPlainImport and CsvImporter
+- Support for image maps incl. different kinds of draw areas.
+- Support for illustrations (DrawTextBox implementation)
+- Builder class for easy creation of AODL objects. TextBuilder,
+  ParagraphBuilder and TableBuilder.
+- Change interfaces of IContent, IStyle and IProperty. 
+- New exception classes AODLException and AODLWarning.
+- Now, most of the AODL object implement the IClonable interfaces
+  and will let you create deep clones of an object.
+- New implementation of the XmlNode processors which make it
+  easy to create AODL objects by simply passing the correspondig
+  xml node.
 
 -------------------------------------------------------------
 AODL 1.1.2.0 beta

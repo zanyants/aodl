@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Mainform.cs,v 1.4 2006/01/05 10:31:11 larsbm Exp $
+ * $Id: Mainform.cs,v 1.5 2006/02/05 20:03:32 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -362,9 +362,9 @@ namespace AODC
 	/// Zusammenfassung für Form1.
 	/// </summary>
 	public class Mainform : System.Windows.Forms.Form
-	{
-		private bool _convertAndDisplay		= false;		
+	{		
 		private static string SourceFile	= null;
+		private string _lastChooseDirectoy	= "";
 		private bool _isSinglemode			= true;
 		private ArrayList _sourceFiles		= null;
 		private ArrayList _targetFiles		= null;
@@ -416,8 +416,10 @@ namespace AODC
 			{
 				this.tbxFile.Text			= SourceFile;
 				this.tbxTargetFilename.Text	= SourceFile.ToLower().Replace(".odt",".html");
+				this.tbxTargetFilename.Text	= SourceFile.ToLower().Replace(".ods",".html");
 			}
 			this.HandleGuiSettings(true);
+			this.HandleLastChooseDirectory(true);
 			Controler.OnError			+=new AODC.Controler.Error(Controler_OnError);
 			Controler.OnCException		+=new AODC.Controler.CException(Controler_OnCException);
 			Controler.OnFinished		+=new AODC.Controler.Finished(Controler_OnFinished);
@@ -438,6 +440,7 @@ namespace AODC
 			}
 
 			this.HandleGuiSettings(false);
+			this.HandleLastChooseDirectory(false);
 			
 			if(this._controler != null)
 				this._controler.Controler_OnReady();
@@ -805,7 +808,7 @@ namespace AODC
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void btnChooseFile_Click(object sender, System.EventArgs e)
 		{
-			string source			= this.ChooseFile("odt files (*.odt)|*.odt");
+			string source			= this.ChooseFile("odt files (*.odt)|*.odt|ods files (*.ods)|*.ods");
 			if(source != null)
 				this.SetSourceAndTarget(source);
 		}
@@ -830,14 +833,18 @@ namespace AODC
 		{
 			OpenFileDialog openFileDialog		= new OpenFileDialog();
 
-			openFileDialog.InitialDirectory		= "c:\\" ;
+			openFileDialog.InitialDirectory		= this._lastChooseDirectoy;
 			openFileDialog.Filter				= filter;
-			openFileDialog.FilterIndex			= 1 ;
+			openFileDialog.FilterIndex			= 2 ;
 			openFileDialog.RestoreDirectory		= true ;
 			openFileDialog.Multiselect			= false;
 
 			if(openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				FileInfo fInfo					= new FileInfo(openFileDialog.FileName);
+				this._lastChooseDirectoy		= fInfo.DirectoryName;
 				return openFileDialog.FileName;
+			}
 			
 			return null;
 		}
@@ -1009,50 +1016,50 @@ namespace AODC
 			
 			try
 			{
-				if(this._controler.TextDocument != null)
-					if(this._controler.TextDocument.DocumentMetadata != null)
+				if(this._controler.Document != null)
+					if(this._controler.Document.DocumentMetadata != null)
 					{
 						string autor		= "";
 						string title		= "";
 						string lastmodified	= "";
 						string content		= "";
 
-						if(this._controler.TextDocument.DocumentMetadata.InitialCreator != null)
-							if(this._controler.TextDocument.DocumentMetadata.InitialCreator.Length > 0)
-								autor	= this._controler.TextDocument.DocumentMetadata.InitialCreator;
+						if(this._controler.Document.DocumentMetadata.InitialCreator != null)
+							if(this._controler.Document.DocumentMetadata.InitialCreator.Length > 0)
+								autor	= this._controler.Document.DocumentMetadata.InitialCreator;
 					
 						if(autor.Length == 0)
-							if(this._controler.TextDocument.DocumentMetadata.Creator != null)
-								if(this._controler.TextDocument.DocumentMetadata.Creator.Length > 0)
-									autor	= this._controler.TextDocument.DocumentMetadata.Creator;
+							if(this._controler.Document.DocumentMetadata.Creator != null)
+								if(this._controler.Document.DocumentMetadata.Creator.Length > 0)
+									autor	= this._controler.Document.DocumentMetadata.Creator;
 
 						if(autor.Length == 0)
 							autor			= "Unkown";
 
-						if(this._controler.TextDocument.DocumentMetadata.LastModified != null)
-							if(this._controler.TextDocument.DocumentMetadata.LastModified.Length > 0)
-								lastmodified	= this._controler.TextDocument.DocumentMetadata.LastModified;
+						if(this._controler.Document.DocumentMetadata.LastModified != null)
+							if(this._controler.Document.DocumentMetadata.LastModified.Length > 0)
+								lastmodified	= this._controler.Document.DocumentMetadata.LastModified;
 
 						if(lastmodified.Length == 0)
-							if(this._controler.TextDocument.DocumentMetadata.CreationDate != null)
-								if(this._controler.TextDocument.DocumentMetadata.CreationDate.Length > 0)
-									lastmodified	= this._controler.TextDocument.DocumentMetadata.CreationDate;
+							if(this._controler.Document.DocumentMetadata.CreationDate != null)
+								if(this._controler.Document.DocumentMetadata.CreationDate.Length > 0)
+									lastmodified	= this._controler.Document.DocumentMetadata.CreationDate;
 
 						if(lastmodified.Length == 0)
 							lastmodified		= "Unknown";
 
-						if(this._controler.TextDocument.DocumentMetadata.Title != null)
-							if(this._controler.TextDocument.DocumentMetadata.Title.Length > 0)
-								title	= this._controler.TextDocument.DocumentMetadata.Title;
+						if(this._controler.Document.DocumentMetadata.Title != null)
+							if(this._controler.Document.DocumentMetadata.Title.Length > 0)
+								title	= this._controler.Document.DocumentMetadata.Title;
 
 						if(title.Length == 0)
 							title		= "Untitled";
 
-						content			+= "Pages "+this._controler.TextDocument.DocumentMetadata.PageCount.ToString()+", ";
-						content			+= "Tables "+this._controler.TextDocument.DocumentMetadata.TableCount.ToString()+", ";
-						content			+= "Img "+this._controler.TextDocument.DocumentMetadata.ImageCount.ToString()+", ";
-						content			+= "Para. "+this._controler.TextDocument.DocumentMetadata.PageCount.ToString()+", ";
-						content			+= "Words "+this._controler.TextDocument.DocumentMetadata.WordCount.ToString();
+						content			+= "Pages "+this._controler.Document.DocumentMetadata.PageCount.ToString()+", ";
+						content			+= "Tables "+this._controler.Document.DocumentMetadata.TableCount.ToString()+", ";
+						content			+= "Img "+this._controler.Document.DocumentMetadata.ImageCount.ToString()+", ";
+						content			+= "Para. "+this._controler.Document.DocumentMetadata.PageCount.ToString()+", ";
+						content			+= "Words "+this._controler.Document.DocumentMetadata.WordCount.ToString();
 					
 						ListViewItem lvi	= new ListViewItem(title);
 						lvi.SubItems.Add(autor);
@@ -1204,6 +1211,10 @@ namespace AODC
 		private bool SourceValidation()
 		{
 			ArrayList error			= new ArrayList();
+			ArrayList extensions	= new ArrayList();
+			extensions.Add(".odt");
+			extensions.Add(".ods");
+
 			string source			= this.tbxFile.Text;
 			string target			= this.tbxTargetFilename.Text;
 
@@ -1212,8 +1223,8 @@ namespace AODC
 				if(File.Exists(source))
 				{
 					string extension	= Path.GetExtension(source);
-					if(extension.ToLower() != ".odt")
-						error.Add("You must choose an OpenDocument text document!");
+					if(!extensions.Contains(extension.ToLower()))
+						error.Add("You must choose a supported OpenDocument format (.ods|.odt)!");
 				}
 				else
 					error.Add("The source file doesn't exist!");
@@ -1343,6 +1354,30 @@ namespace AODC
 		}
 
 		/// <summary>
+		/// Handles the last choose directory.
+		/// </summary>
+		/// <param name="load">if set to <c>true</c> [load].</param>
+		private void HandleLastChooseDirectory(bool load)
+		{
+			try
+			{
+				if(load)
+				{
+					this._lastChooseDirectoy	= Config.GetValueFromKey("lastDirectory");
+					if(this._lastChooseDirectoy == null)
+						this._lastChooseDirectoy = "C:\\";
+				}
+				else
+					Config.SetValueForKey("lastDirectory", this._lastChooseDirectoy);
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("Error while trying to restore last choosed directory.",
+					"Error last choosed directory", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+
+		/// <summary>
 		/// Reads the start params.
 		/// </summary>
 		/// <param name="args">The args.</param>
@@ -1354,7 +1389,8 @@ namespace AODC
 				{
 					//First param has to be filepath
 					FileInfo fileInfo		= new FileInfo(args[0]);
-					if(fileInfo.Extension.ToLower() == ".odt")
+					if(fileInfo.Extension.ToLower() == ".odt"
+						|| fileInfo.Extension.ToLower() == ".ods")
 					{
 						if(File.Exists(fileInfo.FullName))
 						{

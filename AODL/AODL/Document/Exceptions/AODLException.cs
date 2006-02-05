@@ -1,5 +1,5 @@
 /*
- * $Id: AODLException.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: AODLException.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -23,7 +23,8 @@ using System.Diagnostics;
 namespace AODL.Document.Exceptions
 {
 	/// <summary>
-	/// Zusammenfassung für AODLException.
+	/// AODLException is a special exception which will let you also
+	/// access possible broken XmlNodes.
 	/// </summary>
 	public class AODLException : Exception
 	{
@@ -122,6 +123,10 @@ namespace AODL.Document.Exceptions
 
 /*
  * $Log: AODLException.cs,v $
+ * Revision 1.2  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

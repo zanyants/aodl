@@ -1,5 +1,5 @@
 /*
- * $Id: WhiteSpace.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: WhiteSpace.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -27,7 +27,7 @@ namespace AODL.Document.Content.Text.TextControl
 {
 
 	/// <summary>
-	/// Zusammenfassung für WhiteSpace.
+	/// WhiteSpace represent a white space element.
 	/// </summary>
 	public class WhiteSpace : IText
 	{
@@ -306,6 +306,10 @@ namespace AODL.Document.Content.Text.TextControl
 
 /*
  * $Log: WhiteSpace.cs,v $
+ * Revision 1.2  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

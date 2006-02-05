@@ -1,5 +1,5 @@
 /*
- * $Id: MainContentProcessor.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: MainContentProcessor.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -169,7 +169,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 						return CreateTableColumn(node.CloneNode(true));
 					case "table:table-row":
 						return CreateTableRow(node.CloneNode(true));
-					case "table:table-header-row":
+					case "table:table-header-rows":
 						return CreateTableHeaderRow(node.CloneNode(true));
 					case "table:table-cell":
 						return CreateTableCell(node.CloneNode(true));
@@ -298,58 +298,63 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 						&& paragraph.StyleName != "Text_20_body"
 						&& this._document is TextDocument)
 				{
-					if(this.OnWarning != null)
+					//Check if it's a user defined style
+					IStyle commonStyle			= this._document.CommonStyles.GetStyleByName(paragraph.StyleName);
+					if(commonStyle == null)
 					{
-						AODLWarning warning			= new AODLWarning("A ParagraphStyle wasn't found.");
-						warning.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
-						warning.Node				= paragraphNode;
-						this.OnWarning(warning);
+						if(this.OnWarning != null)
+						{
+							AODLWarning warning			= new AODLWarning("A ParagraphStyle wasn't found.");
+							warning.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
+							warning.Node				= paragraphNode;
+							this.OnWarning(warning);
+						}
+						#region Old code Todo: delete
+						//					XmlNode styleNode		= this._document.XmlDoc.SelectSingleNode(
+						//						"/office:document-content/office:automatic-styles/style:style[@style:name='"+p.Stylename+"']", 
+						//						this._document.NamespaceManager);
+						//
+						//					XmlNode styles			= this._document.XmlDoc.SelectSingleNode(
+						//						"/office:document-content/office:automatic-styles", 
+						//						this._document.NamespaceManager);
+						//
+						//					if(styleNode != null)
+						//					{
+						//						ParagraphStyle pstyle		= new ParagraphStyle(p, styleNode);
+						//
+						//						XmlNode propertieNode		= styleNode.SelectSingleNode("style:paragraph-properties",
+						//							this._document.NamespaceManager);
+						//
+						//						XmlNode txtpropertieNode	= styleNode.SelectSingleNode("style:text-properties",
+						//							this._document.NamespaceManager);
+						//
+						//						ParagraphProperties pp		= null;
+						//
+						//						XmlNode tabstyles			= null;
+						//
+						//						if(propertieNode != null)
+						//						{
+						//							tabstyles				= styleNode.SelectSingleNode("style:tab-stops",
+						//								this._document.NamespaceManager);
+						//							pp	= new ParagraphProperties(pstyle, propertieNode);
+						//						}
+						//						else
+						//							pp	= new ParagraphProperties(pstyle);					
+						//
+						//						pstyle.Properties			= pp;
+						//						if(tabstyles != null)
+						//							pstyle.Properties.TabStopStyleCollection	= this.GetTabStopStyles(tabstyles);
+						//						p.Style						= pstyle;
+						//
+						//						if(txtpropertieNode != null)
+						//						{
+						//							TextProperties tt		= new TextProperties(p.Style);
+						//							tt.Node					= txtpropertieNode;
+						//							((ParagraphStyle)p.Style).Textproperties = tt;
+						//						}
+						//					}
+						#endregion
 					}
-					#region Old code Todo: delete
-//					XmlNode styleNode		= this._document.XmlDoc.SelectSingleNode(
-//						"/office:document-content/office:automatic-styles/style:style[@style:name='"+p.Stylename+"']", 
-//						this._document.NamespaceManager);
-//
-//					XmlNode styles			= this._document.XmlDoc.SelectSingleNode(
-//						"/office:document-content/office:automatic-styles", 
-//						this._document.NamespaceManager);
-//
-//					if(styleNode != null)
-//					{
-//						ParagraphStyle pstyle		= new ParagraphStyle(p, styleNode);
-//
-//						XmlNode propertieNode		= styleNode.SelectSingleNode("style:paragraph-properties",
-//							this._document.NamespaceManager);
-//
-//						XmlNode txtpropertieNode	= styleNode.SelectSingleNode("style:text-properties",
-//							this._document.NamespaceManager);
-//
-//						ParagraphProperties pp		= null;
-//
-//						XmlNode tabstyles			= null;
-//
-//						if(propertieNode != null)
-//						{
-//							tabstyles				= styleNode.SelectSingleNode("style:tab-stops",
-//								this._document.NamespaceManager);
-//							pp	= new ParagraphProperties(pstyle, propertieNode);
-//						}
-//						else
-//							pp	= new ParagraphProperties(pstyle);					
-//
-//						pstyle.Properties			= pp;
-//						if(tabstyles != null)
-//							pstyle.Properties.TabStopStyleCollection	= this.GetTabStopStyles(tabstyles);
-//						p.Style						= pstyle;
-//
-//						if(txtpropertieNode != null)
-//						{
-//							TextProperties tt		= new TextProperties(p.Style);
-//							tt.Node					= txtpropertieNode;
-//							((ParagraphStyle)p.Style).Textproperties = tt;
-//						}
-//					}
-#endregion
 				}
 
 				return this.ReadParagraphTextContent(paragraph);
@@ -1459,6 +1464,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 //AODLTest.DocumentImportTest.SimpleLoadTest : System.IO.DirectoryNotFoundException : Could not find a part of the path "D:\OpenDocument\AODL\AODLTest\bin\Debug\GeneratedFiles\OpenOffice.net.odt.rel.odt".
 /*
  * $Log: MainContentProcessor.cs,v $
+ * Revision 1.4  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.3  2006/02/02 21:55:59  larsbm
  * - Added Clone object support for many AODL object types
  * - New Importer implementation PlainTextImporter and CsvImporter

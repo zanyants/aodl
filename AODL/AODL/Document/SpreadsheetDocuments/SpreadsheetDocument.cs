@@ -1,5 +1,5 @@
 /*
- * $Id: SpreadsheetDocument.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: SpreadsheetDocument.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -37,7 +37,7 @@ namespace AODL.Document.SpreadsheetDocuments
 	/// The SpreadsheetDocument class represent an OpenDocument
 	/// spreadsheet document.
 	/// </summary>
-	public class SpreadsheetDocument : IDocument
+	public class SpreadsheetDocument : IDocument, IDisposable
 	{
 		private int _tableCount		= 0;
 		/// <summary>
@@ -297,9 +297,8 @@ namespace AODL.Document.SpreadsheetDocuments
 		{
 			try
 			{
-//				IExporter exporter			= this.GetExporter(filename);
 				this.CreateContentBody();
-//				exporter.Export(this, filename);
+
 				//Call the ExportHandler for the first matching IExporter
 				ExportHandler exportHandler		= new ExportHandler();
 				IExporter iExporter				= exportHandler.GetFirstExporter(
@@ -355,19 +354,6 @@ namespace AODL.Document.SpreadsheetDocuments
 			{
 				throw;
 			}
-		}
-
-		/// <summary>
-		/// Gets the exporter.
-		/// </summary>
-		/// <param name="filename">The filename.</param>
-		/// <returns></returns>
-		private IExporter GetExporter(string filename)
-		{
-			if(filename.EndsWith(".ods"))
-				return new AODL.Document.Export.OpenDocument.OpenDocumentTextExporter();			
-
-			throw new Exception("Unknown Exporter name exception. No exporter found for file "+filename);
 		}
 
 
@@ -512,11 +498,63 @@ namespace AODL.Document.SpreadsheetDocuments
 
 			return true;
 		}
+
+		#region IDisposable Member
+
+		private bool _disposed = false;
+
+		/// <summary>
+		/// Releases unmanaged resources and performs other cleanup operations before the
+		/// is reclaimed by garbage collection.
+		/// </summary>
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		/// <summary>
+		/// Disposes the specified disposing.
+		/// </summary>
+		/// <param name="disposing">if set to <c>true</c> [disposing].</param>
+		private void Dispose(bool disposing)
+		{
+			if(!this._disposed)
+			{
+				if(disposing)
+				{
+					try
+					{
+						AODL.Document.Export.OpenDocument.OpenDocumentTextExporter.CleanUpReadAndWriteDirectories();
+					}
+					catch(Exception ex)
+					{
+						throw ex;
+					}
+				}
+			}
+			_disposed = true;         
+		}
+
+		/// <summary>
+		/// Releases unmanaged resources and performs other cleanup operations before the
+		/// <see cref="AODL.Document.TextDocuments.TextDocument"/> is reclaimed by garbage collection.
+		/// </summary>
+		~SpreadsheetDocument()      
+		{
+			Dispose();
+		}
+
+		#endregion
 	}
 }
 
 /*
  * $Log: SpreadsheetDocument.cs,v $
+ * Revision 1.4  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.3  2006/02/02 21:55:59  larsbm
  * - Added Clone object support for many AODL object types
  * - New Importer implementation PlainTextImporter and CsvImporter

@@ -1,5 +1,5 @@
 /*
- * $Id: HTMLStyleBuilder.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: HTMLStyleBuilder.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -99,7 +99,8 @@ namespace AODL.Document.Export.Html
 				{
 					if(paragraphStyle.ParagraphProperties != null)
 					{
-						if(paragraphStyle.ParagraphProperties.Alignment != null)
+						if(paragraphStyle.ParagraphProperties.Alignment != null
+							&& paragraphStyle.ParagraphProperties.Alignment != "start")
 							style	+= "text-align: "+paragraphStyle.ParagraphProperties.Alignment+"; ";
 						if(paragraphStyle.ParagraphProperties.MarginLeft != null)
 							style	+= "text-indent: "+paragraphStyle.ParagraphProperties.MarginLeft+"; ";
@@ -111,6 +112,8 @@ namespace AODL.Document.Export.Html
 						if(paragraphStyle.ParagraphProperties.Border != null 
 							&& paragraphStyle.ParagraphProperties.Padding != null)
 							style	+= "border-width:1px; border-style:solid; padding:"+paragraphStyle.ParagraphProperties.Padding+"; ";
+						if(paragraphStyle.ParagraphProperties.BackgroundColor != null)
+							style	+= "background-color: "+paragraphStyle.ParagraphProperties.BackgroundColor+"; ";
 					}
 				}
 			}
@@ -270,7 +273,7 @@ namespace AODL.Document.Export.Html
 									wdPx	= SizeConverter.InchToPixelAsString(wd);
 
 								if(wdPx.Length > 0)
-									style	= "width=\""+wdPx+"\" ";
+									style	= "width=\""+wdPx.Replace("px", "")+"\" ";
 							}
 							catch(Exception ex)
 							{
@@ -289,7 +292,7 @@ namespace AODL.Document.Export.Html
 								if(tableStyle.TableProperties.Align == "center")
 									style	+= "align=\"center\" ";
 								else if(tableStyle.TableProperties.Align == "right")
-									style	+= "align=\"right\" ";
+									style	+= "align=\"center\" "; //Because display prob by some browser
 					}
 				}
 			}
@@ -521,6 +524,10 @@ namespace AODL.Document.Export.Html
 
 /*
  * $Log: HTMLStyleBuilder.cs,v $
+ * Revision 1.2  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

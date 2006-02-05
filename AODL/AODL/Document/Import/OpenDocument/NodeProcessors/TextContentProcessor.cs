@@ -1,5 +1,5 @@
 /*
- * $Id: TextContentProcessor.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: TextContentProcessor.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -60,6 +60,8 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// <returns></returns>
 		public IText CreateTextObject(IDocument document, XmlNode aTextNode)
 		{
+			aTextNode.InnerText				= this.ReplaceSpecialCharacter(aTextNode.InnerText);
+
 			switch(aTextNode.Name)
 			{
 				case "#text":
@@ -120,12 +122,16 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 					formatedText.Style			= textStyle;
 				else
 				{
-					if(OnWarning != null)
+					IStyle iStyle				= document.CommonStyles.GetStyleByName(formatedText.StyleName);
+					if(iStyle == null)
 					{
-						AODLWarning warning			= new AODLWarning("A TextStyle for the FormatedText object wasn't found.");
-						warning.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
-						warning.Node				= node;
-						OnWarning(warning);
+						if(OnWarning != null)
+						{
+							AODLWarning warning			= new AODLWarning("A TextStyle for the FormatedText object wasn't found.");
+							warning.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
+							warning.Node				= node;
+							OnWarning(warning);
+						}
 					}
 				}
 				
@@ -251,6 +257,19 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 
 				throw exception;
 			}
+		}
+
+		/// <summary>
+		/// Replaces the special character.
+		/// </summary>
+		/// <param name="nodeInnerText">The node inner text.</param>
+		/// <returns></returns>
+		private string ReplaceSpecialCharacter(string nodeInnerText)
+		{
+			nodeInnerText					= nodeInnerText.Replace("<", "&lt;");
+			nodeInnerText					= nodeInnerText.Replace(">", "&gt;");
+
+			return nodeInnerText;
 		}
 	}
 }

@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Optionsform.cs,v 1.3 2006/01/05 10:31:11 larsbm Exp $
+ * $Id: Optionsform.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -611,7 +611,7 @@ namespace AODC
 		/// <summary>
 		/// Extensions the assiociation.
 		/// </summary>
-		private void ExtensionAssiociation()
+		private void ExtensionAssiociation(string extension)
 		{
 			string askForAssociation		= "Are you sure that you want associate OpenDocument files with AODC?\n\nIf you choose yes and no other applicaion is associated with OpenDocument\nfiles AODC will act as main programm.\n\nIf there's is already an application associated with OpenDocument files\nAODC will add a new menu entry \"Convert with AODC\"";
 
@@ -620,18 +620,18 @@ namespace AODC
 				string appFullPath				= Application.StartupPath+"\\AODC.exe";
 				//first check if odt files already assiociated with an app, if yes
 				//create a menu entry
-				if(!this.AddConvertWithEntry(".odt", "AODC", "Convert with &AODC", appFullPath))
+				if(!this.AddConvertWithEntry(extension, "AODC", "Convert with &AODC", appFullPath))
 				{
 					//odt files are not assiociated lets make AODC the standard app
-					if(CreateMainKey(".odt", "AODC", appFullPath))
+					if(CreateMainKey(extension, "AODC", appFullPath))
 					{
-						MessageBox.Show("OpenDocument text files are successfuly assiociated with AODC!\nThe icon for the files will be changed after a restart.",
+						MessageBox.Show("The OpenDocument file extension "+extension+" is successfuly assiociated with AODC!\nThe icon for the files will be changed after a restart.",
 							"Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 				}
 				else
 				{
-					MessageBox.Show("AODC successfuly added a menu entry \"Convert with AODC\" for .odt files!",
+					MessageBox.Show("AODC successfuly added a menu entry \"Convert with AODC\" for "+extension+" files!",
 						"Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
@@ -783,7 +783,10 @@ namespace AODC
 		/// <param name="e">The <see cref="System.Windows.Forms.LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
 		private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
-			this.ExtensionAssiociation();
+			string[] extensions				= new string[] {".odt", ".ods"};
+
+			foreach(string extension in extensions)
+				this.ExtensionAssiociation(extension);
 		}
 	}
 	

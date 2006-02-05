@@ -1,5 +1,5 @@
 /*
- * $Id: HTMLExportTest.cs,v 1.2 2006/01/29 19:30:24 larsbm Exp $
+ * $Id: HTMLExportTest.cs,v 1.3 2006/02/05 20:02:24 larsbm Exp $
  */
 
 /*
@@ -73,11 +73,27 @@ namespace AODLTest
 			//Save it back again
 			textDocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".html");
 		}
+
+		[Test]
+		public void HTMLExportTestDocumentConvertedFromOpenOfficeXmlToOpenDocumentXml()
+		{	
+			string file							= AARunMeFirstAndOnce.inPutFolder+@"ProgrammaticControlOfMenuAndToolbarItems.odt";
+			FileInfo fInfo						= new FileInfo(file);
+			//Load a text document 
+			TextDocument textDocument			= new TextDocument();
+			textDocument.Load(file);
+			//Save it back again
+			textDocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".html");
+		}
 	}
 }
 
 /*
  * $Log: HTMLExportTest.cs,v $
+ * Revision 1.3  2006/02/05 20:02:24  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 19:30:24  larsbm
  * - Added app config support for NUnit tests
  *

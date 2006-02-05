@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: Table.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -24,10 +24,8 @@ using AODL.Document.Content;
 namespace AODL.Document.Content.Tables
 {
 	/// <summary>
-	/// Table represent a sheet that is used within a spreadsheet document.
-	/// This isn't the same as the Table from a text document, although
-	/// they use the same namespace table! There are some restrcitions
-	/// within a sheet that aren't possible within a text table.
+	/// Table represent a table that is used within a spreadsheet document
+	/// or a TextDocument! 
 	/// </summary>
 	public class Table : IContent, IHtml
 	{
@@ -431,6 +429,10 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.3  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

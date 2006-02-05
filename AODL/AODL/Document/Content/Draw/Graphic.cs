@@ -1,5 +1,5 @@
 /*
- * $Id: Graphic.cs,v 1.1 2006/01/29 11:29:46 larsbm Exp $
+ * $Id: Graphic.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -25,7 +25,7 @@ using AODL.Document;
 namespace AODL.Document.Content.Draw
 {
 	/// <summary>
-	/// Zusammenfassung für Graphic.
+	/// Graphic represent a graphic resp. image.
 	/// </summary>
 	public class Graphic : IContent, IContentContainer
 	{

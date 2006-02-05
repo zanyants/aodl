@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphProperties.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: ParagraphProperties.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -82,6 +82,32 @@ namespace AODL.Document.Styles.Properties
 				if(xn == null)
 					this.CreateAttribute("border", value, "fo");
 				this._node.SelectSingleNode("@fo:border",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Set the background color
+		/// Use Colors.GetColor(Color color) to set 
+		/// on of the available .net colors
+		/// </summary>
+		public string BackgroundColor
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:background-color",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:background-color",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("background-color", value, "fo");
+				this._node.SelectSingleNode("@fo:background-color",
 					this.Style.Document.NamespaceManager).InnerText = value;
 			}
 		}
@@ -316,6 +342,10 @@ namespace AODL.Document.Styles.Properties
 
 /*
  * $Log: ParagraphProperties.cs,v $
+ * Revision 1.2  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

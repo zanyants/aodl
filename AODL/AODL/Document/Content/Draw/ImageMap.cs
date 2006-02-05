@@ -1,5 +1,5 @@
 /*
- * $Id: ImageMap.cs,v 1.1 2006/01/29 11:29:46 larsbm Exp $
+ * $Id: ImageMap.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -31,16 +31,16 @@ namespace AODL.Document.Content.Draw
 	/// Example ImageMap
 	/// </summary>
 	/// <example>
-	/// <draw:image-map>
-	///		<draw:area-rectangle
-    ///			svg:width="5cm" svg:height="5cm" svg:x="10.949cm" svg:y="5.724cm">
-	///			<office:event-listeners>
-    ///             <script:event-listener script:language=”JavaScript”
-	///					script:event-name=”dom:onmouseover”
-    ///					xlink:href=”setCursor(‘hand’)”/>
-	///			</office:event-listeners>
-	///		<draw:area-rectangle>
-	///	</draw:image-map>
+	/// &lt;draw:image-map&gt;
+	///		&lt;draw:area-rectangle
+	///			svg:width="5cm" svg:height="5cm" svg:x="10.949cm" svg:y="5.724cm"&gt;
+	///			&lt;office:event-listeners&gt;
+	///             &lt;script:event-listener script:language="JavaScript"
+	///					script:event-name="dom:onmouseover"
+	///					xlink:href="setCursor('hand')"/&gt;
+	///			&lt;/office:event-listeners&gt;
+	///		&lt;draw:area-rectangle&gt;
+	///	&lt;/draw:image-map&gt;
 	/// </example>
 	public class ImageMap : IContent, IContentContainer
 	{

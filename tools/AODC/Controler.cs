@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Controler.cs,v 1.3 2006/01/05 10:31:11 larsbm Exp $
+ * $Id: Controler.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -354,7 +354,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
-using AODL.TextDocument;
+using AODL.Document;
+using AODL.Document.TextDocuments;
+using AODL.Document.SpreadsheetDocuments;
 
 namespace AODC
 {
@@ -380,15 +382,15 @@ namespace AODC
 		/// The source file doesn't exist
 		/// </summary>
 		private string _sourceMiss	= "The source file doesn't exist.";
-		private TextDocument _textDocument;
+		private IDocument _iDocument;
 
 		/// <summary>
 		/// Gets the text document.
 		/// </summary>
 		/// <value>The text document.</value>
-		public AODL.TextDocument.TextDocument TextDocument
+		public IDocument Document
 		{
-			get { return this._textDocument; }
+			get { return this._iDocument; }
 		}
 
 		private DateTime _start;
@@ -439,7 +441,9 @@ namespace AODC
 						return;
 					}
 				
-				if(File.Exists(source) && source.ToLower().EndsWith(".odt"))
+				if(File.Exists(source) 
+					&& ((source.ToLower().EndsWith(".odt"))
+					|| (source.ToLower().EndsWith(".ods"))))
 				{
 					this._myThread				= new MyThread(new ThreadParamHandler(Convert),
 						source, target);
@@ -465,10 +469,9 @@ namespace AODC
 			try
 			{
 				_start			= DateTime.Now;
-				_textDocument	= new TextDocument();
-				_textDocument.Load(args[0].ToString());
-				_textDocument.SaveTo(args[1].ToString());
-				_textDocument.Dispose();
+				_iDocument		= this.GetIDocument(args[0] as String);
+				_iDocument.Load(args[0].ToString());
+				_iDocument.SaveTo(args[1].ToString());
 				_elapsedTime	= DateTime.Now - _start;
 				
 				Thread.Sleep(1000);				
@@ -481,6 +484,28 @@ namespace AODC
 					this.Controler_OnReady();
 					OnCException(ex);
 				}
+			}
+		}
+
+		/// <summary>
+		/// Gets the I document.
+		/// </summary>
+		/// <param name="loadFile">The load file.</param>
+		/// <returns></returns>
+		private IDocument GetIDocument(string loadFile)
+		{
+			try
+			{
+				if(loadFile.ToLower().EndsWith(".odt"))
+					return new TextDocument();
+				else if(loadFile.ToLower().EndsWith(".ods"))
+					return new SpreadsheetDocument();
+				else
+					throw new NotSupportedException("There isn't a corresponding OpenDocument file for this file extension.");
+			}
+			catch(Exception ex)
+			{
+				throw;
 			}
 		}
 

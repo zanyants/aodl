@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentConfiguration2.cs,v 1.1 2006/01/29 11:28:30 larsbm Exp $
+ * $Id: DocumentConfiguration2.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -21,7 +21,7 @@ using System.IO;
 namespace AODL.Document.TextDocuments
 {
 	/// <summary>
-	/// Zusammenfassung für DocumentConfiguration2.
+	/// DocumentConfiguration2 represent the Configuration2 file.
 	/// </summary>
 	public class DocumentConfiguration2
 	{
@@ -85,6 +85,10 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: DocumentConfiguration2.cs,v $
+ * Revision 1.2  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:30  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

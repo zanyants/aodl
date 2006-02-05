@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentPicture.cs,v 1.1 2006/01/29 11:28:30 larsbm Exp $
+ * $Id: DocumentPicture.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -22,7 +22,8 @@ using System.Drawing;
 namespace AODL.Document.TextDocuments
 {
 	/// <summary>
-	/// Zusammenfassung für DocumentPicture.
+	/// DocumentPicture represent a picture resp. graphic which used within
+	/// a file in the OpenDocument format.
 	/// </summary>
 	public class DocumentPicture 
 	{

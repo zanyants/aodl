@@ -1,5 +1,5 @@
 /*
- * $Id: Header.cs,v 1.2 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: Header.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -24,7 +24,7 @@ using AODL.Document;
 namespace AODL.Document.Content.Text
 {
 	/// <summary>
-	/// Zusammenfassung für Header.
+	/// Header represent a header.
 	/// </summary>
 	public class Header : IContent, IHtml, ITextContainer, ICloneable
 	{
@@ -577,6 +577,10 @@ namespace AODL.Document.Content.Text
 
 /*
  * $Log: Header.cs,v $
+ * Revision 1.3  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/02/02 21:55:59  larsbm
  * - Added Clone object support for many AODL object types
  * - New Importer implementation PlainTextImporter and CsvImporter

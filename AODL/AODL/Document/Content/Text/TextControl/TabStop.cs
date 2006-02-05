@@ -1,5 +1,5 @@
 /*
- * $Id: TabStop.cs,v 1.1 2006/01/29 11:28:22 larsbm Exp $
+ * $Id: TabStop.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
  */
 
 /*
@@ -24,7 +24,7 @@ using AODL.Document.Styles;
 namespace AODL.Document.Content.Text.TextControl
 {
 	/// <summary>
-	/// Zusammenfassung für TabStop.
+	/// TabStop represent a tab stop.
 	/// </summary>
 	public class TabStop : IText
 	{
@@ -128,6 +128,10 @@ namespace AODL.Document.Content.Text.TextControl
 
 /*
  * $Log: TabStop.cs,v $
+ * Revision 1.2  2006/02/05 20:02:25  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.1  2006/01/29 11:28:22  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

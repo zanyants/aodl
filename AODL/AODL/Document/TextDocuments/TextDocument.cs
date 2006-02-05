@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -592,20 +592,6 @@ namespace AODL.Document.TextDocuments
 					return NamespaceManager.LookupNamespace(prefixx);
 			return null;
 		}
-
-//		/// <summary>
-//		/// Insert all XmlNodes of the inserted IContent object into
-//		/// the current XmlDocument.
-//		/// </summary>
-//		/// <param name="index">The index of the inserted IContent object.</param>
-//		/// <param name="value">The inserted IContent object.</param>
-//		private void Content_Inserted(int index, object value)
-//		{
-//			if(value is TableOfContents)
-//				this._tableOfContentsCount++;
-//			else if(value is Table)
-//				this._tableCount++;
-//		}
 		
 		#region old delete
 //		
@@ -808,7 +794,8 @@ namespace AODL.Document.TextDocuments
 		private bool _disposed = false;
 
 		/// <summary>
-		/// Führt anwendungsspezifische Aufgaben durch, die mit der Freigabe, der Zurückgabe oder dem Zurücksetzen von nicht verwalteten Ressourcen zusammenhängen.
+		/// Releases unmanaged resources and performs other cleanup operations before the
+		/// is reclaimed by garbage collection.
 		/// </summary>
 		public void Dispose()
 		{
@@ -826,20 +813,14 @@ namespace AODL.Document.TextDocuments
 			{
 				if(disposing)
 				{
-//					if(this.Content != null)
-//						foreach(IContent content in this.Content)
-//							if(content is Paragraph)
-//								if(((Paragraph)content).Content != null)
-//									foreach(IContent content1 in ((Paragraph)content).Content)
-//										if(content1 is Frame)
-//											if(((Frame)content1).Image != null)
-//												((Frame)content1).Dispose();
-//
-//					foreach(DocumentPicture dPic in this.DocumentPictures)
-//						dPic.Image.Dispose();
-//
-//					foreach(DocumentPicture dPic in this.DocumentThumbnails)
-//						dPic.Image.Dispose();
+					try
+					{
+						AODL.Document.Export.OpenDocument.OpenDocumentTextExporter.CleanUpReadAndWriteDirectories();
+					}
+					catch(Exception ex)
+					{
+						throw ex;
+					}
 				}
 			}
 			_disposed = true;         
@@ -851,7 +832,7 @@ namespace AODL.Document.TextDocuments
 		/// </summary>
 		~TextDocument()      
 		{
-			Dispose(false);
+			Dispose();
 		}
 
 		#endregion
@@ -860,6 +841,10 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.4  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.3  2006/02/02 21:55:59  larsbm
  * - Added Clone object support for many AODL object types
  * - New Importer implementation PlainTextImporter and CsvImporter

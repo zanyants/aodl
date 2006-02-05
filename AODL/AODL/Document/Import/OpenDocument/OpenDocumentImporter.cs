@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentImporter.cs,v 1.3 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: OpenDocumentImporter.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -18,12 +18,14 @@
 using System;
 using System.Collections;
 using System.Drawing.Imaging;
+using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 using System.Xml;
 using AODL.Document;
 using AODL.Document.Import;
 using AODL.Document.Export;
+using AODL.Document.Exceptions;
 using AODL.Document.Import.OpenDocument.NodeProcessors;
 using AODL.Document.TextDocuments;
 using AODL.Document.SpreadsheetDocuments;
@@ -457,6 +459,10 @@ namespace AODL.Document.Import.OpenDocument
 
 /*
  * $Log: OpenDocumentImporter.cs,v $
+ * Revision 1.4  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.3  2006/02/02 21:55:59  larsbm
  * - Added Clone object support for many AODL object types
  * - New Importer implementation PlainTextImporter and CsvImporter

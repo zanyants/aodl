@@ -1,5 +1,5 @@
 /*
- * $Id: HTMLContentBuilder.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: HTMLContentBuilder.cs,v 1.3 2006/02/05 20:03:32 larsbm Exp $
  */
 
 /*
@@ -182,9 +182,7 @@ namespace AODL.Document.Export.Html
 						if(iText is SimpleText)
 						{
 							string textContent	= iText.Node.InnerText;
-							textContent			= textContent.Replace("<", "&lt;");
-							textContent			= textContent.Replace(">", "&gt;");
-							html				+= textContent;
+							html				+= this.ReplaceControlNodes(textContent);
 						}
 						else if(iText is FormatedText)
 							html			+= this.GetFormatedTextAsHtml(iText as FormatedText);
@@ -262,7 +260,7 @@ namespace AODL.Document.Export.Html
 						else if(ob is UnknownTextContent)
 							html			+= this.GetUnknowTextContentAsHtml(ob as UnknownTextContent);
 						//determine type
-						if(ob is Table)
+						else if(ob is Table)
 							html			+= this.GetTableAsHtml(ob as Table);
 						else if(ob is Paragraph)
 							html			+= this.GetParagraphAsHtml(ob as Paragraph);
@@ -348,7 +346,8 @@ namespace AODL.Document.Export.Html
 		/// <returns></returns>
 		public string GetTableAsHtml(Table table)
 		{
-			string html					= "<table ";
+			//TODO: Implement table border algo
+			string html					= "<table border=\"1\" ";
 
 			try
 			{
@@ -375,7 +374,7 @@ namespace AODL.Document.Export.Html
 				throw exception;
 			}
 
-			if(!html.Equals("<table "))
+			if(!html.Equals("<table border=\"1\" "))
 				html				+= "</table>\n";
 			else
 				html				= "";
@@ -502,7 +501,21 @@ namespace AODL.Document.Export.Html
 							if(style.Length > 0)
 								html		+= style;//+">\n";
 							else
-								html		= html.Replace(" ", "");
+							{
+								//Check against a possible common style
+								IStyle iStyle		= paragraph.Document.CommonStyles.GetStyleByName(paragraph.StyleName);
+								string commonStyle	= "";
+								if(iStyle != null && iStyle is ParagraphStyle)
+								{
+									commonStyle		= this.HTMLStyleBuilder.GetParagraphStyleAsHtml(iStyle as ParagraphStyle);
+									if(commonStyle.Length > 0)
+										html		+= commonStyle;
+									else
+										html		= html.Replace(" ", "");
+								}
+								else
+									html		= html.Replace(" ", "");
+							}
 						}
 						else
 						{
@@ -521,6 +534,22 @@ namespace AODL.Document.Export.Html
 							txtstyle	+= tstyle+">\n";
 							html		+= txtstyle;
 							useTextStyle = true;
+						}
+					}
+					else
+					{
+						//Check again a possible common style
+						string commonstyle	= "";
+						IStyle iStyle	= paragraph.Document.CommonStyles.GetStyleByName(paragraph.StyleName);
+						if(iStyle != null && iStyle is ParagraphStyle)
+						{
+							commonstyle	= this.HTMLStyleBuilder.GetTextStyleAsHtml(((ParagraphStyle)iStyle).TextProperties);
+							if(commonstyle.Length > 0)
+							{
+								txtstyle	+= commonstyle+">\n";
+								html		+= txtstyle;
+								useTextStyle = true;
+							}
 						}
 					}
 
@@ -1011,7 +1040,7 @@ namespace AODL.Document.Export.Html
 					{
 						foreach(XmlNode node in unknownContent.Node.ChildNodes)
 							if(node.InnerText != null)
-								html	+= node.InnerText+" ";
+								html	+= this.ReplaceControlNodes(node.InnerText+" ");
 					}
 				}
 			}
@@ -1052,13 +1081,25 @@ namespace AODL.Document.Export.Html
 					{
 						html			+= textStyle;						
 					}
+					else
+					{
+						//Check again a possible common style
+						string commonstyle	= "";
+						IStyle iStyle	= formatedText.Document.CommonStyles.GetStyleByName(formatedText.StyleName);
+						if(iStyle != null && iStyle is TextStyle)
+						{
+							commonstyle	= this.HTMLStyleBuilder.GetTextStyleAsHtml(((TextStyle)iStyle).TextProperties);
+							if(commonstyle.Length > 0)
+								html	+= commonstyle;
+						}
+					}
 					html			+= ">\n";
 
 					string textContent	= this.GetITextCollectionAsHtml(formatedText.TextContent, null);
 					if(textContent.Length > 0)
 					{
-						textContent		= textContent.Replace("<", "&lt;");
-						textContent		= textContent.Replace(">", "&gt;");
+//						textContent		= textContent.Replace("<", "&lt;");
+//						textContent		= textContent.Replace(">", "&gt;");
 						html			+= textContent;
 					}
 				}
@@ -1195,7 +1236,7 @@ namespace AODL.Document.Export.Html
 				if(unknownTextContent != null)
 				{
 					if(unknownTextContent.Node != null)
-						html			+= unknownTextContent.Node.InnerText;
+						html			+= this.ReplaceControlNodes(unknownTextContent.Node.InnerText);
 				}
 			}
 			catch(Exception ex)
@@ -1311,11 +1352,33 @@ namespace AODL.Document.Export.Html
 			return "<br>\n";
 		}
 
+		/// <summary>
+		/// Replaces the control nodes.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns>The cleaned text</returns>
+		private string ReplaceControlNodes(string text)
+		{
+			try
+			{
+				text		= text.Replace("<", "&lt;");
+				text		= text.Replace(">", "&gt;");
+			}
+			catch(Exception ex)
+			{
+				//unhandled, only some textnodes will be left
+			}
+			return text;
+		}
 	}
 }
 
 /*
  * $Log: HTMLContentBuilder.cs,v $
+ * Revision 1.3  2006/02/05 20:03:32  larsbm
+ * - Fixed several bugs
+ * - clean up some messy code
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

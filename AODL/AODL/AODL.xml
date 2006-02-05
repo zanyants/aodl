@@ -89,7 +89,8 @@
         </member>
         <member name="T:AODL.Document.Content.Draw.DrawAreaRectangle">
             <summary>
-            Zusammenfassung für DrawAreaRectangle.
+            DrawAreaRectangle represent draw area rectangle which
+            could be used within a ImageMap.
             </summary>
         </member>
         <member name="T:AODL.Document.Content.Draw.DrawArea">
@@ -461,7 +462,7 @@
         </member>
         <member name="T:AODL.Document.Content.Draw.Frame">
             <summary>
-            Zusammenfassung für Frame.
+            Frame represent graphic resp. a draw container.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Draw.Frame.#ctor(AODL.Document.IDocument,System.String)">
@@ -599,7 +600,7 @@
         </member>
         <member name="T:AODL.Document.Content.Draw.Graphic">
             <summary>
-            Zusammenfassung für Graphic.
+            Graphic represent a graphic resp. image.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Draw.Graphic.#ctor(AODL.Document.IDocument,AODL.Document.Content.Draw.Frame,System.String)">
@@ -707,7 +708,24 @@
             </summary>
             <value>The content.</value>
         </member>
-        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "T:AODL.Document.Content.Draw.ImageMap" ignoriert -->
+        <member name="T:AODL.Document.Content.Draw.ImageMap">
+            <summary>
+            Summary for ImageMap.
+            Example ImageMap
+            </summary>
+            <example>
+            &lt;draw:image-map&gt;
+            	&lt;draw:area-rectangle
+            		svg:width="5cm" svg:height="5cm" svg:x="10.949cm" svg:y="5.724cm"&gt;
+            		&lt;office:event-listeners&gt;
+                        &lt;script:event-listener script:language="JavaScript"
+            				script:event-name="dom:onmouseover"
+            				xlink:href="setCursor('hand')"/&gt;
+            		&lt;/office:event-listeners&gt;
+            	&lt;draw:area-rectangle&gt;
+            &lt;/draw:image-map&gt;
+            </example>
+        </member>
         <member name="M:AODL.Document.Content.Draw.ImageMap.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
             <summary>
             Initializes a new instance of the <see cref="T:AODL.Document.Content.Draw.ImageMap"/> class.
@@ -865,7 +883,31 @@
             </summary>
             <value>The node.</value>
         </member>
-        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "T:AODL.Document.Content.OfficeEvents.EventListeners" ignoriert -->
+        <member name="T:AODL.Document.Content.OfficeEvents.EventListeners">
+            <summary>
+            Summary for EventListeners
+            </summary>
+            <example>
+            	<code>
+            	<pre>
+                   &lt;office:event-listeners&gt;
+                       &lt;script:event-listener
+                           script:language="JavaScript"
+                          script:event-name="dom:onclick"
+                           xlink:href="changeImage(‘dim’)"/&gt;
+                       &lt;script:event-listener
+                           script:language="JavaScript"
+                           script:event-name="dom:onmouseover"
+                           xlink:href="setCursor('hand')"/&gt;
+                       &lt;script:event-listener
+                           script:language="JavaScript"
+                           script:event-name="dom:onmouseout"
+                           xlink:href="setCursor('arrow')"/&gt;
+                   &lt;/office:event-listeners&gt;
+                 </pre>
+                 </code>
+            </example>
+        </member>
         <member name="M:AODL.Document.Content.OfficeEvents.EventListeners.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
             <summary>
             Initializes a new instance of the <see cref="T:AODL.Document.Content.OfficeEvents.EventListeners"/> class.
@@ -944,7 +986,7 @@
         </member>
         <member name="T:AODL.Document.Content.Tables.Cell">
             <summary>
-            Zusammenfassung für Cell.
+            Cell represent a table cell.
             </summary>
         </member>
         <member name="T:AODL.Document.Content.IHtml">
@@ -1255,7 +1297,7 @@
         </member>
         <member name="T:AODL.Document.Content.Tables.Column">
             <summary>
-            Zusammenfassung für Column.
+            Column represent a table column.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Tables.Column.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
@@ -1580,7 +1622,7 @@
         </member>
         <member name="T:AODL.Document.Content.Tables.RowHeader">
             <summary>
-            Zusammenfassung für RowHeader.
+            RowHeader represent a table row header.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Tables.RowHeader.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
@@ -1685,10 +1727,8 @@
         </member>
         <member name="T:AODL.Document.Content.Tables.Table">
             <summary>
-            Table represent a sheet that is used within a spreadsheet document.
-            This isn't the same as the Table from a text document, although
-            they use the same namespace table! There are some restrcitions
-            within a sheet that aren't possible within a text table.
+            Table represent a table that is used within a spreadsheet document
+            or a TextDocument! 
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Tables.Table.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
@@ -2052,7 +2092,7 @@
         </member>
         <member name="T:AODL.Document.Content.Text.Indexes.TableOfContents">
             <summary>
-            Zusammenfassung für TableOfContent.
+            TableOfContent represent a table of contents.
             </summary>
         </member>
         <member name="F:AODL.Document.Content.Text.Indexes.TableOfContents._indexBodyNode">
@@ -2411,7 +2451,7 @@
         </member>
         <member name="T:AODL.Document.Content.Text.TextControl.LineBreak">
             <summary>
-            Zusammenfassung für LineBreak.
+            LineBreak represent a line break.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Text.TextControl.LineBreak.#ctor(AODL.Document.IDocument)">
@@ -2457,7 +2497,7 @@
         </member>
         <member name="T:AODL.Document.Content.Text.TextControl.TabStop">
             <summary>
-            Zusammenfassung für TabStop.
+            TabStop represent a tab stop.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Text.TextControl.TabStop.#ctor(AODL.Document.IDocument)">
@@ -2503,7 +2543,7 @@
         </member>
         <member name="T:AODL.Document.Content.Text.TextControl.WhiteSpace">
             <summary>
-            Zusammenfassung für WhiteSpace.
+            WhiteSpace represent a white space element.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Text.TextControl.WhiteSpace.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
@@ -2866,7 +2906,7 @@
         </member>
         <member name="T:AODL.Document.Content.Text.Header">
             <summary>
-            Zusammenfassung für Header.
+            Header represent a header.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Text.Header.#ctor(AODL.Document.IDocument,AODL.Document.Content.Text.Headings)">
@@ -3225,7 +3265,7 @@
         </member>
         <member name="T:AODL.Document.Content.Text.ListItem">
             <summary>
-            Zusammenfassung für ListItem.
+            ListItem represent a list item which is used within a list.
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Text.ListItem.#ctor(AODL.Document.IDocument)">
@@ -3725,6 +3765,12 @@
             </summary>
             <value></value>
         </member>
+        <member name="P:AODL.Document.Content.Text.UnknownTextContent.Text">
+            <summary>
+            The text.
+            </summary>
+            <value></value>
+        </member>
         <member name="P:AODL.Document.Content.Text.UnknownTextContent.Document">
             <summary>
             Every object (typeof(IContent)) have to know his document.
@@ -3973,7 +4019,8 @@
         </member>
         <member name="T:AODL.Document.Exceptions.AODLException">
             <summary>
-            Zusammenfassung für AODLException.
+            AODLException is a special exception which will let you also
+            access possible broken XmlNodes.
             </summary>
         </member>
         <member name="M:AODL.Document.Exceptions.AODLException.#ctor">
@@ -4256,6 +4303,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AODL.Document.Export.Html.HTMLContentBuilder.ReplaceControlNodes(System.String)">
+            <summary>
+            Replaces the control nodes.
+            </summary>
+            <param name="text">The text.</param>
+            <returns>The cleaned text</returns>
+        </member>
         <member name="E:AODL.Document.Export.Html.HTMLContentBuilder.OnWarning">
             <summary>
             OnWarning event fired if something unexpected
@@ -4456,13 +4510,6 @@
             <param name="filename">The filename.</param>
             <param name="html">The HTML.</param>
         </member>
-        <member name="M:AODL.Document.Export.Html.OpenDocumentHtmlExporter.ReplaceControlNodes(System.String)">
-            <summary>
-            Replaces the control nodes.
-            </summary>
-            <param name="text">The text.</param>
-            <returns>The cleaned text</returns>
-        </member>
         <member name="M:AODL.Document.Export.Html.OpenDocumentHtmlExporter.SetMetaContent(System.String)">
             <summary>
             Sets the content of the meta.
@@ -4502,7 +4549,8 @@
         </member>
         <member name="T:AODL.Document.Export.OpenDocument.OpenDocumentTextExporter">
             <summary>
-            Zusammenfassung für OpenDocumentTextExporter.
+            OpenDocumentTextExporter is the standard exporter of AODL for the export
+            of documents in the OpenDocument format.
             </summary>
         </member>
         <member name="M:AODL.Document.Export.OpenDocument.OpenDocumentTextExporter.#ctor">
@@ -4551,11 +4599,10 @@
             </summary>
             <param name="file">The filename.</param>
         </member>
-        <member name="M:AODL.Document.Export.OpenDocument.OpenDocumentTextExporter.CleanUpDirectory(System.String)">
+        <member name="M:AODL.Document.Export.OpenDocument.OpenDocumentTextExporter.CleanUpReadAndWriteDirectories">
             <summary>
-            Cleans the up directory.
+            Cleans the up read and write directories.
             </summary>
-            <param name="directory">The directory.</param>
         </member>
         <member name="M:AODL.Document.Export.OpenDocument.OpenDocumentTextExporter.SaveGraphic(AODL.Document.IDocument,System.String)">
             <summary>
@@ -5220,6 +5267,13 @@
             <param name="node">The node.</param>
             <returns></returns>
         </member>
+        <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.TextContentProcessor.ReplaceSpecialCharacter(System.String)">
+            <summary>
+            Replaces the special character.
+            </summary>
+            <param name="nodeInnerText">The node inner text.</param>
+            <returns></returns>
+        </member>
         <member name="E:AODL.Document.Import.OpenDocument.NodeProcessors.TextContentProcessor.OnWarning">
             <summary>
             OnWarning event fired if something unexpected
@@ -5663,7 +5717,8 @@
         </member>
         <member name="T:AODL.Document.SpreadsheetDocuments.DocumentStyles">
             <summary>
-            Zusammenfassung für DocumentStyles.
+            DocumentStyles represent the styles.xml file of a file in the
+            OpenDocument format.
             </summary>
         </member>
         <member name="T:AODL.Document.TextDocuments.DocumentStyles">
@@ -5807,6 +5862,12 @@
             </summary>
             <param name="file"></param>
         </member>
+        <member name="M:AODL.Document.IDocument.SaveTo(System.String)">
+            <summary>
+            Save the document at the given file position.
+            </summary>
+            <param name="filename"></param>
+        </member>
         <member name="P:AODL.Document.IDocument.NamespaceManager">
             <summary>
             Every document must have a XmlNamespaceManager
@@ -5895,13 +5956,6 @@
             </summary>
             <param name="file"></param>
         </member>
-        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.GetExporter(System.String)">
-            <summary>
-            Gets the exporter.
-            </summary>
-            <param name="filename">The filename.</param>
-            <returns></returns>
-        </member>
         <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.CreateNode(System.String,System.String)">
             <summary>
             Create a new XmlNode for this document.
@@ -5965,6 +6019,24 @@
             </summary>
             <param name="styleName">Name of the style.</param>
             <returns></returns>
+        </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.Dispose">
+            <summary>
+            Releases unmanaged resources and performs other cleanup operations before the
+            is reclaimed by garbage collection.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.Dispose(System.Boolean)">
+            <summary>
+            Disposes the specified disposing.
+            </summary>
+            <param name="disposing">if set to <c>true</c> [disposing].</param>
+        </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.Finalize">
+            <summary>
+            Releases unmanaged resources and performs other cleanup operations before the
+            <see cref="T:AODL.Document.TextDocuments.TextDocument"/> is reclaimed by garbage collection.
+            </summary>
         </member>
         <member name="P:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.TableCount">
             <summary>
@@ -6205,7 +6277,7 @@
         </member>
         <member name="T:AODL.Document.Styles.Properties.ColumnProperties">
             <summary>
-            Zusammenfassung für ColumnProperties.
+            ColumnProperties represent the table column properties.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.Properties.ColumnProperties.#ctor(AODL.Document.Styles.IStyle)">
@@ -6251,7 +6323,7 @@
         </member>
         <member name="T:AODL.Document.Styles.Properties.GraphicProperties">
             <summary>
-            Zusammenfassung für GraphicProperties.
+            GraphicProperties represent the hraphic properties.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.Properties.GraphicProperties.#ctor(AODL.Document.Styles.IStyle)">
@@ -6514,6 +6586,13 @@
             </summary>
             <value>The border.</value>
         </member>
+        <member name="P:AODL.Document.Styles.Properties.ParagraphProperties.BackgroundColor">
+            <summary>
+            Set the background color
+            Use Colors.GetColor(Color color) to set 
+            on of the available .net colors
+            </summary>
+        </member>
         <member name="P:AODL.Document.Styles.Properties.ParagraphProperties.Padding">
             <summary>
             Gets or sets the padding. 
@@ -6576,7 +6655,7 @@
         </member>
         <member name="T:AODL.Document.Styles.Properties.RowProperties">
             <summary>
-            Zusammenfassung für RowProperties.
+            RowProperties represent table row properties.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.Properties.RowProperties.#ctor(AODL.Document.Styles.IStyle)">
@@ -6624,7 +6703,8 @@
         </member>
         <member name="T:AODL.Document.Styles.Properties.SectionProperties">
             <summary>
-            Zusammenfassung für SectionProperties.
+            SectionProperties represent the section properties which is e.g used
+            within a table of contents.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.Properties.SectionProperties.#ctor(AODL.Document.Styles.IStyle)">
@@ -6675,7 +6755,7 @@
         </member>
         <member name="T:AODL.Document.Styles.Properties.TableProperties">
             <summary>
-            Zusammenfassung für TableProperties.
+            TableProperties represent the table properties.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.Properties.TableProperties.#ctor(AODL.Document.Styles.IStyle)">
@@ -7068,7 +7148,7 @@
         </member>
         <member name="T:AODL.Document.Styles.ColumnStyle">
             <summary>
-            Zusammenfassung für ColumnStyle.
+            ColumnStyle represent a table column style.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.ColumnStyle.#ctor(AODL.Document.IDocument)">
@@ -7731,7 +7811,7 @@
         </member>
         <member name="T:AODL.Document.Styles.FrameStyle">
             <summary>
-            Zusammenfassung für FrameStyle.
+            FrameStyle represent a style which is used within a draw frame object.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.FrameStyle.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
@@ -8409,7 +8489,7 @@
         </member>
         <member name="T:AODL.Document.Styles.SectionStyle">
             <summary>
-            Zusammenfassung für SectionStyle.
+            SectionStyle represent a section style.
             </summary>
         </member>
         <member name="M:AODL.Document.Styles.SectionStyle.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
@@ -8898,7 +8978,7 @@
         </member>
         <member name="T:AODL.Document.TextDocuments.DocumentConfiguration2">
             <summary>
-            Zusammenfassung für DocumentConfiguration2.
+            DocumentConfiguration2 represent the Configuration2 file.
             </summary>
         </member>
         <member name="F:AODL.Document.TextDocuments.DocumentConfiguration2.FolderName">
@@ -9150,7 +9230,8 @@
         </member>
         <member name="T:AODL.Document.TextDocuments.DocumentPicture">
             <summary>
-            Zusammenfassung für DocumentPicture.
+            DocumentPicture represent a picture resp. graphic which used within
+            a file in the OpenDocument format.
             </summary>
         </member>
         <member name="M:AODL.Document.TextDocuments.DocumentPicture.#ctor">
@@ -9320,7 +9401,8 @@
         </member>
         <member name="M:AODL.Document.TextDocuments.TextDocument.Dispose">
             <summary>
-            Führt anwendungsspezifische Aufgaben durch, die mit der Freigabe, der Zurückgabe oder dem Zurücksetzen von nicht verwalteten Ressourcen zusammenhängen.
+            Releases unmanaged resources and performs other cleanup operations before the
+            is reclaimed by garbage collection.
             </summary>
         </member>
         <member name="M:AODL.Document.TextDocuments.TextDocument.Dispose(System.Boolean)">
