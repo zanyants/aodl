@@ -1,5 +1,5 @@
 /*
- * $Id: Printer.cs,v 1.1 2006/02/06 19:27:23 larsbm Exp $
+ * $Id: Printer.cs,v 1.2 2006/02/06 20:17:07 larsbm Exp $
  */
 
 /*
@@ -49,9 +49,8 @@ namespace OpenOfficeLib.Printer
 		//  Printer.Print(xComponent);
 		/// </code>
 		/// </example>
-		public Printer(string test)
+		public Printer()
 		{
-			string t = test;
 		}
 
 		/// <summary>
@@ -72,6 +71,9 @@ namespace OpenOfficeLib.Printer
 
 /*
  * $Log: Printer.cs,v $
+ * Revision 1.2  2006/02/06 20:17:07  larsbm
+ * *** empty log message ***
+ *
  * Revision 1.1  2006/02/06 19:27:23  larsbm
  * - fixed bug in spreadsheet document
  * - added smal OpenOfficeLib for document printing

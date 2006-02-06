@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenOfficeLib</name>
+    </assembly>
+    <members>
+        <member name="T:OpenOfficeLib.Connection.Connector">
+            <summary>
+            All connection relevant methods
+            </summary>
+        </member>
+        <member name="M:OpenOfficeLib.Connection.Connector.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:OpenOfficeLib.Connection.Connector"/> class.
+            </summary>
+        </member>
+        <member name="M:OpenOfficeLib.Connection.Connector.GetComponentContext">
+            <summary>
+            Get a the Component Context using default bootstrap
+            </summary>
+            <returns>ComponentContext object</returns>
+        </member>
+        <member name="M:OpenOfficeLib.Connection.Connector.GetMultiServiceFactory(unoidl.com.sun.star.uno.XComponentContext)">
+            <summary>
+            Get the MultiServiceFactory
+            </summary>
+            <param name="componentcontext">A component context</param>
+            <returns>MultiServiceFactory object</returns>
+        </member>
+        <member name="M:OpenOfficeLib.Connection.Connector.GetDesktop(unoidl.com.sun.star.lang.XMultiServiceFactory)">
+            <summary>
+            Get the Desktop
+            </summary>
+            <param name="multiservicefactory">A multi service factory</param>
+            <returns>Desktop object</returns>
+        </member>
+        <member name="T:OpenOfficeLib.Document.Component">
+            <summary>
+            Methods for Component handling.
+            </summary>
+        </member>
+        <member name="F:OpenOfficeLib.Document.Component.Writer">
+            <summary>
+            string for new writer instance
+            </summary>
+        </member>
+        <member name="F:OpenOfficeLib.Document.Component.Calc">
+            <summary>
+            string for new calc instance
+            </summary>
+        </member>
+        <member name="F:OpenOfficeLib.Document.Component.Draw">
+            <summary>
+            string for new Draw instance
+            </summary>
+        </member>
+        <member name="F:OpenOfficeLib.Document.Component.Impress">
+            <summary>
+            string for new Impress instance
+            </summary>
+        </member>
+        <member name="M:OpenOfficeLib.Document.Component.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:OpenOfficeLib.Document.Component"/> class.
+            </summary>
+        </member>
+        <member name="M:OpenOfficeLib.Document.Component.LoadDocument(unoidl.com.sun.star.frame.XComponentLoader,System.String,System.String)">
+            <summary>
+            Load a given file or create a new blank file
+            </summary>
+            <param name="aLoader">A ComponentLoader</param>
+            <param name="file">The file</param>
+            <param name="target">The target frame name</param>
+            <returns>The Component object</returns>
+        </member>
+        <member name="M:OpenOfficeLib.Document.Component.StoreToUrl(unoidl.com.sun.star.frame.XStorable,System.String)">
+            <summary>
+            Store the document to a given url
+            </summary>
+            <param name="storablecomponent">The storable component</param>
+            <param name="url">The url</param>
+        </member>
+        <member name="M:OpenOfficeLib.Document.Component.StoreAsUrl(unoidl.com.sun.star.frame.XStorable,System.String)">
+            <summary>
+            Store the document to a given url
+            </summary>
+            <param name="storablecomponent">The storable component</param>
+            <param name="url">The url</param>
+        </member>
+        <member name="M:OpenOfficeLib.Document.Component.Store(unoidl.com.sun.star.frame.XStorable,System.String)">
+            <summary>
+            Store the document
+            </summary>
+            <param name="storablecomponent">The storable component</param>
+            <param name="url">The url</param>
+        </member>
+        <member name="M:OpenOfficeLib.Document.Component.PathConverter(System.String)">
+            <summary>
+            Convert a windows path in a OpenOffice url
+            </summary>
+            <param name="file">The windows path</param>
+            <returns>The converted url</returns>
+        </member>
+        <member name="T:OpenOfficeLib.Printer.Printer">
+            <summary>
+            Simple OpenOffice Printer implementation
+            </summary>
+        </member>
+        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "M:OpenOfficeLib.Printer.Printer.#ctor" ignoriert -->
+        <member name="M:OpenOfficeLib.Printer.Printer.Print(unoidl.com.sun.star.lang.XComponent)">
+            <summary>
+            Prints the specified XComponent that could be any loaded
+            OpenOffice document e.g text document, spreadsheet document, ..
+            </summary>
+            <param name="xComponent">The x component.</param>
+        </member>
+    </members>
+</doc>
