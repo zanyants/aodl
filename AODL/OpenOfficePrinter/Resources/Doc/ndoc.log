@@ -1,0 +1,71 @@
+Building documentation...
+Initializing...
+Merging XML documentation...
+Building file mapping...
+Loading XSLT files...
+    namespace.xslt
+    namespacehierarchy.xslt
+    type.xslt
+    typehierarchy.xslt
+    allmembers.xslt
+    individualmembers.xslt
+    event.xslt
+    member.xslt
+    memberoverload.xslt
+    property.xslt
+    field.xslt
+    htmlcontents.xslt
+Generating HTML pages...
+OpenOfficeLib.Connection.html
+OpenOfficeLib.ConnectionHierarchy.html
+OpenOfficeLib.Connection.Connector.html
+OpenOfficeLib.Connection.ConnectorMembers.html
+OpenOfficeLib.Connection.ConnectorConstructor.html
+OpenOfficeLib.Connection.ConnectorMethods.html
+OpenOfficeLib.Connection.Connector.GetComponentContext.html
+OpenOfficeLib.Connection.Connector.GetDesktop.html
+OpenOfficeLib.Connection.Connector.GetMultiServiceFactory.html
+OpenOfficeLib.Document.html
+OpenOfficeLib.DocumentHierarchy.html
+OpenOfficeLib.Document.Component.html
+OpenOfficeLib.Document.ComponentMembers.html
+OpenOfficeLib.Document.ComponentConstructor.html
+OpenOfficeLib.Document.ComponentStaticConstructor.html
+OpenOfficeLib.Document.ComponentFields.html
+OpenOfficeLib.Document.Component.Calc.html
+OpenOfficeLib.Document.Component.Draw.html
+OpenOfficeLib.Document.Component.Impress.html
+OpenOfficeLib.Document.Component.Writer.html
+OpenOfficeLib.Document.ComponentMethods.html
+OpenOfficeLib.Document.Component.LoadDocument.html
+OpenOfficeLib.Document.Component.PathConverter.html
+OpenOfficeLib.Document.Component.Store.html
+OpenOfficeLib.Document.Component.StoreAsUrl.html
+OpenOfficeLib.Document.Component.StoreToUrl.html
+OpenOfficeLib.Printer.html
+OpenOfficeLib.PrinterHierarchy.html
+OpenOfficeLib.Printer.Printer.html
+OpenOfficeLib.Printer.PrinterMembers.html
+OpenOfficeLib.Printer.PrinterConstructor.html
+OpenOfficeLib.Printer.PrinterMethods.html
+OpenOfficeLib.Printer.Printer.Print.html
+Compiling HTML Help file...
+Compiling Html Help file
+Microsoft HTML Help Compiler 4.74.8702
+
+Compiling d:\OpenDocument\AODL\OpenOfficePrinter\Resources\Doc\ndoc_msdn_temp\OpenOfficeLib.chm
+
+
+Compile time: 0 minutes, 2 seconds
+65	Topics
+221	Local links
+0	Internet links
+5	Graphics
+
+
+Created d:\OpenDocument\AODL\OpenOfficePrinter\Resources\Doc\ndoc_msdn_temp\OpenOfficeLib.chm, 41,491 bytes
+Compression decreased file by 135,150 bytes.
+
+Html Help compile complete
+Writing documentation to output path
+Done.

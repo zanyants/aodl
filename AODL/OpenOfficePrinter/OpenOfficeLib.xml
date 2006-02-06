@@ -105,8 +105,28 @@
             <summary>
             Simple OpenOffice Printer implementation
             </summary>
+            <example>Example usage:<code escaped="true">
+            //Get the Component Context
+            XComponentContext xComponentContext			= Connector.GetComponentContext();
+            //Get a MultiServiceFactory
+            XMultiServiceFactory xMultiServiceFactory	= Connector.GetMultiServiceFactory(xComponentContext);
+            //Get a Dektop instance		
+            XDesktop xDesktop							= Connector.GetDesktop(xMultiServiceFactory);
+             //Convert a windows path to an OpenOffice one
+             string myFileToPrint						= Component.PathConverter(@"D:\myFileToPrint.odt");
+            //Load the document you want to print
+            XComponent xComponent						= Component.LoadDocument(
+            			(XComponentLoader)xDesktop, myFileToPrint, "_blank");
+             //Print the XComponent
+             Printer.Print(xComponent);
+             </code>
+            </example>
         </member>
-        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "M:OpenOfficeLib.Printer.Printer.#ctor" ignoriert -->
+        <member name="M:OpenOfficeLib.Printer.Printer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:OpenOfficeLib.Printer.Printer"/> class.
+            </summary>		
+        </member>
         <member name="M:OpenOfficeLib.Printer.Printer.Print(unoidl.com.sun.star.lang.XComponent)">
             <summary>
             Prints the specified XComponent that could be any loaded

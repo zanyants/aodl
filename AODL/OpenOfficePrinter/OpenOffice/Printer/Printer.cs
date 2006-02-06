@@ -1,5 +1,5 @@
 /*
- * $Id: Printer.cs,v 1.2 2006/02/06 20:17:07 larsbm Exp $
+ * $Id: Printer.cs,v 1.3 2006/02/06 21:29:20 larsbm Exp $
  */
 
 /*
@@ -27,28 +27,27 @@ namespace OpenOfficeLib.Printer
 	/// <summary>
 	/// Simple OpenOffice Printer implementation
 	/// </summary>
+	/// <example>Example usage:<code escaped="true">
+	/// //Get the Component Context
+	/// XComponentContext xComponentContext			= Connector.GetComponentContext();
+	///	//Get a MultiServiceFactory
+	///	XMultiServiceFactory xMultiServiceFactory	= Connector.GetMultiServiceFactory(xComponentContext);
+	///	//Get a Dektop instance		
+	///	XDesktop xDesktop							= Connector.GetDesktop(xMultiServiceFactory);
+	///  //Convert a windows path to an OpenOffice one
+	///  string myFileToPrint						= Component.PathConverter(@"D:\myFileToPrint.odt");
+	///	//Load the document you want to print
+	///	XComponent xComponent						= Component.LoadDocument(
+	///				(XComponentLoader)xDesktop, myFileToPrint, "_blank");
+	///  //Print the XComponent
+	///  Printer.Print(xComponent);
+	///  </code>
+	/// </example>
 	public class Printer
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Printer"/> class.
-		/// </summary>
-		/// <example>
-		/// <code>
-		/// //Get the Component Context
-		/// XComponentContext xComponentContext			= Connector.GetComponentContext();
-		//	//Get a MultiServiceFactory
-		//	XMultiServiceFactory xMultiServiceFactory	= Connector.GetMultiServiceFactory(xComponentContext);
-		//	//Get a Dektop instance		
-		//	XDesktop xDesktop							= Connector.GetDesktop(xMultiServiceFactory);
-		//  //Convert a windows path to an OpenOffice one
-		//  string myFileToPrint						= Component.PathConverter(@"D:\myFileToPrint.odt");
-		//	//Load the document you want to print
-		//	XComponent xComponent						= Component.LoadDocument(
-		//				(XComponentLoader)xDesktop, myFileToPrint, "_blank");
-		//  //Print the XComponent
-		//  Printer.Print(xComponent);
-		/// </code>
-		/// </example>
+		/// </summary>		
 		public Printer()
 		{
 		}
@@ -71,6 +70,9 @@ namespace OpenOfficeLib.Printer
 
 /*
  * $Log: Printer.cs,v $
+ * Revision 1.3  2006/02/06 21:29:20  larsbm
+ * - documentation for OpenOfficeLib
+ *
  * Revision 1.2  2006/02/06 20:17:07  larsbm
  * *** empty log message ***
  *
