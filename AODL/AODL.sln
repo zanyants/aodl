@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AODLTest", "AODLTest\AODLTe
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenOfficeLib", "OpenOfficePrinter\OpenOfficeLib.csproj", "{D375D701-B8D5-48E4-AC6B-83D1201A7C78}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -21,6 +25,10 @@ Global
 		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Debug.Build.0 = Debug|.NET
 		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release.ActiveCfg = Release|.NET
 		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release.Build.0 = Release|.NET
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Debug.ActiveCfg = Debug|.NET
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Debug.Build.0 = Debug|.NET
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Release.ActiveCfg = Release|.NET
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

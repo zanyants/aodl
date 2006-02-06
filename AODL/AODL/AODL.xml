@@ -5998,6 +5998,20 @@
             <param name="index">The index.</param>
             <param name="value">The value.</param>
         </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.Content_Inserted(System.Int32,System.Object)">
+            <summary>
+            Content_s the inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.Content_Removed(System.Int32,System.Object)">
+            <summary>
+            Content_s the removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
         <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.CreateContentBody">
             <summary>
             Creates the content body.

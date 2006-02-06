@@ -1,5 +1,5 @@
 /*
- * $Id: SpreadsheetDocument.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: SpreadsheetDocument.cs,v 1.5 2006/02/06 19:27:23 larsbm Exp $
  */
 
 /*
@@ -244,6 +244,8 @@ namespace AODL.Document.SpreadsheetDocuments
 			this.FontList					= new ArrayList();
 			this.TableCollection.Inserted	+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(TableCollection_Inserted);
 			this.TableCollection.Removed	+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(TableCollection_Removed);
+			this.Content.Inserted			+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(Content_Inserted);
+			this.Content.Removed			+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(Content_Removed);
 		}
 
 		/// <summary>
@@ -424,6 +426,8 @@ namespace AODL.Document.SpreadsheetDocuments
 		private void TableCollection_Inserted(int index, object value)
 		{
 			this._tableCount++;
+			if(!this.Content.Contains(value as IContent))
+				this.Content.Add(value as IContent);
 		}
 
 		/// <summary>
@@ -434,6 +438,32 @@ namespace AODL.Document.SpreadsheetDocuments
 		private void TableCollection_Removed(int index, object value)
 		{
 			this._tableCount--;
+			if(this.Content.Contains(value as IContent))
+				this.Content.Remove(value as IContent);
+		}
+
+		/// <summary>
+		/// Content_s the inserted.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void Content_Inserted(int index, object value)
+		{
+			if(value is Table)
+				if(!this.TableCollection.Contains((Table)value))
+					this.TableCollection.Add(value as Table);
+		}
+
+		/// <summary>
+		/// Content_s the removed.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="value">The value.</param>
+		private void Content_Removed(int index, object value)
+		{
+			if(value is Table)
+				if(this.TableCollection.Contains((Table)value))
+					this.TableCollection.Remove(value as Table);
 		}
 
 		/// <summary>
@@ -551,6 +581,10 @@ namespace AODL.Document.SpreadsheetDocuments
 
 /*
  * $Log: SpreadsheetDocument.cs,v $
+ * Revision 1.5  2006/02/06 19:27:23  larsbm
+ * - fixed bug in spreadsheet document
+ * - added smal OpenOfficeLib for document printing
+ *
  * Revision 1.4  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code
