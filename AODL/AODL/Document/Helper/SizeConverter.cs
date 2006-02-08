@@ -1,5 +1,5 @@
 /*
- * $Id: SizeConverter.cs,v 1.1 2006/01/29 11:28:23 larsbm Exp $
+ * $Id: SizeConverter.cs,v 1.2 2006/02/08 16:37:36 larsbm Exp $
  */
 
 /*
@@ -158,11 +158,52 @@ namespace AODL.Document.Helper
 				return 0;
 			}
 		}
+
+		/// <summary>
+		/// Gets the double from an office size value.
+		/// </summary>
+		/// <remarks>
+		/// There is no translation between cm or inch. You will just get the
+		/// size you posted as double value.
+		/// </remarks>
+		/// <param name="aSizeValue">A size value.</param>
+		/// <returns></returns>
+		public static double GetDoubleFromAnOfficeSizeValue(string aSizeValue)
+		{
+			if(aSizeValue == null)
+				return 0;
+
+			try
+			{
+				if(aSizeValue.EndsWith("cm"))
+				{
+					aSizeValue		= aSizeValue.Replace("cm", "");
+
+					return Convert.ToDouble(aSizeValue, System.Globalization.NumberFormatInfo.InvariantInfo);
+				}
+				else if(aSizeValue.EndsWith("in"))
+				{
+					aSizeValue		= aSizeValue.Replace("in", "");
+
+					return Convert.ToDouble(aSizeValue, System.Globalization.NumberFormatInfo.InvariantInfo);
+				}
+
+				return 0;
+			}
+			catch(Exception ex)
+			{
+				return 0;
+			}
+		}
 	}
 }
 
 /*
  * $Log: SizeConverter.cs,v $
+ * Revision 1.2  2006/02/08 16:37:36  larsbm
+ * - nested table test
+ * - AODC spreadsheet
+ *
  * Revision 1.1  2006/01/29 11:28:23  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

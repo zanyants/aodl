@@ -4818,6 +4818,17 @@
             <param name="aSizeValue">A size value.</param>
             <returns>If something goes wrong it will return 0.</returns>
         </member>
+        <member name="M:AODL.Document.Helper.SizeConverter.GetDoubleFromAnOfficeSizeValue(System.String)">
+            <summary>
+            Gets the double from an office size value.
+            </summary>
+            <remarks>
+            There is no translation between cm or inch. You will just get the
+            size you posted as double value.
+            </remarks>
+            <param name="aSizeValue">A size value.</param>
+            <returns></returns>
+        </member>
         <member name="T:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor">
             <summary>
             LocalStyleProcessor.

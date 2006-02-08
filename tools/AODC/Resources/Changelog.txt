@@ -1,4 +1,10 @@
 -------------------------------
+07.02.2005 AODC 1.2.0.0 beta
+
+Changes and new features
+- Support for OpenDocument Spreadsheet documents
+
+-------------------------------
 04.01.2005 AODC 1.0.2.0 beta
 
 Changes and new features

@@ -1,4 +1,4 @@
-$Id: ChangeLog.txt,v 1.15 2006/02/05 20:03:32 larsbm Exp $
+$Id: ChangeLog.txt,v 1.16 2006/02/08 16:37:36 larsbm Exp $
 
 -------------------------------------------------------------
 AODL 1.2.0.0 beta
@@ -9,7 +9,8 @@ Changes and new features
 - New importer implementations TextPlainImport and CsvImporter
 - Support for image maps incl. different kinds of draw areas.
 - Support for illustrations (DrawTextBox implementation)
-- Builder class for easy creation of AODL objects. TextBuilder,
+- Support for OfficeScripts
+- Builder class for an easy creation of AODL objects. TextBuilder,
   ParagraphBuilder and TableBuilder.
 - Change interfaces of IContent, IStyle and IProperty. 
 - New exception classes AODLException and AODLWarning.
@@ -18,6 +19,21 @@ Changes and new features
 - New implementation of the XmlNode processors which make it
   easy to create AODL objects by simply passing the correspondig
   xml node.
+- New Helper class SizeConverter. This class offer several transalation
+  methods for OpenDocument width and hidth properties.
+- Support for nested table up to any deepth.
+- Support for common styles. You can create new common styles
+  (e.g. this styles represent the style templates in OpenOffice)
+  or edit existing ones.
+
+New sub project OpenOfficeLib
+Description:
+  The OpenOfficeLib is C# wrapper library for the CLI assemblies
+  of OpenOffice.
+Features:
+  Loading, saving and printing any by OpenOffice supported files.
+  This library has an own helpfile which will give you an example how you
+  can print a by AODL created document using the OpenOfficeLib.
 
 -------------------------------------------------------------
 AODL 1.1.2.0 beta

@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
+ * $Id: Table.cs,v 1.4 2006/02/08 16:37:36 larsbm Exp $
  */
 
 /*
@@ -254,7 +254,15 @@ namespace AODL.Document.Content.Tables
 				this.Node.AppendChild(this.RowHeader.Node);
 
 			foreach(Row row in this.RowCollection)
+			{
+				//check for nested tables
+				foreach(Cell cell in row.CellCollection)
+					foreach(IContent iContent in cell.Content)
+						if(iContent is Table)
+							((Table)iContent).BuildNode();
+				//now, append the row node
 				this.Node.AppendChild(row.Node);
+			}
 
 			return this.Node;
 		}
@@ -429,6 +437,10 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.4  2006/02/08 16:37:36  larsbm
+ * - nested table test
+ * - AODC spreadsheet
+ *
  * Revision 1.3  2006/02/05 20:02:25  larsbm
  * - Fixed several bugs
  * - clean up some messy code

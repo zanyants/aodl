@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocumentTableTest.cs,v 1.1 2006/01/29 11:26:02 larsbm Exp $
+ * $Id: TextDocumentTableTest.cs,v 1.2 2006/02/08 16:37:36 larsbm Exp $
  */
 
 /*
@@ -22,7 +22,7 @@ using AODL.Document.Content.Tables;
 using AODL.Document.TextDocuments;
 using AODL.Document.Styles;
 using AODL.Document.Content.Text;
-
+using AODL.Document.Helper;
 
 namespace AODLTest
 {
@@ -158,6 +158,60 @@ namespace AODLTest
 			document.Content.Add(table);
 			//Save the document
 			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"simpleTableWithMergedCells.odt");
+		}
+
+		[Test]
+		public void NestedTable()
+		{
+			//Create a new text document
+			TextDocument document					= new TextDocument();
+			document.New();
+			//Create a table for a text document using the TableBuilder
+			Table table								= TableBuilder.CreateTextDocumentTable(
+				document,
+				"table1",
+				"table1",
+				3,
+				3,
+				16.99,
+				false,
+				false);
+			//Create a standard paragraph
+			Paragraph paragraph						= ParagraphBuilder.CreateStandardTextParagraph(document);
+			//Add some simple text
+			paragraph.TextContent.Add(new SimpleText(document, "Some cell text"));
+			Assert.IsNotNull(table.RowCollection, "Must exist.");
+			Assert.IsTrue(table.RowCollection.Count == 3, "There must be 3 rows.");
+			//Insert paragraph into the second cell
+			table.RowCollection[0].CellCollection[1].Content.Add(paragraph);
+			//Get width of the nested table
+			double nestedTableWidth					= SizeConverter.GetDoubleFromAnOfficeSizeValue(
+				table.ColumnCollection[0].ColumnStyle.ColumnProperties.Width);
+			//Create another table using the TableBuilder
+			Table nestedTable						= TableBuilder.CreateTextDocumentTable(
+				document,
+				"table1",
+				"table1",
+				2,
+				2,
+				nestedTableWidth,
+				false,
+				false);
+			//Create a new standard paragraph
+			paragraph								= ParagraphBuilder.CreateStandardTextParagraph(document);
+			//Add some simple text
+			paragraph.TextContent.Add(new SimpleText(document, "Some cell text inside the nested table"));
+			Assert.IsNotNull(nestedTable.RowCollection, "Must exist.");
+			Assert.IsTrue(nestedTable.RowCollection.Count == 2, "There must be 3 rows.");
+			//Insert paragraph into the first cell
+			nestedTable.RowCollection[0].CellCollection[0].Content.Add(paragraph);
+			//Insert the nested table into the first row and first cell
+			table.RowCollection[0].CellCollection[0].Content.Add(nestedTable);
+			Assert.IsTrue(table.RowCollection[0].CellCollection[0].Content[0] is Table, "Must be the nested table.");
+			//Add table to the document
+			document.Content.Add(table);
+			//Save the document
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"nestedTable.odt");
 		}
 	}
 }

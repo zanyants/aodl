@@ -343,7 +343,7 @@ Public License instead of this License.
  */
 
 /*
- * $Id: Mainform.cs,v 1.5 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: Mainform.cs,v 1.6 2006/02/08 16:37:37 larsbm Exp $
  * Copyright 2005, Lars Behrmann, http://aodl.sourceforge.net
  */
 
@@ -362,10 +362,20 @@ namespace AODC
 	/// Zusammenfassung für Form1.
 	/// </summary>
 	public class Mainform : System.Windows.Forms.Form
-	{		
-		private static string SourceFile	= null;
+	{	
 		private string _lastChooseDirectoy	= "";
+		/// <summary>
+		/// Gets or sets the last choose directory.
+		/// </summary>
+		/// <value>The last choose directory.</value>
+		public string LastChooseDirectory
+		{
+			get { return this._lastChooseDirectoy; }
+			set { this._lastChooseDirectoy = value; }
+		}
+
 		private bool _isSinglemode			= true;
+		private static string SourceFile	= null;
 		private ArrayList _sourceFiles		= null;
 		private ArrayList _targetFiles		= null;
 
@@ -887,13 +897,13 @@ namespace AODC
 				if(!this.SourceValidation())
 					return;
 
+				this.label5.Visible		= false;
 				this.timer1.Start();
 				
 				this._controler.Convert(this.tbxFile.Text,
 					this.tbxTargetFilename.Text, this.ckbxOverwrite.Checked);
 				
-				//this.ToogleButtons(false);
-				this.label5.Text			= "";
+				//this.ToogleButtons(false);				
 			}
 			catch(Exception ex)
 			{
@@ -919,11 +929,11 @@ namespace AODC
 				if(!this.SourceValidation())
 					return;
 
+				this.label5.Visible		= false;
 				this.timer1.Start();
 				this._controler.Convert(this.tbxFile.Text,
 					this.tbxTargetFilename.Text, this.ckbxOverwrite.Checked);
 				//this.ToogleButtons(false);
-				this.label5.Text			= "";
 			}
 			catch(Exception ex)
 			{
@@ -997,6 +1007,7 @@ namespace AODC
 				{
 					string min			= this._controler.ElapsedTime.Minutes.ToString();
 					string sec			= this._controler.ElapsedTime.Seconds.ToString();
+					this.label5.Visible	= true;
 					this.label5.Text	= "Time total "+min+" min. "+sec+" sec.";
 				}
 			}
@@ -1425,6 +1436,7 @@ namespace AODC
 				this._isSinglemode			= false;
 				this.plSinglemode.Visible	= false;
 				BatchControl batchCtl		= new BatchControl();
+				batchCtl.Mainform			= this;
 				batchCtl.Location			= new Point(0, 0);
 				batchCtl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top) 
 					| System.Windows.Forms.AnchorStyles.Left) 

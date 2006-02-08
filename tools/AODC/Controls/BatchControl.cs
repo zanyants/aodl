@@ -1,9 +1,11 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+using AODC;
 
 namespace AODC.Controls
 {
@@ -14,6 +16,17 @@ namespace AODC.Controls
 	{
 		public delegate void StartBatch(ArrayList sourcefiles, ArrayList targetfiles);
 		public event StartBatch OnStartBatch;
+
+		private Mainform _mainform;
+		/// <summary>
+		/// Gets or sets the mainform.
+		/// </summary>
+		/// <value>The mainform.</value>
+		public Mainform Mainform
+		{
+			get { return this._mainform; }
+			set { this._mainform = value; }
+		}
 
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ListBox lbxSourcefiles;
@@ -153,8 +166,8 @@ namespace AODC.Controls
 		{
 			OpenFileDialog openFileDialog		= new OpenFileDialog();
 
-			openFileDialog.InitialDirectory		= "c:\\" ;
-			openFileDialog.Filter				= "odt files (*.odt)|*.odt";
+			openFileDialog.InitialDirectory		= Mainform.LastChooseDirectory;
+			openFileDialog.Filter				= "odt files (*.odt)|*.odt|ods files (*.ods)|*.ods";
 			openFileDialog.FilterIndex			= 1 ;
 			openFileDialog.RestoreDirectory		= true ;
 			openFileDialog.Multiselect			= true;
@@ -162,6 +175,9 @@ namespace AODC.Controls
 			if(openFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				this.FillFiles(openFileDialog.FileNames);
+				string lastFile						= openFileDialog.FileNames[openFileDialog.FileNames.Length-1];
+				FileInfo fInfo						= new FileInfo(lastFile);
+				this.Mainform.LastChooseDirectory	= fInfo.DirectoryName;
 			}
 		}
 
