@@ -1,5 +1,5 @@
 /*
- * $Id: Row.cs,v 1.2 2006/01/29 18:52:14 larsbm Exp $
+ * $Id: Row.cs,v 1.3 2006/02/16 18:35:41 larsbm Exp $
  */
 
 /*
@@ -134,12 +134,13 @@ namespace AODL.Document.Content.Tables
 			this.CellCollection.Removed		+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(CellCollection_Removed);
 			this.CellCollection.Inserted	+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(CellCollection_Inserted);
 
-			if(this.Document is AODL.Document.TextDocuments.TextDocument)
-			{
+//is possible!!!! 
+//			if(this.Document is AODL.Document.TextDocuments.TextDocument)
+//			{
 				this.CellSpanCollection				= new CellSpanCollection();
 				this.CellSpanCollection.Inserted	+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(CellSpanCollection_Inserted);
 				this.CellSpanCollection.Removed		+=new AODL.Document.Collections.CollectionWithEvents.CollectionChange(CellSpanCollection_Removed);
-			}
+//			}
 		}
 
 		/// <summary>
@@ -427,6 +428,17 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Row.cs,v $
+ * Revision 1.3  2006/02/16 18:35:41  larsbm
+ * - Add FrameBuilder class
+ * - TextSequence implementation (Todo loading!)
+ * - Free draing postioning via x and y coordinates
+ * - Graphic will give access to it's full qualified path
+ *   via the GraphicRealPath property
+ * - Fixed Bug with CellSpan in Spreadsheetdocuments
+ * - Fixed bug graphic of loaded files won't be deleted if they
+ *   are removed from the content.
+ * - Break-Before property for Paragraph properties for Page Break
+ *
  * Revision 1.2  2006/01/29 18:52:14  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export

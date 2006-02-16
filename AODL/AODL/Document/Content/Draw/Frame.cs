@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
+ * $Id: Frame.cs,v 1.4 2006/02/16 18:35:41 larsbm Exp $
  */
 
 /*
@@ -189,6 +189,62 @@ namespace AODL.Document.Content.Draw
 		}
 
 		/// <summary>
+		/// Gets or sets the horizontal position where
+		/// the hosted drawing e.g Graphic should be
+		/// anchored. 
+		/// </summary>
+		/// <example>myFrame.SvgX = "1.5cm"</example>
+		/// <value>The SVG X.</value>
+		public string SvgX
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@svg:x",
+					this.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@svg:x",
+					this.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("x", value, "svg");
+				this._node.SelectSingleNode("@svg:x",
+					this.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the vertical position where
+		/// the hosted drawing e.g Graphic should be
+		/// anchored. 
+		/// </summary>
+		/// <example>myFrame.SvgY = "1.5cm"</example>
+		/// <value>The SVG Y.</value>
+		public string SvgY
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@svg:y",
+					this.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@svg:y",
+					this.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("y", value, "svg");
+				this._node.SelectSingleNode("@svg:y",
+					this.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="Frame"/> class.
 		/// </summary>
 		/// <param name="document">The textdocument.</param>
@@ -228,7 +284,9 @@ namespace AODL.Document.Content.Draw
 			this.GraphicSourcePath	= graphicfile;
 
 			this._realgraphicname	= this.LoadImageFromFile(graphicfile);
-			this.Content.Add(new Graphic(this.Document, this, this._realgraphicname));
+			Graphic graphic			= new Graphic(this.Document, this, this._realgraphicname);
+			graphic.GraphicRealPath	= this.GraphicSourcePath;
+			this.Content.Add(graphic);
 			this.Style				= (IStyle)new FrameStyle(this.Document, stylename);	
 			this.Document.Styles.Add(this.Style);
 		}
@@ -300,7 +358,12 @@ namespace AODL.Document.Content.Draw
 		{
 			if(value is Graphic)
 				if(((Graphic)value).Frame == null)
+				{
 					((Graphic)value).Frame = this;
+					if(((Graphic)value).GraphicRealPath != null
+						&& this.GraphicSourcePath == null)
+						this.GraphicSourcePath = ((Graphic)value).GraphicRealPath;
+				}
 			this.Node.AppendChild(((IContent)value).Node);
 		}
 
@@ -312,6 +375,10 @@ namespace AODL.Document.Content.Draw
 		private void Content_Removed(int index, object value)
 		{
 			this.Node.RemoveChild(((IContent)value).Node);
+			//if graphic remove it
+			if(value is Graphic)
+				if(this.Document.Graphics.Contains(value as Graphic))
+					this.Document.Graphics.Remove(value as Graphic);
 		}
 
 		#region IContent Member
@@ -437,6 +504,17 @@ namespace AODL.Document.Content.Draw
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.4  2006/02/16 18:35:41  larsbm
+ * - Add FrameBuilder class
+ * - TextSequence implementation (Todo loading!)
+ * - Free draing postioning via x and y coordinates
+ * - Graphic will give access to it's full qualified path
+ *   via the GraphicRealPath property
+ * - Fixed Bug with CellSpan in Spreadsheetdocuments
+ * - Fixed bug graphic of loaded files won't be deleted if they
+ *   are removed from the content.
+ * - Break-Before property for Paragraph properties for Page Break
+ *
  * Revision 1.3  2006/02/05 20:02:25  larsbm
  * - Fixed several bugs
  * - clean up some messy code

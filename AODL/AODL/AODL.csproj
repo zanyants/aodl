@@ -149,6 +149,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Document\Content\Draw\FrameBuilder.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Document\Content\Draw\Graphic.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -325,6 +330,11 @@
                 />
                 <File
                     RelPath = "Document\Content\Text\Indexes\TableOfContentsSource.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Content\Text\Indexes\TextSequence.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

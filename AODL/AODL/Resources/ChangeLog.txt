@@ -1,4 +1,18 @@
-$Id: ChangeLog.txt,v 1.16 2006/02/08 16:37:36 larsbm Exp $
+$Id: ChangeLog.txt,v 1.17 2006/02/16 18:35:41 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.2.0.1 beta
+
+Changes and new features
+- Add FrameBuilder class
+- TextSequence implementation (Todo loading!)
+- Free draing postioning via x and y coordinates
+- Graphic will give access to it's full qualified path
+  via the GraphicRealPath property
+- Fixed Bug with CellSpan in Spreadsheetdocuments
+- Fixed bug graphic of loaded files won't be deleted if they
+  are removed from the content.
+- Break-Before property for Paragraph properties for Page Break
 
 -------------------------------------------------------------
 AODL 1.2.0.0 beta

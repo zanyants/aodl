@@ -1,5 +1,5 @@
 /*
- * $Id: MainContentProcessor.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: MainContentProcessor.cs,v 1.5 2006/02/16 18:35:41 larsbm Exp $
  */
 
 /*
@@ -544,6 +544,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			{
 				Graphic graphic				= new Graphic(this._document, null, null);
 				graphic.Node				= graphicnode;
+				graphic.GraphicRealPath		= OpenDocumentImporter.dir+graphic.HRef.Replace("/",@"\");
 
 				return graphic;
 			}
@@ -1347,7 +1348,12 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 				IStyle cellStyle			= this._document.Styles.GetStyleByName(cell.StyleName);
 
 				if(cellStyle != null)
+				{
+					int i=0;
 					cell.Style				= cellStyle;
+					if(cellStyle.StyleName == "ce244")
+						i=1;
+				}
 				//No need for a warning
 
 				//Create the cells content
@@ -1464,6 +1470,17 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 //AODLTest.DocumentImportTest.SimpleLoadTest : System.IO.DirectoryNotFoundException : Could not find a part of the path "D:\OpenDocument\AODL\AODLTest\bin\Debug\GeneratedFiles\OpenOffice.net.odt.rel.odt".
 /*
  * $Log: MainContentProcessor.cs,v $
+ * Revision 1.5  2006/02/16 18:35:41  larsbm
+ * - Add FrameBuilder class
+ * - TextSequence implementation (Todo loading!)
+ * - Free draing postioning via x and y coordinates
+ * - Graphic will give access to it's full qualified path
+ *   via the GraphicRealPath property
+ * - Fixed Bug with CellSpan in Spreadsheetdocuments
+ * - Fixed bug graphic of loaded files won't be deleted if they
+ *   are removed from the content.
+ * - Break-Before property for Paragraph properties for Page Break
+ *
  * Revision 1.4  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code

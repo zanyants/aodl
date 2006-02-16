@@ -1,5 +1,5 @@
 /*
- * $Id: GraphicTest.cs,v 1.7 2006/01/29 19:30:24 larsbm Exp $
+ * $Id: GraphicTest.cs,v 1.8 2006/02/16 18:35:40 larsbm Exp $
  */
 
 /*
@@ -21,7 +21,9 @@ using System.Xml;
 using NUnit.Framework;
 using AODL.Document.TextDocuments;
 using AODL.Document.Content.Text;
+using AODL.Document.Content.Text.Indexes;
 using AODL.Document.Content.Draw;
+using AODL.Document.Content;
 using AODL.Document.Styles;
 using AODL.Document.Styles.Properties;
 
@@ -35,16 +37,19 @@ namespace AODLTest
 		[Test]
 		public void GraphicsTest()
 		{
-				TextDocument textdocument		= new TextDocument();
-				textdocument.New();
-				Paragraph p						= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
-				Frame frame						= new Frame(textdocument, "frame1",
-					"graphic1", _imagefile);
-				p.Content.Add(frame);
-				textdocument.Content.Add(p);
-				textdocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"grapic.odt");
+			TextDocument textdocument		= new TextDocument();
+			textdocument.New();
+			Paragraph p						= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
+			Frame frame						= new Frame(textdocument, "frame1",
+				"graphic1", _imagefile);
+			p.Content.Add(frame);
+			textdocument.Content.Add(p);
+			textdocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"grapic.odt");
 		}
 
+		/// <summary>
+		/// Create a Illustration manuel.
+		/// </summary>
 		[Test]
 		public void DrawTextBoxTest()
 		{
@@ -55,8 +60,8 @@ namespace AODLTest
 			Frame frameTextBox				= new Frame(textdocument, "fr_txt_box");
 			frameTextBox.DrawName			= "fr_txt_box";
 			frameTextBox.ZIndex				= "0";
-//			Paragraph pTextBox				= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
-//			pTextBox.StyleName				= "Illustration";
+			//			Paragraph pTextBox				= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
+			//			pTextBox.StyleName				= "Illustration";
 			Paragraph p						= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
 			p.StyleName						= "Illustration";
 			Frame frame						= new Frame(textdocument, "frame1",
@@ -73,6 +78,33 @@ namespace AODLTest
 			pOuter.Content.Add(frameTextBox);
 			textdocument.Content.Add(pOuter);
 			textdocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"drawTextbox.odt");
+		}
+
+		[Test]
+		public void CreateIllustrationUsingTheFrameBuilder()
+		{
+			TextDocument document			= new TextDocument();
+			document.New();
+			//Create a standard pargraph for the illustration
+			Paragraph paragraphStandard		= ParagraphBuilder.CreateStandardTextParagraph(document);
+			//Create Illustration Frame using the FrameBuilder
+			Frame frameIllustration			= FrameBuilder.BuildIllustrationFrame(
+				document,
+				"illustration_frame_1",
+				"graphic1",
+				_imagefile,
+				"This is a Illustration",
+				1);
+			//Add the Illustration Frame to the Paragraph
+			paragraphStandard.Content.Add(frameIllustration);
+			Assert.IsTrue(frameIllustration.Content[0] is DrawTextBox, "Must be a DrawTextBox!");
+			Assert.IsTrue(((DrawTextBox)frameIllustration.Content[0]).Content[0] is Paragraph, "Must be a Paragraph!");
+			Paragraph paragraph				= ((DrawTextBox)frameIllustration.Content[0]).Content[0] as Paragraph;
+			Assert.IsTrue(paragraph.TextContent[1] is TextSequence, "Must be a TextSequence!");
+			//Add Paragraph to the document
+			document.Content.Add(paragraphStandard);
+			//Save the document
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"illustration.odt");
 		}
 
 		/// <summary>
@@ -112,57 +144,77 @@ namespace AODLTest
 			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"simpleImageMap.odt");
 		}
 
-//		[Test]
-//		public void DrawTextBox()
-//		{
-//			//New TextDocument
-//			TextDocument textdocument		= new TextDocument();
-//			textdocument.New();
-//			//Standard Paragraph
-//			Paragraph paragraphOuter		= new Paragraph(textdocument, ParentStyles.Standard.ToString());
-//			//Create Frame for DrawTextBox
-//			Frame frameOuter				= new Frame(textdocument, "frame1");
-//			//Create DrawTextBox
-//			DrawTextBox drawTextBox			= new DrawTextBox(frameOuter);
-//			//Create a paragraph for the drawing frame
-//			Paragraph paragraphInner		= new Paragraph(textdocument, ParentStyles.Standard.ToString());
-//			//Create the frame with the Illustration resp. Graphic
-//			Frame frameIllustration			= new Frame(textdocument, "frame2", "graphic1", _imagefile);
-//			//Add Illustration frame to the inner Paragraph
-//			paragraphInner.Content.Add(frameIllustration);
-//			//Add inner Paragraph to the DrawTextBox
-//			drawTextBox.ContentCollection.Add(paragraphInner);
-//			//Add the DrawTextBox to the outer Frame
-//			frameOuter.ContentCollection.Add(drawTextBox);
-//			//Add the outer Frame to the outer Paragraph
-//			paragraphOuter.Content.Add(frameOuter);
-//			//Add the outer Paragraph to the TextDocument
-//			textdocument.Content.Add(paragraphOuter);
-//			//Save the document
-//			textdocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"DrawTextBox.odt");
-//		}
+		[Test]
+		public void LoadGraphicAccessGraphic()
+		{
+			TextDocument document			= new TextDocument();
+			document.Load(AARunMeFirstAndOnce.inPutFolder+"hallo.odt");
+			foreach(IContent iContent in document.Content)
+			{
+				if(iContent is Paragraph && ((Paragraph)iContent).Content.Count > 0
+					&& ((Paragraph)iContent).Content[0] is Frame)
+				{
+					Frame frame				= ((Paragraph)iContent).Content[0] as Frame;
+					Assert.IsTrue(frame.Content[0] is Graphic, "Must be a graphic!");
+					Graphic graphic			= frame.Content[0] as Graphic;
+					//now access the full qualified graphic path
+					Assert.IsNotNull(graphic.GraphicRealPath, "The graphic real path must exist!");
+					Assert.IsTrue(File.Exists(graphic.GraphicRealPath));
+				}
+			}
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+"hallo_rel_graphic_touch.odt");
+		}
 
 		[Test]
-		public void create()
+		public void LoadFileDeleteGraphic()
 		{
-//			XmlDocument xd = new XmlDocument();
-//			xd.Load(@"D:\OpenDocument\AODL\AODLTest\bin\Debug\zip\fonts\content.xml");
-//
-//			XmlNamespaceManager xm = new XmlNamespaceManager(xd.NameTable);
-//			xm.AddNamespace("style","urn:oasis:names:tc:opendocument:xmlns:style:1.0");
-//			xm.AddNamespace("office",		"urn:oasis:names:tc:opendocument:xmlns:office:1.0");
-//
-//			XmlNodeList xnl = xd.SelectNodes("/office:document-content/office:font-face-decls/style:font-face", xm);
-//			
-//			foreach(XmlNode xn in xnl)
-//			{
-//				string stylename = xn.SelectSingleNode("@style:name", xm).InnerText;
-//				
-//				string x = "\t\t///<summary>\n\t\t///"+stylename+"\n\t\t///</summary>\n\t\tpublic static readonly string "+stylename.Replace(" ","")+" = \""+stylename+"\";";
-				//Console.WriteLine(x);
-//			}
+			string fileName					= "hallo_rem_graphic.odt";
+			string graphicFile				= "";
+			TextDocument document			= new TextDocument();
+			document.Load(AARunMeFirstAndOnce.inPutFolder+"hallo.odt");
+			foreach(IContent iContent in document.Content)
+			{
+				if(iContent is Paragraph && ((Paragraph)iContent).Content.Count > 0
+					&& ((Paragraph)iContent).Content[0] is Frame)
+				{
+					Frame frame				= ((Paragraph)iContent).Content[0] as Frame;
+					Assert.IsTrue(frame.Content[0] is Graphic, "Must be a graphic!");
+					Graphic graphic			= frame.Content[0] as Graphic;
+					//now access the full qualified graphic path
+					Assert.IsNotNull(graphic.GraphicRealPath, "The graphic real path must exist!");
+					Assert.IsTrue(File.Exists(graphic.GraphicRealPath));
+					graphicFile				= graphic.GraphicRealPath;
+					//Delete the graphic
+					frame.Content.Remove(graphic);
+				}
+			}
+			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+fileName);
+			//Special case, only for this test neccessary
+			document.Dispose();
+			//Load file again
+			TextDocument documentRel		= new TextDocument();
+			documentRel.Load(AARunMeFirstAndOnce.outPutFolder+fileName);
+			Assert.IsFalse(File.Exists(graphicFile), "This file must be removed from this file!");
+		}
 
-			//Console.WriteLine(xnl.Count);
+		[Test]
+		public void CreateFreePositionGraphic()
+		{
+			TextDocument textdocument		= new TextDocument();
+			textdocument.New();
+			Paragraph p						= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
+			Frame frame						= FrameBuilder.BuildStandardGraphicFrame(textdocument, "frame1",
+				"graphic1", _imagefile);
+			//Setps to set a graphic free with x and y
+			frame.SvgX						= "1.75cm";
+			frame.SvgY						= "1.75cm";
+			((FrameStyle)frame.Style).GraphicProperties.HorizontalPosition		= "from-left";
+			((FrameStyle)frame.Style).GraphicProperties.VerticalPosition		= "from-top";
+			((FrameStyle)frame.Style).GraphicProperties.HorizontalRelative		= "paragraph";
+			((FrameStyle)frame.Style).GraphicProperties.VerticalRelative		= "paragraph";
+			p.Content.Add(frame);
+			textdocument.Content.Add(p);
+			textdocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"grapic_free_xy.odt");
 		}
 	}
 }

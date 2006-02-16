@@ -1,5 +1,5 @@
 /*
- * $Id: GraphicProperties.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: GraphicProperties.cs,v 1.3 2006/02/16 18:35:41 larsbm Exp $
  */
 
 /*
@@ -38,7 +38,7 @@ namespace AODL.Document.Styles.Properties
 		}
 
 		/// <summary>
-		/// Gets or sets the horizontal position. e.g center, left, right
+		/// Gets or sets the horizontal position. e.g center, from-left, right
 		/// </summary>
 		/// <value>The horizontal position.</value>
 		public string HorizontalPosition
@@ -58,6 +58,56 @@ namespace AODL.Document.Styles.Properties
 				if(xn == null)
 					this.CreateAttribute("horizontal-pos", value, "style");
 				this._node.SelectSingleNode("@style:horizontal-pos",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the vertical position. e.g. from-top
+		/// </summary>
+		/// <value>The vertical position.</value>
+		public string VerticalPosition
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@style:vertical-pos",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@style:vertical-pos",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("vertical-pos", value, "style");
+				this._node.SelectSingleNode("@style:vertical-pos",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the vertical relative. e.g. paragraph
+		/// </summary>
+		/// <value>The vertical relative.</value>
+		public string VerticalRelative
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@style:vertical-rel",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@style:vertical-rel",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("vertical-rel", value, "style");
+				this._node.SelectSingleNode("@style:vertical-rel",
 					this.Style.Document.NamespaceManager).InnerText = value;
 			}
 		}
@@ -451,6 +501,17 @@ namespace AODL.Document.Styles.Properties
 
 /*
  * $Log: GraphicProperties.cs,v $
+ * Revision 1.3  2006/02/16 18:35:41  larsbm
+ * - Add FrameBuilder class
+ * - TextSequence implementation (Todo loading!)
+ * - Free draing postioning via x and y coordinates
+ * - Graphic will give access to it's full qualified path
+ *   via the GraphicRealPath property
+ * - Fixed Bug with CellSpan in Spreadsheetdocuments
+ * - Fixed bug graphic of loaded files won't be deleted if they
+ *   are removed from the content.
+ * - Break-Before property for Paragraph properties for Page Break
+ *
  * Revision 1.2  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code

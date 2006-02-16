@@ -1,5 +1,5 @@
 /*
- * $Id: Graphic.cs,v 1.2 2006/02/05 20:02:25 larsbm Exp $
+ * $Id: Graphic.cs,v 1.3 2006/02/16 18:35:41 larsbm Exp $
  */
 
 /*
@@ -130,6 +130,17 @@ namespace AODL.Document.Content.Draw
 				this._node.SelectSingleNode("@xlink:show",
 					this.Document.NamespaceManager).InnerText = value;
 			}
+		}
+
+		private string _graphicRealPath;
+		/// <summary>
+		/// Gets or sets the graphic real path.
+		/// </summary>
+		/// <value>The graphic real path.</value>
+		public string GraphicRealPath
+		{
+			get { return this._graphicRealPath; }
+			set { this._graphicRealPath = value; }
 		}
 
 		private Frame _frame;

@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.3 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.4 2006/02/16 18:35:41 larsbm Exp $
  */
 
 /*
@@ -400,13 +400,19 @@ namespace AODL.Document.Export.OpenDocument
 
 				foreach(Graphic graphic in document.Graphics)
 				{
-					if(graphic.Frame != null)
-						if(graphic.Frame.RealGraphicName != null)
-						{
-							//Only if new pictures are added
-							string target		= picturedir+graphic.Frame.RealGraphicName;
-							File.Copy(graphic.Frame.GraphicSourcePath,  target, true);
-						}
+					if(graphic.GraphicRealPath != null)
+					{
+						FileInfo fInfo	= new FileInfo(graphic.GraphicRealPath);
+						File.Copy(graphic.GraphicRealPath, picturedir+fInfo.Name);
+					}
+//					if(graphic.Frame != null)
+//						//Only if new pictures are added
+//						if(graphic.Frame.RealGraphicName != null)
+//						{							
+//							string target		= picturedir+graphic.Frame.RealGraphicName;
+//							File.Copy(graphic.Frame.GraphicSourcePath,  target, true);
+//						}
+//						else if(
 				}
 				MovePicturesIfLoaded(document, picturedir);
 			}
@@ -424,18 +430,18 @@ namespace AODL.Document.Export.OpenDocument
 		/// <param name="targetDir">The target dir.</param>
 		private static void MovePicturesIfLoaded(IDocument document,string targetDir)
 		{
-			if(document.DocumentPictures.Count > 0)
-			{
-				foreach(DocumentPicture docPic in document.DocumentPictures)
-				{
-					if(File.Exists(docPic.ImagePath))
-					{
-						FileInfo fInfo			= new FileInfo(docPic.ImagePath);
-						File.Copy(docPic.ImagePath, targetDir+fInfo.Name, true);
-					}
-					
-				}
-			}
+//			if(document.DocumentPictures.Count > 0)
+//			{
+//				foreach(DocumentPicture docPic in document.DocumentPictures)
+//				{
+//					if(File.Exists(docPic.ImagePath))
+//					{
+//						FileInfo fInfo			= new FileInfo(docPic.ImagePath);
+//						File.Copy(docPic.ImagePath, targetDir+fInfo.Name, true);
+//					}
+//					
+//				}
+//			}
 		}
 		
 	}
@@ -443,6 +449,17 @@ namespace AODL.Document.Export.OpenDocument
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.4  2006/02/16 18:35:41  larsbm
+ * - Add FrameBuilder class
+ * - TextSequence implementation (Todo loading!)
+ * - Free draing postioning via x and y coordinates
+ * - Graphic will give access to it's full qualified path
+ *   via the GraphicRealPath property
+ * - Fixed Bug with CellSpan in Spreadsheetdocuments
+ * - Fixed bug graphic of loaded files won't be deleted if they
+ *   are removed from the content.
+ * - Break-Before property for Paragraph properties for Page Break
+ *
  * Revision 1.3  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code

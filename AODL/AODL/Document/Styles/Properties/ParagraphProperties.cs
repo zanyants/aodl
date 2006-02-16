@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphProperties.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: ParagraphProperties.cs,v 1.3 2006/02/16 18:35:41 larsbm Exp $
  */
 
 /*
@@ -56,6 +56,33 @@ namespace AODL.Document.Styles.Properties
 					this.CreateAttribute("margin-left", value, "fo");
 				this._node.SelectSingleNode("@fo:margin-left",
 					  this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the break before.
+		/// e.g. set this to "page" if this paragraph
+		/// should be start on the next page.
+		/// </summary>
+		/// <value>The break before.</value>
+		public string BreakBefore
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:break-before", 
+					this.Style.Document.NamespaceManager) ;
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:break-before",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("break-before", value, "fo");
+				this._node.SelectSingleNode("@fo:break-before",
+					this.Style.Document.NamespaceManager).InnerText = value;
 			}
 		}
 
@@ -342,6 +369,17 @@ namespace AODL.Document.Styles.Properties
 
 /*
  * $Log: ParagraphProperties.cs,v $
+ * Revision 1.3  2006/02/16 18:35:41  larsbm
+ * - Add FrameBuilder class
+ * - TextSequence implementation (Todo loading!)
+ * - Free draing postioning via x and y coordinates
+ * - Graphic will give access to it's full qualified path
+ *   via the GraphicRealPath property
+ * - Fixed Bug with CellSpan in Spreadsheetdocuments
+ * - Fixed bug graphic of loaded files won't be deleted if they
+ *   are removed from the content.
+ * - Break-Before property for Paragraph properties for Page Break
+ *
  * Revision 1.2  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code

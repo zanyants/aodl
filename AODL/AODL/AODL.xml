@@ -567,6 +567,24 @@
             </summary>
             <value>The height of the graphic.</value>
         </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.SvgX">
+            <summary>
+            Gets or sets the horizontal position where
+            the hosted drawing e.g Graphic should be
+            anchored. 
+            </summary>
+            <example>myFrame.SvgX = "1.5cm"</example>
+            <value>The SVG X.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.SvgY">
+            <summary>
+            Gets or sets the vertical position where
+            the hosted drawing e.g Graphic should be
+            anchored. 
+            </summary>
+            <example>myFrame.SvgY = "1.5cm"</example>
+            <value>The SVG Y.</value>
+        </member>
         <member name="P:AODL.Document.Content.Draw.Frame.StyleName">
             <summary>
             Gets or sets the name of the style.
@@ -597,6 +615,45 @@
             Gets or sets the content.
             </summary>
             <value>The content.</value>
+        </member>
+        <member name="T:AODL.Document.Content.Draw.FrameBuilder">
+            <summary>
+            Use the FrameBuilder class to create several types of Frame implementations
+            like illustration frame, a standard graphic frame, ...
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Content.Draw.FrameBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Content.Draw.FrameBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Content.Draw.FrameBuilder.BuildStandardGraphicFrame(AODL.Document.IDocument,System.String,System.String,System.String)">
+            <summary>
+            Builds the standard graphic frame.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="frameStyleName">Name of the frame style.</param>
+            <param name="graphicName">Name of the graphic.</param>
+            <param name="pathToGraphic">The path to graphic.</param>
+            <returns>
+            A new Frame object containing the Graphic object.
+            </returns>
+        </member>
+        <member name="M:AODL.Document.Content.Draw.FrameBuilder.BuildIllustrationFrame(AODL.Document.IDocument,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Builds the illustration frame.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="frameStyleName">Name of the frame style.</param>
+            <param name="graphicName">Name of the graphic.</param>
+            <param name="pathToGraphic">The path to graphic.</param>
+            <param name="illustrationText">The illustration text.</param>
+            <param name="illustrationNumber">The illustration number.</param>
+            <returns>
+            A new Frame object containing a DrawTextBox which contains the
+            illustration Graphic object and a text sequence representing
+            the displayed illustration text.
+            </returns>
         </member>
         <member name="T:AODL.Document.Content.Draw.Graphic">
             <summary>
@@ -670,6 +727,12 @@
             e.g. embed
             </summary>
             <value>The show.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Graphic.GraphicRealPath">
+            <summary>
+            Gets or sets the graphic real path.
+            </summary>
+            <value>The graphic real path.</value>
         </member>
         <member name="P:AODL.Document.Content.Draw.Graphic.Frame">
             <summary>
@@ -2448,6 +2511,134 @@
             Gets or sets the table of content index template collection.
             </summary>
             <value>The table of content index template collection.</value>
+        </member>
+        <member name="T:AODL.Document.Content.Text.Indexes.TextSequence">
+            <summary>
+            Zusammenfassung für TextSequence.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Content.Text.Indexes.TextSequence"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.#ctor(AODL.Document.IDocument,System.Xml.XmlNode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Content.Text.Indexes.TextSequence"/> class.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="node">The node.</param>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.#ctor(AODL.Document.IDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Content.Text.Indexes.TextSequence"/> class.
+            </summary>
+            <param name="document">The document.</param>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.InitStandards">
+            <summary>
+            Inits the standards.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.NewXmlNode">
+            <summary>
+            Create a new XmlNode.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.TextContent_Inserted(System.Int32,System.Object)">
+            <summary>
+            Texts the content_ inserted.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.TextContent_Removed(System.Int32,System.Object)">
+            <summary>
+            Texts the content_ removed.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.Document.Content.Text.Indexes.TextSequence.Clone">
+            <summary>
+            Create a deep clone of this FormatedText object.
+            </summary>
+            <remarks>A possible Attached Style wouldn't be cloned!</remarks>
+            <returns>
+            A clone of this object.
+            </returns>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.RefName">
+            <summary>
+            Gets or sets the ref name.
+            e.g. for a Illustration refIllustration0
+            </summary>
+            <value>The name of the ref.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.Name">
+            <summary>
+            Gets or sets the name of the TextSequence.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.NumFormat">
+            <summary>
+            Gets or sets the num format.
+            e.g. 1, I, A ..
+            </summary>
+            <value>The num format.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.Formula">
+            <summary>
+            Gets or sets the formula.
+            </summary>
+            <value>The formula.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.Node">
+            <summary>
+            The node that represent the text content.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.Text">
+            <summary>
+            Use this if use text without control character,
+            otherwise use the the TextColllection TextContent. 
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.Document">
+            <summary>
+            The document to which this text content belongs to.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.Style">
+            <summary>
+            Not supported. A TextSequence doesn't has a style
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.StyleName">
+            <summary>
+            Not supported. A TextSequence doesn't has a style
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:AODL.Document.Content.Text.Indexes.TextSequence.TextContent">
+            <summary>
+            All Content objects have a Text container. Which represents
+            his Text this could be SimpleText, FormatedText or mixed.
+            </summary>
+            <value></value>
         </member>
         <member name="T:AODL.Document.Content.Text.TextControl.LineBreak">
             <summary>
@@ -6383,9 +6574,21 @@
         </member>
         <member name="P:AODL.Document.Styles.Properties.GraphicProperties.HorizontalPosition">
             <summary>
-            Gets or sets the horizontal position. e.g center, left, right
+            Gets or sets the horizontal position. e.g center, from-left, right
             </summary>
             <value>The horizontal position.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.GraphicProperties.VerticalPosition">
+            <summary>
+            Gets or sets the vertical position. e.g. from-top
+            </summary>
+            <value>The vertical position.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.GraphicProperties.VerticalRelative">
+            <summary>
+            Gets or sets the vertical relative. e.g. paragraph
+            </summary>
+            <value>The vertical relative.</value>
         </member>
         <member name="P:AODL.Document.Styles.Properties.GraphicProperties.HorizontalRelative">
             <summary>
@@ -6602,6 +6805,14 @@
             <summary>
             Margin left. in cm an object .MarginLeft = "1cm";
             </summary>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.ParagraphProperties.BreakBefore">
+            <summary>
+            Gets or sets the break before.
+            e.g. set this to "page" if this paragraph
+            should be start on the next page.
+            </summary>
+            <value>The break before.</value>
         </member>
         <member name="P:AODL.Document.Styles.Properties.ParagraphProperties.Border">
             <summary>

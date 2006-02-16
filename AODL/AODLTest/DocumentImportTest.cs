@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentImportTest.cs,v 1.4 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: DocumentImportTest.cs,v 1.5 2006/02/16 18:35:40 larsbm Exp $
  */
 
 /*
@@ -21,6 +21,7 @@ using NUnit.Framework;
 using AODL.Document.TextDocuments;
 using AODL.Document.SpreadsheetDocuments;
 using AODL.Document.Content;
+using AODL.Document.Exceptions;
 using AODL.Document.Content.Draw;
 using AODL.Document.Content.Text;
 
@@ -70,6 +71,31 @@ namespace AODLTest
 			Console.WriteLine("Common styles: {0}", document.CommonStyles.Count);
 			//Save it back again
 			document.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".rel.ods");
+		}
+
+		[Test]
+		public void ComplexCalcLoadTest()
+		{	
+			string file							= AARunMeFirstAndOnce.inPutFolder+@"HazelHours.ods";
+			FileInfo fInfo						= new FileInfo(file);
+			//Load a spreadsheet document 
+			SpreadsheetDocument document		= new SpreadsheetDocument();
+			try
+			{
+				document.Load(file);
+				//Save it back again
+				document.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".html");
+			}
+			catch(Exception ex)
+			{
+				if(ex is AODLException)
+				{
+					Console.WriteLine("Stacktrace: {0}", ((AODLException)ex).OriginalException.StackTrace);
+					Console.WriteLine("Msg: {0}", ((AODLException)ex).OriginalException.Message);
+					if(((AODLException)ex).Node != null)
+						Console.WriteLine("Stacktrace: {0}", ((AODLException)ex).Node.OuterXml);
+				}
+			}
 		}
 
 		[Test]
@@ -236,6 +262,17 @@ namespace AODLTest
 
 /*
  * $Log: DocumentImportTest.cs,v $
+ * Revision 1.5  2006/02/16 18:35:40  larsbm
+ * - Add FrameBuilder class
+ * - TextSequence implementation (Todo loading!)
+ * - Free draing postioning via x and y coordinates
+ * - Graphic will give access to it's full qualified path
+ *   via the GraphicRealPath property
+ * - Fixed Bug with CellSpan in Spreadsheetdocuments
+ * - Fixed bug graphic of loaded files won't be deleted if they
+ *   are removed from the content.
+ * - Break-Before property for Paragraph properties for Page Break
+ *
  * Revision 1.4  2006/02/02 21:55:59  larsbm
  * - Added Clone object support for many AODL object types
  * - New Importer implementation PlainTextImporter and CsvImporter
