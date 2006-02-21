@@ -1,4 +1,15 @@
 -------------------------------
+04.01.2005 AODC 1.0.2.1 beta
+
+Changes and new features
+- Text indicies
+- Some smaller html conversation changes
+
+Bugfixes
+- [ 1436075 ] CellSpan null reference exception
+in Spreadsheet document
+
+-------------------------------
 07.02.2005 AODC 1.2.0.0 beta
 
 Changes and new features
