@@ -1,5 +1,5 @@
 /*
- * $Id: SpreadsheetDocument.cs,v 1.5 2006/02/06 19:27:23 larsbm Exp $
+ * $Id: SpreadsheetDocument.cs,v 1.6 2006/02/21 19:34:55 larsbm Exp $
  */
 
 /*
@@ -511,6 +511,13 @@ namespace AODL.Document.SpreadsheetDocuments
 				XmlNode nodeStyle			= this.DocumentStyles.Styles.ImportNode(style.Node, true);
 				nodeCommonStyles.AppendChild(nodeStyle);
 			}
+
+			//Remove styles node
+			nodeCommonStyles				= this.XmlDoc.SelectSingleNode(
+				"office:document-content/office:styles", this.NamespaceManager);
+			if(nodeCommonStyles != null)
+				this.XmlDoc.SelectSingleNode(
+					"office:document-content", this.NamespaceManager).RemoveChild(nodeCommonStyles);
 		}
 
 		/// <summary>
@@ -581,6 +588,10 @@ namespace AODL.Document.SpreadsheetDocuments
 
 /*
  * $Log: SpreadsheetDocument.cs,v $
+ * Revision 1.6  2006/02/21 19:34:55  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.5  2006/02/06 19:27:23  larsbm
  * - fixed bug in spreadsheet document
  * - added smal OpenOfficeLib for document printing

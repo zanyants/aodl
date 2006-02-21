@@ -2230,6 +2230,7 @@
             <summary>
             Insert the content style nodes. These are 10 styles for
             each outline number one style.
+            TODO: Section Style move to document common styles
             </summary>
         </member>
         <member name="M:AODL.Document.Content.Text.Indexes.TableOfContents.SetOutlineStyle">
@@ -5464,6 +5465,14 @@
         <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.TextContentProcessor.CreateFootnote(AODL.Document.IDocument,System.Xml.XmlNode)">
             <summary>
             Creates the footnote.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="node">The node.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Document.Import.OpenDocument.NodeProcessors.TextContentProcessor.CreateTextSequence(AODL.Document.IDocument,System.Xml.XmlNode)">
+            <summary>
+            Creates the text sequence.
             </summary>
             <param name="document">The document.</param>
             <param name="node">The node.</param>

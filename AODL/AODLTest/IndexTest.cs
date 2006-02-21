@@ -1,5 +1,5 @@
 /*
- * $Id: IndexTest.cs,v 1.2 2006/01/29 11:26:02 larsbm Exp $ 
+ * $Id: IndexTest.cs,v 1.3 2006/02/21 19:34:54 larsbm Exp $ 
  */
 
 /*
@@ -37,7 +37,7 @@ namespace AODLTest
 		textDocument.New();
 		//Create a new Table of contents
 		TableOfContents tableOfContents	= new TableOfContents(
-			textDocument, "Table_Of_Contents", true, true, "Table of contents");
+			textDocument, "Table_Of_Contents", false, false, "Table of Contents");
 		//Add the toc
 		textDocument.Content.Add(tableOfContents);
 		//Create a new heading, there's no need of the chapter number
@@ -75,6 +75,9 @@ namespace AODLTest
 			paragraph				= ParagraphBuilder.CreateStandardTextParagraph(textDocument);
 			paragraph.TextContent.Add(new SimpleText(textDocument, "I'm the text for the subchapter chapter!"));
 		textDocument.Content.Add(paragraph);
+//		ListStyle listStyle				= new ListStyle(textDocument, "TOC_LIST");
+//		listStyle.AutomaticAddListLevelStyles(ListStyles.Number);
+//		textDocument.Styles.Add(listStyle);
 		//Save it
 		textDocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"toc.odt");
 		}
@@ -83,6 +86,10 @@ namespace AODLTest
 
 /*
  * $Log: IndexTest.cs,v $
+ * Revision 1.3  2006/02/21 19:34:54  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.2  2006/01/29 11:26:02  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

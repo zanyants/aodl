@@ -1,4 +1,4 @@
-$Id: ChangeLog.txt,v 1.17 2006/02/16 18:35:41 larsbm Exp $
+$Id: ChangeLog.txt,v 1.18 2006/02/21 19:34:56 larsbm Exp $
 
 -------------------------------------------------------------
 AODL 1.2.0.1 beta
@@ -6,13 +6,17 @@ AODL 1.2.0.1 beta
 Changes and new features
 - Add FrameBuilder class
 - TextSequence implementation (Todo loading!)
-- Free draing postioning via x and y coordinates
+- Free drawing postioning via x and y coordinates
 - Graphic will give access to it's full qualified path
   via the GraphicRealPath property
-- Fixed Bug with CellSpan in Spreadsheetdocuments
-- Fixed bug graphic of loaded files won't be deleted if they
+- Fixed Bug [ 1436081 ] with CellSpan in Spreadsheetdocuments
+- Fixed bug [ 1436081 ] graphic of loaded files won't be deleted if they
   are removed from the content.
 - Break-Before property for Paragraph properties for Page Break
+- Fixed Bug text that contains a xml tag will be imported
+  as UnknowText and not correct displayed if document is exported
+  as HTML.
+- Fixed Bug [ 1436080 ] Common styles
 
 -------------------------------------------------------------
 AODL 1.2.0.0 beta

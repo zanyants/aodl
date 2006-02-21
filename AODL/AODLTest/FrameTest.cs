@@ -1,5 +1,5 @@
 /*
- * $Id: FrameTest.cs,v 1.1 2006/02/02 21:55:59 larsbm Exp $
+ * $Id: FrameTest.cs,v 1.2 2006/02/21 19:34:54 larsbm Exp $
  */
 
 /*
@@ -41,9 +41,9 @@ namespace AODLTest
 		public void Initialize()
 		{
 			// Used when running this text fixture alone.
-			if (Directory.Exists(AARunMeFirstAndOnce.outPutFolder))
-				Directory.Delete(AARunMeFirstAndOnce.outPutFolder, true);
-			Directory.CreateDirectory(AARunMeFirstAndOnce.outPutFolder);
+//			if (Directory.Exists(AARunMeFirstAndOnce.outPutFolder))
+//				Directory.Delete(AARunMeFirstAndOnce.outPutFolder, true);
+//			Directory.CreateDirectory(AARunMeFirstAndOnce.outPutFolder);
 		}
 
 		[Test(Description="Write an image with image map to a frame")]
@@ -54,14 +54,9 @@ namespace AODLTest
 				TextDocument textdocument = new TextDocument();
 				textdocument.New();
 
-				// Create a frame (GraphicName == name property of frame)
-				Frame frame = new Frame(textdocument, "frame1");
-				frame.DrawName = "img1";
-
-				Graphic graphic = new Graphic(textdocument, frame, _imagefile);
-
-				// Add the graphic to the frame collection
-				frame.Content.Add(graphic);
+				// Create a frame incl. graphic file
+				Frame frame					= FrameBuilder.BuildStandardGraphicFrame(
+					textdocument, "frame1", "graphic1", _imagefile);
 				
 				// Create some event listeners (using OpenOffice friendly syntax).
 				EventListener script1 = new EventListener(textdocument, 
@@ -102,13 +97,14 @@ namespace AODLTest
 			{
 				TextDocument document = new TextDocument();
 				document.Load(_framefile);
-				Assert.IsTrue(document.Content[0].GetType() == typeof(Frame));
-				Frame frame = (Frame)document.Content[0];
+				Assert.IsTrue(document.Content[2].GetType() == typeof(Frame));
+				Frame frame = (Frame)document.Content[2];
 				Assert.IsNotNull(frame);
 				document.SaveTo(_framefileSave);
 			}
 			catch (Exception e)
 			{
+				Console.WriteLine(e.Message + "\n\n" + e.StackTrace);
 			}
 		}
 
@@ -189,6 +185,10 @@ namespace AODLTest
 
 /*
  * $Log: FrameTest.cs,v $
+ * Revision 1.2  2006/02/21 19:34:54  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.1  2006/02/02 21:55:59  larsbm
  * - Added Clone object support for many AODL object types
  * - New Importer implementation PlainTextImporter and CsvImporter

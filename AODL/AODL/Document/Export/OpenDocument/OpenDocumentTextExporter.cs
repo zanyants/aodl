@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.4 2006/02/16 18:35:41 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.5 2006/02/21 19:34:55 larsbm Exp $
  */
 
 /*
@@ -403,16 +403,9 @@ namespace AODL.Document.Export.OpenDocument
 					if(graphic.GraphicRealPath != null)
 					{
 						FileInfo fInfo	= new FileInfo(graphic.GraphicRealPath);
-						File.Copy(graphic.GraphicRealPath, picturedir+fInfo.Name);
-					}
-//					if(graphic.Frame != null)
-//						//Only if new pictures are added
-//						if(graphic.Frame.RealGraphicName != null)
-//						{							
-//							string target		= picturedir+graphic.Frame.RealGraphicName;
-//							File.Copy(graphic.Frame.GraphicSourcePath,  target, true);
-//						}
-//						else if(
+						if(!File.Exists(picturedir+fInfo.Name))
+							File.Copy(graphic.GraphicRealPath, picturedir+fInfo.Name);
+					}					
 				}
 				MovePicturesIfLoaded(document, picturedir);
 			}
@@ -449,6 +442,10 @@ namespace AODL.Document.Export.OpenDocument
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.5  2006/02/21 19:34:55  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.4  2006/02/16 18:35:41  larsbm
  * - Add FrameBuilder class
  * - TextSequence implementation (Todo loading!)

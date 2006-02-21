@@ -1,5 +1,5 @@
 /*
- * $Id: TableOfContents.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
+ * $Id: TableOfContents.cs,v 1.4 2006/02/21 19:34:55 larsbm Exp $
  */
 
 /*
@@ -167,11 +167,15 @@ namespace AODL.Document.Content.Text.Indexes
 			this.Node.Attributes.Append(xa);
 
 			xa				= ((TextDocument)this.Document).CreateAttribute("protected", "text");
-			xa.Value		= protectChanges.ToString();
+			xa.Value		= protectChanges.ToString().ToLower();
+			this.Node.Attributes.Append(xa);
+
+			xa				= ((TextDocument)this.Document).CreateAttribute("use-outline-level", "text");
+			xa.Value		= "true";
 			this.Node.Attributes.Append(xa);
 
 			xa				= ((TextDocument)this.Document).CreateAttribute("name", "text");			
-			xa.Value		= ((textName!=null)?textName:"Table of Contents")+((TextDocument)this.Document).TableofContentsCount;
+			xa.Value		= ((textName!=null)?textName:"Table of Contents1");//+((TextDocument)this.Document).TableofContentsCount;
 			this.Node.Attributes.Append(xa);
 		}
 
@@ -229,85 +233,86 @@ namespace AODL.Document.Content.Text.Indexes
 		/// <summary>
 		/// Insert the content style nodes. These are 10 styles for
 		/// each outline number one style.
+		/// TODO: Section Style move to document common styles
 		/// </summary>
 		private void InsertContentStyle()
 		{
 			for(int i=1; i<=10; i++)
 			{
-				XmlNode styleNode	= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
-					"style", "style", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				XmlNode styleNode	= this.Document.CreateNode(
+					"style", "style");
 
-				XmlAttribute xa		= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "name", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				XmlAttribute xa		= this.Document.CreateAttribute(
+					"name", "style");
 				xa.InnerText		= this._contentStyleName+i.ToString();
 				styleNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "display-name", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					 "display-name", "style");
 				xa.InnerText		= this._contentStyleDisplayName+i.ToString();
 				styleNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "parent-style-name", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					"parent-style-name", "style");
 				xa.InnerText		= "Index";
 				styleNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "family", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					"family", "style");
 				xa.InnerText		= "paragraph";
 				styleNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "class", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					"class","style");
 				xa.InnerText		= "index";
 				styleNode.Attributes.Append(xa);
 				
-				XmlNode ppNode		= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
-					"style", "paragraph-properties", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				XmlNode ppNode		= this.Document.CreateNode(
+					"paragraph-properties", "style");
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"fo", "margin-left", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+				xa					= this.Document.CreateAttribute(
+					 "margin-left", "fo");
 				xa.InnerText		= (0.499*(i-1)).ToString("F3").Replace(",",".")+"cm";
 				ppNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"fo", "margin-right", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+				xa					= this.Document.CreateAttribute(
+					"margin-right", "fo");
 				xa.InnerText		= "0cm";
 				ppNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"fo", "text-indent", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+				xa					= this.Document.CreateAttribute(
+					 "text-indent", "fo");
 				xa.InnerText		= "0cm";
 				ppNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"fo", "auto-text-indent", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+				xa					= this.Document.CreateAttribute(
+					"auto-text-indent", "fo");
 				xa.InnerText		= "0cm";
 				ppNode.Attributes.Append(xa);
 
-				XmlNode tabsNode		= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
-					"style", "tab-stops", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				XmlNode tabsNode		= this.Document.CreateNode(
+					"tab-stops", "style");
 
-				XmlNode tabNode			= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
-					"style", "tab-stop", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				XmlNode tabNode			= this.Document.CreateNode(
+					"tab-stop", "style");
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "position", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					"position", "style");
 				xa.InnerText		= (16.999-(i*0.499)).ToString("F3").Replace(",",".")+"cm";
 				tabNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "type", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					"type", "style");
 				xa.InnerText		= "right";
 				tabNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "leader-style", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					"leader-style", "style");
 				xa.InnerText		= "dotted";
 				tabNode.Attributes.Append(xa);
 
-				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
-					"style", "leader-text", ((TextDocument)this.Document).GetNamespaceUri("style"));
+				xa					= this.Document.CreateAttribute(
+					"leader-text", "style");
 				xa.InnerText		= ".";
 				tabNode.Attributes.Append(xa);
 
@@ -315,8 +320,92 @@ namespace AODL.Document.Content.Text.Indexes
 				ppNode.AppendChild(tabsNode);
 				styleNode.AppendChild(ppNode);
 
-				((TextDocument)this.Document).DocumentStyles.InsertOfficeStylesNode(
-					styleNode, ((TextDocument)this.Document));
+				IStyle iStyle		= new UnknownStyle(this.Document, styleNode);
+				this.Document.CommonStyles.Add(iStyle);
+
+//				XmlNode styleNode	= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
+//					"style", "style", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//
+//				XmlAttribute xa		= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "name", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= this._contentStyleName+i.ToString();
+//				styleNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "display-name", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= this._contentStyleDisplayName+i.ToString();
+//				styleNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "parent-style-name", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= "Index";
+//				styleNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "family", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= "paragraph";
+//				styleNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "class", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= "index";
+//				styleNode.Attributes.Append(xa);
+//				
+//				XmlNode ppNode		= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
+//					"style", "paragraph-properties", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"fo", "margin-left", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+//				xa.InnerText		= (0.499*(i-1)).ToString("F3").Replace(",",".")+"cm";
+//				ppNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"fo", "margin-right", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+//				xa.InnerText		= "0cm";
+//				ppNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"fo", "text-indent", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+//				xa.InnerText		= "0cm";
+//				ppNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"fo", "auto-text-indent", ((TextDocument)this.Document).GetNamespaceUri("fo"));
+//				xa.InnerText		= "0cm";
+//				ppNode.Attributes.Append(xa);
+//
+//				XmlNode tabsNode		= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
+//					"style", "tab-stops", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//
+//				XmlNode tabNode			= ((TextDocument)this.Document).DocumentStyles.Styles.CreateElement(
+//					"style", "tab-stop", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "position", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= (16.999-(i*0.499)).ToString("F3").Replace(",",".")+"cm";
+//				tabNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "type", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= "right";
+//				tabNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "leader-style", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= "dotted";
+//				tabNode.Attributes.Append(xa);
+//
+//				xa					= ((TextDocument)this.Document).DocumentStyles.Styles.CreateAttribute(
+//					"style", "leader-text", ((TextDocument)this.Document).GetNamespaceUri("style"));
+//				xa.InnerText		= ".";
+//				tabNode.Attributes.Append(xa);
+//
+//				tabsNode.AppendChild(tabNode);
+//				ppNode.AppendChild(tabsNode);
+//				styleNode.AppendChild(ppNode);
+//
+//				((TextDocument)this.Document).DocumentStyles.InsertOfficeStylesNode(
+//					styleNode, ((TextDocument)this.Document));
 			}
 		}
 
@@ -499,8 +588,9 @@ namespace AODL.Document.Content.Text.Indexes
 				int firstWhiteSpace			= textEntry.IndexOf(" ");
 				System.Text.StringBuilder sb = new System.Text.StringBuilder(textEntry);
 				sb							= sb.Remove(firstWhiteSpace, 1);
-				string link					= "#"+sb.ToString()+"|Outline";
+				string link					= "#"+sb.ToString()+"|outline";
 				XLink xlink					= new XLink(this.Document, link, textEntry);
+				xlink.XLinkType				= "simple";
 				paragraph.TextContent.Add(xlink);
 				paragraph.TextContent.Add(new TabStop(this.Document));
 				paragraph.TextContent.Add(new SimpleText(this.Document, "1"));
@@ -550,6 +640,10 @@ namespace AODL.Document.Content.Text.Indexes
 
 /*
  * $Log: TableOfContents.cs,v $
+ * Revision 1.4  2006/02/21 19:34:55  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.3  2006/02/05 20:02:25  larsbm
  * - Fixed several bugs
  * - clean up some messy code

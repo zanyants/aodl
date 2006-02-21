@@ -1,5 +1,5 @@
 /*
- * $Id: HTMLContentBuilder.cs,v 1.3 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: HTMLContentBuilder.cs,v 1.4 2006/02/21 19:34:55 larsbm Exp $
  */
 
 /*
@@ -243,7 +243,9 @@ namespace AODL.Document.Export.Html
 					{
 						//determine type text content types
 						if(ob is SimpleText)
-							html			+= ((IText)ob).Node.InnerText;
+						{
+							html			+= this.ReplaceControlNodes(((IText)ob).Node.InnerText);
+						}
 						else if(ob is FormatedText)
 							html			+= this.GetFormatedTextAsHtml(ob as FormatedText);
 						else if(ob is WhiteSpace)
@@ -259,7 +261,7 @@ namespace AODL.Document.Export.Html
 							html			+= this.GetLineBreakAsHtml();
 						else if(ob is UnknownTextContent)
 							html			+= this.GetUnknowTextContentAsHtml(ob as UnknownTextContent);
-						//determine type
+							//determine type
 						else if(ob is Table)
 							html			+= this.GetTableAsHtml(ob as Table);
 						else if(ob is Paragraph)
@@ -1375,6 +1377,10 @@ namespace AODL.Document.Export.Html
 
 /*
  * $Log: HTMLContentBuilder.cs,v $
+ * Revision 1.4  2006/02/21 19:34:55  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.3  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code

@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocumentHelper.cs,v 1.1 2006/01/29 11:28:30 larsbm Exp $
+ * $Id: TextDocumentHelper.cs,v 1.2 2006/02/21 19:34:56 larsbm Exp $
  */
 
 /*
@@ -78,6 +78,13 @@ namespace AODL.Document.TextDocuments
 				+ "</office:automatic-styles>"
 				+ "<office:body>"
 				+ "<office:text>"
+				+ "<office:forms form:automatic-focus=\"false\" form:apply-design-mode=\"false\" /> "
+				+ "<text:sequence-decls>"
+				+ "<text:sequence-decl text:display-outline-level=\"0\" text:name=\"Illustration\" />" 
+				+ "<text:sequence-decl text:display-outline-level=\"0\" text:name=\"Table\" /> "
+				+ "<text:sequence-decl text:display-outline-level=\"0\" text:name=\"Text\" />"
+				+ "<text:sequence-decl text:display-outline-level=\"0\" text:name=\"Drawing\" />"
+				+ "</text:sequence-decls>"
 				+ "</office:text>"
 				+ "</office:body>"
 				+ "</office:document-content>";
@@ -121,6 +128,10 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: TextDocumentHelper.cs,v $
+ * Revision 1.2  2006/02/21 19:34:56  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.1  2006/01/29 11:28:30  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

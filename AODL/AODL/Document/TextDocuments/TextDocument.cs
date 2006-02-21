@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.5 2006/02/21 19:34:56 larsbm Exp $
  */
 
 /*
@@ -786,6 +786,13 @@ namespace AODL.Document.TextDocuments
 				XmlNode nodeStyle			= this.DocumentStyles.Styles.ImportNode(style.Node, true);
 				nodeCommonStyles.AppendChild(nodeStyle);
 			}
+
+			//Remove styles node
+			nodeCommonStyles				= this.XmlDoc.SelectSingleNode(
+				"office:document-content/office:styles", this.NamespaceManager);
+			if(nodeCommonStyles != null)
+				this.XmlDoc.SelectSingleNode(
+					"office:document-content", this.NamespaceManager).RemoveChild(nodeCommonStyles);
 		}
 
 
@@ -841,6 +848,10 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.5  2006/02/21 19:34:56  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.4  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code

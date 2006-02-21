@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentImportTest.cs,v 1.5 2006/02/16 18:35:40 larsbm Exp $
+ * $Id: DocumentImportTest.cs,v 1.6 2006/02/21 19:34:54 larsbm Exp $
  */
 
 /*
@@ -55,6 +55,18 @@ namespace AODLTest
 			textDocument.Load(file);
 			Assert.IsTrue(textDocument.CommonStyles.Count > 0, "Common Styles must be read!");
 			Console.WriteLine("Common styles: {0}", textDocument.CommonStyles.Count);
+			//Save it back again
+			textDocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".rel.odt");
+		}
+
+		[Test]
+		public void SimpleTocLoadTest()
+		{	
+			string file							= AARunMeFirstAndOnce.inPutFolder+@"simple_toc.odt";
+			FileInfo fInfo						= new FileInfo(file);
+			//Load a text document 
+			TextDocument textDocument			= new TextDocument();
+			textDocument.Load(file);
 			//Save it back again
 			textDocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+fInfo.Name+".rel.odt");
 		}
@@ -262,6 +274,10 @@ namespace AODLTest
 
 /*
  * $Log: DocumentImportTest.cs,v $
+ * Revision 1.6  2006/02/21 19:34:54  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.5  2006/02/16 18:35:40  larsbm
  * - Add FrameBuilder class
  * - TextSequence implementation (Todo loading!)

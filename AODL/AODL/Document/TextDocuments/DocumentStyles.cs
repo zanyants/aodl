@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentStyles.cs,v 1.1 2006/01/29 11:28:30 larsbm Exp $
+ * $Id: DocumentStyles.cs,v 1.2 2006/02/21 19:34:56 larsbm Exp $
  */
 
 /*
@@ -113,9 +113,13 @@ namespace AODL.Document.TextDocuments
 		{
 			try
 			{
-				XmlNode outlineStyleNode		= this.Styles.SelectSingleNode(
-					"//text:outline-style",
-					document.NamespaceManager);
+				XmlNode outlineStyleNode		= null;
+				foreach(IStyle iStyle in document.CommonStyles)
+					if(iStyle.Node.Name == "text:outline-style")
+						outlineStyleNode = iStyle.Node;
+//				XmlNode outlineStyleNode		= this.Styles.SelectSingleNode(
+//					"//text:outline-style",
+//					document.NamespaceManager);
 
 				XmlNode outlineLevelNode		= null;
 				if(outlineStyleNode != null)
@@ -130,15 +134,15 @@ namespace AODL.Document.TextDocuments
 					if(numberFormatNode != null)
 						numberFormatNode.InnerText	= numFormat;
 
-					XmlAttribute xa				= this.Styles.CreateAttribute(
-						"style", "num-suffix", document.GetNamespaceUri("style"));
+					XmlAttribute xa				= document.CreateAttribute(
+						"num-suffix", "style");
 					xa.InnerText				= ".";
 					outlineLevelNode.Attributes.Append(xa);
 
 					if(outlineLevel > 1)
 					{
-						xa						= this.Styles.CreateAttribute(
-							"text", "display-levels", document.GetNamespaceUri("style"));
+						xa						= document.CreateAttribute(
+							"display-levels", "text");
 						xa.InnerText				= outlineLevel.ToString();
 						outlineLevelNode.Attributes.Append(xa);
 					}
@@ -321,6 +325,10 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: DocumentStyles.cs,v $
+ * Revision 1.2  2006/02/21 19:34:56  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.1  2006/01/29 11:28:30  larsbm
  * - Changes for the new version. 1.2. see next changelog for details
  *

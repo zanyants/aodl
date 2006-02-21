@@ -1,5 +1,5 @@
 /*
- * $Id: TextContentProcessor.cs,v 1.2 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: TextContentProcessor.cs,v 1.3 2006/02/21 19:34:55 larsbm Exp $
  */
 
 /*
@@ -60,7 +60,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// <returns></returns>
 		public IText CreateTextObject(IDocument document, XmlNode aTextNode)
 		{
-			aTextNode.InnerText				= this.ReplaceSpecialCharacter(aTextNode.InnerText);
+			//aTextNode.InnerText				= this.ReplaceSpecialCharacter(aTextNode.InnerText);
+			int i=0;				
+			if(aTextNode.OuterXml.IndexOf("Contains state ") > -1)
+				i++;
 
 			switch(aTextNode.Name)
 			{
@@ -113,9 +116,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 				formatedText.Document			= document;
 				formatedText.Node				= node;
 				//Recieve a TextStyle
-				int i=0;
-				if(formatedText.StyleName == "T2")
-					i++;
+				
 				IStyle textStyle				= document.Styles.GetStyleByName(formatedText.StyleName);
 
 				if(textStyle != null)
@@ -138,7 +139,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 				//Ceck for more IText object
 				foreach(XmlNode iTextNode in node.ChildNodes)
 				{
-					IText iText						= this.CreateTextObject(document, iTextNode);
+					IText iText						= this.CreateTextObject(document, iTextNode.CloneNode(true));
 					if(iText != null)
 					{
 						iTextColl.Add(iText);
@@ -251,6 +252,31 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			catch(Exception ex)
 			{
 				AODLException exception		= new AODLException("Exception while trying to create a Footnote.");
+				exception.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
+				exception.Node				= node;
+				exception.OriginalException	= ex;
+
+				throw exception;
+			}
+		}
+
+		/// <summary>
+		/// Creates the text sequence.
+		/// </summary>
+		/// <param name="document">The document.</param>
+		/// <param name="node">The node.</param>
+		/// <returns></returns>
+		public TextSequence CreateTextSequence(IDocument document, XmlNode node)
+		{
+			try
+			{
+				TextSequence textSequence	= new TextSequence(document, node);
+
+				return textSequence;
+			}
+			catch(Exception ex)
+			{
+				AODLException exception		= new AODLException("Exception while trying to create a TextSequence.");
 				exception.InMethod			= AODLException.GetExceptionSourceInfo(new StackFrame(1, true));
 				exception.Node				= node;
 				exception.OriginalException	= ex;

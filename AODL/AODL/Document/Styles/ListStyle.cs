@@ -1,5 +1,5 @@
 /*
- * $Id: ListStyle.cs,v 1.2 2006/01/29 18:52:51 larsbm Exp $
+ * $Id: ListStyle.cs,v 1.3 2006/02/21 19:34:56 larsbm Exp $
  */
 
 /*
@@ -90,7 +90,7 @@ namespace AODL.Document.Styles
 			{
 				ListLevelStyle style		= new ListLevelStyle(this.Document, this, typ, i);
 				this.ListlevelStyles.Add(style);
-				this.Document.Styles.Add(style);
+				//this.Document.Styles.Add(style);
 			}
 
 			foreach(ListLevelStyle lls in this.ListlevelStyles)
@@ -243,6 +243,10 @@ namespace AODL.Document.Styles
 
 /*
  * $Log: ListStyle.cs,v $
+ * Revision 1.3  2006/02/21 19:34:56  larsbm
+ * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
+ * - Fixed Bug [ 1436080 ] Common styles
+ *
  * Revision 1.2  2006/01/29 18:52:51  larsbm
  * - Added support for common styles (style templates in OpenOffice)
  * - Draw TextBox import and export
