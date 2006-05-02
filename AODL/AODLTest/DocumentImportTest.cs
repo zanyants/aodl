@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentImportTest.cs,v 1.6 2006/02/21 19:34:54 larsbm Exp $
+ * $Id: DocumentImportTest.cs,v 1.7 2006/05/02 17:37:15 larsbm Exp $
  */
 
 /*
@@ -24,6 +24,7 @@ using AODL.Document.Content;
 using AODL.Document.Exceptions;
 using AODL.Document.Content.Draw;
 using AODL.Document.Content.Text;
+using AODL.Document.Import.OpenDocument;
 
 namespace AODLTest
 {
@@ -274,6 +275,10 @@ namespace AODLTest
 
 /*
  * $Log: DocumentImportTest.cs,v $
+ * Revision 1.7  2006/05/02 17:37:15  larsbm
+ * - Flag added graphics with guid
+ * - Set guid based read and write directories
+ *
  * Revision 1.6  2006/02/21 19:34:54  larsbm
  * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
  * - Fixed Bug [ 1436080 ] Common styles

@@ -1,5 +1,5 @@
 /*
- * $Id: GraphicTest.cs,v 1.8 2006/02/16 18:35:40 larsbm Exp $
+ * $Id: GraphicTest.cs,v 1.9 2006/05/02 17:37:15 larsbm Exp $
  */
 
 /*
@@ -45,6 +45,26 @@ namespace AODLTest
 			p.Content.Add(frame);
 			textdocument.Content.Add(p);
 			textdocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"grapic.odt");
+		}
+
+		[Test]
+		public void Add2GraphicsWithSameNameFromDifferentLocations()
+		{
+			string file1 = @"E:\fotos\schnee.jpg";
+			string file2 = @"E:\fotos\resize\schnee.jpg";
+			TextDocument textdocument		= new TextDocument();
+			textdocument.New();
+			Paragraph p						= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
+			Frame frame						= new Frame(textdocument, "frame1",
+				"graphic1", file1);
+			p.Content.Add(frame);
+			Paragraph p1					= ParagraphBuilder.CreateStandardTextParagraph(textdocument);
+			Frame frame1					= new Frame(textdocument, "frame2",
+				"graphic2", file2);
+			p1.Content.Add(frame1);
+			textdocument.Content.Add(p);
+			textdocument.Content.Add(p1);			
+			textdocument.SaveTo(AARunMeFirstAndOnce.outPutFolder+"graphic.odt");
 		}
 
 		/// <summary>

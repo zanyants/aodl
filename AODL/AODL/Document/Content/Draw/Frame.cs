@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.4 2006/02/16 18:35:41 larsbm Exp $
+ * $Id: Frame.cs,v 1.5 2006/05/02 17:37:16 larsbm Exp $
  */
 
 /*
@@ -244,6 +244,17 @@ namespace AODL.Document.Content.Draw
 			}
 		}
 
+		private Guid _graphicIdentifier;
+		/// <summary>
+		/// Gets or sets the graphic identifier.
+		/// </summary>
+		/// <value>The graphic identifier.</value>
+		public Guid GraphicIdentifier
+		{
+			get { return this._graphicIdentifier; }
+			set { this._graphicIdentifier = value; }
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Frame"/> class.
 		/// </summary>
@@ -283,7 +294,8 @@ namespace AODL.Document.Content.Draw
 			this.DrawName			= drawName;
 			this.GraphicSourcePath	= graphicfile;
 
-			this._realgraphicname	= this.LoadImageFromFile(graphicfile);
+			this._graphicIdentifier = Guid.NewGuid();
+			this._realgraphicname	= this._graphicIdentifier.ToString()+this.LoadImageFromFile(graphicfile);
 			Graphic graphic			= new Graphic(this.Document, this, this._realgraphicname);
 			graphic.GraphicRealPath	= this.GraphicSourcePath;
 			this.Content.Add(graphic);
@@ -504,6 +516,10 @@ namespace AODL.Document.Content.Draw
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.5  2006/05/02 17:37:16  larsbm
+ * - Flag added graphics with guid
+ * - Set guid based read and write directories
+ *
  * Revision 1.4  2006/02/16 18:35:41  larsbm
  * - Add FrameBuilder class
  * - TextSequence implementation (Todo loading!)

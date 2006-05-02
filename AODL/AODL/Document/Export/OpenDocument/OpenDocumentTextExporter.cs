@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentTextExporter.cs,v 1.5 2006/02/21 19:34:55 larsbm Exp $
+ * $Id: OpenDocumentTextExporter.cs,v 1.6 2006/05/02 17:37:16 larsbm Exp $
  */
 
 /*
@@ -40,7 +40,8 @@ namespace AODL.Document.Export.OpenDocument
 	/// </summary>
 	public class OpenDocumentTextExporter : IExporter, IPublisherInfo
 	{
-		private static readonly string dir		= Environment.CurrentDirectory+@"\aodlwrite\";
+		internal static Guid folderGuid			= Guid.NewGuid();
+		private static readonly string dir		= Environment.CurrentDirectory+@"\"+folderGuid.ToString()+@"\";
 		private string[] _directories			= {"Configurations2", "META-INF", "Pictures", "Thumbnails"};
 		private IDocument _document				= null;
 
@@ -402,9 +403,15 @@ namespace AODL.Document.Export.OpenDocument
 				{
 					if(graphic.GraphicRealPath != null)
 					{
-						FileInfo fInfo	= new FileInfo(graphic.GraphicRealPath);
-						if(!File.Exists(picturedir+fInfo.Name))
-							File.Copy(graphic.GraphicRealPath, picturedir+fInfo.Name);
+						//Loaded or added
+						if(graphic.GraphicFileName == null)
+						{
+							FileInfo fInfo	= new FileInfo(graphic.GraphicRealPath);
+							if(!File.Exists(picturedir+fInfo.Name))
+								File.Copy(graphic.GraphicRealPath, picturedir+fInfo.Name);
+						}
+						else
+							File.Copy(graphic.GraphicRealPath, picturedir+graphic.GraphicFileName);
 					}					
 				}
 				MovePicturesIfLoaded(document, picturedir);
@@ -442,6 +449,10 @@ namespace AODL.Document.Export.OpenDocument
 
 /*
  * $Log: OpenDocumentTextExporter.cs,v $
+ * Revision 1.6  2006/05/02 17:37:16  larsbm
+ * - Flag added graphics with guid
+ * - Set guid based read and write directories
+ *
  * Revision 1.5  2006/02/21 19:34:55  larsbm
  * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
  * - Fixed Bug [ 1436080 ] Common styles

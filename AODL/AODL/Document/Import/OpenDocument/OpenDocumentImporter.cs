@@ -1,5 +1,5 @@
 /*
- * $Id: OpenDocumentImporter.cs,v 1.4 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: OpenDocumentImporter.cs,v 1.5 2006/05/02 17:37:16 larsbm Exp $
  */
 
 /*
@@ -43,8 +43,12 @@ namespace AODL.Document.Import.OpenDocument
 	/// </summary>
 	public class OpenDocumentImporter : IImporter, IPublisherInfo
 	{
-		internal static readonly string dir		= Environment.CurrentDirectory+@"\aodlread\";
-		internal static readonly string dirpics	= Environment.CurrentDirectory+@"\PicturesRead\";
+//		internal static readonly string dir		= Environment.CurrentDirectory+@"\aodlread\";
+//		internal static readonly string dirpics	= Environment.CurrentDirectory+@"\PicturesRead\";
+		internal static Guid folderGuid			= Guid.NewGuid();
+		internal static readonly string dir		= Environment.CurrentDirectory+@"\"+folderGuid.ToString()+@"\";
+		internal static readonly string dirpics	= dir+@"PicturesRead\";
+
 
 		/// <summary>
 		/// The document to fill with content.
@@ -459,6 +463,10 @@ namespace AODL.Document.Import.OpenDocument
 
 /*
  * $Log: OpenDocumentImporter.cs,v $
+ * Revision 1.5  2006/05/02 17:37:16  larsbm
+ * - Flag added graphics with guid
+ * - Set guid based read and write directories
+ *
  * Revision 1.4  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code

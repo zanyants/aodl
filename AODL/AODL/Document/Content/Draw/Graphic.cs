@@ -1,5 +1,5 @@
 /*
- * $Id: Graphic.cs,v 1.3 2006/02/16 18:35:41 larsbm Exp $
+ * $Id: Graphic.cs,v 1.4 2006/05/02 17:37:16 larsbm Exp $
  */
 
 /*
@@ -143,6 +143,17 @@ namespace AODL.Document.Content.Draw
 			set { this._graphicRealPath = value; }
 		}
 
+		private string _graphicFileName;
+		/// <summary>
+		/// Gets or sets the name of the graphic file.
+		/// </summary>
+		/// <value>The name of the graphic file.</value>
+		public string GraphicFileName
+		{
+			get { return this._graphicFileName; }
+			set { this._graphicFileName = value; }
+		}
+
 		private Frame _frame;
 		/// <summary>
 		/// Gets or sets the frame.
@@ -164,6 +175,7 @@ namespace AODL.Document.Content.Draw
 		{
 			this.Frame			= frame;
 			this.Document		= document;
+			this.GraphicFileName = graphiclink;
 			this.NewXmlNode("Pictures/"+graphiclink);
 			this.InitStandards();
 			this.Document.Graphics.Add(this);

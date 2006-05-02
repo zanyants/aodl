@@ -585,6 +585,12 @@
             <example>myFrame.SvgY = "1.5cm"</example>
             <value>The SVG Y.</value>
         </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.GraphicIdentifier">
+            <summary>
+            Gets or sets the graphic identifier.
+            </summary>
+            <value>The graphic identifier.</value>
+        </member>
         <member name="P:AODL.Document.Content.Draw.Frame.StyleName">
             <summary>
             Gets or sets the name of the style.
@@ -733,6 +739,12 @@
             Gets or sets the graphic real path.
             </summary>
             <value>The graphic real path.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Graphic.GraphicFileName">
+            <summary>
+            Gets or sets the name of the graphic file.
+            </summary>
+            <value>The name of the graphic file.</value>
         </member>
         <member name="P:AODL.Document.Content.Draw.Graphic.Frame">
             <summary>
