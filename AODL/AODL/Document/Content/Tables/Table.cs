@@ -1,5 +1,5 @@
 /*
- * $Id: Table.cs,v 1.4 2006/02/08 16:37:36 larsbm Exp $
+ * $Id: Table.cs,v 1.5 2007/02/04 22:52:57 larsbm Exp $
  */
 
 /*
@@ -189,24 +189,20 @@ namespace AODL.Document.Content.Tables
 				for(int i=0; i < rowIndex-this.RowCollection.Count; i++)
 					this.RowCollection.Add(new Row(this, "row"+this.RowCollection.Count.ToString()+i.ToString()));
 
-				Row row					= new Row(this, this.RowCollection[this.RowCollection.Count-1].StyleName);
-				row.InsertCellAt(columnIndex, cell);
-				cell.Row				= row;
-				this.RowCollection.Add(row);
+				this.RowCollection[rowIndex-1].InsertCellAt(columnIndex-1, cell);
+				cell.Row				= this.RowCollection[rowIndex-1];
 			}
 			else if(this.RowCollection.Count+1 == rowIndex)
 			{
 				Row row					= new Row(this, this.RowCollection[this.RowCollection.Count-1].StyleName);
-				row.InsertCellAt(columnIndex, cell);
+				row.InsertCellAt(columnIndex-1, cell);
 				cell.Row				= row;
 				this.RowCollection.Add(row);
 			}
 			else
 			{
-				Row row					= new Row(this, this.RowCollection[this.RowCollection.Count-1].StyleName);
-				row.InsertCellAt(columnIndex, cell);
-				cell.Row				= row;
-				this.RowCollection.Insert(rowIndex, row);
+				this.RowCollection[rowIndex-1].InsertCellAt(columnIndex-1, cell);
+				cell.Row				= this.RowCollection[rowIndex-1];
 			}
 		}
 
@@ -437,6 +433,11 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Table.cs,v $
+ * Revision 1.5  2007/02/04 22:52:57  larsbm
+ * - fixed bug in resize algorithm for rows and cells
+ * - extending IDocument, overload SaveTo to accept external exporter impl.
+ * - initial version of AODL PDF exporter add on
+ *
  * Revision 1.4  2006/02/08 16:37:36  larsbm
  * - nested table test
  * - AODC spreadsheet

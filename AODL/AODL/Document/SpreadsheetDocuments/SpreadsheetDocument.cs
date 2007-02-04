@@ -1,5 +1,5 @@
 /*
- * $Id: SpreadsheetDocument.cs,v 1.6 2006/02/21 19:34:55 larsbm Exp $
+ * $Id: SpreadsheetDocument.cs,v 1.7 2007/02/04 22:52:57 larsbm Exp $
  */
 
 /*
@@ -314,6 +314,25 @@ namespace AODL.Document.SpreadsheetDocuments
 		}
 
 		/// <summary>
+		/// Save the document by using the passed IExporter
+		/// with the passed file name.
+		/// </summary>
+		/// <param name="filename">The name of the new file.</param>
+		/// <param name="iExporter"></param>
+		public void SaveTo(string filename, IExporter iExporter)
+		{
+			try
+			{
+				this.CreateContentBody();
+				iExporter.Export(this, filename);
+			}
+			catch(Exception)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
 		/// Load the given file.
 		/// </summary>
 		/// <param name="file"></param>
@@ -588,6 +607,11 @@ namespace AODL.Document.SpreadsheetDocuments
 
 /*
  * $Log: SpreadsheetDocument.cs,v $
+ * Revision 1.7  2007/02/04 22:52:57  larsbm
+ * - fixed bug in resize algorithm for rows and cells
+ * - extending IDocument, overload SaveTo to accept external exporter impl.
+ * - initial version of AODL PDF exporter add on
+ *
  * Revision 1.6  2006/02/21 19:34:55  larsbm
  * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
  * - Fixed Bug [ 1436080 ] Common styles

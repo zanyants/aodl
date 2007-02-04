@@ -6089,7 +6089,14 @@
             <summary>
             Save the document at the given file position.
             </summary>
-            <param name="filename"></param>
+            <param name="filename">Path and file name.</param>
+        </member>
+        <member name="M:AODL.Document.IDocument.SaveTo(System.String,AODL.Document.Export.IExporter)">
+            <summary>
+            Save the document by using the passed IExporter
+            with the passed file name.
+            </summary>
+            <param name="filename">The name of the new file.</param>
         </member>
         <member name="P:AODL.Document.IDocument.NamespaceManager">
             <summary>
@@ -6172,6 +6179,14 @@
             Save the SpreadsheetDocument as OpenDocument spreadsheet document
             </summary>
             <param name="filename">The filename. With or without full path. Without will save the file to application path!</param>
+        </member>
+        <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.SaveTo(System.String,AODL.Document.Export.IExporter)">
+            <summary>
+            Save the document by using the passed IExporter
+            with the passed file name.
+            </summary>
+            <param name="filename">The name of the new file.</param>
+            <param name="iExporter"></param>
         </member>
         <member name="M:AODL.Document.SpreadsheetDocuments.SpreadsheetDocument.Load(System.String)">
             <summary>
@@ -9625,6 +9640,14 @@
             Save the TextDocument as OpenDocument textdocument.
             </summary>
             <param name="filename">The filename. With or without full path. Without will save the file to application path!</param>
+        </member>
+        <member name="M:AODL.Document.TextDocuments.TextDocument.SaveTo(System.String,AODL.Document.Export.IExporter)">
+            <summary>
+            Save the document by using the passed IExporter
+            with the passed file name.
+            </summary>
+            <param name="filename">The name of the new file.</param>
+            <param name="iExporter"></param>
         </member>
         <member name="M:AODL.Document.TextDocuments.TextDocument.AddFont(System.String)">
             <summary>

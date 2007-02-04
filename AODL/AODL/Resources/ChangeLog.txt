@@ -1,4 +1,13 @@
-$Id: ChangeLog.txt,v 1.18 2006/02/21 19:34:56 larsbm Exp $
+$Id: ChangeLog.txt,v 1.19 2007/02/04 22:52:58 larsbm Exp $
+
+-------------------------------------------------------------
+AODL 1.2.0.2 beta
+
+Changes and new features
+- Bugfix for wrong algorythm InsertCellAt 
+- Extending of the IDocument interfaces
+  Method SaveTo now overloaded and a external exporter
+  implementation can be passed
 
 -------------------------------------------------------------
 AODL 1.2.0.1 beta

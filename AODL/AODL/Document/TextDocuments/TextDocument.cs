@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.5 2006/02/21 19:34:56 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.6 2007/02/04 22:52:58 larsbm Exp $
  */
 
 /*
@@ -404,6 +404,25 @@ namespace AODL.Document.TextDocuments
 				iExporter.Export(this, filename);
 			}
 			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Save the document by using the passed IExporter
+		/// with the passed file name.
+		/// </summary>
+		/// <param name="filename">The name of the new file.</param>
+		/// <param name="iExporter"></param>
+		public void SaveTo(string filename, IExporter iExporter)
+		{
+			try
+			{
+				this.CreateContentBody();
+				iExporter.Export(this, filename);
+			}
+			catch(Exception)
 			{
 				throw;
 			}
@@ -848,6 +867,11 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.6  2007/02/04 22:52:58  larsbm
+ * - fixed bug in resize algorithm for rows and cells
+ * - extending IDocument, overload SaveTo to accept external exporter impl.
+ * - initial version of AODL PDF exporter add on
+ *
  * Revision 1.5  2006/02/21 19:34:56  larsbm
  * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
  * - Fixed Bug [ 1436080 ] Common styles

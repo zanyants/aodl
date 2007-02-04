@@ -1,5 +1,5 @@
 /*
- * $Id: IDocument.cs,v 1.3 2006/02/05 20:03:32 larsbm Exp $
+ * $Id: IDocument.cs,v 1.4 2007/02/04 22:52:57 larsbm Exp $
  */
 
 /*
@@ -102,8 +102,14 @@ namespace AODL.Document
 		/// <summary>
 		/// Save the document at the given file position.
 		/// </summary>
-		/// <param name="filename"></param>
+		/// <param name="filename">Path and file name.</param>
 		void SaveTo(string filename);
+		/// <summary>
+		/// Save the document by using the passed IExporter
+		/// with the passed file name.
+		/// </summary>
+		/// <param name="filename">The name of the new file.</param>
+		void SaveTo(string filename, AODL.Document.Export.IExporter iExporter);
 	}
 
 	/// <summary>
@@ -124,6 +130,11 @@ namespace AODL.Document
 
 /*
  * $Log: IDocument.cs,v $
+ * Revision 1.4  2007/02/04 22:52:57  larsbm
+ * - fixed bug in resize algorithm for rows and cells
+ * - extending IDocument, overload SaveTo to accept external exporter impl.
+ * - initial version of AODL PDF exporter add on
+ *
  * Revision 1.3  2006/02/05 20:03:32  larsbm
  * - Fixed several bugs
  * - clean up some messy code
