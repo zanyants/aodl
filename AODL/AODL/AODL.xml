@@ -537,6 +537,49 @@
             </summary>
             <value>The graphic source path.</value>
         </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.HeightInPixel">
+            <summary>
+            Gets the image height in pixel.
+            </summary>
+            <value>The height in pixel.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.WidthInPixel">
+            <summary>
+            Gets the image width in pixel.
+            </summary>
+            <value>The width in pixel.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.Height">
+            <summary>
+            Gets the frame height in cm or inch depending on which format is used in the current document.
+            </summary>
+            <value>The height.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.Width">
+            <summary>
+            Gets the frame width in cm or inch depending on which format is used in the current document.
+            </summary>
+            <value>The height.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.MeasurementFormat">
+            <summary>
+            Gets the measurement format. This will depent on the current document.
+            Possible values are cm or in (inch).
+            </summary>
+            <value>The measurement format.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.DPI_Y">
+            <summary>
+            Gets the image vertical resulotion.
+            </summary>
+            <value>The vertical resulotion.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Draw.Frame.DPI_X">
+            <summary>
+            Gets the image horizontal resulotion.
+            </summary>
+            <value>The horízontal resulotion.</value>
+        </member>
         <member name="P:AODL.Document.Content.Draw.Frame.DrawName">
             <summary>
             Gets or sets the draw name.
@@ -1408,6 +1451,12 @@
             Gets or sets the name of the parent cell style.
             </summary>
             <value>The name of the parent cell style.</value>
+        </member>
+        <member name="P:AODL.Document.Content.Tables.Column.NumberColumnsRepeated">
+            <summary>
+            Gets or sets the number columns repeated.
+            </summary>
+            <value>The number columns repeated.</value>
         </member>
         <member name="P:AODL.Document.Content.Tables.Column.Table">
             <summary>
@@ -4942,6 +4991,7 @@
             The SizeConverter class offer different methods for size 
             type conversation.
             </summary>
+            <remarks>obsolete - don't start to use it, it will maybe deleted within an upcoming version</remarks>
         </member>
         <member name="F:AODL.Document.Helper.SizeConverter.pxtocm">
             <summary>
@@ -5032,6 +5082,58 @@
             </remarks>
             <param name="aSizeValue">A size value.</param>
             <returns></returns>
+        </member>
+        <member name="M:AODL.Document.Helper.SizeConverter.IsCm(System.String)">
+            <summary>
+            Determines whether the specified value is in cm.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if the specified value is in cm; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:AODL.Document.Helper.SizeConverter.IsInch(System.String)">
+            <summary>
+            Determines whether the specified value is in inch.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if the specified value is in inch; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:AODL.Document.Helper.SizeConverter.GetWidthInPixel(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Cacluates the width in pixel from width in cm or inch by using the horizontal resolution.
+            </summary>
+            <param name="width">The width.</param>
+            <param name="dpiX">The dpi X.</param>
+            <param name="cm">if set to <c>true</c> in cm otherwise inch.</param>
+            <returns>The relative width in pixel</returns>
+        </member>
+        <member name="M:AODL.Document.Helper.SizeConverter.GetHeightInPixel(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Cacluates the relative height in pixel from height in cm or inch by using the vertical resolution.
+            </summary>
+            <param name="height">The height.</param>
+            <param name="dpiY">The dpi vertical.</param>
+            <param name="cm">if set to <c>true</c> in cm otherwise inch.</param>
+            <returns>The relative height in pixel</returns>
+        </member>
+        <member name="M:AODL.Document.Helper.SizeConverter.GetWidthInCm(System.Int32,System.Int32)">
+            <summary>
+            Cacluates the width in cm from width in pixel by using the horizontal resolution.
+            </summary>
+            <param name="widthPixel">The width.</param>
+            <param name="dpiX">The dpi X.</param>
+            <returns>The real width in cm</returns>
+        </member>
+        <member name="M:AODL.Document.Helper.SizeConverter.GetHeightInCm(System.Int32,System.Int32)">
+            <summary>
+            Cacluates the height in cm from height in pixel by using the vertical resolution.
+            </summary>
+            <param name="heightPixel">The height.</param>
+            <param name="dpiY">The dpi Y.</param>
+            <returns>The real height in cm</returns>
         </member>
         <member name="T:AODL.Document.Import.OpenDocument.NodeProcessors.LocalStyleProcessor">
             <summary>
@@ -5969,6 +6071,12 @@
             Load the style from assmebly resource.
             </summary>
         </member>
+        <member name="M:AODL.Document.TextDocuments.DocumentStyles.New(AODL.Document.TextDocuments.TextDocument)">
+            <summary>
+            Create new document styles document and set the owner text document.
+            </summary>
+            <param name="ownerTextDocument">The owner text document.</param>
+        </member>
         <member name="M:AODL.Document.TextDocuments.DocumentStyles.LoadFromFile(System.String)">
             <summary>
             Loads from file.
@@ -5977,10 +6085,31 @@
         </member>
         <member name="M:AODL.Document.TextDocuments.DocumentStyles.InsertOfficeStylesNode(System.Xml.XmlNode,AODL.Document.IDocument)">
             <summary>
-            Inserts the office styles node.
+            Inserts a office styles node.
             </summary>
             <param name="aStyleNode">A style node.</param>
             <param name="document">The AODL document.</param>
+        </member>
+        <member name="M:AODL.Document.TextDocuments.DocumentStyles.InsertOfficeStylesNode(System.Xml.XmlNode,System.Xml.XmlNamespaceManager)">
+            <summary>
+            Inserts the office styles node into this XML style document.
+            </summary>
+            <param name="aStyleNode">A style node.</param>
+            <param name="xmlNamespaceMng">The XML namespace MNG.</param>
+        </member>
+        <member name="M:AODL.Document.TextDocuments.DocumentStyles.InsertOfficeAutomaticStylesNode(System.Xml.XmlNode,System.Xml.XmlNamespaceManager)">
+            <summary>
+            Inserts the office automatic styles node into this XML style document.
+            </summary>
+            <param name="aOfficeAutomaticStyleNode">A office automatic style node.</param>
+            <param name="xmlNamespaceMng">The XML namespace MNG.</param>
+        </member>
+        <member name="M:AODL.Document.TextDocuments.DocumentStyles.InsertOfficeMasterStylesNode(System.Xml.XmlNode,System.Xml.XmlNamespaceManager)">
+            <summary>
+            Inserts the office master styles node into this XML style document.
+            </summary>
+            <param name="aOfficeMasterStyleNode">A office master style node.</param>
+            <param name="xmlNamespaceMng">The XML namespace MNG.</param>
         </member>
         <member name="M:AODL.Document.TextDocuments.DocumentStyles.SetOutlineStyle(System.Int32,System.String,AODL.Document.TextDocuments.TextDocument)">
             <summary>
@@ -6039,6 +6168,18 @@
             Gets or sets the styles.
             </summary>
             <value>The styles.</value>
+        </member>
+        <member name="P:AODL.Document.TextDocuments.DocumentStyles.TextDocument">
+            <summary>
+            Gets or sets the text document.
+            </summary>
+            <value>The text document.</value>
+        </member>
+        <member name="P:AODL.Document.TextDocuments.DocumentStyles.TextMasterPageCollection">
+            <summary>
+            Gets or sets the text master page collection.
+            </summary>
+            <value>The text master page collection.</value>
         </member>
         <member name="M:AODL.Document.SpreadsheetDocuments.DocumentStyles.#ctor">
             <summary>
@@ -6396,6 +6537,408 @@
             The namespacemanager to access the documents namespace uris.
             </summary>
         </member>
+        <member name="T:AODL.Document.Styles.MasterStyles.MasterPageFactory">
+            <summary>
+            Summary for MasterPageFactory.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.MasterPageFactory.FillFromXMLDocument(AODL.Document.TextDocuments.TextDocument)">
+            <summary>
+            Fill/read the existing master page styles.
+            </summary>
+            <param name="textDocument">The owner text document.</param>
+        </member>
+        <member name="T:AODL.Document.Styles.MasterStyles.TextMasterPage">
+            <summary>
+            Summary for TextMasterPage.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Styles.MasterStyles.TextMasterPage"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPage.#ctor(AODL.Document.TextDocuments.TextDocument,System.Xml.XmlNode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Styles.MasterStyles.TextMasterPage"/> class.
+            </summary>
+            <param name="ownerTextDocument">The owner text document.</param>
+            <param name="masterPageNode">The master page node.</param>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPage.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPage.ActivatePageHeader">
+            <summary>
+            Activate usage of the page header.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPage.ActivatePageFooter">
+            <summary>
+            Activate usage of the page footer.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPage.ActivatePageHeaderAndFooter">
+            <summary>
+            Activate usage of the page header and page footer.
+            </summary>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPage.TextPageLayout">
+            <summary>
+            Gets or sets the text page layout.
+            </summary>
+            <value>The text page layout.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPage.TextPageHeader">
+            <summary>
+            Gets or sets the text page header.
+            </summary>
+            <value>The text page header.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPage.TextPageFooter">
+            <summary>
+            Gets or sets the text page footer.
+            </summary>
+            <value>The text page footer.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPage.StyleName">
+            <summary>
+            Gets or sets the name of the style.
+            </summary>
+            <value>The name of the style.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPage.PageLayoutName">
+            <summary>
+            Gets or sets the name of the page layout.
+            </summary>
+            <value>The name of the page layout.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPage.TextDocument">
+            <summary>
+            Gets or sets the text document.
+            </summary>
+            <value>The text document.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPage.Node">
+            <summary>
+            The XmlNode which represent the master layout element.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="T:AODL.Document.Styles.MasterStyles.TextMasterPageCollection">
+            <summary>
+            Summary for TextMasterPageCollection.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPageCollection.Add(AODL.Document.Styles.MasterStyles.TextMasterPage)">
+            <summary>
+            Adds the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPageCollection.Remove(AODL.Document.Styles.MasterStyles.TextMasterPage)">
+            <summary>
+            Removes the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPageCollection.Insert(System.Int32,AODL.Document.Styles.MasterStyles.TextMasterPage)">
+            <summary>
+            Inserts the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPageCollection.Contains(AODL.Document.Styles.MasterStyles.TextMasterPage)">
+            <summary>
+            Determines whether [contains] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPageCollection.GetByStyleName(System.String)">
+            <summary>
+            Get a text master page by his style name.
+            </summary>
+            <returns>The TextMasterPage or null if no master page was found for this name.</returns>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextMasterPageCollection.GetDefaultMasterPage">
+            <summary>
+            Gets the default master page for this text document.
+            </summary>
+            <returns>The default master page or null if no one was found.</returns>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextMasterPageCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="!:Cell"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:AODL.Document.Styles.MasterStyles.TextPageFooter">
+            <summary>
+            Summary for TextPageFooter.
+            </summary>
+        </member>
+        <member name="T:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase">
+            <summary>
+            Summary for TextPageHeaderFooterBase.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Styles.MasterStyles.TextPageFooter"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.New(AODL.Document.Styles.MasterStyles.TextMasterPage,System.String)">
+            <summary>
+            Create a new TextPageFooter object.
+            !!NOTICE: The TextPageLayout of the TextMasterPage object must exist!
+            </summary>
+            <param name="textMasterPage">The text master page.</param>
+            <param name="typeName">Name of the type to create header or footer.</param>
+            <remarks>The TextPageLayout of the TextMasterPage object must exist!</remarks>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.Activate">
+            <summary>
+            This method call will activate resp. create the header or footer 
+            for a master page. There is no need of call it directly so its
+            internal. Activation for footer and header will be done through
+            the TextMasterPage object. 
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.TextMasterPage">
+            <summary>
+            Gets or sets the owner text master page.
+            </summary>
+            <value>The text master page.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.TextDocument">
+            <summary>
+            Gets or sets the text document.
+            </summary>
+            <value>The text document.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.PropertyNode">
+            <summary>
+            Gets or sets the property node.
+            </summary>
+            <value>The property node.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.ContentNode">
+            <summary>
+            Gets or sets the content node.
+            </summary>
+            <value>The content node.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.StyleNode">
+            <summary>
+            The XmlNode which represent the page layout style element.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.MinHeight">
+            <summary>
+            Gets or sets the min height. e.g. 0cm 
+            </summary>
+            <value>The height of the min.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.MarginRight">
+            <summary>
+            Gets or sets the margin right. e.g. 0cm
+            </summary>
+            <value>The margin right.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.MarginBottom">
+            <summary>
+            Gets or sets the margin bottom. e.g. 0.499cm
+            </summary>
+            <value>The margin bottom.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.MarginTop">
+            <summary>
+            Gets or sets the margin top. e.g. 0.499cm
+            </summary>
+            <value>The margin bottom.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.MarginLeft">
+            <summary>
+            Gets or sets the margin left. e.g. 0cm
+            </summary>
+            <value>The margin left.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageHeaderFooterBase.ContentCollection">
+            <summary>
+            Gets or sets the content collection.
+            </summary>
+            <value>The content collection.</value>
+            <remarks>This is the content which will be displayed within the footer or the header.</remarks>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageFooter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Styles.MasterStyles.TextPageFooter"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageFooter.New(AODL.Document.Styles.MasterStyles.TextMasterPage)">
+            <summary>
+            Create a new TextPageFooter object within the passed text master page.
+            </summary>
+            <param name="textMasterPage">The text master page.</param>
+        </member>
+        <member name="T:AODL.Document.Styles.MasterStyles.TextPageHeader">
+            <summary>
+            Summary for TextPageHeader.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageHeader.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Styles.MasterStyles.TextPageHeader"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageHeader.New(AODL.Document.Styles.MasterStyles.TextMasterPage)">
+            <summary>
+            Create a new TextPageHeader object within the passed text master page.
+            </summary>
+            <param name="textMasterPage">The text master page.</param>
+        </member>
+        <member name="T:AODL.Document.Styles.MasterStyles.TextPageLayout">
+            <summary>
+            Summary for TextPageLayout.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageLayout.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Styles.MasterStyles.TextPageLayout"/> class.
+            </summary>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageLayout.#ctor(AODL.Document.TextDocuments.TextDocument,System.Xml.XmlNode,System.Xml.XmlNode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AODL.Document.Styles.MasterStyles.TextPageLayout"/> class.
+            </summary>
+            <param name="ownerDocument">The owner document.</param>
+            <param name="styleNode">The style node.</param>
+            <param name="propertyNode">The property node.</param>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageLayout.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Create a XmlAttribute for propertie XmlNode.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="text">The attribute value.</param>
+            <param name="prefix">The namespace prefix.</param>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageLayout.GetContentWidth">
+            <summary>
+            Gets the width of the content.
+            </summary>
+            <value>The width of the content area as double value without the left and right margins. 
+            Notice, that you have to call GetLayoutMeasurement() to find out if 
+            the the document use cm or inch.</value>
+            <remarks>Will return 0 if the width couldn't be calculated.</remarks>
+        </member>
+        <member name="M:AODL.Document.Styles.MasterStyles.TextPageLayout.GetLayoutMeasurement">
+            <summary>
+            Gets the layout measurement.
+            </summary>
+            <returns>True if it's in cm and false if it's in in.</returns>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.PageWidth">
+            <summary>
+            Gets or sets the width of the page.
+            e.g. 20.99 cm (A4)
+            </summary>
+            <value>The width of the page.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.PageHeight">
+            <summary>
+            Gets or sets the height of the page.
+            e.g 29,699cm (A4)
+            </summary>
+            <value>The height of the page.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.PrintOrientation">
+            <summary>
+            Gets or sets the print orientation.
+            e.g portrait, landscape
+            </summary>
+            <value>The print orientation.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.FootnoteMaxHeight">
+            <summary>
+            Gets or sets the height of the footnote max. e.g. 0cm == without limit
+            </summary>
+            <value>The height of the footnote max.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.WritingMode">
+            <summary>
+            Gets or sets the writing mode. e.g. lr-tab
+            </summary>
+            <value>The writing mode.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.NumFormat">
+            <summary>
+            Gets or sets the num format. e.g. 1
+            </summary>
+            <value>The num format.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.MarginTop">
+            <summary>
+            Gets or sets the margin top.
+            e.g. 2cm
+            </summary>
+            <value>The margin top.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.MarginBottom">
+            <summary>
+            Gets or sets the margin bottom. e.g. 2cm
+            </summary>
+            <value>The margin bottom.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.MarginLeft">
+            <summary>
+            Gets or sets the margin left. e.g. 2cm
+            </summary>
+            <value>The margin left.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.MarginRight">
+            <summary>
+            Gets or sets the margin right. e.g. 2cm
+            </summary>
+            <value>The margin right.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.TextDocument">
+            <summary>
+            Gets or sets the text document.
+            </summary>
+            <value>The text document.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.PropertyNode">
+            <summary>
+            The XmlNode which represent the page layout property element.
+            </summary>
+            <value>The node</value>
+        </member>
+        <member name="P:AODL.Document.Styles.MasterStyles.TextPageLayout.StyleNode">
+            <summary>
+            The XmlNode which represent the page layout style element.
+            </summary>
+            <value>The node</value>
+        </member>
         <member name="T:AODL.Document.Styles.Properties.CellProperties">
             <summary>
             Represent the Cell Properties within a Cell which is used
@@ -6607,6 +7150,34 @@
             Gets or sets the frame style.
             </summary>
             <value>The frame style.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.GraphicProperties.MarginLeft">
+            <summary>
+            Gets or sets the margin to the left.
+            (distance bewteen image and surrounding text)
+            </summary>
+            <value>The distance e.g 0.3cm.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.GraphicProperties.MarginRight">
+            <summary>
+            Gets or sets the margin to the right.
+            (distance bewteen image and surrounding text)
+            </summary>
+            <value>The distance e.g 0.3cm.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.GraphicProperties.MarginTop">
+            <summary>
+            Gets or sets the margin to the top.
+            (distance bewteen image and surrounding text)
+            </summary>
+            <value>The distance e.g 0.3cm.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.GraphicProperties.MarginBottom">
+            <summary>
+            Gets or sets the margin to the bottom.
+            (distance bewteen image and surrounding text)
+            </summary>
+            <value>The distance e.g 0.3cm.</value>
         </member>
         <member name="P:AODL.Document.Styles.Properties.GraphicProperties.HorizontalPosition">
             <summary>
@@ -6847,6 +7418,14 @@
             Gets or sets the break before.
             e.g. set this to "page" if this paragraph
             should be start on the next page.
+            </summary>
+            <value>The break before.</value>
+        </member>
+        <member name="P:AODL.Document.Styles.Properties.ParagraphProperties.BreakAfter">
+            <summary>
+            Gets or sets the break after.
+            e.g. set this to "page" if after this paragraph
+            should be added a new page.
             </summary>
             <value>The break before.</value>
         </member>

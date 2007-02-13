@@ -1,5 +1,6 @@
 using System;
 using AODL.ExternalExporter.PDF.Document.StyleConverter;
+using AODL.ExternalExporter.PDF.Document.iTextExt;
 using AODL.Document.Content.Text;
 using AODL.Document.Styles;
 using AODL.Document.Styles.Properties;
@@ -36,7 +37,7 @@ namespace AODL.ExternalExporter.PDF.Document.ContentConverter
 				else
 					font = DefaultDocumentStyles.Instance().DefaultTextFont;
 
-				iTextSharp.text.Paragraph paragraphPDF = new iTextSharp.text.Paragraph("", font);				
+				ParagraphExt paragraphPDF = new ParagraphExt("", font);				
 				foreach(object obj in paragraph.MixedContent)
 				{
 					if(obj is AODL.Document.Content.Text.FormatedText)
@@ -59,6 +60,18 @@ namespace AODL.ExternalExporter.PDF.Document.ContentConverter
 						paragraphPDF.Add(SimpleTextConverter.ConvertWhiteSpaces(
 							obj as AODL.Document.Content.Text.TextControl.WhiteSpace, font));
 					}
+					else if(obj is AODL.Document.Content.Draw.Frame)
+					{
+						DrawFrameConverter dfc = new DrawFrameConverter();
+						paragraphPDF.Add(dfc.Convert(
+							obj as AODL.Document.Content.Draw.Frame));
+					}
+					else if(obj is AODL.Document.Content.Draw.Graphic)
+					{
+						ImageConverter ic = new ImageConverter();
+						paragraphPDF.Add(ic.Convert(
+							obj as AODL.Document.Content.Draw.Graphic));
+					}
 				}
 				paragraphPDF = ParagraphConverter.ConvertParagraphStyles(paragraph, paragraphPDF);
 				// add new line
@@ -77,9 +90,9 @@ namespace AODL.ExternalExporter.PDF.Document.ContentConverter
 		/// <param name="paragraph">The paragraph.</param>
 		/// <param name="paragraphPDF">The paragraph PDF.</param>
 		/// <returns>The iText paragraph with converted styles</returns>
-		public static iTextSharp.text.Paragraph ConvertParagraphStyles(
+		public static ParagraphExt ConvertParagraphStyles(
 			AODL.Document.Content.Text.Paragraph paragraph, 
-			iTextSharp.text.Paragraph paragraphPDF)
+			ParagraphExt paragraphPDF)
 		{
 			try
 			{
@@ -90,6 +103,24 @@ namespace AODL.ExternalExporter.PDF.Document.ContentConverter
 					{
 						paragraphPDF.Alignment = (ParagraphPropertyConverter.GetAlignMent(
 							((ParagraphStyle)paragraph.Style).ParagraphProperties.Alignment));
+						
+					}
+
+					if(paragraph.Style is ParagraphStyle 
+						&& ((ParagraphStyle)paragraph.Style).ParagraphProperties != null
+						&& ((ParagraphStyle)paragraph.Style).ParagraphProperties.BreakAfter != null
+						&& ((ParagraphStyle)paragraph.Style).ParagraphProperties.BreakAfter.ToLower() == "page")
+					{
+						paragraphPDF.PageBreakAfter = true;
+						
+					}
+
+					if(paragraph.Style is ParagraphStyle 
+						&& ((ParagraphStyle)paragraph.Style).ParagraphProperties != null
+						&& ((ParagraphStyle)paragraph.Style).ParagraphProperties.BreakBefore != null
+						&& ((ParagraphStyle)paragraph.Style).ParagraphProperties.BreakBefore.ToLower() == "page")
+					{
+						paragraphPDF.PageBreakBefore = true;
 						
 					}
 				}

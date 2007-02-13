@@ -1,5 +1,5 @@
 /*
- * $Id: ParagraphProperties.cs,v 1.3 2006/02/16 18:35:41 larsbm Exp $
+ * $Id: ParagraphProperties.cs,v 1.4 2007/02/13 17:58:49 larsbm Exp $
  */
 
 /*
@@ -82,6 +82,33 @@ namespace AODL.Document.Styles.Properties
 				if(xn == null)
 					this.CreateAttribute("break-before", value, "fo");
 				this._node.SelectSingleNode("@fo:break-before",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the break after.
+		/// e.g. set this to "page" if after this paragraph
+		/// should be added a new page.
+		/// </summary>
+		/// <value>The break before.</value>
+		public string BreakAfter
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:break-after", 
+					this.Style.Document.NamespaceManager) ;
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:break-after",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("break-after", value, "fo");
+				this._node.SelectSingleNode("@fo:break-after",
 					this.Style.Document.NamespaceManager).InnerText = value;
 			}
 		}
@@ -369,6 +396,10 @@ namespace AODL.Document.Styles.Properties
 
 /*
  * $Log: ParagraphProperties.cs,v $
+ * Revision 1.4  2007/02/13 17:58:49  larsbm
+ * - add first part of implementation of master style pages
+ * - pdf exporter conversations for tables and images and added measurement helper
+ *
  * Revision 1.3  2006/02/16 18:35:41  larsbm
  * - Add FrameBuilder class
  * - TextSequence implementation (Todo loading!)

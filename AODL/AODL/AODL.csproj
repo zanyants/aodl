@@ -579,6 +579,41 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Document\Styles\MasterStyles\MasterPageFactory.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Styles\MasterStyles\TextMasterPage.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Styles\MasterStyles\TextMasterPageCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Styles\MasterStyles\TextPageFooter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Styles\MasterStyles\TextPageHeader.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Styles\MasterStyles\TextPageHeaderFooterBase.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Styles\MasterStyles\TextPageLayout.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Document\Styles\Properties\CellProperties.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

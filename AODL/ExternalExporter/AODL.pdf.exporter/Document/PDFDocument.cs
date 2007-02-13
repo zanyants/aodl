@@ -48,7 +48,13 @@ namespace AODL.ExternalExporter.PDF.Document
 				ArrayList pdfElements = MixedContentConverter.GetMixedPdfContent(document.Content);
 				foreach(object pdfElement in pdfElements)
 				{
+					if(pdfElement is AODL.ExternalExporter.PDF.Document.iTextExt.ParagraphExt
+						&& ((AODL.ExternalExporter.PDF.Document.iTextExt.ParagraphExt)pdfElement).PageBreakBefore)
+							this._document.NewPage();
 					this._document.Add(pdfElement as iTextSharp.text.IElement);
+					if(pdfElement is AODL.ExternalExporter.PDF.Document.iTextExt.ParagraphExt
+						&& ((AODL.ExternalExporter.PDF.Document.iTextExt.ParagraphExt)pdfElement).PageBreakAfter)
+						this._document.NewPage();
 				}
 
 				this._document.Close();

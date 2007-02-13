@@ -1,13 +1,19 @@
-$Id: ChangeLog.txt,v 1.19 2007/02/04 22:52:58 larsbm Exp $
+$Id: ChangeLog.txt,v 1.20 2007/02/13 17:58:49 larsbm Exp $
 
 -------------------------------------------------------------
 AODL 1.2.0.2 beta
 
 Changes and new features
-- Bugfix for wrong algorythm InsertCellAt 
+- Bugfix for wrong algorythm InsertCellAt
+- Bugfix wrong path seperator in GraphicsRealPath (linux only)
 - Extending of the IDocument interfaces
   Method SaveTo now overloaded and a external exporter
   implementation can be passed
+- Extended DrawFrame properties now also available DPIX,DPIY, original width and height in px
+  (necessary for layout handling)
+- Extended Graphic properties now also available margins to set and get the distance to 
+  surrounding text
+- Extended Paragraph properties now also available break-after, next content on new page ...
 
 -------------------------------------------------------------
 AODL 1.2.0.1 beta

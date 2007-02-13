@@ -1,5 +1,5 @@
 /*
- * $Id: DocumentStyles.cs,v 1.2 2006/02/21 19:34:56 larsbm Exp $
+ * $Id: DocumentStyles.cs,v 1.3 2007/02/13 17:58:49 larsbm Exp $
  */
 
 /*
@@ -21,7 +21,9 @@ using System.Reflection;
 using System.IO;
 using AODL.Document.Content.Text;
 using AODL.Document.Styles;
+using AODL.Document.Styles.MasterStyles;
 using AODL.Document;
+using AODL.Document.TextDocuments;
 
 namespace AODL.Document.TextDocuments
 {
@@ -50,6 +52,29 @@ namespace AODL.Document.TextDocuments
 			set { this._styles = value; }
 		}
 
+		private TextDocument _textDocument;
+		/// <summary>
+		/// Gets or sets the text document.
+		/// </summary>
+		/// <value>The text document.</value>
+		public TextDocument TextDocument
+		{
+			get { return this._textDocument; }
+			set { this._textDocument = value; }
+		}
+
+		private TextMasterPageCollection _textMasterPageCollection;
+		/// <summary>
+		/// Gets or sets the text master page collection.
+		/// </summary>
+		/// <value>The text master page collection.</value>
+		public TextMasterPageCollection TextMasterPageCollection
+		{
+			get { return this._textMasterPageCollection; }
+			set { this._textMasterPageCollection = value; }
+		}
+
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DocumentStyles"/> class.
 		/// </summary>
@@ -68,6 +93,24 @@ namespace AODL.Document.TextDocuments
 				Stream str			= ass.GetManifestResourceStream("AODL.Resources.OD.styles.xml");
 				this.Styles			= new XmlDocument();
 				this.Styles.Load(str);
+				MasterPageFactory.FillFromXMLDocument(this.TextDocument);
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Create new document styles document and set the owner text document.
+		/// </summary>
+		/// <param name="ownerTextDocument">The owner text document.</param>
+		public virtual void New(TextDocument ownerTextDocument)
+		{
+			try
+			{
+				this._textDocument = ownerTextDocument;
+				this.New();
 			}
 			catch(Exception ex)
 			{
@@ -93,7 +136,7 @@ namespace AODL.Document.TextDocuments
 		}
 
 		/// <summary>
-		/// Inserts the office styles node.
+		/// Inserts a office styles node.
 		/// </summary>
 		/// <param name="aStyleNode">A style node.</param>
 		/// <param name="document">The AODL document.</param>
@@ -101,6 +144,39 @@ namespace AODL.Document.TextDocuments
 		{
 			this.Styles.SelectSingleNode("//office:styles",
 				document.NamespaceManager).AppendChild(aStyleNode);
+		}
+
+		/// <summary>
+		/// Inserts the office styles node into this XML style document.
+		/// </summary>
+		/// <param name="aStyleNode">A style node.</param>
+		/// <param name="xmlNamespaceMng">The XML namespace MNG.</param>
+		public virtual void InsertOfficeStylesNode(XmlNode aStyleNode, XmlNamespaceManager xmlNamespaceMng)
+		{
+			this.Styles.SelectSingleNode("//office:styles",
+				xmlNamespaceMng).AppendChild(aStyleNode);
+		}
+
+		/// <summary>
+		/// Inserts the office automatic styles node into this XML style document.
+		/// </summary>
+		/// <param name="aOfficeAutomaticStyleNode">A office automatic style node.</param>
+		/// <param name="xmlNamespaceMng">The XML namespace MNG.</param>
+		public virtual void InsertOfficeAutomaticStylesNode(XmlNode aOfficeAutomaticStyleNode, XmlNamespaceManager xmlNamespaceMng)
+		{
+			this.Styles.SelectSingleNode("//office:automatic-styles",
+				xmlNamespaceMng).AppendChild(aOfficeAutomaticStyleNode);
+		}
+
+		/// <summary>
+		/// Inserts the office master styles node into this XML style document.
+		/// </summary>
+		/// <param name="aOfficeMasterStyleNode">A office master style node.</param>
+		/// <param name="xmlNamespaceMng">The XML namespace MNG.</param>
+		public virtual void InsertOfficeMasterStylesNode(XmlNode aOfficeMasterStyleNode, XmlNamespaceManager xmlNamespaceMng)
+		{
+			this.Styles.SelectSingleNode("//office:master-styles",
+				xmlNamespaceMng).AppendChild(aOfficeMasterStyleNode);
 		}
 
 		/// <summary>
@@ -308,7 +384,7 @@ namespace AODL.Document.TextDocuments
 		/// <param name="prefix">The prefix.</param>
 		/// <param name="document">The prefix.</param>
 		/// <returns>The XmlNode</returns>
-		private XmlNode CreateNode(string name, string prefix, TextDocument document)
+		public XmlNode CreateNode(string name, string prefix, TextDocument document)
 		{
 			try
 			{
@@ -325,6 +401,10 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: DocumentStyles.cs,v $
+ * Revision 1.3  2007/02/13 17:58:49  larsbm
+ * - add first part of implementation of master style pages
+ * - pdf exporter conversations for tables and images and added measurement helper
+ *
  * Revision 1.2  2006/02/21 19:34:56  larsbm
  * - Fixed Bug text that contains a xml tag will be imported  as UnknowText and not correct displayed if document is exported  as HTML.
  * - Fixed Bug [ 1436080 ] Common styles

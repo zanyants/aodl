@@ -1,5 +1,5 @@
 /*
- * $Id: MainContentProcessor.cs,v 1.5 2006/02/16 18:35:41 larsbm Exp $
+ * $Id: MainContentProcessor.cs,v 1.6 2007/02/13 17:58:48 larsbm Exp $
  */
 
 /*
@@ -77,8 +77,8 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		{
 			try
 			{
-//				this._document.XmlDoc	= new XmlDocument();
-//				this._document.XmlDoc.Load(contentFile);
+				//				this._document.XmlDoc	= new XmlDocument();
+				//				this._document.XmlDoc.Load(contentFile);
 
 				XmlNode node				= null;
 
@@ -294,9 +294,9 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 					paragraph.Style				= paragraphStyle;
 				}
 				else if(paragraph.StyleName != "Standard" 
-						&& paragraph.StyleName != "Table_20_Contents"
-						&& paragraph.StyleName != "Text_20_body"
-						&& this._document is TextDocument)
+					&& paragraph.StyleName != "Table_20_Contents"
+					&& paragraph.StyleName != "Text_20_body"
+					&& this._document is TextDocument)
 				{
 					//Check if it's a user defined style
 					IStyle commonStyle			= this._document.CommonStyles.GetStyleByName(paragraph.StyleName);
@@ -456,24 +456,24 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			try
 			{
 				#region Old code Todo: delete
-//				XmlNode node			= headernode.SelectSingleNode("//@text:style-name", this._document.NamespaceManager);
-//				if(node != null)
-//				{
-//					if(!node.InnerText.StartsWith("Heading"))
-//					{
-//						//Check if a the referenced paragraphstyle reference a heading as parentstyle
-//						XmlNode stylenode	= this._document.XmlDoc.SelectSingleNode("//style:style[@style:name='"+node.InnerText+"']", this._document.NamespaceManager);
-//						if(stylenode != null)
-//						{
-//							XmlNode parentstyle	= stylenode.SelectSingleNode("@style:parent-style-name",
-//								this._document.NamespaceManager);
-//							if(parentstyle != null)
-//								if(parentstyle.InnerText.StartsWith("Heading"))
-//									headernode.SelectSingleNode("@text:style-name", 
-//										this._document.NamespaceManager).InnerText = parentstyle.InnerText;
-//						}
-//					}
-//				}
+				//				XmlNode node			= headernode.SelectSingleNode("//@text:style-name", this._document.NamespaceManager);
+				//				if(node != null)
+				//				{
+				//					if(!node.InnerText.StartsWith("Heading"))
+				//					{
+				//						//Check if a the referenced paragraphstyle reference a heading as parentstyle
+				//						XmlNode stylenode	= this._document.XmlDoc.SelectSingleNode("//style:style[@style:name='"+node.InnerText+"']", this._document.NamespaceManager);
+				//						if(stylenode != null)
+				//						{
+				//							XmlNode parentstyle	= stylenode.SelectSingleNode("@style:parent-style-name",
+				//								this._document.NamespaceManager);
+				//							if(parentstyle != null)
+				//								if(parentstyle.InnerText.StartsWith("Heading"))
+				//									headernode.SelectSingleNode("@text:style-name", 
+				//										this._document.NamespaceManager).InnerText = parentstyle.InnerText;
+				//						}
+				//					}
+				//				}
 				#endregion
 				if(this._debugMode)
 					this.LogNode(headernode, "Log header node before");
@@ -544,7 +544,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			{
 				Graphic graphic				= new Graphic(this._document, null, null);
 				graphic.Node				= graphicnode;
-				graphic.GraphicRealPath		= OpenDocumentImporter.dir+graphic.HRef.Replace("/",@"\");
+				graphic.GraphicRealPath		= Path.Combine(OpenDocumentImporter.dir,graphic.HRef);
 
 				return graphic;
 			}
@@ -792,66 +792,66 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			try
 			{
 				#region Old code Todo: delete
-//				Frame frame					= null;
-//				XmlNode graphicnode			= null;
-//				XmlNode graphicproperties	= null;
-//				string realgraphicname		= "";
-//				string stylename			= "";
-//				stylename					= this.GetStyleName(framenode.OuterXml);
-//				XmlNode stylenode			= this.GetAStyleNode("style:style", stylename);
-//				realgraphicname				= this.GetAValueFromAnAttribute(framenode, "@draw:name");				
-//
-//				//Console.WriteLine("frame: {0}", framenode.OuterXml);
-//
-//				//Up to now, the only sopported, inner content of a frame is a graphic
-//				if(framenode.ChildNodes.Count > 0)
-//					if(framenode.ChildNodes.Item(0).OuterXml.StartsWith("<draw:image"))
-//						graphicnode			= framenode.ChildNodes.Item(0).CloneNode(true);
-//
-//				//If not graphic, it could be text-box, ole or something else
-//				//try to find graphic frame inside
-//				if(graphicnode == null)
-//				{
-//					XmlNode child		= framenode.SelectSingleNode("//draw:frame", this._document.NamespaceManager);
-//					if(child != null)
-//						frame		= this.CreateFrame(child);
-//					return frame;
-//				}
-//
-//				string graphicpath			= this.GetAValueFromAnAttribute(graphicnode, "@xlink:href");
-//
-//				if(stylenode != null)
-//					if(stylenode.ChildNodes.Count > 0)
-//						if(stylenode.ChildNodes.Item(0).OuterXml.StartsWith("<style:graphic-properties"))
-//							graphicproperties	= stylenode.ChildNodes.Item(0).CloneNode(true);
-//
-//				if(stylename.Length > 0 && stylenode != null && realgraphicname.Length > 0
-//					&& graphicnode != null && graphicpath.Length > 0 && graphicproperties != null)
-//				{
-//					graphicpath				= graphicpath.Replace("Pictures", "");
-//					graphicpath				= OpenDocumentTextImporter.dirpics+graphicpath.Replace("/", @"\");
-//
-//					frame					= new Frame(this._document, stylename, 
-//												realgraphicname, graphicpath);
-//					
-//					frame.Style.Node		= stylenode;
-//					frame.Graphic.Node		= graphicnode;
-//					((FrameStyle)frame.Style).GraphicProperties.Node = graphicproperties;
-//
-//					XmlNode nodeSize		= framenode.SelectSingleNode("@svg:height", 
-//						this._document.NamespaceManager);
-//
-//					if(nodeSize != null)
-//						if(nodeSize.InnerText != null)
-//							frame.GraphicHeight	= nodeSize.InnerText;
-//
-//					nodeSize		= framenode.SelectSingleNode("@svg:width", 
-//						this._document.NamespaceManager);
-//
-//					if(nodeSize != null)
-//						if(nodeSize.InnerText != null)
-//							frame.GraphicWidth	= nodeSize.InnerText;
-//				}
+				//				Frame frame					= null;
+				//				XmlNode graphicnode			= null;
+				//				XmlNode graphicproperties	= null;
+				//				string realgraphicname		= "";
+				//				string stylename			= "";
+				//				stylename					= this.GetStyleName(framenode.OuterXml);
+				//				XmlNode stylenode			= this.GetAStyleNode("style:style", stylename);
+				//				realgraphicname				= this.GetAValueFromAnAttribute(framenode, "@draw:name");				
+				//
+				//				//Console.WriteLine("frame: {0}", framenode.OuterXml);
+				//
+				//				//Up to now, the only sopported, inner content of a frame is a graphic
+				//				if(framenode.ChildNodes.Count > 0)
+				//					if(framenode.ChildNodes.Item(0).OuterXml.StartsWith("<draw:image"))
+				//						graphicnode			= framenode.ChildNodes.Item(0).CloneNode(true);
+				//
+				//				//If not graphic, it could be text-box, ole or something else
+				//				//try to find graphic frame inside
+				//				if(graphicnode == null)
+				//				{
+				//					XmlNode child		= framenode.SelectSingleNode("//draw:frame", this._document.NamespaceManager);
+				//					if(child != null)
+				//						frame		= this.CreateFrame(child);
+				//					return frame;
+				//				}
+				//
+				//				string graphicpath			= this.GetAValueFromAnAttribute(graphicnode, "@xlink:href");
+				//
+				//				if(stylenode != null)
+				//					if(stylenode.ChildNodes.Count > 0)
+				//						if(stylenode.ChildNodes.Item(0).OuterXml.StartsWith("<style:graphic-properties"))
+				//							graphicproperties	= stylenode.ChildNodes.Item(0).CloneNode(true);
+				//
+				//				if(stylename.Length > 0 && stylenode != null && realgraphicname.Length > 0
+				//					&& graphicnode != null && graphicpath.Length > 0 && graphicproperties != null)
+				//				{
+				//					graphicpath				= graphicpath.Replace("Pictures", "");
+				//					graphicpath				= OpenDocumentTextImporter.dirpics+graphicpath.Replace("/", @"\");
+				//
+				//					frame					= new Frame(this._document, stylename, 
+				//												realgraphicname, graphicpath);
+				//					
+				//					frame.Style.Node		= stylenode;
+				//					frame.Graphic.Node		= graphicnode;
+				//					((FrameStyle)frame.Style).GraphicProperties.Node = graphicproperties;
+				//
+				//					XmlNode nodeSize		= framenode.SelectSingleNode("@svg:height", 
+				//						this._document.NamespaceManager);
+				//
+				//					if(nodeSize != null)
+				//						if(nodeSize.InnerText != null)
+				//							frame.GraphicHeight	= nodeSize.InnerText;
+				//
+				//					nodeSize		= framenode.SelectSingleNode("@svg:width", 
+				//						this._document.NamespaceManager);
+				//
+				//					if(nodeSize != null)
+				//						if(nodeSize.InnerText != null)
+				//							frame.GraphicWidth	= nodeSize.InnerText;
+				//				}
 				#endregion
 				
 				//Create a new Frame
@@ -895,7 +895,13 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 				frame.Node.InnerXml					= "";
 
 				foreach(IContent iContent in iColl)
+				{
 					frame.Content.Add(iContent);
+					if(iContent is Graphic)
+					{
+						frame.LoadImageFromFile(((Graphic)iContent).GraphicRealPath);
+					}
+				}
 
 				return frame;
 			}
@@ -920,30 +926,30 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 			try
 			{
 				#region Old code Todo: delete
-//				string stylename				= null;
-//				XmlNode	stylenode				= null;
-//				ListStyles liststyles			= ListStyles.Bullet; //as default
-//				string paragraphstylename		= null;
-//
-//				if(outerlist == null)
-//				{
-//					stylename			= this.GetStyleName(listNode.OuterXml);
-//					stylenode			= this.GetAStyleNode("text:list-style", stylename);				
-//					liststyles			= this.GetListStyle(listNode);					
-//				}
-//				List list					= null;
-//
-//				if(listNode.ChildNodes.Count > 0)
-//				{
-//					try
-//					{
-//						paragraphstylename	= this.GetAValueFromAnAttribute(listNode.ChildNodes.Item(0).ChildNodes.Item(0), "@style:style-name");
-//					}
-//					catch(Exception ex)
-//					{
-//						paragraphstylename	= "P1";
-//					}
-//				}
+				//				string stylename				= null;
+				//				XmlNode	stylenode				= null;
+				//				ListStyles liststyles			= ListStyles.Bullet; //as default
+				//				string paragraphstylename		= null;
+				//
+				//				if(outerlist == null)
+				//				{
+				//					stylename			= this.GetStyleName(listNode.OuterXml);
+				//					stylenode			= this.GetAStyleNode("text:list-style", stylename);				
+				//					liststyles			= this.GetListStyle(listNode);					
+				//				}
+				//				List list					= null;
+				//
+				//				if(listNode.ChildNodes.Count > 0)
+				//				{
+				//					try
+				//					{
+				//						paragraphstylename	= this.GetAValueFromAnAttribute(listNode.ChildNodes.Item(0).ChildNodes.Item(0), "@style:style-name");
+				//					}
+				//					catch(Exception ex)
+				//					{
+				//						paragraphstylename	= "P1";
+				//					}
+				//				}
 				#endregion
 				//Create a new List
 				List list					= new List(this._document, listNode);
@@ -1470,6 +1476,10 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 //AODLTest.DocumentImportTest.SimpleLoadTest : System.IO.DirectoryNotFoundException : Could not find a part of the path "D:\OpenDocument\AODL\AODLTest\bin\Debug\GeneratedFiles\OpenOffice.net.odt.rel.odt".
 /*
  * $Log: MainContentProcessor.cs,v $
+ * Revision 1.6  2007/02/13 17:58:48  larsbm
+ * - add first part of implementation of master style pages
+ * - pdf exporter conversations for tables and images and added measurement helper
+ *
  * Revision 1.5  2006/02/16 18:35:41  larsbm
  * - Add FrameBuilder class
  * - TextSequence implementation (Todo loading!)

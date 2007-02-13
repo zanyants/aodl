@@ -114,12 +114,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Document\ContentConverter\DrawFrameConverter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Document\ContentConverter\FormatedTextConverter.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Document\ContentConverter\HeadingConverter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\ContentConverter\ImageConverter.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -140,6 +150,21 @@
                 />
                 <File
                     RelPath = "Document\ContentConverter\TableConverter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\ContentConverter\TableLayoutInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\Helper\MeasurementHelper.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Document\iTextExt\ParagraphExt.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

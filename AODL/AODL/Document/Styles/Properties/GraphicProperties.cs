@@ -1,5 +1,5 @@
 /*
- * $Id: GraphicProperties.cs,v 1.3 2006/02/16 18:35:41 larsbm Exp $
+ * $Id: GraphicProperties.cs,v 1.4 2007/02/13 17:58:49 larsbm Exp $
  */
 
 /*
@@ -37,6 +37,110 @@ namespace AODL.Document.Styles.Properties
 			set { this.Style = (IStyle)value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the margin to the left.
+		/// (distance bewteen image and surrounding text)
+		/// </summary>
+		/// <value>The distance e.g 0.3cm.</value>
+		public string MarginLeft
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-left",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-left",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("margin-left", value, "fo");
+				this._node.SelectSingleNode("@fo:margin-left",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the margin to the right.
+		/// (distance bewteen image and surrounding text)
+		/// </summary>
+		/// <value>The distance e.g 0.3cm.</value>
+		public string MarginRight
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-right",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-right",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("margin-right", value, "fo");
+				this._node.SelectSingleNode("@fo:margin-right",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the margin to the top.
+		/// (distance bewteen image and surrounding text)
+		/// </summary>
+		/// <value>The distance e.g 0.3cm.</value>
+		public string MarginTop
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-top",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-top",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("margin-top", value, "fo");
+				this._node.SelectSingleNode("@fo:margin-top",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the margin to the bottom.
+		/// (distance bewteen image and surrounding text)
+		/// </summary>
+		/// <value>The distance e.g 0.3cm.</value>
+		public string MarginBottom
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-bottom",
+					this.Style.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@fo:margin-bottom",
+					this.Style.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("margin-bottom", value, "fo");
+				this._node.SelectSingleNode("@fo:margin-bottom",
+					this.Style.Document.NamespaceManager).InnerText = value;
+			}
+		}
+		
 		/// <summary>
 		/// Gets or sets the horizontal position. e.g center, from-left, right
 		/// </summary>
@@ -501,6 +605,10 @@ namespace AODL.Document.Styles.Properties
 
 /*
  * $Log: GraphicProperties.cs,v $
+ * Revision 1.4  2007/02/13 17:58:49  larsbm
+ * - add first part of implementation of master style pages
+ * - pdf exporter conversations for tables and images and added measurement helper
+ *
  * Revision 1.3  2006/02/16 18:35:41  larsbm
  * - Add FrameBuilder class
  * - TextSequence implementation (Todo loading!)

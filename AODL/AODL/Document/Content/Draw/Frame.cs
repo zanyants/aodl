@@ -1,5 +1,5 @@
 /*
- * $Id: Frame.cs,v 1.5 2006/05/02 17:37:16 larsbm Exp $
+ * $Id: Frame.cs,v 1.6 2007/02/13 17:58:47 larsbm Exp $
  */
 
 /*
@@ -61,6 +61,77 @@ namespace AODL.Document.Content.Draw
 		{
 			get { return this._graphicSourcePath; }
 			set { this._graphicSourcePath = value; }
+		}
+
+		private int _heightInPixel;
+		/// <summary>
+		/// Gets the image height in pixel.
+		/// </summary>
+		/// <value>The height in pixel.</value>
+		public int HeightInPixel
+		{
+			get { return this._heightInPixel; }
+		}
+
+		private int _widthInPixel;
+		/// <summary>
+		/// Gets the image width in pixel.
+		/// </summary>
+		/// <value>The width in pixel.</value>
+		public int WidthInPixel
+		{
+			get { return this._widthInPixel; }
+		}
+
+		private double _height;
+		/// <summary>
+		/// Gets the frame height in cm or inch depending on which format is used in the current document.
+		/// </summary>
+		/// <value>The height.</value>
+		public double Height
+		{
+			get { return this._height; }
+		}
+
+		private double _width;
+		/// <summary>
+		/// Gets the frame width in cm or inch depending on which format is used in the current document.
+		/// </summary>
+		/// <value>The height.</value>
+		public double Width
+		{
+			get { return this._width; }
+		}
+
+		private string _measurementFormat;
+		/// <summary>
+		/// Gets the measurement format. This will depent on the current document.
+		/// Possible values are cm or in (inch).
+		/// </summary>
+		/// <value>The measurement format.</value>
+		public string MeasurementFormat
+		{
+			get { return this._measurementFormat; }
+		}
+
+		private int _dPI_Y;
+		/// <summary>
+		/// Gets the image vertical resulotion.
+		/// </summary>
+		/// <value>The vertical resulotion.</value>
+		public int DPI_Y
+		{
+			get { return this._dPI_Y; }
+		}
+
+		private int _dPI_X;
+		/// <summary>
+		/// Gets the image horizontal resulotion.
+		/// </summary>
+		/// <value>The horízontal resulotion.</value>
+		public int DPI_X
+		{
+			get { return this._dPI_X; }
 		}
 
 		/// <summary>
@@ -272,7 +343,7 @@ namespace AODL.Document.Content.Draw
 				this.Style				= (IStyle)new FrameStyle(this.Document, stylename);
 				this.StyleName			= stylename;
 				this.Document.Styles.Add(this.Style);
-			}
+			}			
 		}
 
 		/// <summary>
@@ -289,7 +360,7 @@ namespace AODL.Document.Content.Draw
 			this.InitStandards();
 
 			this.StyleName			= stylename;
-//			this.AnchorType			= "paragraph";
+			//			this.AnchorType			= "paragraph";
 
 			this.DrawName			= drawName;
 			this.GraphicSourcePath	= graphicfile;
@@ -341,16 +412,41 @@ namespace AODL.Document.Content.Draw
 		/// Loads the image from file.
 		/// </summary>
 		/// <param name="graphicfilename">The graphicfilename.</param>
-		private string LoadImageFromFile(string graphicfilename)
+		public string LoadImageFromFile(string graphicfilename)
 		{
 			try
 			{
-				double pxtocm		= 37.7928; //TODO: Check ! px to cm
 				Image image			= Image.FromFile(graphicfilename);
-				double pixelheight	= Convert.ToDouble(image.Height)/pxtocm;
-				double pixelweidth	= Convert.ToDouble(image.Width)/pxtocm;
-				this.SvgHeight		= pixelheight.ToString("F3").Replace(",",".")+"cm";
-				this.SvgWidth		= pixelweidth.ToString("F3").Replace(",",".")+"cm";
+				Graphics graphics   = Graphics.FromImage(image);
+				this._widthInPixel  = image.Width;
+				this._heightInPixel = image.Height;
+				this._dPI_X			= (int)graphics.DpiX;
+				this._dPI_Y			= (int)graphics.DpiY;
+				this._measurementFormat = "cm";
+				this._width		= AODL.Document.Helper.SizeConverter.GetWidthInCm(image.Width, this._dPI_X);
+				this._height	= AODL.Document.Helper.SizeConverter.GetHeightInCm(image.Height, this._dPI_Y);
+				if(this.SvgHeight == null && this.SvgWidth == null)
+				{
+					this.SvgHeight	= this._height.ToString("F3")+ this._measurementFormat;
+					if(this.SvgHeight.IndexOf(",", 0)  > -1)
+						this.SvgHeight = this.SvgHeight.Replace(",",".");
+					this.SvgWidth	= this._width.ToString("F3")+ this._measurementFormat;
+					if(this.SvgWidth.IndexOf(",", 0)  > -1)
+						this.SvgWidth = this.SvgWidth.Replace(",",".");
+				}
+				else
+				{
+					// This should only reached, if the file is loading by a importer.
+					if(AODL.Document.Helper.SizeConverter.IsCm(this.SvgWidth))
+					{
+						this._measurementFormat = "cm";
+					}
+					else
+					{
+						this._measurementFormat = "in";
+					}
+				}
+				graphics.Dispose();
 				image.Dispose();
 
 				return new FileInfo(graphicfilename).Name;
@@ -469,24 +565,24 @@ namespace AODL.Document.Content.Draw
 		#endregion
 
 		#region IHtml Member
-//
-//		/// <summary>
-//		/// Return the content as Html string
-//		/// </summary>
-//		/// <returns>The html string</returns>
-//		public string GetHtml()
-//		{
-//			string html			= "";
-//			if(this.Content.Count > 0)
-//				if(this.Content[0] is Graphic)
-//					html			= ((Graphic)this.Content[0]).GetHtml();
-//
-//			foreach(IContent content in this.Content)
-//				if(content is IHtml)
-//					html		+= ((IHtml)content).GetHtml();
-//
-//			return html;
-//		}
+		//
+		//		/// <summary>
+		//		/// Return the content as Html string
+		//		/// </summary>
+		//		/// <returns>The html string</returns>
+		//		public string GetHtml()
+		//		{
+		//			string html			= "";
+		//			if(this.Content.Count > 0)
+		//				if(this.Content[0] is Graphic)
+		//					html			= ((Graphic)this.Content[0]).GetHtml();
+		//
+		//			foreach(IContent content in this.Content)
+		//				if(content is IHtml)
+		//					html		+= ((IHtml)content).GetHtml();
+		//
+		//			return html;
+		//		}
 
 		#endregion
 
@@ -516,6 +612,10 @@ namespace AODL.Document.Content.Draw
 
 /*
  * $Log: Frame.cs,v $
+ * Revision 1.6  2007/02/13 17:58:47  larsbm
+ * - add first part of implementation of master style pages
+ * - pdf exporter conversations for tables and images and added measurement helper
+ *
  * Revision 1.5  2006/05/02 17:37:16  larsbm
  * - Flag added graphics with guid
  * - Set guid based read and write directories

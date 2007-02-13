@@ -1,5 +1,5 @@
 /*
- * $Id: TextDocument.cs,v 1.6 2007/02/04 22:52:58 larsbm Exp $
+ * $Id: TextDocument.cs,v 1.7 2007/02/13 17:58:49 larsbm Exp $
  */
 
 /*
@@ -292,7 +292,7 @@ namespace AODL.Document.TextDocuments
 			this.DocumentSetting.New();
 
 			this.DocumentStyles				= new DocumentStyles();
-			this.DocumentStyles.New();
+			this.DocumentStyles.New(this);
 			this.ReadCommonStyles();
 
 			this.DocumentThumbnails			= new DocumentPictureCollection();
@@ -867,6 +867,10 @@ namespace AODL.Document.TextDocuments
 
 /*
  * $Log: TextDocument.cs,v $
+ * Revision 1.7  2007/02/13 17:58:49  larsbm
+ * - add first part of implementation of master style pages
+ * - pdf exporter conversations for tables and images and added measurement helper
+ *
  * Revision 1.6  2007/02/04 22:52:58  larsbm
  * - fixed bug in resize algorithm for rows and cells
  * - extending IDocument, overload SaveTo to accept external exporter impl.

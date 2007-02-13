@@ -1,5 +1,5 @@
 /*
- * $Id: Column.cs,v 1.3 2006/02/05 20:02:25 larsbm Exp $
+ * $Id: Column.cs,v 1.4 2007/02/13 17:58:47 larsbm Exp $
  */
 
 /*
@@ -49,6 +49,31 @@ namespace AODL.Document.Content.Tables
 				if(xn == null)
 					this.CreateAttribute("default-cell-style-name", value, "table");
 				this._node.SelectSingleNode("@table:default-cell-style-name",
+					this.Document.NamespaceManager).InnerText = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the number columns repeated.
+		/// </summary>
+		/// <value>The number columns repeated.</value>
+		public string NumberColumnsRepeated
+		{
+			get 
+			{ 
+				XmlNode xn = this._node.SelectSingleNode("@table:number-columns-repeated",
+					this.Document.NamespaceManager);
+				if(xn != null)
+					return xn.InnerText;
+				return null;
+			}
+			set
+			{
+				XmlNode xn = this._node.SelectSingleNode("@table:number-columns-repeated",
+					this.Document.NamespaceManager);
+				if(xn == null)
+					this.CreateAttribute("number-columns-repeated", value, "table");
+				this._node.SelectSingleNode("@table:number-columns-repeated",
 					this.Document.NamespaceManager).InnerText = value;
 			}
 		}
@@ -212,6 +237,10 @@ namespace AODL.Document.Content.Tables
 
 /*
  * $Log: Column.cs,v $
+ * Revision 1.4  2007/02/13 17:58:47  larsbm
+ * - add first part of implementation of master style pages
+ * - pdf exporter conversations for tables and images and added measurement helper
+ *
  * Revision 1.3  2006/02/05 20:02:25  larsbm
  * - Fixed several bugs
  * - clean up some messy code
