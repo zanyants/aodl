@@ -4,9 +4,9 @@
  *
  *  $RCSfile: DrawArea.cs,v $
  *
- *  $Revision: 1.3 $
+ *  $Revision: 1.4 $
  *
- *  last change: $Author: larsbm $
+ *  last change: $Author: larsbm $ $Date: 2007/02/21 20:45:46 $
  * 
  *  Initial Author:
  *  Copyright 2006, Kristy Saunders, ksaunders@eduworks.com
