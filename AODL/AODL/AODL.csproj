@@ -483,6 +483,7 @@
     <Content Include="Resources\ICSharpCode.SharpZipLib.dll" />
     <Content Include="Resources\License.txt" />
     <Content Include="Resources\OD\content.xml" />
+    <EmbeddedResource Include="Resources\OD\tweakcontent.xsl" />
     <EmbeddedResource Include="Resources\OD\fonts.xml" />
     <EmbeddedResource Include="Resources\OD\htmltemplate.html" />
     <EmbeddedResource Include="Resources\OD\manifest.xml" />

@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 using System.Xml;
+using System.Xml.Xsl;
 using AODL.Document;
 using AODL.Document.Import;
 using AODL.Document.Export;
@@ -369,6 +370,25 @@ namespace AODL.Document.Import.OpenDocument
 			{
 				this._document.XmlDoc			= new XmlDocument();
 				this._document.XmlDoc.Load(dir+"\\content.xml");
+
+                // Apply tweaks to fix compatibility issues. This currently does the following:
+                //  1. Expands repeated rows and columns.
+                Assembly ass = Assembly.GetExecutingAssembly();
+                using ( Stream str = ass.GetManifestResourceStream( "AODL.Resources.OD.tweakcontent.xsl" ) )
+                using ( XmlReader xr = XmlReader.Create( str ) )
+                using ( MemoryStream ms = new MemoryStream() )
+                {
+                    XslCompiledTransform xsl = new XslCompiledTransform();
+                    xsl.Load( xr );
+                    
+                    using ( XmlWriter xw = XmlWriter.Create( ms ) )
+                    {
+                        xsl.Transform( _document.XmlDoc, xw );
+                    }
+                    ms.Position = 0;
+                    _document.XmlDoc.Load( ms );
+                }
+
 				//Read local styles
 				LocalStyleProcessor lsp			= new LocalStyleProcessor(this._document, false);
 				lsp.ReadStyles();
