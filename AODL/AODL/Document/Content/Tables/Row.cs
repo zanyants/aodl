@@ -32,7 +32,7 @@ namespace AODL.Document.Content.Tables
 		/// <summary>
 		/// RowChanged delegate
 		/// </summary>
-		public delegate void RowChanged(int rowNumber, int cellCount);
+		public delegate void RowChanged( Row sender, int rowNumber, int cellCount);
 		/// <summary>
 		/// Fired if the the row cellcollection was changed
 		/// </summary>
@@ -71,7 +71,7 @@ namespace AODL.Document.Content.Tables
 		public CellCollection CellCollection
 		{
 			get { return this._cellCollection; }
-			set { this._cellCollection = value; }
+            private set { this._cellCollection = value; } // HACK: There's no event handler hooking/unhooking. Disaster looms! Making this private for now.
 		}
 
 		private CellSpanCollection _cellSpanCollection;
@@ -82,7 +82,7 @@ namespace AODL.Document.Content.Tables
 		public CellSpanCollection CellSpanCollection
 		{
 			get { return this._cellSpanCollection; }
-			set { this._cellSpanCollection = value; }
+            private set { this._cellSpanCollection = value; } // HACK: There's no event handler hooking/unhooking. Disaster looms! Making this private for now.
 		}
 
 		/// <summary>
@@ -279,7 +279,7 @@ namespace AODL.Document.Content.Tables
 					this.Node.InsertAfter(((Cell)value).Node, childNode);
 				}
 				if(OnRowChanged != null)
-					OnRowChanged(this.GetRowIndex(), this.CellCollection.Count);
+					OnRowChanged( this, this.GetRowIndex(), this.CellCollection.Count);
 			}
 			else
 				this.Node.AppendChild(((Cell)value).Node);

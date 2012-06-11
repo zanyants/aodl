@@ -282,8 +282,11 @@ namespace AODL.Document.Content.Tables
 		/// </summary>
 		/// <param name="rowNumber">The row number.</param>
 		/// <param name="cellCount">The cell count.</param>
-		private void Row_OnRowChanged(int rowNumber, int cellCount)
+		private void Row_OnRowChanged( Row sender, int rowNumber, int cellCount)
 		{
+            if ( sender.Table != this )
+                return;
+
 			if(this.ColumnCollection.Count <= cellCount)
 			{
 				for(int i=0; i <= cellCount-this.ColumnCollection.Count; i++)

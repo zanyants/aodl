@@ -43,7 +43,7 @@ namespace AODL.Document.Import.OpenDocument.NodeProcessors
 		/// OnWarning event fired if something unexpected
 		/// occour.
 		/// </summary>
-		public static event Warning OnWarning;
+		public static event Warning OnWarning; // HACK: This should not be static.
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TextContentProcessor"/> class.

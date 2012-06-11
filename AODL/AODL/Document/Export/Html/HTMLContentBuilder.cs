@@ -48,7 +48,7 @@ namespace AODL.Document.Export.Html
 		/// OnWarning event fired if something unexpected
 		/// occour.
 		/// </summary>
-		public static event Warning OnWarning;
+		public event Warning OnWarning;
 
 		private HTMLStyleBuilder _hTMLStyleBuilder;
 		/// <summary>
