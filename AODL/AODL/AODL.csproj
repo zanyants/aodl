@@ -1,790 +1,520 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{89E926D3-3471-47C8-8D34-01FF2AF72F71}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "AODL"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "AODL"
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = "AODL.xml"
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = "AODL.xml"
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
-                />
-                <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
-                />
-                <Reference
-                    Name = "ICSharpCode.SharpZipLib"
-                    AssemblyName = "ICSharpCode.SharpZipLib"
-                    HintPath = "Resources\ICSharpCode.SharpZipLib.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\IDocument.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Collection\CollectionWithEvents.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\IContent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\IContentCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\IContentContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\IHtml.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\UnknownContent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Draw\DrawArea.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Draw\DrawTextBox.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Draw\Frame.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Draw\FrameBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Draw\Graphic.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Draw\ImageMap.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\OfficeEvents\EventListener.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\OfficeEvents\EventListeners.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\Cell.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\CellCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\CellSpan.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\CellSpanCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\Column.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\ColumnCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\Row.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\RowCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\RowHeader.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\Table.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\TableBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Tables\TableCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Footnote.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\FormatedText.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Header.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\IText.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\ITextCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\ITextContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\List.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\ListItem.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Paragraph.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\ParagraphBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\ParagraphCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\SimpleText.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\TextBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\UnknownTextContent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\XLink.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Indexes\Bookmark.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Indexes\TableOfContents.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Indexes\TableOfContentsIndexTemplate.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Indexes\TableOfContentsIndexTemplateCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Indexes\TableOfContentsSource.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\Indexes\TextSequence.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\TextControl\LineBreak.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\TextControl\TabStop.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Content\Text\TextControl\WhiteSpace.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Exceptions\AODLException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Exceptions\AODLWarning.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Export\ExportHandler.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Export\IExporter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Export\Html\HTMLContentBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Export\Html\HTMLStyleBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Export\Html\OpenDocumentHtmlExporter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Export\OpenDocument\OpenDocumentTextExporter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Helper\Colors.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Helper\SizeConverter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\IImporter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\ImportHandler.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\OpenDocument\OpenDocumentImporter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\OpenDocument\NodeProcessors\LocalStyleProcessor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\OpenDocument\NodeProcessors\MainContentProcessor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\OpenDocument\NodeProcessors\TextContentProcessor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\PlainText\CsvImporter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Import\PlainText\PlainTextImporter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\SpreadsheetDocuments\DocumentManifest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\SpreadsheetDocuments\DocumentSetting.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\SpreadsheetDocuments\DocumentStyles.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\SpreadsheetDocuments\SpreadsheetDocument.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\CellStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\ColumnStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\FamiliyStyles.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\FontFamily.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\FrameStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\IHtmlStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\IStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\IStyleCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\LineStyles.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\ListLevelStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\ListLevelStyleCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\ListStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\OfficeValueTypes.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\ParagraphStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\ParentStyles.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\RowStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\SectionStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\TableStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\TabStopLeaderStyles.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\TabStopStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\TabStopStyleCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\TextStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\UnknownStyle.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\MasterStyles\MasterPageFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\MasterStyles\TextMasterPage.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\MasterStyles\TextMasterPageCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\MasterStyles\TextPageFooter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\MasterStyles\TextPageHeader.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\MasterStyles\TextPageHeaderFooterBase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\MasterStyles\TextPageLayout.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\CellProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\ColumnProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\GraphicProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\IProperty.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\IPropertyCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\ListLevelProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\ParagraphProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\RowProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\SectionProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\TableProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\TextAlignments.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\TextProperties.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\Styles\Properties\UnknownProperty.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\DocumentConfiguration2.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\DocumentManifest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\DocumentMetadata.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\DocumentPicture.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\DocumentPictureCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\DocumentSetting.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\DocumentStyles.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\TextDocument.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Document\TextDocuments\TextDocumentHelper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Resources\ChangeLog.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Resources\ICSharpCode.SharpZipLib.dll"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Resources\License.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Resources\OD\content.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Resources\OD\fonts.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\htmltemplate.html"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\manifest.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\meta.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\mimetype.txt"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Resources\OD\settings.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\spreadsheetcontent.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\spreadsheetmanifest.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\spreadsheetsettings.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\spreadsheetstyles.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\OD\styles.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{89E926D3-3471-47C8-8D34-01FF2AF72F71}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>AODL</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AODL</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>AODL.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>AODL.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <Name>ICSharpCode.SharpZipLib</Name>
+      <HintPath>Resources\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Collection\CollectionWithEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Draw\DrawArea.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Draw\DrawTextBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Draw\Frame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Draw\FrameBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Draw\Graphic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Draw\ImageMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\IContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\IContentCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\IContentContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\IHtml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\OfficeEvents\EventListener.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\OfficeEvents\EventListeners.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\Cell.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\CellCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\CellSpan.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\CellSpanCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\Column.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\ColumnCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\Row.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\RowCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\RowHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\Table.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\TableBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Tables\TableCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Footnote.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\FormatedText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Header.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Indexes\Bookmark.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Indexes\TableOfContents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Indexes\TableOfContentsIndexTemplate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Indexes\TableOfContentsIndexTemplateCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Indexes\TableOfContentsSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Indexes\TextSequence.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\IText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\ITextCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\ITextContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\List.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\ListItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\Paragraph.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\ParagraphBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\ParagraphCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\SimpleText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\TextBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\TextControl\LineBreak.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\TextControl\TabStop.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\TextControl\WhiteSpace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\UnknownTextContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\Text\XLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Content\UnknownContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Exceptions\AODLException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Exceptions\AODLWarning.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Export\ExportHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Export\Html\HTMLContentBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Export\Html\HTMLStyleBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Export\Html\OpenDocumentHtmlExporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Export\IExporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Export\OpenDocument\OpenDocumentTextExporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Helper\Colors.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Helper\SizeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\IDocument.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\IImporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\ImportHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\OpenDocument\NodeProcessors\LocalStyleProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\OpenDocument\NodeProcessors\MainContentProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\OpenDocument\NodeProcessors\TextContentProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\OpenDocument\OpenDocumentImporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\PlainText\CsvImporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Import\PlainText\PlainTextImporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\SpreadsheetDocuments\DocumentManifest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\SpreadsheetDocuments\DocumentSetting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\SpreadsheetDocuments\DocumentStyles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\SpreadsheetDocuments\SpreadsheetDocument.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\CellStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\ColumnStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\FamiliyStyles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\FontFamily.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\FrameStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\IHtmlStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\IStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\IStyleCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\LineStyles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\ListLevelStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\ListLevelStyleCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\ListStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\MasterStyles\MasterPageFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\MasterStyles\TextMasterPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\MasterStyles\TextMasterPageCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\MasterStyles\TextPageFooter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\MasterStyles\TextPageHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\MasterStyles\TextPageHeaderFooterBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\MasterStyles\TextPageLayout.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\OfficeValueTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\ParagraphStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\ParentStyles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\CellProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\ColumnProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\GraphicProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\IProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\IPropertyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\ListLevelProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\ParagraphProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\RowProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\SectionProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\TableProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\TextAlignments.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\TextProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\Properties\UnknownProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\RowStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\SectionStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\TableStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\TabStopLeaderStyles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\TabStopStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\TabStopStyleCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\TextStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\Styles\UnknownStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\DocumentConfiguration2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\DocumentManifest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\DocumentMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\DocumentPicture.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\DocumentPictureCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\DocumentSetting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\DocumentStyles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\TextDocument.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Document\TextDocuments\TextDocumentHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="Resources\ChangeLog.txt" />
+    <Content Include="Resources\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="Resources\License.txt" />
+    <Content Include="Resources\OD\content.xml" />
+    <EmbeddedResource Include="Resources\OD\fonts.xml" />
+    <EmbeddedResource Include="Resources\OD\htmltemplate.html" />
+    <EmbeddedResource Include="Resources\OD\manifest.xml" />
+    <EmbeddedResource Include="Resources\OD\meta.xml" />
+    <EmbeddedResource Include="Resources\OD\settings.xml" />
+    <EmbeddedResource Include="Resources\OD\spreadsheetcontent.xml" />
+    <EmbeddedResource Include="Resources\OD\spreadsheetmanifest.xml" />
+    <EmbeddedResource Include="Resources\OD\spreadsheetsettings.xml" />
+    <EmbeddedResource Include="Resources\OD\spreadsheetstyles.xml" />
+    <EmbeddedResource Include="Resources\OD\styles.xml" />
+    <None Include="Resources\OD\mimetype.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

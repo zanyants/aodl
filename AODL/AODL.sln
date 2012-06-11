@@ -1,45 +1,37 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AODL", "AODL\AODL.csproj", "{89E926D3-3471-47C8-8D34-01FF2AF72F71}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AODLTest", "AODLTest\AODLTest.csproj", "{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenOfficeLib", "OpenOfficePrinter\OpenOfficeLib.csproj", "{D375D701-B8D5-48E4-AC6B-83D1201A7C78}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AODL.pdf.exporter", "ExternalExporter\AODL.pdf.exporter\AODL.pdf.exporter.csproj", "{6C536DE8-180D-4278-AB43-C5C4882E41F5}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Debug.ActiveCfg = Debug|.NET
-		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Debug.Build.0 = Debug|.NET
-		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Release.ActiveCfg = Release|.NET
-		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Release.Build.0 = Release|.NET
-		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Debug.ActiveCfg = Debug|.NET
-		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Debug.Build.0 = Debug|.NET
-		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release.ActiveCfg = Release|.NET
-		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release.Build.0 = Release|.NET
-		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Debug.ActiveCfg = Debug|.NET
-		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Debug.Build.0 = Debug|.NET
-		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Release.ActiveCfg = Release|.NET
-		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Release.Build.0 = Release|.NET
-		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Debug.ActiveCfg = Debug|.NET
-		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Debug.Build.0 = Debug|.NET
-		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Release.ActiveCfg = Release|.NET
-		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Release.Build.0 = Release|.NET
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89E926D3-3471-47C8-8D34-01FF2AF72F71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6676AE5B-FC8A-49C2-A8E0-C8CAFC340890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D375D701-B8D5-48E4-AC6B-83D1201A7C78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C536DE8-180D-4278-AB43-C5C4882E41F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
