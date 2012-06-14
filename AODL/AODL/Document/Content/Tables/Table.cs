@@ -174,8 +174,7 @@ namespace AODL.Document.Content.Tables
 		}
 
 		/// <summary>
-		/// Inserts the cell at the specified position. Both indexes are zero
-		/// based indexes!
+		/// Inserts the cell at the specified position. Both indexes are 1-based indexes!
 		/// The RowCollection, the rows CellCollection and the ColumnCollection
 		/// will be resized automatically.
 		/// </summary>
