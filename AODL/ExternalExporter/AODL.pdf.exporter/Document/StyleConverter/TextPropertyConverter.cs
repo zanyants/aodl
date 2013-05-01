@@ -103,7 +103,7 @@ namespace AODL.ExternalExporter.PDF.Document.StyleConverter
 				string colorStr = "#000000";
 				int iTextFontStyle = 0; //normal
 				int bold = (textProperties.Bold != null && textProperties.Bold.ToLower() == "bold") ? 1 : 0;
-				int italic = (textProperties.Italic != null && textProperties.Bold.ToLower() == "italic") ? 1 : 0;
+				int italic = (textProperties.Italic != null && textProperties.Italic.ToLower() == "italic") ? 1 : 0;
 				float size = font.Size; // up to now, standard todo: do it better
 				if(textProperties.FontSize != null)
 				{
