@@ -115,7 +115,7 @@
     </Reference>
     <Reference Include="nunit.framework">
       <Name>nunit.framework</Name>
-      <HintPath>C:\Program Files\Develop\NUnit 2.2\bin\nunit.framework.dll</HintPath>
+      <HintPath>lib\nunit.framework.dll</HintPath>
       <AssemblyFolderKey>hklm\dn\nunit.framework</AssemblyFolderKey>
     </Reference>
     <Reference Include="System">
@@ -193,5 +193,9 @@
     <PreBuildEvent />
     <PostBuildEvent>copy /Y "$(ProjectDir)app.config" "$(TargetPath).config"
 xcopy /YF "$(ProjectDir)\Files" "$(TargetDir)\Files\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
 </Project>
