@@ -1,6 +1,7 @@
 using System;
 using AODL.Document.Content.Text;
 using AODL.Document.Styles;
+using AODL.Document.Styles.Properties;
 using AODL.ExternalExporter.PDF.Document.StyleConverter;
 
 namespace AODL.ExternalExporter.PDF.Document.ContentConverter
@@ -27,13 +28,13 @@ namespace AODL.ExternalExporter.PDF.Document.ContentConverter
 			try
 			{
 				iTextSharp.text.Font font = DefaultDocumentStyles.Instance().DefaultTextFont;
-				IStyle style = heading.Document.CommonStyles.GetStyleByName(heading.StyleName);
+				IStyle style = heading.Style != null ? heading.Style : heading.Document.CommonStyles.GetStyleByName(heading.StyleName);
+				string alignementParagraph = string.Empty;
+				
 				if(style != null && style is ParagraphStyle)
 				{
-					if((ParagraphStyle)style != null)
+					if(((ParagraphStyle)style).ParentStyle != null)
 					{
-						if(((ParagraphStyle)style).ParentStyle != null)
-						{
 							IStyle parentStyle = heading.Document.CommonStyles.GetStyleByName(
 								((ParagraphStyle)style).ParentStyle);
 							if(parentStyle != null 
@@ -50,14 +51,17 @@ namespace AODL.ExternalExporter.PDF.Document.ContentConverter
 							{
 								font = TextPropertyConverter.GetFont(((ParagraphStyle)style).TextProperties);
 							}
-						}
-						else
-						{
-							font = TextPropertyConverter.GetFont(((ParagraphStyle)style).TextProperties);
-						}
 					}
+					else
+					{
+						font = TextPropertyConverter.GetFont(((ParagraphStyle)style).TextProperties);
+					}
+					ParagraphProperties paragraphProperties = ((ParagraphStyle)style).ParagraphProperties;
+					if(paragraphProperties != null && !string.IsNullOrEmpty(paragraphProperties.Alignment))
+						alignementParagraph = paragraphProperties.Alignment;
 				}
 				iTextSharp.text.Paragraph paragraph = new iTextSharp.text.Paragraph("", font); // default ctor protected - why ??
+				paragraph.SetAlignment(alignementParagraph);
 				paragraph.AddRange(FormatedTextConverter.GetTextContents(heading.TextContent, font));
 				return paragraph;
 			}
