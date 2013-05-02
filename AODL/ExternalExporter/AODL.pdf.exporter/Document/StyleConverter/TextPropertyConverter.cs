@@ -39,7 +39,7 @@ namespace AODL.ExternalExporter.PDF.Document.StyleConverter
 						string colorStr = "#000000";
 						int iTextFontStyle = 0; //normal
 						int bold = (textProperties.Bold != null && textProperties.Bold.ToLower() == "bold") ? 1 : 0;
-						int italic = (textProperties.Italic != null && textProperties.Bold.ToLower() == "italic") ? 1 : 0;
+						int italic = (textProperties.Italic != null && textProperties.Italic.ToLower() == "italic") ? 1 : 0;
 						int textLineThrough = (textProperties.TextLineThrough != null) ? 1 : 0;
 						int underline = (textProperties.Underline != null) ? 1 : 0;
 						float size = 12.0f; // up to now, standard todo: do it better
@@ -49,7 +49,8 @@ namespace AODL.ExternalExporter.PDF.Document.StyleConverter
 							{
 								try
 								{
-									size = (float) Convert.ToDouble(textProperties.FontSize.ToLower().Replace("pt",""));
+									// The size value format may contradict the execution culture, so we have to use Invariant Culture 
+									size = (float) Convert.ToDouble(textProperties.FontSize.ToLower().Replace("pt",""), System.Globalization.CultureInfo.InvariantCulture);
 								}
 								catch(Exception)
 								{
@@ -103,7 +104,7 @@ namespace AODL.ExternalExporter.PDF.Document.StyleConverter
 				string colorStr = "#000000";
 				int iTextFontStyle = 0; //normal
 				int bold = (textProperties.Bold != null && textProperties.Bold.ToLower() == "bold") ? 1 : 0;
-				int italic = (textProperties.Italic != null && textProperties.Bold.ToLower() == "italic") ? 1 : 0;
+				int italic = (textProperties.Italic != null && textProperties.Italic.ToLower() == "italic") ? 1 : 0;
 				float size = font.Size; // up to now, standard todo: do it better
 				if(textProperties.FontSize != null)
 				{
@@ -131,7 +132,7 @@ namespace AODL.ExternalExporter.PDF.Document.StyleConverter
 				if(bold == 0 && italic == 1)
 					iTextFontStyle = Font.ITALIC;
 				// TODO: underline strike through
-				iTextSharp.text.Color color = RGBColorConverter.GetColorFromHex(colorStr);
+				iTextSharp.text.Color color = textProperties.FontColor == null && font.Color != null ? font.Color : RGBColorConverter.GetColorFromHex(colorStr);
 				font = FontFactory.GetFont(fontName, size, iTextFontStyle, color);
 
 				return font;

@@ -22,6 +22,7 @@ using AODL.Document.Content.Tables;
 using AODL.Document.TextDocuments;
 using AODL.Document.Styles;
 using AODL.Document.Content.Text;
+using AODLText = AODL.Document.Content.Text;
 
 namespace AODLTest
 {
@@ -79,7 +80,7 @@ namespace AODLTest
 			TextDocument document					= new TextDocument();
 			document.New();
 			//Create a numbered list
-			List li				= new List(document, "L1", ListStyles.Number, "L1P1");
+			AODLText.List li				= new AODLText.List(document, "L1", ListStyles.Number, "L1P1");
 			Assert.IsNotNull(li.Node, "Node object must exist!");
 			Assert.IsNotNull(li.Style, "Style object must exist!");
 			Assert.IsNotNull(li.ListStyle.ListlevelStyles, "ListLevelStyleCollection must exist!");
@@ -94,7 +95,7 @@ namespace AODLTest
 			TextDocument document					= new TextDocument();
 			document.New();
 			//Create a bullet list
-			List li				= new List(document, "L1", ListStyles.Bullet, "L1P1");
+			AODLText.List li				= new AODLText.List(document, "L1", ListStyles.Bullet, "L1P1");
 			Assert.IsNotNull(li.Node, "Node object must exist!");
 			Assert.IsNotNull(li.Style, "Style object must exist!");
 			Assert.IsNotNull(li.ListStyle.ListlevelStyles, "ListLevelStyleCollection must exist!");
@@ -109,9 +110,9 @@ namespace AODLTest
 			TextDocument document					= new TextDocument();
 			document.New();
 			//Create a numbered list
-			List li									= new List(document, "L1", ListStyles.Bullet, "L1P1");
+			AODLText.List li						= new AODLText.List(document, "L1", ListStyles.Bullet, "L1P1");
 			//Create a new list item
-			ListItem lit							= new ListItem(li);
+			AODLText.ListItem lit					= new AODLText.ListItem(li);
 			Assert.IsNotNull(lit.Content, "Content object must exist!");
 			//Create a paragraph	
 			Paragraph paragraph						= ParagraphBuilder.CreateStandardTextParagraph(document);

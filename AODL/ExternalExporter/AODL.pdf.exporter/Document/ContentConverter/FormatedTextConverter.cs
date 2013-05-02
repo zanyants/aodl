@@ -28,12 +28,22 @@ namespace AODL.ExternalExporter.PDF.Document.ContentConverter
 			try
 			{
 				iTextSharp.text.Font font;
+				font = DefaultDocumentStyles.Instance().DefaultTextFont;
+				
 				if((TextStyle)formatedText.Style != null 
 					&& ((TextStyle)formatedText.Style).TextProperties != null)
 					font = TextPropertyConverter.GetFont(
 						((TextStyle)formatedText.Style).TextProperties);
 				else
-					font = DefaultDocumentStyles.Instance().DefaultTextFont;
+				{
+					if (!string.IsNullOrEmpty(formatedText.StyleName))
+					{
+						IStyle formatedTextCommonStyle = formatedText.Document.CommonStyles.GetStyleByName(formatedText.StyleName);
+						if (formatedTextCommonStyle != null && ((TextStyle)formatedTextCommonStyle).TextProperties != null)
+							font = TextPropertyConverter.GetFont(
+						((TextStyle)formatedTextCommonStyle).TextProperties);
+					}
+				}				
 
 				iTextSharp.text.Phrase phrase = new iTextSharp.text.Phrase("", font); // default ctor protected - why ??
 				phrase.AddRange(FormatedTextConverter.GetTextContents(formatedText.TextContent, font));

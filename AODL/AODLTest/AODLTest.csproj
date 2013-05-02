@@ -88,6 +88,10 @@
       <Project>{89E926D3-3471-47C8-8D34-01FF2AF72F71}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
+	<ProjectReference Include="..\ExternalExporter\AODL.pdf.exporter\AODL.pdf.exporter.csproj">
+      <Project>{6C536DE8-180D-4278-AB43-C5C4882E41F5}</Project>
+      <Name>AODL.pdf.exporter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenOfficePrinter\OpenOfficeLib.csproj">
       <Name>OpenOfficeLib</Name>
       <Project>{D375D701-B8D5-48E4-AC6B-83D1201A7C78}</Project>
@@ -115,7 +119,7 @@
     </Reference>
     <Reference Include="nunit.framework">
       <Name>nunit.framework</Name>
-      <HintPath>C:\Program Files\Develop\NUnit 2.2\bin\nunit.framework.dll</HintPath>
+      <HintPath>lib\nunit.framework.dll</HintPath>
       <AssemblyFolderKey>hklm\dn\nunit.framework</AssemblyFolderKey>
     </Reference>
     <Reference Include="System">
@@ -158,6 +162,9 @@
     </Compile>
     <Compile Include="OpenOfficeLibTests.cs">
       <SubType>Code</SubType>
+    </Compile>	
+    <Compile Include="PDFExportTest.cs">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="SpreadsheetBaseTest.cs">
       <SubType>Code</SubType>
@@ -193,5 +200,9 @@
     <PreBuildEvent />
     <PostBuildEvent>copy /Y "$(ProjectDir)app.config" "$(TargetPath).config"
 xcopy /YF "$(ProjectDir)\Files" "$(TargetDir)\Files\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
 </Project>

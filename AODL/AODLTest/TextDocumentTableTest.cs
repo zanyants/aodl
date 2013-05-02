@@ -23,6 +23,7 @@ using AODL.Document.TextDocuments;
 using AODL.Document.Styles;
 using AODL.Document.Content.Text;
 using AODL.Document.Helper;
+using AODLText = AODL.Document.Content.Text;
 
 namespace AODLTest
 {
@@ -106,9 +107,9 @@ namespace AODLTest
 				false,
 				false);
 			//Create a bullet list
-			List list								= new List(document, "L1", ListStyles.Bullet, "L1P1");
+			AODLText.List list								= new AODLText.List(document, "L1", ListStyles.Bullet, "L1P1");
 			//Create a list item
-			ListItem lit							= new ListItem(list);
+			AODLText.ListItem lit							= new AODLText.ListItem(list);
 			//Create a standard paragraph
 			Paragraph paragraph						= ParagraphBuilder.CreateStandardTextParagraph(document);
 			//Add some simple text
