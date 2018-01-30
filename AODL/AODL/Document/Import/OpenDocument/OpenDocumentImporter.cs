@@ -71,7 +71,7 @@ namespace AODL.Document.Import.OpenDocument
 			this._infoUrl						= "http://AODL.OpenDocument4all.com";
 			this._description					= "This the standard importer of the OpenDocument library AODL.";
 		}
-
+		
 		#region IExporter Member
 
 		private ArrayList _supportedExtensions;
@@ -264,17 +264,22 @@ namespace AODL.Document.Import.OpenDocument
 					string file		= AODL.Document.TextDocuments.DocumentSetting.FileName;
 					if (File.Exists(dir+file))
 						((TextDocument)this._document).DocumentSetting.LoadFromFile(dir+file);
+					else
+						((TextDocument)this._document).DocumentSetting.New();
 
 					((TextDocument)this._document).DocumentManifest				= new AODL.Document.TextDocuments.DocumentManifest();
 					string folder	= AODL.Document.TextDocuments.DocumentManifest.FolderName;
 					file			= AODL.Document.TextDocuments.DocumentManifest.FileName;
 					if (File.Exists(dir+folder+"\\"+file))
 						((TextDocument)this._document).DocumentManifest.LoadFromFile(dir+folder+"\\"+file);
-
+					else
+						((TextDocument)this._document).DocumentManifest.New();
 					((TextDocument)this._document).DocumentStyles				= new AODL.Document.TextDocuments.DocumentStyles();
 					file			= AODL.Document.TextDocuments.DocumentStyles.FileName;
 					if (File.Exists(dir+file))
 						((TextDocument)this._document).DocumentStyles.LoadFromFile(dir+file);
+					else
+						((TextDocument)this._document).DocumentStyles.New();
 				}
 				else if(this._document is SpreadsheetDocument)
 				{
@@ -282,17 +287,23 @@ namespace AODL.Document.Import.OpenDocument
 					string file		= AODL.Document.SpreadsheetDocuments.DocumentSetting.FileName;
 					if (File.Exists(dir+file))
 						((SpreadsheetDocument)this._document).DocumentSetting.LoadFromFile(dir+file);
+					else
+						((SpreadsheetDocument)this._document).DocumentSetting.New();
 
 					((SpreadsheetDocument)this._document).DocumentManifest				= new AODL.Document.SpreadsheetDocuments.DocumentManifest();
 					string folder	= AODL.Document.SpreadsheetDocuments.DocumentManifest.FolderName;
 					file			= AODL.Document.SpreadsheetDocuments.DocumentManifest.FileName;
 					if (File.Exists(dir+folder+"\\"+file))
 						((SpreadsheetDocument)this._document).DocumentManifest.LoadFromFile(dir+folder+"\\"+file);
+					else
+						((SpreadsheetDocument)this._document).DocumentManifest.New();
 
 					((SpreadsheetDocument)this._document).DocumentStyles				= new AODL.Document.SpreadsheetDocuments.DocumentStyles();
 					file			= AODL.Document.SpreadsheetDocuments.DocumentStyles.FileName;
 					if (File.Exists(dir + file))
 						((SpreadsheetDocument)this._document).DocumentStyles.LoadFromFile(dir+file);
+					else
+						((SpreadsheetDocument)this._document).DocumentStyles.New();
 				}
 
 				this._document.DocumentPictures				= this.ReadImageResources(dir+"Pictures");
