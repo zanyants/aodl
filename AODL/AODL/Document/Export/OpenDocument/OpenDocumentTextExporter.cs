@@ -162,6 +162,8 @@ namespace AODL.Document.Export.OpenDocument
 		{
 			try
 			{
+				if (!File.Exists(filename))
+					File.Create(filename);
 				//document.Save(filename);
 				XmlTextWriter writer = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
 				writer.Formatting = Formatting.None;
